@@ -1,0 +1,1024 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>02. JavaScript 图像处理基础 - OCR 学习</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            color: #e0e0e0;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #00d9ff;
+            font-size: 2em;
+        }
+        
+        h2 {
+            color: #ff6b6b;
+            margin: 20px 0 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #333;
+        }
+        
+        h3 {
+            color: #ffd93d;
+            margin: 15px 0 10px;
+        }
+        
+        .section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .demo-area {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            align-items: flex-start;
+            margin-top: 15px;
+        }
+        
+        .canvas-container {
+            text-align: center;
+        }
+        
+        .canvas-container canvas {
+            border: 3px solid #444;
+            border-radius: 8px;
+            background: #2a2a2a;
+            max-width: 100%;
+        }
+        
+        .canvas-label {
+            margin-top: 10px;
+            color: #aaa;
+            font-size: 0.9em;
+        }
+        
+        .info-panel {
+            background: #1a1a2e;
+            padding: 20px;
+            border-radius: 10px;
+            min-width: 280px;
+            flex: 1;
+        }
+        
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #333;
+        }
+        
+        .info-label {
+            color: #888;
+        }
+        
+        .info-value {
+            color: #00d9ff;
+            font-family: monospace;
+            font-weight: bold;
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, #00d9ff, #0099cc);
+            color: #000;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin: 5px;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 217, 255, 0.3);
+        }
+        
+        .btn.secondary {
+            background: linear-gradient(135deg, #ff6b6b, #cc5555);
+        }
+        
+        .btn.success {
+            background: linear-gradient(135deg, #6bff6b, #55cc55);
+        }
+        
+        .btn-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 15px 0;
+        }
+        
+        .code-block {
+            background: #0d0d0d;
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-family: 'Fira Code', 'Consolas', monospace;
+            font-size: 13px;
+            line-height: 1.6;
+            color: #e0e0e0;
+            margin: 15px 0;
+            border-left: 4px solid #00d9ff;
+            white-space: pre-wrap;
+        }
+        
+        .code-comment { color: #6a9955; }
+        .code-keyword { color: #c586c0; }
+        .code-number { color: #b5cea8; }
+        .code-string { color: #ce9178; }
+        .code-function { color: #dcdcaa; }
+        
+        .pixel-inspector {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 5px;
+            margin-top: 15px;
+        }
+        
+        .pixel-box {
+            aspect-ratio: 1;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            color: #fff;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        
+        .pixel-box:hover {
+            transform: scale(1.2);
+            z-index: 10;
+        }
+        
+        #imageInput {
+            display: none;
+        }
+        
+        .drop-zone {
+            border: 3px dashed #444;
+            border-radius: 15px;
+            padding: 40px;
+            text-align: center;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        
+        .drop-zone:hover, .drop-zone.dragover {
+            border-color: #00d9ff;
+            background: rgba(0, 217, 255, 0.1);
+        }
+        
+        .drop-zone-text {
+            color: #888;
+            font-size: 16px;
+        }
+        
+        .drop-zone-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+        
+        .console-output {
+            background: #0d0d0d;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Fira Code', monospace;
+            font-size: 12px;
+            max-height: 200px;
+            overflow-y: auto;
+            color: #0f0;
+        }
+        
+        .console-line {
+            margin: 3px 0;
+        }
+        
+        .tabs {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 15px;
+        }
+        
+        .tab {
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            border-radius: 8px 8px 0 0;
+            color: #888;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .tab.active {
+            background: rgba(0, 217, 255, 0.2);
+            color: #00d9ff;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .slider-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin: 10px 0;
+        }
+        
+        .slider-container label {
+            min-width: 100px;
+        }
+        
+        .slider-container input[type="range"] {
+            flex: 1;
+        }
+        
+        .slider-value {
+            min-width: 50px;
+            text-align: right;
+            font-family: monospace;
+            color: #00d9ff;
+        }
+        
+        .highlight {
+            background: rgba(255, 215, 0, 0.2);
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: #ffd700;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎨 02. JavaScript 图像处理基础</h1>
+        
+        <!-- 概念介绍 -->
+        <div class="section">
+            <h2>📚 Canvas API 核心概念</h2>
+            <p style="color: #aaa; line-height: 1.8;">
+                Canvas 是 HTML5 提供的绑图容器，通过 JavaScript 可以进行图形绑制和图像处理。
+                对于 OCR 项目，Canvas 是我们操作图像像素的核心工具。
+            </p>
+            
+            <div class="code-block">
+<span class="code-comment">// 核心 API 一览</span>
+
+<span class="code-comment">// 1. 获取 Canvas 和上下文</span>
+<span class="code-keyword">const</span> canvas = document.<span class="code-function">getElementById</span>(<span class="code-string">'myCanvas'</span>);
+<span class="code-keyword">const</span> ctx = canvas.<span class="code-function">getContext</span>(<span class="code-string">'2d'</span>);
+
+<span class="code-comment">// 2. 绑制图片到 Canvas</span>
+ctx.<span class="code-function">drawImage</span>(img, <span class="code-number">0</span>, <span class="code-number">0</span>);
+
+<span class="code-comment">// 3. 获取像素数据</span>
+<span class="code-keyword">const</span> imageData = ctx.<span class="code-function">getImageData</span>(<span class="code-number">0</span>, <span class="code-number">0</span>, width, height);
+
+<span class="code-comment">// 4. 修改像素后写回</span>
+ctx.<span class="code-function">putImageData</span>(imageData, <span class="code-number">0</span>, <span class="code-number">0</span>);
+
+<span class="code-comment">// 5. 导出为图片</span>
+<span class="code-keyword">const</span> dataURL = canvas.<span class="code-function">toDataURL</span>(<span class="code-string">'image/png'</span>);
+            </div>
+        </div>
+        
+        <!-- 图片上传与分析 -->
+        <div class="section">
+            <h2>📤 图像加载与分析</h2>
+            <p style="color: #aaa; margin-bottom: 20px;">
+                上传一张图片，学习如何获取和分析图像数据
+            </p>
+            
+            <input type="file" id="imageInput" accept="image/*">
+            <div class="drop-zone" id="dropZone">
+                <div class="drop-zone-icon">📁</div>
+                <div class="drop-zone-text">点击选择图片 或 拖拽图片到这里</div>
+            </div>
+            
+            <div id="imageAnalysisSection" style="display: none; margin-top: 20px;">
+                <div class="demo-area">
+                    <div class="canvas-container">
+                        <canvas id="mainCanvas"></canvas>
+                        <div class="canvas-label">原始图片</div>
+                    </div>
+                    <div class="info-panel">
+                        <h3>📊 图像信息</h3>
+                        <div class="info-row">
+                            <span class="info-label">分辨率</span>
+                            <span class="info-value" id="infoResolution">-</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">像素总数</span>
+                            <span class="info-value" id="infoPixels">-</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">数据数组长度</span>
+                            <span class="info-value" id="infoDataLength">-</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">内存占用</span>
+                            <span class="info-value" id="infoMemory">-</span>
+                        </div>
+                        
+                        <h3 style="margin-top: 20px;">🔍 鼠标位置像素</h3>
+                        <div class="info-row">
+                            <span class="info-label">坐标</span>
+                            <span class="info-value" id="hoverPosition">(-, -)</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">像素索引</span>
+                            <span class="info-value" id="hoverIndex">-</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">RGBA</span>
+                            <span class="info-value" id="hoverRGBA">-</span>
+                        </div>
+                        <div style="margin-top: 10px;">
+                            <div id="hoverColorPreview" style="width: 100%; height: 40px; border-radius: 8px; border: 2px solid #444;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 像素遍历演示 -->
+        <div class="section">
+            <h2>🔄 像素遍历与修改</h2>
+            <p style="color: #aaa; margin-bottom: 20px;">
+                学习如何遍历图像的每个像素并进行修改（需要先上传图片）
+            </p>
+            
+            <div class="tabs">
+                <button class="tab active" data-tab="basic">基础操作</button>
+                <button class="tab" data-tab="channels">通道分离</button>
+                <button class="tab" data-tab="invert">颜色反转</button>
+                <button class="tab" data-tab="brightness">亮度调整</button>
+            </div>
+            
+            <!-- 基础操作 -->
+            <div class="tab-content active" id="tab-basic">
+                <p style="color: #aaa; margin-bottom: 15px;">
+                    像素遍历是图像处理的基础。每个像素占用 4 个数组位置（R, G, B, A）。
+                </p>
+                <div class="code-block">
+<span class="code-comment">// 像素遍历的两种方式</span>
+
+<span class="code-comment">// 方式一：按像素索引遍历（更快）</span>
+<span class="code-keyword">const</span> data = imageData.data;
+<span class="code-keyword">for</span> (<span class="code-keyword">let</span> i = <span class="code-number">0</span>; i < data.length; i += <span class="code-number">4</span>) {
+    <span class="code-keyword">const</span> r = data[i];      <span class="code-comment">// 红色</span>
+    <span class="code-keyword">const</span> g = data[i + <span class="code-number">1</span>];  <span class="code-comment">// 绿色</span>
+    <span class="code-keyword">const</span> b = data[i + <span class="code-number">2</span>];  <span class="code-comment">// 蓝色</span>
+    <span class="code-keyword">const</span> a = data[i + <span class="code-number">3</span>];  <span class="code-comment">// 透明度</span>
+}
+
+<span class="code-comment">// 方式二：按坐标遍历（更直观）</span>
+<span class="code-keyword">for</span> (<span class="code-keyword">let</span> y = <span class="code-number">0</span>; y < height; y++) {
+    <span class="code-keyword">for</span> (<span class="code-keyword">let</span> x = <span class="code-number">0</span>; x < width; x++) {
+        <span class="code-keyword">const</span> index = (y * width + x) * <span class="code-number">4</span>;
+        <span class="code-comment">// 使用 index, index+1, index+2, index+3</span>
+    }
+}
+                </div>
+            </div>
+            
+            <!-- 通道分离 -->
+            <div class="tab-content" id="tab-channels">
+                <p style="color: #aaa; margin-bottom: 15px;">
+                    将 RGB 三个通道分离显示，帮助理解颜色组成
+                </p>
+                <div class="btn-group">
+                    <button class="btn" onclick="showChannel('red')">🔴 红色通道</button>
+                    <button class="btn" onclick="showChannel('green')">🟢 绿色通道</button>
+                    <button class="btn" onclick="showChannel('blue')">🔵 蓝色通道</button>
+                    <button class="btn secondary" onclick="resetImage()">↩️ 还原</button>
+                </div>
+                <div class="demo-area">
+                    <div class="canvas-container">
+                        <canvas id="channelCanvas"></canvas>
+                        <div class="canvas-label" id="channelLabel">处理结果</div>
+                    </div>
+                </div>
+                <div class="code-block">
+<span class="code-comment">// 提取红色通道（其他通道设为0）</span>
+<span class="code-keyword">for</span> (<span class="code-keyword">let</span> i = <span class="code-number">0</span>; i < data.length; i += <span class="code-number">4</span>) {
+    <span class="code-comment">// 保留红色，清除绿色和蓝色</span>
+    data[i + <span class="code-number">1</span>] = <span class="code-number">0</span>;  <span class="code-comment">// G = 0</span>
+    data[i + <span class="code-number">2</span>] = <span class="code-number">0</span>;  <span class="code-comment">// B = 0</span>
+}
+                </div>
+            </div>
+            
+            <!-- 颜色反转 -->
+            <div class="tab-content" id="tab-invert">
+                <p style="color: #aaa; margin-bottom: 15px;">
+                    将每个像素的颜色反转（255 - 原值），类似照片底片效果
+                </p>
+                <div class="btn-group">
+                    <button class="btn" onclick="invertColors()">🔄 反转颜色</button>
+                    <button class="btn secondary" onclick="resetImage()">↩️ 还原</button>
+                </div>
+                <div class="demo-area">
+                    <div class="canvas-container">
+                        <canvas id="invertCanvas"></canvas>
+                        <div class="canvas-label">颜色反转结果</div>
+                    </div>
+                </div>
+                <div class="code-block">
+<span class="code-comment">// 颜色反转算法</span>
+<span class="code-keyword">for</span> (<span class="code-keyword">let</span> i = <span class="code-number">0</span>; i < data.length; i += <span class="code-number">4</span>) {
+    data[i] = <span class="code-number">255</span> - data[i];        <span class="code-comment">// R</span>
+    data[i + <span class="code-number">1</span>] = <span class="code-number">255</span> - data[i + <span class="code-number">1</span>];  <span class="code-comment">// G</span>
+    data[i + <span class="code-number">2</span>] = <span class="code-number">255</span> - data[i + <span class="code-number">2</span>];  <span class="code-comment">// B</span>
+    <span class="code-comment">// Alpha 通道保持不变</span>
+}
+                </div>
+            </div>
+            
+            <!-- 亮度调整 -->
+            <div class="tab-content" id="tab-brightness">
+                <p style="color: #aaa; margin-bottom: 15px;">
+                    调整图像亮度，理解 Uint8ClampedArray 的自动截断特性
+                </p>
+                <div class="slider-container">
+                    <label>亮度调整：</label>
+                    <input type="range" id="brightnessSlider" min="-100" max="100" value="0">
+                    <span class="slider-value" id="brightnessValue">0</span>
+                </div>
+                <div class="btn-group">
+                    <button class="btn secondary" onclick="resetImage()">↩️ 还原</button>
+                </div>
+                <div class="demo-area">
+                    <div class="canvas-container">
+                        <canvas id="brightnessCanvas"></canvas>
+                        <div class="canvas-label">亮度调整结果</div>
+                    </div>
+                </div>
+                <div class="code-block">
+<span class="code-comment">// 亮度调整算法</span>
+<span class="code-keyword">const</span> brightness = <span class="code-number">50</span>;  <span class="code-comment">// -255 到 255</span>
+
+<span class="code-keyword">for</span> (<span class="code-keyword">let</span> i = <span class="code-number">0</span>; i < data.length; i += <span class="code-number">4</span>) {
+    <span class="code-comment">// Uint8ClampedArray 自动将值限制在 0-255</span>
+    data[i] += brightness;      <span class="code-comment">// R</span>
+    data[i + <span class="code-number">1</span>] += brightness;  <span class="code-comment">// G</span>
+    data[i + <span class="code-number">2</span>] += brightness;  <span class="code-comment">// B</span>
+}
+                </div>
+            </div>
+        </div>
+        
+        <!-- 图像导出 -->
+        <div class="section">
+            <h2>💾 图像导出</h2>
+            <p style="color: #aaa; margin-bottom: 15px;">
+                将处理后的 Canvas 导出为图片文件
+            </p>
+            <div class="btn-group">
+                <button class="btn success" onclick="exportImage('png')">📷 导出 PNG</button>
+                <button class="btn success" onclick="exportImage('jpeg')">📷 导出 JPEG</button>
+            </div>
+            <div class="code-block">
+<span class="code-comment">// 导出为 Data URL</span>
+<span class="code-keyword">const</span> dataURL = canvas.<span class="code-function">toDataURL</span>(<span class="code-string">'image/png'</span>);
+
+<span class="code-comment">// 创建下载链接</span>
+<span class="code-keyword">const</span> link = document.<span class="code-function">createElement</span>(<span class="code-string">'a'</span>);
+link.download = <span class="code-string">'processed-image.png'</span>;
+link.href = dataURL;
+link.<span class="code-function">click</span>();
+
+<span class="code-comment">// 或者导出为 Blob（更适合大文件）</span>
+canvas.<span class="code-function">toBlob</span>(<span class="code-keyword">function</span>(blob) {
+    <span class="code-keyword">const</span> url = URL.<span class="code-function">createObjectURL</span>(blob);
+    <span class="code-comment">// 使用 url...</span>
+}, <span class="code-string">'image/png'</span>);
+            </div>
+        </div>
+        
+        <!-- 控制台输出 -->
+        <div class="section">
+            <h2>📟 控制台输出</h2>
+            <div class="console-output" id="consoleOutput">
+                <div class="console-line">> 等待加载图片...</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        /**
+         * 02. JavaScript 图像处理基础 - 交互式演示
+         * 
+         * 本脚本演示 Canvas API 的核心用法：
+         * 1. 图像加载与绘制
+         * 2. 获取和修改 ImageData
+         * 3. 像素遍历
+         * 4. 图像导出
+         * 
+         * 关联知识点：01. 数字图像基础（像素、RGB、索引计算）
+         */
+
+        // ==================== 全局状态 ====================
+        
+        /** @type {ImageData|null} 原始图像数据（用于还原） */
+        let originalImageData = null;
+        
+        /** @type {HTMLCanvasElement} 主画布 */
+        let mainCanvas = null;
+        
+        /** @type {CanvasRenderingContext2D} 主画布上下文 */
+        let mainCtx = null;
+        
+        // ==================== 工具函数 ====================
+        
+        /**
+         * 输出到控制台区域
+         * @param {string} message - 要输出的消息
+         */
+        function log(message) {
+            const console = document.getElementById('consoleOutput');
+            const line = document.createElement('div');
+            line.className = 'console-line';
+            line.textContent = `> ${message}`;
+            console.appendChild(line);
+            console.scrollTop = console.scrollHeight;
+        }
+        
+        /**
+         * 克隆 ImageData 对象
+         * 
+         * 原理说明：
+         * - ImageData.data 是 Uint8ClampedArray
+         * - 需要创建新数组来保存副本
+         * 
+         * @param {ImageData} imageData - 要克隆的 ImageData
+         * @returns {ImageData} 克隆的副本
+         */
+        function cloneImageData(imageData) {
+            const cloned = new ImageData(
+                new Uint8ClampedArray(imageData.data),
+                imageData.width,
+                imageData.height
+            );
+            return cloned;
+        }
+        
+        /**
+         * 获取指定位置的像素值
+         * 
+         * 原理说明：
+         * - 使用公式 index = (y * width + x) * 4 计算索引
+         * - 这是第01章学到的核心公式
+         * 
+         * @param {ImageData} imageData - 图像数据
+         * @param {number} x - X 坐标
+         * @param {number} y - Y 坐标
+         * @returns {{r: number, g: number, b: number, a: number}} RGBA 值
+         */
+        function getPixel(imageData, x, y) {
+            const index = (y * imageData.width + x) * 4;
+            return {
+                r: imageData.data[index],
+                g: imageData.data[index + 1],
+                b: imageData.data[index + 2],
+                a: imageData.data[index + 3]
+            };
+        }
+        
+        /**
+         * 设置指定位置的像素值
+         * 
+         * @param {ImageData} imageData - 图像数据
+         * @param {number} x - X 坐标
+         * @param {number} y - Y 坐标
+         * @param {number} r - 红色值
+         * @param {number} g - 绿色值
+         * @param {number} b - 蓝色值
+         * @param {number} [a=255] - 透明度
+         */
+        function setPixel(imageData, x, y, r, g, b, a = 255) {
+            const index = (y * imageData.width + x) * 4;
+            imageData.data[index] = r;
+            imageData.data[index + 1] = g;
+            imageData.data[index + 2] = b;
+            imageData.data[index + 3] = a;
+        }
+        
+        // ==================== 图像加载 ====================
+        
+        /**
+         * 初始化文件上传区域
+         */
+        function initDropZone() {
+            const dropZone = document.getElementById('dropZone');
+            const imageInput = document.getElementById('imageInput');
+            
+            // 点击上传
+            dropZone.addEventListener('click', () => {
+                imageInput.click();
+            });
+            
+            // 文件选择
+            imageInput.addEventListener('change', (e) => {
+                if (e.target.files.length > 0) {
+                    loadImageFile(e.target.files[0]);
+                }
+            });
+            
+            // 拖拽上传
+            dropZone.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                dropZone.classList.add('dragover');
+            });
+            
+            dropZone.addEventListener('dragleave', () => {
+                dropZone.classList.remove('dragover');
+            });
+            
+            dropZone.addEventListener('drop', (e) => {
+                e.preventDefault();
+                dropZone.classList.remove('dragover');
+                
+                if (e.dataTransfer.files.length > 0) {
+                    loadImageFile(e.dataTransfer.files[0]);
+                }
+            });
+        }
+        
+        /**
+         * 加载图像文件
+         * 
+         * 流程说明：
+         * 1. 使用 FileReader 读取文件
+         * 2. 创建 Image 对象加载图片
+         * 3. 将图片绘制到 Canvas
+         * 4. 获取 ImageData
+         * 
+         * @param {File} file - 图像文件
+         */
+        function loadImageFile(file) {
+            log(`开始加载文件: ${file.name}`);
+            
+            const reader = new FileReader();
+            
+            reader.onload = (e) => {
+                const img = new Image();
+                
+                img.onload = () => {
+                    log(`图片加载成功: ${img.width} × ${img.height}`);
+                    processLoadedImage(img);
+                };
+                
+                img.onerror = () => {
+                    log('错误: 图片加载失败');
+                };
+                
+                img.src = e.target.result;
+            };
+            
+            reader.onerror = () => {
+                log('错误: 文件读取失败');
+            };
+            
+            reader.readAsDataURL(file);
+        }
+        
+        /**
+         * 处理加载完成的图片
+         * 
+         * @param {HTMLImageElement} img - 加载完成的图片元素
+         */
+        function processLoadedImage(img) {
+            // 显示分析区域
+            document.getElementById('imageAnalysisSection').style.display = 'block';
+            
+            // 设置主画布
+            mainCanvas = document.getElementById('mainCanvas');
+            mainCtx = mainCanvas.getContext('2d');
+            
+            // 限制最大尺寸以提高性能
+            const maxSize = 500;
+            let width = img.width;
+            let height = img.height;
+            
+            if (width > maxSize || height > maxSize) {
+                const ratio = Math.min(maxSize / width, maxSize / height);
+                width = Math.round(width * ratio);
+                height = Math.round(height * ratio);
+                log(`图片已缩放至: ${width} × ${height}`);
+            }
+            
+            mainCanvas.width = width;
+            mainCanvas.height = height;
+            
+            // 绘制图片
+            mainCtx.drawImage(img, 0, 0, width, height);
+            
+            // 获取并保存原始图像数据
+            originalImageData = mainCtx.getImageData(0, 0, width, height);
+            
+            // 更新信息面板
+            updateInfoPanel();
+            
+            // 设置其他画布
+            setupProcessingCanvases(width, height);
+            
+            // 设置鼠标追踪
+            setupMouseTracking();
+            
+            log(`ImageData 获取成功，数据数组长度: ${originalImageData.data.length}`);
+        }
+        
+        /**
+         * 更新信息面板
+         */
+        function updateInfoPanel() {
+            const { width, height, data } = originalImageData;
+            
+            document.getElementById('infoResolution').textContent = `${width} × ${height}`;
+            document.getElementById('infoPixels').textContent = (width * height).toLocaleString();
+            document.getElementById('infoDataLength').textContent = data.length.toLocaleString();
+            document.getElementById('infoMemory').textContent = `${(data.length / 1024).toFixed(2)} KB`;
+        }
+        
+        /**
+         * 设置处理用的画布
+         */
+        function setupProcessingCanvases(width, height) {
+            const canvasIds = ['channelCanvas', 'invertCanvas', 'brightnessCanvas'];
+            
+            canvasIds.forEach(id => {
+                const canvas = document.getElementById(id);
+                canvas.width = width;
+                canvas.height = height;
+                
+                const ctx = canvas.getContext('2d');
+                ctx.putImageData(cloneImageData(originalImageData), 0, 0);
+            });
+        }
+        
+        /**
+         * 设置鼠标追踪（显示鼠标位置的像素信息）
+         */
+        function setupMouseTracking() {
+            mainCanvas.addEventListener('mousemove', (e) => {
+                const rect = mainCanvas.getBoundingClientRect();
+                const scaleX = mainCanvas.width / rect.width;
+                const scaleY = mainCanvas.height / rect.height;
+                
+                const x = Math.floor((e.clientX - rect.left) * scaleX);
+                const y = Math.floor((e.clientY - rect.top) * scaleY);
+                
+                if (x >= 0 && x < mainCanvas.width && y >= 0 && y < mainCanvas.height) {
+                    const pixel = getPixel(originalImageData, x, y);
+                    const index = (y * mainCanvas.width + x);
+                    
+                    document.getElementById('hoverPosition').textContent = `(${x}, ${y})`;
+                    document.getElementById('hoverIndex').textContent = index;
+                    document.getElementById('hoverRGBA').textContent = 
+                        `(${pixel.r}, ${pixel.g}, ${pixel.b}, ${pixel.a})`;
+                    document.getElementById('hoverColorPreview').style.backgroundColor = 
+                        `rgba(${pixel.r}, ${pixel.g}, ${pixel.b}, ${pixel.a / 255})`;
+                }
+            });
+        }
+        
+        // ==================== 像素处理操作 ====================
+        
+        /**
+         * 显示单个颜色通道
+         * 
+         * 原理说明：
+         * - 保留指定通道的值
+         * - 将其他通道设为 0
+         * 
+         * @param {string} channel - 'red', 'green', 或 'blue'
+         */
+        function showChannel(channel) {
+            if (!originalImageData) {
+                log('请先加载图片');
+                return;
+            }
+            
+            const canvas = document.getElementById('channelCanvas');
+            const ctx = canvas.getContext('2d');
+            const imageData = cloneImageData(originalImageData);
+            const data = imageData.data;
+            
+            // 遍历所有像素
+            for (let i = 0; i < data.length; i += 4) {
+                if (channel === 'red') {
+                    // 保留 R，清除 G 和 B
+                    data[i + 1] = 0;
+                    data[i + 2] = 0;
+                } else if (channel === 'green') {
+                    // 保留 G，清除 R 和 B
+                    data[i] = 0;
+                    data[i + 2] = 0;
+                } else if (channel === 'blue') {
+                    // 保留 B，清除 R 和 G
+                    data[i] = 0;
+                    data[i + 1] = 0;
+                }
+            }
+            
+            ctx.putImageData(imageData, 0, 0);
+            document.getElementById('channelLabel').textContent = 
+                `${channel.toUpperCase()} 通道`;
+            
+            log(`显示 ${channel} 通道`);
+        }
+        
+        /**
+         * 颜色反转
+         * 
+         * 原理说明：
+         * - 新值 = 255 - 原值
+         * - 实现类似照片底片的效果
+         */
+        function invertColors() {
+            if (!originalImageData) {
+                log('请先加载图片');
+                return;
+            }
+            
+            const canvas = document.getElementById('invertCanvas');
+            const ctx = canvas.getContext('2d');
+            const imageData = cloneImageData(originalImageData);
+            const data = imageData.data;
+            
+            // 遍历所有像素
+            for (let i = 0; i < data.length; i += 4) {
+                data[i] = 255 - data[i];         // R
+                data[i + 1] = 255 - data[i + 1]; // G
+                data[i + 2] = 255 - data[i + 2]; // B
+                // Alpha 保持不变
+            }
+            
+            ctx.putImageData(imageData, 0, 0);
+            log('颜色反转完成');
+        }
+        
+        /**
+         * 调整亮度
+         * 
+         * 原理说明：
+         * - 将每个颜色值加上亮度值
+         * - Uint8ClampedArray 会自动将结果限制在 0-255
+         * 
+         * @param {number} brightness - 亮度调整值 (-255 到 255)
+         */
+        function adjustBrightness(brightness) {
+            if (!originalImageData) {
+                return;
+            }
+            
+            const canvas = document.getElementById('brightnessCanvas');
+            const ctx = canvas.getContext('2d');
+            const imageData = cloneImageData(originalImageData);
+            const data = imageData.data;
+            
+            // 遍历所有像素
+            for (let i = 0; i < data.length; i += 4) {
+                // Uint8ClampedArray 自动处理溢出
+                data[i] = data[i] + brightness;         // R
+                data[i + 1] = data[i + 1] + brightness; // G
+                data[i + 2] = data[i + 2] + brightness; // B
+            }
+            
+            ctx.putImageData(imageData, 0, 0);
+        }
+        
+        /**
+         * 还原图像到原始状态
+         */
+        function resetImage() {
+            if (!originalImageData) {
+                log('请先加载图片');
+                return;
+            }
+            
+            const canvasIds = ['channelCanvas', 'invertCanvas', 'brightnessCanvas'];
+            
+            canvasIds.forEach(id => {
+                const canvas = document.getElementById(id);
+                const ctx = canvas.getContext('2d');
+                ctx.putImageData(cloneImageData(originalImageData), 0, 0);
+            });
+            
+            document.getElementById('brightnessSlider').value = 0;
+            document.getElementById('brightnessValue').textContent = '0';
+            document.getElementById('channelLabel').textContent = '处理结果';
+            
+            log('图像已还原');
+        }
+        
+        // ==================== 图像导出 ====================
+        
+        /**
+         * 导出图像
+         * 
+         * @param {string} format - 'png' 或 'jpeg'
+         */
+        function exportImage(format) {
+            if (!mainCanvas) {
+                log('请先加载图片');
+                return;
+            }
+            
+            const mimeType = format === 'jpeg' ? 'image/jpeg' : 'image/png';
+            const extension = format === 'jpeg' ? 'jpg' : 'png';
+            
+            // 使用 toDataURL 导出
+            const dataURL = mainCanvas.toDataURL(mimeType);
+            
+            // 创建下载链接
+            const link = document.createElement('a');
+            link.download = `processed-image.${extension}`;
+            link.href = dataURL;
+            link.click();
+            
+            log(`图片已导出为 ${format.toUpperCase()} 格式`);
+        }
+        
+        // ==================== 标签页切换 ====================
+        
+        /**
+         * 初始化标签页
+         */
+        function initTabs() {
+            const tabs = document.querySelectorAll('.tab');
+            
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    // 移除所有活动状态
+                    tabs.forEach(t => t.classList.remove('active'));
+                    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                    
+                    // 激活当前标签
+                    tab.classList.add('active');
+                    const contentId = `tab-${tab.dataset.tab}`;
+                    document.getElementById(contentId).classList.add('active');
+                });
+            });
+        }
+        
+        /**
+         * 初始化亮度滑块
+         */
+        function initBrightnessSlider() {
+            const slider = document.getElementById('brightnessSlider');
+            const valueDisplay = document.getElementById('brightnessValue');
+            
+            slider.addEventListener('input', () => {
+                const value = parseInt(slider.value);
+                valueDisplay.textContent = value;
+                adjustBrightness(value);
+            });
+        }
+        
+        // ==================== 页面初始化 ====================
+        
+        window.onload = function() {
+            initDropZone();
+            initTabs();
+            initBrightnessSlider();
+            
+            log('页面已加载，请上传图片开始学习');
+        };
+    </script>
+</body>
+</html>
