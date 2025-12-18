@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>04. 二值化 - OCR 学习</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            color: #e0e0e0;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #00d9ff;
+            font-size: 2em;
+        }
+        
+        h2 {
+            color: #ff6b6b;
+            margin: 20px 0 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #333;
+        }
+        
+        h3 {
+            color: #ffd93d;
+            margin: 15px 0 10px;
+        }
+        
+        .section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .canvas-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .canvas-container {
+            text-align: center;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px;
+            border-radius: 12px;
+        }
+        
+        .canvas-container canvas {
+            border: 3px solid #444;
+            border-radius: 8px;
+            background: #fff;
+            max-width: 100%;
+        }
+        
+        .canvas-label {
+            margin-top: 10px;
+            color: #00d9ff;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        
+        .canvas-info {
+            margin-top: 5px;
+            color: #888;
+            font-size: 12px;
+            font-family: monospace;
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, #00d9ff, #0099cc);
+            color: #000;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin: 5px;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 217, 255, 0.3);
+        }
+        
+        .btn.secondary {
+            background: linear-gradient(135deg, #ff6b6b, #cc5555);
+        }
+        
+        .btn.success {
+            background: linear-gradient(135deg, #6bff6b, #55cc55);
+        }
+        
+        .drop-zone {
+            border: 3px dashed #444;
+            border-radius: 15px;
+            padding: 40px;
+            text-align: center;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        
+        .drop-zone:hover, .drop-zone.dragover {
+            border-color: #00d9ff;
+            background: rgba(0, 217, 255, 0.1);
+        }
+        
+        .drop-zone-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+        
+        #imageInput {
+            display: none;
+        }
+        
+        .slider-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin: 15px 0;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+        }
+        
+        .slider-container label {
+            min-width: 120px;
+            font-weight: bold;
+        }
+        
+        .slider-container input[type="range"] {
+            flex: 1;
+            height: 8px;
+            -webkit-appearance: none;
+            background: #333;
+            border-radius: 4px;
+        }
+        
+        .slider-container input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            background: #00d9ff;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        
+        .slider-value {
+            min-width: 60px;
+            text-align: center;
+            font-family: monospace;
+            font-size: 18px;
+            font-weight: bold;
+            color: #00d9ff;
+            background: #1a1a2e;
+            padding: 8px 15px;
+            border-radius: 8px;
+        }
+        
+        .histogram-container {
+            background: #0d0d0d;
+            padding: 15px;
+            border-radius: 12px;
+            margin-top: 15px;
+        }
+        
+        .histogram-canvas {
+            width: 100%;
+            height: 120px;
+            border-radius: 8px;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .stat-card {
+            background: rgba(0, 217, 255, 0.1);
+            padding: 12px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 20px;
+            font-weight: bold;
+            color: #00d9ff;
+        }
+        
+        .stat-label {
+            font-size: 11px;
+            color: #888;
+            margin-top: 3px;
+        }
+        
+        .code-block {
+            background: #0d0d0d;
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-family: 'Fira Code', 'Consolas', monospace;
+            font-size: 13px;
+            line-height: 1.6;
+            color: #e0e0e0;
+            margin: 15px 0;
+            border-left: 4px solid #00d9ff;
+            white-space: pre-wrap;
+        }
+        
+        .code-comment { color: #6a9955; }
+        .code-keyword { color: #c586c0; }
+        .code-number { color: #b5cea8; }
+        .code-function { color: #dcdcaa; }
+        
+        .threshold-line {
+            position: absolute;
+            width: 2px;
+            background: #ff6b6b;
+            pointer-events: none;
+        }
+        
+        .comparison-row {
+            display: flex;
+            gap: 20px;
+            margin-top: 20px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+        }
+        
+        .comparison-item {
+            flex: 0 0 200px;
+            text-align: center;
+        }
+        
+        .comparison-item canvas {
+            border: 2px solid #444;
+            border-radius: 8px;
+            background: #fff;
+        }
+        
+        .comparison-item.active canvas {
+            border-color: #00d9ff;
+            box-shadow: 0 0 15px rgba(0, 217, 255, 0.5);
+        }
+        
+        .method-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .method-tab {
+            padding: 12px 25px;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            border-radius: 8px;
+            color: #888;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+        }
+        
+        .method-tab.active {
+            background: linear-gradient(135deg, #00d9ff, #0099cc);
+            color: #000;
+        }
+        
+        .method-content {
+            display: none;
+        }
+        
+        .method-content.active {
+            display: block;
+        }
+        
+        .otsu-highlight {
+            background: rgba(255, 107, 107, 0.2);
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 4px solid #ff6b6b;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>⚫⚪ 04. 二值化 (Binarization)</h1>
+        
+        <!-- 概念介绍 -->
+        <div class="section">
+            <h2>📚 什么是二值化？</h2>
+            <p style="color: #aaa; line-height: 1.8; margin-bottom: 15px;">
+                二值化将灰度图像（256级灰度）转换为只有<strong>黑（0）</strong>和<strong>白（255）</strong>两种颜色的图像。
+                这是 OCR 预处理的关键步骤，用于明确分离文字（前景）和背景。
+            </p>
+            
+            <div class="code-block">
+<span class="code-comment">// 二值化核心逻辑</span>
+<span class="code-keyword">if</span> (grayValue >= threshold) {
+    pixel = <span class="code-number">255</span>;  <span class="code-comment">// 白色（背景）</span>
+} <span class="code-keyword">else</span> {
+    pixel = <span class="code-number">0</span>;    <span class="code-comment">// 黑色（文字）</span>
+}
+            </div>
+        </div>
+        
+        <!-- 图片上传 -->
+        <div class="section">
+            <h2>📤 上传图片进行二值化</h2>
+            <input type="file" id="imageInput" accept="image/*">
+            <div class="drop-zone" id="dropZone">
+                <div class="drop-zone-icon">📁</div>
+                <div style="color: #888;">点击选择图片 或 拖拽图片到这里</div>
+                <div style="color: #666; font-size: 12px; margin-top: 10px;">建议上传包含文字的图片以观察二值化效果</div>
+            </div>
+        </div>
+        
+        <!-- 二值化方法选择 -->
+        <div class="section" id="methodSection" style="display: none;">
+            <h2>🔧 二值化方法</h2>
+            
+            <div class="method-tabs">
+                <button class="method-tab active" data-method="fixed">固定阈值</button>
+                <button class="method-tab" data-method="otsu">Otsu 自动阈值 ⭐</button>
+                <button class="method-tab" data-method="adaptive">自适应阈值</button>
+            </div>
+            
+            <!-- 固定阈值 -->
+            <div class="method-content active" id="method-fixed">
+                <p style="color: #aaa; margin-bottom: 15px;">
+                    手动调整阈值，观察不同阈值对二值化结果的影响
+                </p>
+                <div class="slider-container">
+                    <label>阈值 (Threshold):</label>
+                    <input type="range" id="thresholdSlider" min="0" max="255" value="128">
+                    <div class="slider-value" id="thresholdValue">128</div>
+                </div>
+            </div>
+            
+            <!-- Otsu -->
+            <div class="method-content" id="method-otsu">
+                <div class="otsu-highlight">
+                    <h3>🎯 Otsu 算法（大津算法）</h3>
+                    <p style="color: #aaa; margin-top: 10px;">
+                        自动计算最佳阈值，基于<strong>类间方差最大化</strong>原理。
+                        算法会遍历所有可能的阈值，找到使前景和背景分离最好的那个值。
+                    </p>
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-value" id="otsuThreshold">-</div>
+                        <div class="stat-label">Otsu 阈值</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="otsuVariance">-</div>
+                        <div class="stat-label">类间方差</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="foregroundRatio">-</div>
+                        <div class="stat-label">前景比例</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="backgroundRatio">-</div>
+                        <div class="stat-label">背景比例</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 自适应阈值 -->
+            <div class="method-content" id="method-adaptive">
+                <p style="color: #aaa; margin-bottom: 15px;">
+                    每个像素的阈值根据其局部邻域动态计算，适合光照不均匀的图像
+                </p>
+                <div class="slider-container">
+                    <label>邻域大小:</label>
+                    <input type="range" id="blockSizeSlider" min="3" max="51" value="15" step="2">
+                    <div class="slider-value" id="blockSizeValue">15</div>
+                </div>
+                <div class="slider-container">
+                    <label>常数 C:</label>
+                    <input type="range" id="constantCSlider" min="-20" max="20" value="5">
+                    <div class="slider-value" id="constantCValue">5</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 结果对比 -->
+        <div class="section" id="resultSection" style="display: none;">
+            <h2>📊 二值化结果</h2>
+            
+            <div class="canvas-grid">
+                <div class="canvas-container">
+                    <canvas id="originalCanvas"></canvas>
+                    <div class="canvas-label">原始图像</div>
+                </div>
+                <div class="canvas-container">
+                    <canvas id="grayCanvas"></canvas>
+                    <div class="canvas-label">灰度图像</div>
+                </div>
+                <div class="canvas-container">
+                    <canvas id="binaryCanvas"></canvas>
+                    <div class="canvas-label" id="binaryLabel">二值图像</div>
+                    <div class="canvas-info" id="binaryInfo">阈值: 128</div>
+                </div>
+            </div>
+            
+            <!-- 直方图 -->
+            <h3 style="margin-top: 25px;">📈 灰度直方图与阈值</h3>
+            <div class="histogram-container">
+                <canvas id="histogramCanvas" class="histogram-canvas"></canvas>
+            </div>
+        </div>
+        
+        <!-- 阈值对比 -->
+        <div class="section" id="comparisonSection" style="display: none;">
+            <h2>🔬 不同阈值效果对比</h2>
+            <p style="color: #aaa; margin-bottom: 15px;">
+                对比不同阈值对二值化结果的影响
+            </p>
+            <div class="comparison-row" id="comparisonRow"></div>
+        </div>
+        
+        <!-- Otsu 算法详解 -->
+        <div class="section">
+            <h2>📖 Otsu 算法原理</h2>
+            
+            <div class="code-block">
+<span class="code-comment">/**
+ * Otsu 算法 - 自动计算最佳阈值
+ * 
+ * 核心思想：找到使类间方差最大的阈值
+ * 类间方差 = w0 × w1 × (μ0 - μ1)²
+ * 
+ * w0, w1 = 前景和背景的像素比例
+ * μ0, μ1 = 前景和背景的平均灰度值
+ */</span>
+<span class="code-keyword">function</span> <span class="code-function">calculateOtsuThreshold</span>(histogram) {
+    <span class="code-keyword">const</span> total = histogram.<span class="code-function">reduce</span>((a, b) => a + b, <span class="code-number">0</span>);
+    
+    <span class="code-keyword">let</span> sum = <span class="code-number">0</span>;
+    <span class="code-keyword">for</span> (<span class="code-keyword">let</span> i = <span class="code-number">0</span>; i < <span class="code-number">256</span>; i++) {
+        sum += i * histogram[i];
+    }
+    
+    <span class="code-keyword">let</span> sumB = <span class="code-number">0</span>, wB = <span class="code-number">0</span>, wF = <span class="code-number">0</span>;
+    <span class="code-keyword">let</span> maxVariance = <span class="code-number">0</span>, threshold = <span class="code-number">0</span>;
+    
+    <span class="code-keyword">for</span> (<span class="code-keyword">let</span> t = <span class="code-number">0</span>; t < <span class="code-number">256</span>; t++) {
+        wB += histogram[t];           <span class="code-comment">// 前景权重</span>
+        <span class="code-keyword">if</span> (wB === <span class="code-number">0</span>) <span class="code-keyword">continue</span>;
+        
+        wF = total - wB;              <span class="code-comment">// 背景权重</span>
+        <span class="code-keyword">if</span> (wF === <span class="code-number">0</span>) <span class="code-keyword">break</span>;
+        
+        sumB += t * histogram[t];
+        <span class="code-keyword">const</span> mB = sumB / wB;         <span class="code-comment">// 前景均值</span>
+        <span class="code-keyword">const</span> mF = (sum - sumB) / wF; <span class="code-comment">// 背景均值</span>
+        
+        <span class="code-comment">// 类间方差</span>
+        <span class="code-keyword">const</span> variance = wB * wF * (mB - mF) * (mB - mF);
+        
+        <span class="code-keyword">if</span> (variance > maxVariance) {
+            maxVariance = variance;
+            threshold = t;
+        }
+    }
+    
+    <span class="code-keyword">return</span> threshold;
+}
+            </div>
+        </div>
+    </div>
+
+    <script>
+        /**
+         * 04. 二值化 - 交互式演示
+         * 
+         * 本脚本演示三种二值化方法：
+         * 1. 固定阈值
+         * 2. Otsu 自动阈值
+         * 3. 自适应阈值
+         * 
+         * 前置知识：
+         * - 01-03 章节的所有内容
+         */
+
+        // ==================== 全局变量 ====================
+        
+        let originalImageData = null;
+        let grayImageData = null;
+        let histogram = null;
+        let currentMethod = 'fixed';
+        
+        // ==================== 灰度化函数 ====================
+        
+        function grayscaleWeighted(imageData) {
+            const result = new ImageData(
+                new Uint8ClampedArray(imageData.data),
+                imageData.width,
+                imageData.height
+            );
+            const data = result.data;
+            
+            for (let i = 0; i < data.length; i += 4) {
+                const gray = Math.round(
+                    0.299 * data[i] + 0.587 * data[i + 1] + 0.114 * data[i + 2]
+                );
+                data[i] = gray;
+                data[i + 1] = gray;
+                data[i + 2] = gray;
+            }
+            
+            return result;
+        }
+        
+        // ==================== 二值化函数 ====================
+        
+        /**
+         * 固定阈值二值化
+         */
+        function binarizeFixed(imageData, threshold) {
+            const result = new ImageData(
+                new Uint8ClampedArray(imageData.data),
+                imageData.width,
+                imageData.height
+            );
+            const data = result.data;
+            
+            for (let i = 0; i < data.length; i += 4) {
+                const gray = data[i];
+                const binary = gray >= threshold ? 255 : 0;
+                data[i] = binary;
+                data[i + 1] = binary;
+                data[i + 2] = binary;
+            }
+            
+            return result;
+        }
+        
+        /**
+         * 计算 Otsu 阈值
+         */
+        function calculateOtsuThreshold(histogram) {
+            const total = histogram.reduce((a, b) => a + b, 0);
+            if (total === 0) return 128;
+            
+            let sum = 0;
+            for (let i = 0; i < 256; i++) {
+                sum += i * histogram[i];
+            }
+            
+            let sumB = 0, wB = 0, wF = 0;
+            let maxVariance = 0, threshold = 0;
+            let varianceAtThreshold = 0;
+            
+            for (let t = 0; t < 256; t++) {
+                wB += histogram[t];
+                if (wB === 0) continue;
+                
+                wF = total - wB;
+                if (wF === 0) break;
+                
+                sumB += t * histogram[t];
+                const mB = sumB / wB;
+                const mF = (sum - sumB) / wF;
+                
+                const variance = wB * wF * (mB - mF) * (mB - mF);
+                
+                if (variance > maxVariance) {
+                    maxVariance = variance;
+                    threshold = t;
+                    varianceAtThreshold = variance;
+                }
+            }
+            
+            return { threshold, variance: varianceAtThreshold, wB, wF: total - wB, total };
+        }
+        
+        /**
+         * Otsu 二值化
+         */
+        function binarizeOtsu(imageData, histogram) {
+            const result = calculateOtsuThreshold(histogram);
+            const binaryImage = binarizeFixed(imageData, result.threshold);
+            return { imageData: binaryImage, ...result };
+        }
+        
+        /**
+         * 自适应阈值二值化
+         */
+        function binarizeAdaptive(imageData, blockSize, C) {
+            const { width, height, data } = imageData;
+            const result = new ImageData(
+                new Uint8ClampedArray(data),
+                width,
+                height
+            );
+            const resultData = result.data;
+            
+            const halfBlock = Math.floor(blockSize / 2);
+            
+            // 使用积分图加速（简化版本，直接计算邻域均值）
+            for (let y = 0; y < height; y++) {
+                for (let x = 0; x < width; x++) {
+                    // 计算邻域均值
+                    let sum = 0, count = 0;
+                    
+                    for (let dy = -halfBlock; dy <= halfBlock; dy++) {
+                        for (let dx = -halfBlock; dx <= halfBlock; dx++) {
+                            const nx = x + dx;
+                            const ny = y + dy;
+                            
+                            if (nx >= 0 && nx < width && ny >= 0 && ny < height) {
+                                const idx = (ny * width + nx) * 4;
+                                sum += data[idx];
+                                count++;
+                            }
+                        }
+                    }
+                    
+                    const mean = sum / count;
+                    const threshold = mean - C;
+                    
+                    const idx = (y * width + x) * 4;
+                    const gray = data[idx];
+                    const binary = gray >= threshold ? 255 : 0;
+                    
+                    resultData[idx] = binary;
+                    resultData[idx + 1] = binary;
+                    resultData[idx + 2] = binary;
+                }
+            }
+            
+            return result;
+        }
+        
+        // ==================== 直方图函数 ====================
+        
+        function calculateHistogram(imageData) {
+            const histogram = new Array(256).fill(0);
+            const data = imageData.data;
+            
+            for (let i = 0; i < data.length; i += 4) {
+                histogram[data[i]]++;
+            }
+            
+            return histogram;
+        }
+        
+        function drawHistogram(histogram, canvas, threshold = null) {
+            const ctx = canvas.getContext('2d');
+            const width = canvas.width;
+            const height = canvas.height;
+            
+            ctx.fillStyle = '#0d0d0d';
+            ctx.fillRect(0, 0, width, height);
+            
+            const maxCount = Math.max(...histogram);
+            const barWidth = width / 256;
+            
+            for (let i = 0; i < 256; i++) {
+                const barHeight = (histogram[i] / maxCount) * (height - 30);
+                const x = i * barWidth;
+                const y = height - barHeight - 20;
+                
+                // 阈值左边为深色，右边为浅色
+                if (threshold !== null) {
+                    ctx.fillStyle = i < threshold 
+                        ? 'rgba(255, 107, 107, 0.8)' 
+                        : 'rgba(107, 255, 107, 0.8)';
+                } else {
+                    const hue = 200 - (i / 255) * 60;
+                    ctx.fillStyle = `hsl(${hue}, 70%, 50%)`;
+                }
+                
+                ctx.fillRect(x, y, barWidth - 0.5, barHeight);
+            }
+            
+            // 绘制阈值线
+            if (threshold !== null) {
+                const x = (threshold / 255) * width;
+                ctx.strokeStyle = '#ff6b6b';
+                ctx.lineWidth = 2;
+                ctx.setLineDash([5, 5]);
+                ctx.beginPath();
+                ctx.moveTo(x, 0);
+                ctx.lineTo(x, height - 20);
+                ctx.stroke();
+                ctx.setLineDash([]);
+                
+                // 标注阈值
+                ctx.fillStyle = '#ff6b6b';
+                ctx.font = 'bold 12px monospace';
+                ctx.textAlign = 'center';
+                ctx.fillText(`T=${threshold}`, x, 12);
+            }
+            
+            // 刻度
+            ctx.fillStyle = '#666';
+            ctx.font = '10px monospace';
+            ctx.textAlign = 'center';
+            for (let i = 0; i <= 255; i += 51) {
+                const x = (i / 255) * width;
+                ctx.fillText(i.toString(), x, height - 5);
+            }
+        }
+        
+        // ==================== 图像处理 ====================
+        
+        function processImage(img) {
+            const maxSize = 350;
+            let width = img.width;
+            let height = img.height;
+            
+            if (width > maxSize || height > maxSize) {
+                const ratio = Math.min(maxSize / width, maxSize / height);
+                width = Math.round(width * ratio);
+                height = Math.round(height * ratio);
+            }
+            
+            // 原图
+            const originalCanvas = document.getElementById('originalCanvas');
+            originalCanvas.width = width;
+            originalCanvas.height = height;
+            const originalCtx = originalCanvas.getContext('2d');
+            originalCtx.drawImage(img, 0, 0, width, height);
+            originalImageData = originalCtx.getImageData(0, 0, width, height);
+            
+            // 灰度图
+            grayImageData = grayscaleWeighted(originalImageData);
+            const grayCanvas = document.getElementById('grayCanvas');
+            grayCanvas.width = width;
+            grayCanvas.height = height;
+            grayCanvas.getContext('2d').putImageData(grayImageData, 0, 0);
+            
+            // 计算直方图
+            histogram = calculateHistogram(grayImageData);
+            
+            // 设置二值图画布
+            const binaryCanvas = document.getElementById('binaryCanvas');
+            binaryCanvas.width = width;
+            binaryCanvas.height = height;
+            
+            // 设置直方图画布
+            const histogramCanvas = document.getElementById('histogramCanvas');
+            histogramCanvas.width = histogramCanvas.offsetWidth;
+            histogramCanvas.height = 120;
+            
+            // 显示结果区域
+            document.getElementById('methodSection').style.display = 'block';
+            document.getElementById('resultSection').style.display = 'block';
+            document.getElementById('comparisonSection').style.display = 'block';
+            
+            // 应用当前方法
+            applyCurrentMethod();
+            
+            // 生成对比图
+            generateComparison();
+        }
+        
+        function applyCurrentMethod() {
+            if (!grayImageData) return;
+            
+            const binaryCanvas = document.getElementById('binaryCanvas');
+            const ctx = binaryCanvas.getContext('2d');
+            const histogramCanvas = document.getElementById('histogramCanvas');
+            
+            let threshold, binaryImageData;
+            
+            switch (currentMethod) {
+                case 'fixed':
+                    threshold = parseInt(document.getElementById('thresholdSlider').value);
+                    binaryImageData = binarizeFixed(grayImageData, threshold);
+                    document.getElementById('binaryLabel').textContent = '固定阈值二值化';
+                    document.getElementById('binaryInfo').textContent = `阈值: ${threshold}`;
+                    break;
+                    
+                case 'otsu':
+                    const otsuResult = binarizeOtsu(grayImageData, histogram);
+                    threshold = otsuResult.threshold;
+                    binaryImageData = otsuResult.imageData;
+                    
+                    document.getElementById('otsuThreshold').textContent = threshold;
+                    document.getElementById('otsuVariance').textContent = 
+                        (otsuResult.variance / 1e6).toFixed(2) + 'M';
+                    document.getElementById('foregroundRatio').textContent = 
+                        ((otsuResult.wB / otsuResult.total) * 100).toFixed(1) + '%';
+                    document.getElementById('backgroundRatio').textContent = 
+                        ((otsuResult.wF / otsuResult.total) * 100).toFixed(1) + '%';
+                    
+                    document.getElementById('binaryLabel').textContent = 'Otsu 自动阈值';
+                    document.getElementById('binaryInfo').textContent = `自动计算阈值: ${threshold}`;
+                    break;
+                    
+                case 'adaptive':
+                    const blockSize = parseInt(document.getElementById('blockSizeSlider').value);
+                    const C = parseInt(document.getElementById('constantCSlider').value);
+                    binaryImageData = binarizeAdaptive(grayImageData, blockSize, C);
+                    threshold = null;
+                    
+                    document.getElementById('binaryLabel').textContent = '自适应阈值';
+                    document.getElementById('binaryInfo').textContent = 
+                        `邻域: ${blockSize}×${blockSize}, C: ${C}`;
+                    break;
+            }
+            
+            ctx.putImageData(binaryImageData, 0, 0);
+            drawHistogram(histogram, histogramCanvas, threshold);
+        }
+        
+        function generateComparison() {
+            const container = document.getElementById('comparisonRow');
+            container.innerHTML = '';
+            
+            const thresholds = [50, 100, 128, 150, 200];
+            const otsuResult = calculateOtsuThreshold(histogram);
+            
+            // 添加 Otsu 阈值
+            if (!thresholds.includes(otsuResult.threshold)) {
+                thresholds.push(otsuResult.threshold);
+                thresholds.sort((a, b) => a - b);
+            }
+            
+            thresholds.forEach(t => {
+                const item = document.createElement('div');
+                item.className = 'comparison-item' + (t === otsuResult.threshold ? ' active' : '');
+                
+                const canvas = document.createElement('canvas');
+                canvas.width = 180;
+                canvas.height = Math.round(180 * grayImageData.height / grayImageData.width);
+                
+                const tempCanvas = document.createElement('canvas');
+                tempCanvas.width = grayImageData.width;
+                tempCanvas.height = grayImageData.height;
+                tempCanvas.getContext('2d').putImageData(binarizeFixed(grayImageData, t), 0, 0);
+                
+                canvas.getContext('2d').drawImage(tempCanvas, 0, 0, canvas.width, canvas.height);
+                
+                const label = document.createElement('div');
+                label.className = 'canvas-label';
+                label.textContent = t === otsuResult.threshold 
+                    ? `T=${t} (Otsu ⭐)` 
+                    : `T=${t}`;
+                
+                item.appendChild(canvas);
+                item.appendChild(label);
+                container.appendChild(item);
+            });
+        }
+        
+        // ==================== 事件处理 ====================
+        
+        function init() {
+            const dropZone = document.getElementById('dropZone');
+            const imageInput = document.getElementById('imageInput');
+            
+            dropZone.addEventListener('click', () => imageInput.click());
+            
+            imageInput.addEventListener('change', (e) => {
+                if (e.target.files.length > 0) {
+                    loadImageFile(e.target.files[0]);
+                }
+            });
+            
+            dropZone.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                dropZone.classList.add('dragover');
+            });
+            
+            dropZone.addEventListener('dragleave', () => {
+                dropZone.classList.remove('dragover');
+            });
+            
+            dropZone.addEventListener('drop', (e) => {
+                e.preventDefault();
+                dropZone.classList.remove('dragover');
+                if (e.dataTransfer.files.length > 0) {
+                    loadImageFile(e.dataTransfer.files[0]);
+                }
+            });
+            
+            // 方法切换
+            document.querySelectorAll('.method-tab').forEach(tab => {
+                tab.addEventListener('click', () => {
+                    document.querySelectorAll('.method-tab').forEach(t => t.classList.remove('active'));
+                    document.querySelectorAll('.method-content').forEach(c => c.classList.remove('active'));
+                    
+                    tab.classList.add('active');
+                    currentMethod = tab.dataset.method;
+                    document.getElementById(`method-${currentMethod}`).classList.add('active');
+                    
+                    applyCurrentMethod();
+                });
+            });
+            
+            // 滑块事件
+            document.getElementById('thresholdSlider').addEventListener('input', (e) => {
+                document.getElementById('thresholdValue').textContent = e.target.value;
+                if (currentMethod === 'fixed') applyCurrentMethod();
+            });
+            
+            document.getElementById('blockSizeSlider').addEventListener('input', (e) => {
+                document.getElementById('blockSizeValue').textContent = e.target.value;
+                if (currentMethod === 'adaptive') applyCurrentMethod();
+            });
+            
+            document.getElementById('constantCSlider').addEventListener('input', (e) => {
+                document.getElementById('constantCValue').textContent = e.target.value;
+                if (currentMethod === 'adaptive') applyCurrentMethod();
+            });
+        }
+        
+        function loadImageFile(file) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const img = new Image();
+                img.onload = () => processImage(img);
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+        
+        window.onload = init;
+    </script>
+</body>
+</html>

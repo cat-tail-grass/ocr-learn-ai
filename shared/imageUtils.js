@@ -357,6 +357,325 @@ function rgbToHsv(r, g, b) {
     };
 }
 
+// ==================== 灰度化函数 ====================
+// 来源：03. 灰度化
+
+/**
+ * 加权平均法灰度化（推荐）
+ * 
+ * 原理说明：
+ * - 使用 ITU-R BT.601 标准权重
+ * - Gray = 0.299R + 0.587G + 0.114B
+ * - 绿色权重最大，因为人眼对绿色最敏感
+ * 
+ * 来源：03. 灰度化
+ * 
+ * @param {ImageData|MockImageData} imageData - 原始图像数据
+ * @returns {MockImageData} 灰度化后的图像数据
+ */
+function grayscaleWeighted(imageData) {
+    return forEachPixel(imageData, (pixel) => {
+        const gray = Math.round(0.299 * pixel.r + 0.587 * pixel.g + 0.114 * pixel.b);
+        return { r: gray, g: gray, b: gray };
+    });
+}
+
+/**
+ * 平均值法灰度化
+ * 
+ * 原理说明：
+ * - Gray = (R + G + B) / 3
+ * - 简单但不符合人眼感知
+ * 
+ * 来源：03. 灰度化
+ * 
+ * @param {ImageData|MockImageData} imageData - 原始图像数据
+ * @returns {MockImageData} 灰度化后的图像数据
+ */
+function grayscaleAverage(imageData) {
+    return forEachPixel(imageData, (pixel) => {
+        const gray = Math.round((pixel.r + pixel.g + pixel.b) / 3);
+        return { r: gray, g: gray, b: gray };
+    });
+}
+
+/**
+ * 最大值法灰度化
+ * 
+ * 原理说明：
+ * - Gray = max(R, G, B)
+ * - 结果偏亮
+ * 
+ * 来源：03. 灰度化
+ * 
+ * @param {ImageData|MockImageData} imageData - 原始图像数据
+ * @returns {MockImageData} 灰度化后的图像数据
+ */
+function grayscaleMax(imageData) {
+    return forEachPixel(imageData, (pixel) => {
+        const gray = Math.max(pixel.r, pixel.g, pixel.b);
+        return { r: gray, g: gray, b: gray };
+    });
+}
+
+/**
+ * 最小值法灰度化
+ * 
+ * 原理说明：
+ * - Gray = min(R, G, B)
+ * - 结果偏暗
+ * 
+ * 来源：03. 灰度化
+ * 
+ * @param {ImageData|MockImageData} imageData - 原始图像数据
+ * @returns {MockImageData} 灰度化后的图像数据
+ */
+function grayscaleMin(imageData) {
+    return forEachPixel(imageData, (pixel) => {
+        const gray = Math.min(pixel.r, pixel.g, pixel.b);
+        return { r: gray, g: gray, b: gray };
+    });
+}
+
+/**
+ * 单通道法灰度化
+ * 
+ * 来源：03. 灰度化
+ * 
+ * @param {ImageData|MockImageData} imageData - 原始图像数据
+ * @param {'r'|'g'|'b'} channel - 要使用的通道
+ * @returns {MockImageData} 灰度化后的图像数据
+ */
+function grayscaleSingleChannel(imageData, channel) {
+    return forEachPixel(imageData, (pixel) => {
+        const gray = pixel[channel];
+        return { r: gray, g: gray, b: gray };
+    });
+}
+
+/**
+ * 计算灰度直方图
+ * 
+ * 原理说明：
+ * - 统计每个灰度值（0-255）出现的次数
+ * - 用于分析图像亮度分布和选择二值化阈值
+ * 
+ * 来源：03. 灰度化
+ * 
+ * @param {ImageData|MockImageData} imageData - 灰度图像数据
+ * @returns {number[]} 长度为256的数组
+ */
+function calculateHistogram(imageData) {
+    const histogram = new Array(256).fill(0);
+    const data = imageData.data;
+    
+    for (let i = 0; i < data.length; i += 4) {
+        const gray = data[i]; // 假设是灰度图，R=G=B
+        histogram[gray]++;
+    }
+    
+    return histogram;
+}
+
+/**
+ * 计算直方图统计信息
+ * 
+ * 来源：03. 灰度化
+ * 
+ * @param {number[]} histogram - 直方图数据
+ * @param {number} totalPixels - 总像素数
+ * @returns {object} 统计信息 { min, max, mean, median, mode, std }
+ */
+function calculateHistogramStats(histogram, totalPixels) {
+    let min = 0, max = 255;
+    for (let i = 0; i < 256; i++) {
+        if (histogram[i] > 0) { min = i; break; }
+    }
+    for (let i = 255; i >= 0; i--) {
+        if (histogram[i] > 0) { max = i; break; }
+    }
+    
+    let sum = 0;
+    for (let i = 0; i < 256; i++) {
+        sum += i * histogram[i];
+    }
+    const mean = sum / totalPixels;
+    
+    let cumSum = 0;
+    let median = 0;
+    for (let i = 0; i < 256; i++) {
+        cumSum += histogram[i];
+        if (cumSum >= totalPixels / 2) {
+            median = i;
+            break;
+        }
+    }
+    
+    let mode = 0;
+    let maxCount = 0;
+    for (let i = 0; i < 256; i++) {
+        if (histogram[i] > maxCount) {
+            maxCount = histogram[i];
+            mode = i;
+        }
+    }
+    
+    let variance = 0;
+    for (let i = 0; i < 256; i++) {
+        variance += histogram[i] * Math.pow(i - mean, 2);
+    }
+    const std = Math.sqrt(variance / totalPixels);
+    
+    return { min, max, mean, median, mode, std };
+}
+
+// ==================== 二值化函数 ====================
+// 来源：04. 二值化
+
+/**
+ * 固定阈值二值化
+ * 
+ * 原理说明：
+ * - 使用固定阈值分割图像
+ * - 大于等于阈值的像素变白，小于阈值的变黑
+ * 
+ * 来源：04. 二值化
+ * 
+ * @param {ImageData|MockImageData} imageData - 灰度图像数据
+ * @param {number} threshold - 阈值 (0-255)
+ * @returns {MockImageData} 二值化后的图像数据
+ */
+function binarizeFixed(imageData, threshold) {
+    return forEachPixel(imageData, (pixel) => {
+        const gray = pixel.r; // 假设是灰度图
+        const binary = gray >= threshold ? 255 : 0;
+        return { r: binary, g: binary, b: binary };
+    });
+}
+
+/**
+ * 计算 Otsu 阈值
+ * 
+ * 原理说明：
+ * - 基于类间方差最大化原理
+ * - 遍历所有可能的阈值，找到使前景和背景分离最好的值
+ * 
+ * 来源：04. 二值化
+ * 
+ * @param {number[]} histogram - 灰度直方图（长度256）
+ * @returns {{threshold: number, variance: number}} Otsu 结果
+ */
+function calculateOtsuThreshold(histogram) {
+    const total = histogram.reduce((sum, count) => sum + count, 0);
+    
+    if (total === 0) {
+        return { threshold: 128, variance: 0 };
+    }
+    
+    let sum = 0;
+    for (let i = 0; i < 256; i++) {
+        sum += i * histogram[i];
+    }
+    
+    let sumB = 0, wB = 0;
+    let maxVariance = 0, bestThreshold = 0;
+    
+    for (let t = 0; t < 256; t++) {
+        wB += histogram[t];
+        if (wB === 0) continue;
+        
+        const wF = total - wB;
+        if (wF === 0) break;
+        
+        sumB += t * histogram[t];
+        const mB = sumB / wB;
+        const mF = (sum - sumB) / wF;
+        
+        const variance = wB * wF * (mB - mF) * (mB - mF);
+        
+        if (variance > maxVariance) {
+            maxVariance = variance;
+            bestThreshold = t;
+        }
+    }
+    
+    return { threshold: bestThreshold, variance: maxVariance };
+}
+
+/**
+ * Otsu 二值化
+ * 
+ * 原理说明：
+ * - 自动计算最佳阈值并进行二值化
+ * - 结合了直方图计算和 Otsu 阈值计算
+ * 
+ * 来源：04. 二值化
+ * 
+ * @param {ImageData|MockImageData} imageData - 灰度图像数据
+ * @returns {{imageData: MockImageData, threshold: number}} 结果
+ */
+function binarizeOtsu(imageData) {
+    const histogram = calculateHistogram(imageData);
+    const otsuResult = calculateOtsuThreshold(histogram);
+    const binaryImage = binarizeFixed(imageData, otsuResult.threshold);
+    
+    return {
+        imageData: binaryImage,
+        threshold: otsuResult.threshold,
+        variance: otsuResult.variance
+    };
+}
+
+/**
+ * 自适应阈值二值化
+ * 
+ * 原理说明：
+ * - 每个像素的阈值根据其局部邻域动态计算
+ * - 阈值 = 邻域均值 - C
+ * - 适合处理光照不均匀的图像
+ * 
+ * 来源：04. 二值化
+ * 
+ * @param {ImageData|MockImageData} imageData - 灰度图像数据
+ * @param {number} blockSize - 邻域大小（奇数，默认15）
+ * @param {number} C - 从均值减去的常数（默认5）
+ * @returns {MockImageData} 二值化后的图像数据
+ */
+function binarizeAdaptive(imageData, blockSize = 15, C = 5) {
+    const { width, height } = imageData;
+    const result = cloneImageData(imageData);
+    const halfBlock = Math.floor(blockSize / 2);
+    
+    for (let y = 0; y < height; y++) {
+        for (let x = 0; x < width; x++) {
+            let sum = 0, count = 0;
+            
+            for (let dy = -halfBlock; dy <= halfBlock; dy++) {
+                for (let dx = -halfBlock; dx <= halfBlock; dx++) {
+                    const nx = x + dx;
+                    const ny = y + dy;
+                    
+                    if (nx >= 0 && nx < width && ny >= 0 && ny < height) {
+                        const pixel = getPixel(imageData, nx, ny);
+                        sum += pixel.r;
+                        count++;
+                    }
+                }
+            }
+            
+            const mean = sum / count;
+            const threshold = mean - C;
+            
+            const currentPixel = getPixel(imageData, x, y);
+            const binary = currentPixel.r >= threshold ? 255 : 0;
+            
+            setPixel(result, x, y, binary, binary, binary);
+        }
+    }
+    
+    return result;
+}
+
 // ==================== 工具函数 ====================
 
 /**
@@ -407,6 +726,21 @@ module.exports = {
     hexToRgb,
     rgbToGray,
     rgbToHsv,
+    
+    // 灰度化（来源：03. 灰度化）
+    grayscaleWeighted,
+    grayscaleAverage,
+    grayscaleMax,
+    grayscaleMin,
+    grayscaleSingleChannel,
+    calculateHistogram,
+    calculateHistogramStats,
+    
+    // 二值化（来源：04. 二值化）
+    binarizeFixed,
+    binarizeOtsu,
+    calculateOtsuThreshold,
+    binarizeAdaptive,
     
     // 工具函数
     clamp,
