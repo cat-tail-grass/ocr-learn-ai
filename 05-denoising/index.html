@@ -1,0 +1,1129 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>05. 图像去噪 (Image Denoising)</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #e0e0e0;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            text-align: center;
+            margin-bottom: 10px;
+            color: #4fc3f7;
+            font-size: 2em;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #888;
+            margin-bottom: 30px;
+        }
+        
+        .main-content {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 20px;
+        }
+        
+        .control-panel {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .panel-section {
+            margin-bottom: 25px;
+        }
+        
+        .panel-section h3 {
+            color: #4fc3f7;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .panel-section h3::before {
+            content: '';
+            width: 4px;
+            height: 20px;
+            background: #4fc3f7;
+            border-radius: 2px;
+        }
+        
+        .control-group {
+            margin-bottom: 15px;
+        }
+        
+        .control-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #aaa;
+            font-size: 0.9em;
+        }
+        
+        .control-group select,
+        .control-group input[type="file"] {
+            width: 100%;
+            padding: 8px 12px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            color: #fff;
+            font-size: 0.95em;
+        }
+        
+        .control-group select:focus {
+            outline: none;
+            border-color: #4fc3f7;
+        }
+        
+        .slider-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .slider-container input[type="range"] {
+            flex: 1;
+            -webkit-appearance: none;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 3px;
+        }
+        
+        .slider-container input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 18px;
+            height: 18px;
+            background: #4fc3f7;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        
+        .slider-value {
+            min-width: 40px;
+            text-align: center;
+            font-weight: bold;
+            color: #4fc3f7;
+        }
+        
+        .btn {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 10px;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #4fc3f7, #2196f3);
+            color: #fff;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(79, 195, 247, 0.4);
+        }
+        
+        .btn-noise {
+            background: linear-gradient(135deg, #ff9800, #f57c00);
+            color: #fff;
+        }
+        
+        .btn-noise:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(255, 152, 0, 0.4);
+        }
+        
+        .btn-filter {
+            background: linear-gradient(135deg, #4caf50, #388e3c);
+            color: #fff;
+        }
+        
+        .btn-filter:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(76, 175, 80, 0.4);
+        }
+        
+        .btn-reset {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .btn-reset:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .display-panel {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .canvas-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .canvas-container {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+        }
+        
+        .canvas-container h4 {
+            color: #4fc3f7;
+            margin-bottom: 10px;
+            font-size: 1em;
+        }
+        
+        .canvas-container canvas {
+            max-width: 100%;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            background: #000;
+        }
+        
+        .info-text {
+            color: #888;
+            font-size: 0.85em;
+            margin-top: 5px;
+        }
+        
+        .stats-panel {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .stat-card {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+        }
+        
+        .stat-card .stat-value {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #4fc3f7;
+        }
+        
+        .stat-card .stat-label {
+            color: #888;
+            font-size: 0.85em;
+            margin-top: 5px;
+        }
+        
+        .kernel-display {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 20px;
+        }
+        
+        .kernel-display h4 {
+            color: #4fc3f7;
+            margin-bottom: 10px;
+        }
+        
+        .kernel-grid {
+            display: inline-grid;
+            gap: 2px;
+            background: rgba(79, 195, 247, 0.2);
+            padding: 5px;
+            border-radius: 5px;
+        }
+        
+        .kernel-cell {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 5px 8px;
+            font-size: 0.75em;
+            font-family: monospace;
+            text-align: center;
+            color: #fff;
+        }
+        
+        .comparison-section {
+            margin-top: 20px;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+        }
+        
+        .comparison-section h4 {
+            color: #4fc3f7;
+            margin-bottom: 15px;
+        }
+        
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+        
+        .comparison-item {
+            text-align: center;
+        }
+        
+        .comparison-item canvas {
+            width: 100%;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            background: #000;
+        }
+        
+        .comparison-item .label {
+            margin-top: 5px;
+            font-size: 0.85em;
+            color: #aaa;
+        }
+        
+        .comparison-item .psnr {
+            font-size: 0.8em;
+            color: #4caf50;
+            font-weight: bold;
+        }
+        
+        .explanation {
+            background: rgba(79, 195, 247, 0.1);
+            border-left: 4px solid #4fc3f7;
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 0 10px 10px 0;
+        }
+        
+        .explanation h4 {
+            color: #4fc3f7;
+            margin-bottom: 10px;
+        }
+        
+        .explanation p {
+            color: #ccc;
+            line-height: 1.6;
+            font-size: 0.95em;
+        }
+        
+        .noise-types {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .noise-type-card {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px;
+            border-radius: 10px;
+        }
+        
+        .noise-type-card h5 {
+            color: #ff9800;
+            margin-bottom: 8px;
+        }
+        
+        .noise-type-card p {
+            font-size: 0.85em;
+            color: #aaa;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>05. 图像去噪 (Image Denoising)</h1>
+        <p class="subtitle">学习卷积操作、均值滤波、高斯滤波、中值滤波</p>
+        
+        <div class="main-content">
+            <!-- 控制面板 -->
+            <div class="control-panel">
+                <div class="panel-section">
+                    <h3>图像输入</h3>
+                    <div class="control-group">
+                        <label>选择图片</label>
+                        <input type="file" id="imageInput" accept="image/*">
+                    </div>
+                    <button class="btn btn-primary" onclick="loadSampleImage()">
+                        使用示例图片
+                    </button>
+                </div>
+                
+                <div class="panel-section">
+                    <h3>添加噪声</h3>
+                    <div class="control-group">
+                        <label>噪声类型</label>
+                        <select id="noiseType">
+                            <option value="gaussian">高斯噪声 (Gaussian)</option>
+                            <option value="salt-pepper">椒盐噪声 (Salt & Pepper)</option>
+                        </select>
+                    </div>
+                    <div class="control-group">
+                        <label>噪声强度: <span id="noiseValue">25</span></label>
+                        <div class="slider-container">
+                            <input type="range" id="noiseIntensity" min="5" max="100" value="25">
+                        </div>
+                    </div>
+                    <button class="btn btn-noise" onclick="addNoise()">
+                        添加噪声
+                    </button>
+                </div>
+                
+                <div class="panel-section">
+                    <h3>滤波去噪</h3>
+                    <div class="control-group">
+                        <label>滤波器类型</label>
+                        <select id="filterType" onchange="updateKernelDisplay()">
+                            <option value="mean">均值滤波 (Mean)</option>
+                            <option value="gaussian">高斯滤波 (Gaussian)</option>
+                            <option value="median">中值滤波 (Median)</option>
+                        </select>
+                    </div>
+                    <div class="control-group">
+                        <label>核大小: <span id="kernelValue">3</span>×<span id="kernelValue2">3</span></label>
+                        <div class="slider-container">
+                            <input type="range" id="kernelSize" min="3" max="9" step="2" value="3" onchange="updateKernelDisplay()">
+                        </div>
+                    </div>
+                    <div class="control-group" id="sigmaControl">
+                        <label>Sigma (σ): <span id="sigmaValue">1.0</span></label>
+                        <div class="slider-container">
+                            <input type="range" id="sigma" min="0.5" max="3.0" step="0.1" value="1.0" onchange="updateKernelDisplay()">
+                        </div>
+                    </div>
+                    <button class="btn btn-filter" onclick="applyFilter()">
+                        应用滤波
+                    </button>
+                    <button class="btn btn-primary" onclick="compareAllFilters()">
+                        对比所有滤波器
+                    </button>
+                </div>
+                
+                <div class="panel-section">
+                    <h3>操作</h3>
+                    <button class="btn btn-reset" onclick="resetImage()">
+                        重置为原图
+                    </button>
+                </div>
+            </div>
+            
+            <!-- 显示面板 -->
+            <div class="display-panel">
+                <div class="canvas-grid">
+                    <div class="canvas-container">
+                        <h4>原始图像</h4>
+                        <canvas id="originalCanvas" width="300" height="300"></canvas>
+                    </div>
+                    <div class="canvas-container">
+                        <h4>含噪声图像</h4>
+                        <canvas id="noisyCanvas" width="300" height="300"></canvas>
+                        <p class="info-text" id="noiseInfo">-</p>
+                    </div>
+                    <div class="canvas-container">
+                        <h4>去噪结果</h4>
+                        <canvas id="filteredCanvas" width="300" height="300"></canvas>
+                        <p class="info-text" id="filterInfo">-</p>
+                    </div>
+                    <div class="canvas-container">
+                        <h4>当前滤波核</h4>
+                        <div id="kernelDisplay" class="kernel-display">
+                            <div class="kernel-grid" id="kernelGrid"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="stats-panel">
+                    <div class="stat-card">
+                        <div class="stat-value" id="psnrNoisy">-</div>
+                        <div class="stat-label">噪声图 PSNR (dB)</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="psnrFiltered">-</div>
+                        <div class="stat-label">去噪后 PSNR (dB)</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="psnrImprove">-</div>
+                        <div class="stat-label">PSNR 提升</div>
+                    </div>
+                </div>
+                
+                <div class="comparison-section" id="comparisonSection" style="display: none;">
+                    <h4>滤波器效果对比</h4>
+                    <div class="comparison-grid">
+                        <div class="comparison-item">
+                            <canvas id="compOriginal" width="150" height="150"></canvas>
+                            <div class="label">原图</div>
+                        </div>
+                        <div class="comparison-item">
+                            <canvas id="compMean" width="150" height="150"></canvas>
+                            <div class="label">均值滤波</div>
+                            <div class="psnr" id="psnrMean">-</div>
+                        </div>
+                        <div class="comparison-item">
+                            <canvas id="compGaussian" width="150" height="150"></canvas>
+                            <div class="label">高斯滤波</div>
+                            <div class="psnr" id="psnrGaussian">-</div>
+                        </div>
+                        <div class="comparison-item">
+                            <canvas id="compMedian" width="150" height="150"></canvas>
+                            <div class="label">中值滤波</div>
+                            <div class="psnr" id="psnrMedian">-</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="explanation">
+                    <h4>卷积操作原理</h4>
+                    <p>
+                        <strong>卷积</strong>是图像处理的核心操作。将一个小矩阵（滤波核/Kernel）在图像上滑动，
+                        对每个位置计算核与对应像素的加权和，得到新的像素值。
+                    </p>
+                    <div class="noise-types">
+                        <div class="noise-type-card">
+                            <h5>高斯噪声</h5>
+                            <p>服从正态分布的连续噪声，影响整体图像。高斯滤波效果较好。</p>
+                        </div>
+                        <div class="noise-type-card">
+                            <h5>椒盐噪声</h5>
+                            <p>随机的黑点（椒）和白点（盐）。中值滤波效果极佳。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ==================== 全局变量 ====================
+        let originalImageData = null;  // 原始图像
+        let noisyImageData = null;     // 含噪声图像
+        let filteredImageData = null;  // 去噪后图像
+        
+        // ==================== 初始化 ====================
+        document.getElementById('imageInput').addEventListener('change', handleImageUpload);
+        document.getElementById('noiseIntensity').addEventListener('input', (e) => {
+            document.getElementById('noiseValue').textContent = e.target.value;
+        });
+        document.getElementById('kernelSize').addEventListener('input', (e) => {
+            document.getElementById('kernelValue').textContent = e.target.value;
+            document.getElementById('kernelValue2').textContent = e.target.value;
+        });
+        document.getElementById('sigma').addEventListener('input', (e) => {
+            document.getElementById('sigmaValue').textContent = e.target.value;
+        });
+        document.getElementById('filterType').addEventListener('change', () => {
+            const filterType = document.getElementById('filterType').value;
+            document.getElementById('sigmaControl').style.display = 
+                filterType === 'gaussian' ? 'block' : 'none';
+        });
+        
+        // 初始化时加载示例图像
+        loadSampleImage();
+        updateKernelDisplay();
+        
+        // ==================== 图像加载 ====================
+        
+        /**
+         * 处理用户上传的图片
+         */
+        function handleImageUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const img = new Image();
+                img.onload = function() {
+                    loadImage(img);
+                };
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+        
+        /**
+         * 加载示例图片
+         */
+        function loadSampleImage() {
+            // 创建一个简单的示例图像（带文字的灰度图）
+            const canvas = document.createElement('canvas');
+            canvas.width = 200;
+            canvas.height = 200;
+            const ctx = canvas.getContext('2d');
+            
+            // 白色背景
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(0, 0, 200, 200);
+            
+            // 绘制一些文字
+            ctx.fillStyle = '#000000';
+            ctx.font = 'bold 48px Arial';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('OCR', 100, 80);
+            
+            ctx.font = '24px Arial';
+            ctx.fillText('去噪测试', 100, 140);
+            
+            // 绘制一些图形
+            ctx.strokeStyle = '#333333';
+            ctx.lineWidth = 2;
+            ctx.strokeRect(20, 20, 160, 160);
+            
+            const img = new Image();
+            img.onload = function() {
+                loadImage(img);
+            };
+            img.src = canvas.toDataURL();
+        }
+        
+        /**
+         * 加载图片到画布
+         */
+        function loadImage(img) {
+            const canvas = document.getElementById('originalCanvas');
+            const ctx = canvas.getContext('2d');
+            
+            // 调整画布大小
+            const maxSize = 300;
+            let width = img.width;
+            let height = img.height;
+            
+            if (width > maxSize || height > maxSize) {
+                const ratio = Math.min(maxSize / width, maxSize / height);
+                width = Math.floor(width * ratio);
+                height = Math.floor(height * ratio);
+            }
+            
+            canvas.width = width;
+            canvas.height = height;
+            
+            // 绘制图像
+            ctx.drawImage(img, 0, 0, width, height);
+            
+            // 转为灰度图
+            originalImageData = ctx.getImageData(0, 0, width, height);
+            originalImageData = grayscaleImage(originalImageData);
+            ctx.putImageData(originalImageData, 0, 0);
+            
+            // 同步到其他画布
+            resizeCanvas('noisyCanvas', width, height);
+            resizeCanvas('filteredCanvas', width, height);
+            
+            // 清空噪声和滤波结果
+            noisyImageData = null;
+            filteredImageData = null;
+            
+            clearCanvas('noisyCanvas');
+            clearCanvas('filteredCanvas');
+            
+            document.getElementById('noiseInfo').textContent = '-';
+            document.getElementById('filterInfo').textContent = '-';
+            updateStats();
+        }
+        
+        /**
+         * 调整画布大小
+         */
+        function resizeCanvas(canvasId, width, height) {
+            const canvas = document.getElementById(canvasId);
+            canvas.width = width;
+            canvas.height = height;
+        }
+        
+        /**
+         * 清空画布
+         */
+        function clearCanvas(canvasId) {
+            const canvas = document.getElementById(canvasId);
+            const ctx = canvas.getContext('2d');
+            ctx.fillStyle = '#1a1a2e';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+        }
+        
+        // ==================== 灰度化 ====================
+        
+        /**
+         * 将图像转换为灰度图
+         */
+        function grayscaleImage(imageData) {
+            const data = imageData.data;
+            for (let i = 0; i < data.length; i += 4) {
+                const gray = Math.round(0.299 * data[i] + 0.587 * data[i + 1] + 0.114 * data[i + 2]);
+                data[i] = gray;
+                data[i + 1] = gray;
+                data[i + 2] = gray;
+            }
+            return imageData;
+        }
+        
+        // ==================== 噪声添加 ====================
+        
+        /**
+         * 添加噪声
+         */
+        function addNoise() {
+            if (!originalImageData) {
+                alert('请先加载图片！');
+                return;
+            }
+            
+            const noiseType = document.getElementById('noiseType').value;
+            const intensity = parseInt(document.getElementById('noiseIntensity').value);
+            
+            // 克隆原始图像
+            noisyImageData = cloneImageData(originalImageData);
+            
+            if (noiseType === 'gaussian') {
+                addGaussianNoise(noisyImageData, intensity);
+                document.getElementById('noiseInfo').textContent = 
+                    `高斯噪声 (σ=${intensity})`;
+            } else {
+                addSaltPepperNoise(noisyImageData, intensity / 100);
+                document.getElementById('noiseInfo').textContent = 
+                    `椒盐噪声 (密度=${intensity}%)`;
+            }
+            
+            // 显示噪声图像
+            const canvas = document.getElementById('noisyCanvas');
+            const ctx = canvas.getContext('2d');
+            ctx.putImageData(noisyImageData, 0, 0);
+            
+            // 清空滤波结果
+            filteredImageData = null;
+            clearCanvas('filteredCanvas');
+            document.getElementById('filterInfo').textContent = '-';
+            
+            updateStats();
+        }
+        
+        /**
+         * 添加高斯噪声
+         */
+        function addGaussianNoise(imageData, sigma) {
+            const data = imageData.data;
+            for (let i = 0; i < data.length; i += 4) {
+                // Box-Muller 变换生成高斯随机数
+                const u1 = Math.random();
+                const u2 = Math.random();
+                const z = Math.sqrt(-2 * Math.log(u1)) * Math.cos(2 * Math.PI * u2);
+                const noise = z * sigma;
+                
+                const newValue = clamp(Math.round(data[i] + noise), 0, 255);
+                data[i] = newValue;
+                data[i + 1] = newValue;
+                data[i + 2] = newValue;
+            }
+        }
+        
+        /**
+         * 添加椒盐噪声
+         */
+        function addSaltPepperNoise(imageData, density) {
+            const { width, height, data } = imageData;
+            const totalPixels = width * height;
+            const noisePixels = Math.floor(totalPixels * density);
+            
+            for (let i = 0; i < noisePixels; i++) {
+                const x = Math.floor(Math.random() * width);
+                const y = Math.floor(Math.random() * height);
+                const index = (y * width + x) * 4;
+                
+                const value = Math.random() < 0.5 ? 0 : 255;
+                data[index] = value;
+                data[index + 1] = value;
+                data[index + 2] = value;
+            }
+        }
+        
+        // ==================== 滤波器 ====================
+        
+        /**
+         * 应用滤波器
+         */
+        function applyFilter() {
+            if (!noisyImageData) {
+                alert('请先添加噪声！');
+                return;
+            }
+            
+            const filterType = document.getElementById('filterType').value;
+            const kernelSize = parseInt(document.getElementById('kernelSize').value);
+            const sigma = parseFloat(document.getElementById('sigma').value);
+            
+            const startTime = performance.now();
+            
+            if (filterType === 'mean') {
+                filteredImageData = meanFilter(noisyImageData, kernelSize);
+                document.getElementById('filterInfo').textContent = 
+                    `均值滤波 (${kernelSize}×${kernelSize})`;
+            } else if (filterType === 'gaussian') {
+                filteredImageData = gaussianFilter(noisyImageData, kernelSize, sigma);
+                document.getElementById('filterInfo').textContent = 
+                    `高斯滤波 (${kernelSize}×${kernelSize}, σ=${sigma})`;
+            } else {
+                filteredImageData = medianFilter(noisyImageData, kernelSize);
+                document.getElementById('filterInfo').textContent = 
+                    `中值滤波 (${kernelSize}×${kernelSize})`;
+            }
+            
+            const endTime = performance.now();
+            document.getElementById('filterInfo').textContent += 
+                ` - ${(endTime - startTime).toFixed(1)}ms`;
+            
+            // 显示滤波结果
+            const canvas = document.getElementById('filteredCanvas');
+            const ctx = canvas.getContext('2d');
+            ctx.putImageData(filteredImageData, 0, 0);
+            
+            updateStats();
+        }
+        
+        /**
+         * 均值滤波
+         */
+        function meanFilter(imageData, size) {
+            const kernel = createMeanKernel(size);
+            return convolve(imageData, kernel);
+        }
+        
+        /**
+         * 高斯滤波
+         */
+        function gaussianFilter(imageData, size, sigma) {
+            const kernel = createGaussianKernel(size, sigma);
+            return convolve(imageData, kernel);
+        }
+        
+        /**
+         * 中值滤波
+         */
+        function medianFilter(imageData, size) {
+            const { width, height } = imageData;
+            const result = cloneImageData(imageData);
+            const halfSize = Math.floor(size / 2);
+            
+            for (let y = 0; y < height; y++) {
+                for (let x = 0; x < width; x++) {
+                    const values = [];
+                    
+                    for (let dy = -halfSize; dy <= halfSize; dy++) {
+                        for (let dx = -halfSize; dx <= halfSize; dx++) {
+                            const imgX = clamp(x + dx, 0, width - 1);
+                            const imgY = clamp(y + dy, 0, height - 1);
+                            const index = (imgY * width + imgX) * 4;
+                            values.push(imageData.data[index]);
+                        }
+                    }
+                    
+                    values.sort((a, b) => a - b);
+                    const median = values[Math.floor(values.length / 2)];
+                    
+                    const index = (y * width + x) * 4;
+                    result.data[index] = median;
+                    result.data[index + 1] = median;
+                    result.data[index + 2] = median;
+                }
+            }
+            
+            return result;
+        }
+        
+        /**
+         * 卷积操作
+         */
+        function convolve(imageData, kernel) {
+            const { width, height } = imageData;
+            const result = cloneImageData(imageData);
+            
+            const kernelSize = kernel.length;
+            const halfKernel = Math.floor(kernelSize / 2);
+            
+            for (let y = 0; y < height; y++) {
+                for (let x = 0; x < width; x++) {
+                    let sum = 0;
+                    
+                    for (let ky = 0; ky < kernelSize; ky++) {
+                        for (let kx = 0; kx < kernelSize; kx++) {
+                            const imgX = clamp(x + kx - halfKernel, 0, width - 1);
+                            const imgY = clamp(y + ky - halfKernel, 0, height - 1);
+                            
+                            const index = (imgY * width + imgX) * 4;
+                            sum += imageData.data[index] * kernel[ky][kx];
+                        }
+                    }
+                    
+                    const newValue = clamp(Math.round(sum), 0, 255);
+                    const index = (y * width + x) * 4;
+                    result.data[index] = newValue;
+                    result.data[index + 1] = newValue;
+                    result.data[index + 2] = newValue;
+                }
+            }
+            
+            return result;
+        }
+        
+        // ==================== 滤波核 ====================
+        
+        /**
+         * 创建均值核
+         */
+        function createMeanKernel(size) {
+            const weight = 1 / (size * size);
+            const kernel = [];
+            for (let y = 0; y < size; y++) {
+                const row = [];
+                for (let x = 0; x < size; x++) {
+                    row.push(weight);
+                }
+                kernel.push(row);
+            }
+            return kernel;
+        }
+        
+        /**
+         * 创建高斯核
+         */
+        function createGaussianKernel(size, sigma) {
+            const kernel = [];
+            const center = Math.floor(size / 2);
+            let sum = 0;
+            
+            for (let y = 0; y < size; y++) {
+                const row = [];
+                for (let x = 0; x < size; x++) {
+                    const dx = x - center;
+                    const dy = y - center;
+                    const value = Math.exp(-(dx * dx + dy * dy) / (2 * sigma * sigma));
+                    row.push(value);
+                    sum += value;
+                }
+                kernel.push(row);
+            }
+            
+            // 归一化
+            for (let y = 0; y < size; y++) {
+                for (let x = 0; x < size; x++) {
+                    kernel[y][x] /= sum;
+                }
+            }
+            
+            return kernel;
+        }
+        
+        /**
+         * 更新滤波核显示
+         */
+        function updateKernelDisplay() {
+            const filterType = document.getElementById('filterType').value;
+            const size = parseInt(document.getElementById('kernelSize').value);
+            const sigma = parseFloat(document.getElementById('sigma').value);
+            
+            let kernel;
+            if (filterType === 'mean') {
+                kernel = createMeanKernel(size);
+            } else if (filterType === 'gaussian') {
+                kernel = createGaussianKernel(size, sigma);
+            } else {
+                // 中值滤波没有核，显示提示
+                const grid = document.getElementById('kernelGrid');
+                grid.innerHTML = '<div style="padding: 20px; color: #888;">中值滤波不使用卷积核<br>而是对邻域排序取中值</div>';
+                grid.style.gridTemplateColumns = '1fr';
+                return;
+            }
+            
+            const grid = document.getElementById('kernelGrid');
+            grid.innerHTML = '';
+            grid.style.gridTemplateColumns = `repeat(${size}, 1fr)`;
+            
+            for (let y = 0; y < size; y++) {
+                for (let x = 0; x < size; x++) {
+                    const cell = document.createElement('div');
+                    cell.className = 'kernel-cell';
+                    cell.textContent = kernel[y][x].toFixed(3);
+                    grid.appendChild(cell);
+                }
+            }
+        }
+        
+        // ==================== 工具函数 ====================
+        
+        /**
+         * 限制值在范围内
+         */
+        function clamp(value, min, max) {
+            return Math.max(min, Math.min(max, value));
+        }
+        
+        /**
+         * 克隆 ImageData
+         */
+        function cloneImageData(imageData) {
+            const canvas = document.createElement('canvas');
+            canvas.width = imageData.width;
+            canvas.height = imageData.height;
+            const ctx = canvas.getContext('2d');
+            ctx.putImageData(imageData, 0, 0);
+            return ctx.getImageData(0, 0, imageData.width, imageData.height);
+        }
+        
+        /**
+         * 计算 PSNR
+         */
+        function calculatePSNR(original, processed) {
+            const { width, height } = original;
+            let mse = 0;
+            
+            for (let i = 0; i < original.data.length; i += 4) {
+                const diff = original.data[i] - processed.data[i];
+                mse += diff * diff;
+            }
+            
+            mse /= (width * height);
+            
+            if (mse === 0) return Infinity;
+            
+            return 10 * Math.log10((255 * 255) / mse);
+        }
+        
+        /**
+         * 更新统计信息
+         */
+        function updateStats() {
+            if (!originalImageData) {
+                document.getElementById('psnrNoisy').textContent = '-';
+                document.getElementById('psnrFiltered').textContent = '-';
+                document.getElementById('psnrImprove').textContent = '-';
+                return;
+            }
+            
+            let psnrNoisy = 0;
+            let psnrFiltered = 0;
+            
+            if (noisyImageData) {
+                psnrNoisy = calculatePSNR(originalImageData, noisyImageData);
+                document.getElementById('psnrNoisy').textContent = 
+                    isFinite(psnrNoisy) ? psnrNoisy.toFixed(2) : '∞';
+            } else {
+                document.getElementById('psnrNoisy').textContent = '-';
+            }
+            
+            if (filteredImageData) {
+                psnrFiltered = calculatePSNR(originalImageData, filteredImageData);
+                document.getElementById('psnrFiltered').textContent = 
+                    isFinite(psnrFiltered) ? psnrFiltered.toFixed(2) : '∞';
+                
+                const improve = psnrFiltered - psnrNoisy;
+                document.getElementById('psnrImprove').textContent = 
+                    (improve >= 0 ? '+' : '') + improve.toFixed(2);
+                document.getElementById('psnrImprove').style.color = 
+                    improve >= 0 ? '#4caf50' : '#f44336';
+            } else {
+                document.getElementById('psnrFiltered').textContent = '-';
+                document.getElementById('psnrImprove').textContent = '-';
+            }
+        }
+        
+        /**
+         * 重置为原图
+         */
+        function resetImage() {
+            if (!originalImageData) return;
+            
+            noisyImageData = null;
+            filteredImageData = null;
+            
+            clearCanvas('noisyCanvas');
+            clearCanvas('filteredCanvas');
+            
+            document.getElementById('noiseInfo').textContent = '-';
+            document.getElementById('filterInfo').textContent = '-';
+            
+            document.getElementById('comparisonSection').style.display = 'none';
+            
+            updateStats();
+        }
+        
+        /**
+         * 对比所有滤波器
+         */
+        function compareAllFilters() {
+            if (!noisyImageData) {
+                alert('请先添加噪声！');
+                return;
+            }
+            
+            const kernelSize = parseInt(document.getElementById('kernelSize').value);
+            const sigma = parseFloat(document.getElementById('sigma').value);
+            
+            // 显示对比区域
+            document.getElementById('comparisonSection').style.display = 'block';
+            
+            // 调整对比画布大小
+            const width = noisyImageData.width;
+            const height = noisyImageData.height;
+            
+            ['compOriginal', 'compMean', 'compGaussian', 'compMedian'].forEach(id => {
+                const canvas = document.getElementById(id);
+                canvas.width = width;
+                canvas.height = height;
+            });
+            
+            // 显示原图（噪声图）
+            const origCtx = document.getElementById('compOriginal').getContext('2d');
+            origCtx.putImageData(noisyImageData, 0, 0);
+            
+            // 应用三种滤波器
+            const meanResult = meanFilter(noisyImageData, kernelSize);
+            const gaussResult = gaussianFilter(noisyImageData, kernelSize, sigma);
+            const medianResult = medianFilter(noisyImageData, kernelSize);
+            
+            document.getElementById('compMean').getContext('2d').putImageData(meanResult, 0, 0);
+            document.getElementById('compGaussian').getContext('2d').putImageData(gaussResult, 0, 0);
+            document.getElementById('compMedian').getContext('2d').putImageData(medianResult, 0, 0);
+            
+            // 计算并显示 PSNR
+            const psnrMean = calculatePSNR(originalImageData, meanResult);
+            const psnrGaussian = calculatePSNR(originalImageData, gaussResult);
+            const psnrMedian = calculatePSNR(originalImageData, medianResult);
+            
+            document.getElementById('psnrMean').textContent = 
+                `PSNR: ${psnrMean.toFixed(2)} dB`;
+            document.getElementById('psnrGaussian').textContent = 
+                `PSNR: ${psnrGaussian.toFixed(2)} dB`;
+            document.getElementById('psnrMedian').textContent = 
+                `PSNR: ${psnrMedian.toFixed(2)} dB`;
+        }
+    </script>
+</body>
+</html>

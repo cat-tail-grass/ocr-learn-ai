@@ -1,0 +1,1225 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>06. 形态学操作 (Morphological Operations)</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #e0e0e0;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            text-align: center;
+            margin-bottom: 10px;
+            color: #4fc3f7;
+            font-size: 2em;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #888;
+            margin-bottom: 30px;
+        }
+        
+        .main-content {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 20px;
+        }
+        
+        .control-panel {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .panel-section {
+            margin-bottom: 25px;
+        }
+        
+        .panel-section h3 {
+            color: #4fc3f7;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .panel-section h3::before {
+            content: '';
+            width: 4px;
+            height: 20px;
+            background: #4fc3f7;
+            border-radius: 2px;
+        }
+        
+        .control-group {
+            margin-bottom: 15px;
+        }
+        
+        .control-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #aaa;
+            font-size: 0.9em;
+        }
+        
+        .control-group select,
+        .control-group input[type="file"] {
+            width: 100%;
+            padding: 8px 12px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            color: #fff;
+            font-size: 0.95em;
+        }
+        
+        .control-group select:focus {
+            outline: none;
+            border-color: #4fc3f7;
+        }
+        
+        .slider-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .slider-container input[type="range"] {
+            flex: 1;
+            -webkit-appearance: none;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 3px;
+        }
+        
+        .slider-container input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 18px;
+            height: 18px;
+            background: #4fc3f7;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        
+        .slider-value {
+            min-width: 40px;
+            text-align: center;
+            font-weight: bold;
+            color: #4fc3f7;
+        }
+        
+        .btn {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 10px;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #4fc3f7, #2196f3);
+            color: #fff;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(79, 195, 247, 0.4);
+        }
+        
+        .btn-erode {
+            background: linear-gradient(135deg, #ff5722, #e64a19);
+            color: #fff;
+        }
+        
+        .btn-erode:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(255, 87, 34, 0.4);
+        }
+        
+        .btn-dilate {
+            background: linear-gradient(135deg, #4caf50, #388e3c);
+            color: #fff;
+        }
+        
+        .btn-dilate:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(76, 175, 80, 0.4);
+        }
+        
+        .btn-open {
+            background: linear-gradient(135deg, #9c27b0, #7b1fa2);
+            color: #fff;
+        }
+        
+        .btn-open:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(156, 39, 176, 0.4);
+        }
+        
+        .btn-close {
+            background: linear-gradient(135deg, #ff9800, #f57c00);
+            color: #fff;
+        }
+        
+        .btn-close:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(255, 152, 0, 0.4);
+        }
+        
+        .btn-gradient {
+            background: linear-gradient(135deg, #00bcd4, #0097a7);
+            color: #fff;
+        }
+        
+        .btn-gradient:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0, 188, 212, 0.4);
+        }
+        
+        .btn-reset {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .btn-reset:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .display-panel {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .canvas-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .canvas-container {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+        }
+        
+        .canvas-container h4 {
+            color: #4fc3f7;
+            margin-bottom: 10px;
+            font-size: 1em;
+        }
+        
+        .canvas-container canvas {
+            max-width: 100%;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            background: #000;
+            image-rendering: pixelated;
+        }
+        
+        .info-text {
+            color: #888;
+            font-size: 0.85em;
+            margin-top: 5px;
+        }
+        
+        .stats-panel {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .stat-card {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+        }
+        
+        .stat-card .stat-value {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #4fc3f7;
+        }
+        
+        .stat-card .stat-label {
+            color: #888;
+            font-size: 0.85em;
+            margin-top: 5px;
+        }
+        
+        .se-display {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 15px;
+        }
+        
+        .se-display h4 {
+            color: #4fc3f7;
+            margin-bottom: 10px;
+            font-size: 0.95em;
+        }
+        
+        .se-grid {
+            display: inline-grid;
+            gap: 2px;
+            background: rgba(79, 195, 247, 0.2);
+            padding: 5px;
+            border-radius: 5px;
+        }
+        
+        .se-cell {
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8em;
+            font-family: monospace;
+            border-radius: 3px;
+        }
+        
+        .se-cell.active {
+            background: #4fc3f7;
+            color: #000;
+        }
+        
+        .se-cell.inactive {
+            background: rgba(0, 0, 0, 0.5);
+            color: #666;
+        }
+        
+        .comparison-section {
+            margin-top: 20px;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+        }
+        
+        .comparison-section h4 {
+            color: #4fc3f7;
+            margin-bottom: 15px;
+        }
+        
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+        }
+        
+        .comparison-item {
+            text-align: center;
+        }
+        
+        .comparison-item canvas {
+            width: 100%;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            background: #000;
+            image-rendering: pixelated;
+        }
+        
+        .comparison-item .label {
+            margin-top: 5px;
+            font-size: 0.8em;
+            color: #aaa;
+        }
+        
+        .comparison-item .pixels {
+            font-size: 0.75em;
+            color: #4caf50;
+            font-weight: bold;
+        }
+        
+        .explanation {
+            background: rgba(79, 195, 247, 0.1);
+            border-left: 4px solid #4fc3f7;
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 0 10px 10px 0;
+        }
+        
+        .explanation h4 {
+            color: #4fc3f7;
+            margin-bottom: 10px;
+        }
+        
+        .explanation p {
+            color: #ccc;
+            line-height: 1.6;
+            font-size: 0.95em;
+            margin-bottom: 10px;
+        }
+        
+        .operation-cards {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .operation-card {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px;
+            border-radius: 10px;
+        }
+        
+        .operation-card h5 {
+            margin-bottom: 8px;
+        }
+        
+        .operation-card.erode h5 { color: #ff5722; }
+        .operation-card.dilate h5 { color: #4caf50; }
+        .operation-card.open h5 { color: #9c27b0; }
+        .operation-card.close h5 { color: #ff9800; }
+        
+        .operation-card p {
+            font-size: 0.85em;
+            color: #aaa;
+        }
+        
+        .formula {
+            font-family: 'Times New Roman', serif;
+            font-style: italic;
+            color: #4fc3f7;
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>06. 形态学操作 (Morphological Operations)</h1>
+        <p class="subtitle">学习结构元素、腐蚀、膨胀、开运算、闭运算</p>
+        
+        <div class="main-content">
+            <!-- 控制面板 -->
+            <div class="control-panel">
+                <div class="panel-section">
+                    <h3>图像输入</h3>
+                    <div class="control-group">
+                        <label>选择图片</label>
+                        <input type="file" id="imageInput" accept="image/*">
+                    </div>
+                    <button class="btn btn-primary" onclick="loadSampleImage()">
+                        使用示例图片
+                    </button>
+                    <button class="btn btn-primary" onclick="loadTextImage()">
+                        使用文字图片
+                    </button>
+                </div>
+                
+                <div class="panel-section">
+                    <h3>结构元素</h3>
+                    <div class="control-group">
+                        <label>形状类型</label>
+                        <select id="seShape" onchange="updateSEDisplay()">
+                            <option value="rect">矩形 (Rectangle)</option>
+                            <option value="cross">十字形 (Cross)</option>
+                            <option value="ellipse">椭圆形 (Ellipse)</option>
+                        </select>
+                    </div>
+                    <div class="control-group">
+                        <label>大小: <span id="seSizeValue">3</span>×<span id="seSizeValue2">3</span></label>
+                        <div class="slider-container">
+                            <input type="range" id="seSize" min="3" max="9" step="2" value="3" onchange="updateSEDisplay()">
+                        </div>
+                    </div>
+                    <div class="se-display">
+                        <h4>结构元素预览</h4>
+                        <div class="se-grid" id="seGrid"></div>
+                    </div>
+                </div>
+                
+                <div class="panel-section">
+                    <h3>形态学操作</h3>
+                    <button class="btn btn-erode" onclick="applyErode()">
+                        腐蚀 (Erosion)
+                    </button>
+                    <button class="btn btn-dilate" onclick="applyDilate()">
+                        膨胀 (Dilation)
+                    </button>
+                    <button class="btn btn-open" onclick="applyOpen()">
+                        开运算 (Opening)
+                    </button>
+                    <button class="btn btn-close" onclick="applyClose()">
+                        闭运算 (Closing)
+                    </button>
+                    <button class="btn btn-gradient" onclick="applyGradient()">
+                        形态学梯度 (Gradient)
+                    </button>
+                </div>
+                
+                <div class="panel-section">
+                    <h3>操作</h3>
+                    <button class="btn btn-primary" onclick="compareAllOperations()">
+                        对比所有操作
+                    </button>
+                    <button class="btn btn-reset" onclick="resetImage()">
+                        重置为原图
+                    </button>
+                </div>
+            </div>
+            
+            <!-- 显示面板 -->
+            <div class="display-panel">
+                <div class="canvas-grid">
+                    <div class="canvas-container">
+                        <h4>原始二值图像</h4>
+                        <canvas id="originalCanvas" width="300" height="300"></canvas>
+                        <p class="info-text" id="originalInfo">-</p>
+                    </div>
+                    <div class="canvas-container">
+                        <h4>处理结果</h4>
+                        <canvas id="resultCanvas" width="300" height="300"></canvas>
+                        <p class="info-text" id="resultInfo">-</p>
+                    </div>
+                </div>
+                
+                <div class="stats-panel">
+                    <div class="stat-card">
+                        <div class="stat-value" id="originalPixels">-</div>
+                        <div class="stat-label">原图前景像素</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="resultPixels">-</div>
+                        <div class="stat-label">结果前景像素</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="pixelChange">-</div>
+                        <div class="stat-label">像素变化</div>
+                    </div>
+                </div>
+                
+                <div class="comparison-section" id="comparisonSection" style="display: none;">
+                    <h4>形态学操作效果对比</h4>
+                    <div class="comparison-grid">
+                        <div class="comparison-item">
+                            <canvas id="compOriginal" width="150" height="150"></canvas>
+                            <div class="label">原图</div>
+                            <div class="pixels" id="compOriginalPixels">-</div>
+                        </div>
+                        <div class="comparison-item">
+                            <canvas id="compErode" width="150" height="150"></canvas>
+                            <div class="label">腐蚀</div>
+                            <div class="pixels" id="compErodePixels">-</div>
+                        </div>
+                        <div class="comparison-item">
+                            <canvas id="compDilate" width="150" height="150"></canvas>
+                            <div class="label">膨胀</div>
+                            <div class="pixels" id="compDilatePixels">-</div>
+                        </div>
+                        <div class="comparison-item">
+                            <canvas id="compOpen" width="150" height="150"></canvas>
+                            <div class="label">开运算</div>
+                            <div class="pixels" id="compOpenPixels">-</div>
+                        </div>
+                        <div class="comparison-item">
+                            <canvas id="compClose" width="150" height="150"></canvas>
+                            <div class="label">闭运算</div>
+                            <div class="pixels" id="compClosePixels">-</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="explanation">
+                    <h4>形态学操作原理</h4>
+                    <p>
+                        <strong>形态学操作</strong>是基于形状的图像处理技术，使用<strong>结构元素</strong>作为"探针"
+                        在图像上滑动，根据结构元素与图像的匹配关系决定输出。常用于二值图像的噪声去除、
+                        区域填充、边缘提取等。
+                    </p>
+                    <div class="operation-cards">
+                        <div class="operation-card erode">
+                            <h5>腐蚀 (Erosion)</h5>
+                            <p>只有当结构元素完全匹配前景时，中心像素才保留。效果：缩小区域，去除噪点。</p>
+                            <div class="formula">A ⊖ B = {z | B<sub>z</sub> ⊆ A}</div>
+                        </div>
+                        <div class="operation-card dilate">
+                            <h5>膨胀 (Dilation)</h5>
+                            <p>只要结构元素有任意部分与前景重叠，中心像素就变为前景。效果：扩大区域，填补空洞。</p>
+                            <div class="formula">A ⊕ B = {z | B̂<sub>z</sub> ∩ A ≠ ∅}</div>
+                        </div>
+                        <div class="operation-card open">
+                            <h5>开运算 (Opening)</h5>
+                            <p>先腐蚀后膨胀。效果：去除小噪点，同时保持主体形状不变。</p>
+                            <div class="formula">A ∘ B = (A ⊖ B) ⊕ B</div>
+                        </div>
+                        <div class="operation-card close">
+                            <h5>闭运算 (Closing)</h5>
+                            <p>先膨胀后腐蚀。效果：填补小空洞，连接断裂区域，同时保持主体形状。</p>
+                            <div class="formula">A • B = (A ⊕ B) ⊖ B</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ==================== 全局变量 ====================
+        let originalImageData = null;  // 原始二值图像
+        let resultImageData = null;    // 处理结果
+        
+        // ==================== 初始化 ====================
+        document.getElementById('imageInput').addEventListener('change', handleImageUpload);
+        document.getElementById('seSize').addEventListener('input', (e) => {
+            document.getElementById('seSizeValue').textContent = e.target.value;
+            document.getElementById('seSizeValue2').textContent = e.target.value;
+        });
+        
+        // 初始化时加载示例图像
+        loadSampleImage();
+        updateSEDisplay();
+        
+        // ==================== 结构元素 ====================
+        
+        /**
+         * 创建结构元素
+         * 
+         * 原理说明：
+         * - 结构元素是形态学操作的"模板"
+         * - 1表示有效区域，0表示忽略
+         */
+        function createStructuringElement(shape, size) {
+            if (size % 2 === 0) size = size + 1;
+            
+            const element = [];
+            const center = Math.floor(size / 2);
+            
+            for (let y = 0; y < size; y++) {
+                const row = [];
+                for (let x = 0; x < size; x++) {
+                    let value = 0;
+                    
+                    if (shape === 'rect') {
+                        value = 1;
+                    } else if (shape === 'cross') {
+                        if (x === center || y === center) {
+                            value = 1;
+                        }
+                    } else if (shape === 'ellipse') {
+                        const dx = x - center;
+                        const dy = y - center;
+                        const radius = center + 0.5;
+                        if (dx * dx + dy * dy <= radius * radius) {
+                            value = 1;
+                        }
+                    }
+                    
+                    row.push(value);
+                }
+                element.push(row);
+            }
+            
+            return element;
+        }
+        
+        /**
+         * 更新结构元素显示
+         */
+        function updateSEDisplay() {
+            const shape = document.getElementById('seShape').value;
+            const size = parseInt(document.getElementById('seSize').value);
+            
+            const se = createStructuringElement(shape, size);
+            
+            const grid = document.getElementById('seGrid');
+            grid.innerHTML = '';
+            grid.style.gridTemplateColumns = `repeat(${size}, 1fr)`;
+            
+            for (let y = 0; y < size; y++) {
+                for (let x = 0; x < size; x++) {
+                    const cell = document.createElement('div');
+                    cell.className = `se-cell ${se[y][x] === 1 ? 'active' : 'inactive'}`;
+                    cell.textContent = se[y][x];
+                    grid.appendChild(cell);
+                }
+            }
+        }
+        
+        // ==================== 图像加载 ====================
+        
+        /**
+         * 处理用户上传的图片
+         */
+        function handleImageUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const img = new Image();
+                img.onload = function() {
+                    loadImage(img);
+                };
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+        
+        /**
+         * 加载示例图片（带噪点和空洞的几何图形）
+         */
+        function loadSampleImage() {
+            const canvas = document.createElement('canvas');
+            canvas.width = 200;
+            canvas.height = 200;
+            const ctx = canvas.getContext('2d');
+            
+            // 黑色背景
+            ctx.fillStyle = '#000000';
+            ctx.fillRect(0, 0, 200, 200);
+            
+            // 绘制白色矩形（主体）
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(40, 40, 120, 120);
+            
+            // 添加一些小空洞（模拟断裂）
+            ctx.fillStyle = '#000000';
+            ctx.fillRect(70, 70, 5, 5);
+            ctx.fillRect(100, 90, 4, 4);
+            ctx.fillRect(85, 120, 6, 6);
+            
+            // 添加一些噪点
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(10, 10, 3, 3);
+            ctx.fillRect(180, 15, 4, 4);
+            ctx.fillRect(15, 175, 3, 3);
+            ctx.fillRect(175, 180, 4, 4);
+            ctx.fillRect(25, 100, 3, 3);
+            
+            const img = new Image();
+            img.onload = function() {
+                loadImage(img);
+            };
+            img.src = canvas.toDataURL();
+        }
+        
+        /**
+         * 加载文字图片
+         */
+        function loadTextImage() {
+            const canvas = document.createElement('canvas');
+            canvas.width = 200;
+            canvas.height = 200;
+            const ctx = canvas.getContext('2d');
+            
+            // 白色背景
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(0, 0, 200, 200);
+            
+            // 绘制黑色文字
+            ctx.fillStyle = '#000000';
+            ctx.font = 'bold 60px Arial';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('OCR', 100, 80);
+            
+            ctx.font = 'bold 30px Arial';
+            ctx.fillText('形态学', 100, 140);
+            
+            // 添加一些噪点
+            for (let i = 0; i < 50; i++) {
+                const x = Math.floor(Math.random() * 200);
+                const y = Math.floor(Math.random() * 200);
+                ctx.fillRect(x, y, 2, 2);
+            }
+            
+            const img = new Image();
+            img.onload = function() {
+                loadImage(img);
+            };
+            img.src = canvas.toDataURL();
+        }
+        
+        /**
+         * 加载图片到画布
+         */
+        function loadImage(img) {
+            const canvas = document.getElementById('originalCanvas');
+            const ctx = canvas.getContext('2d');
+            
+            // 调整画布大小
+            const maxSize = 300;
+            let width = img.width;
+            let height = img.height;
+            
+            if (width > maxSize || height > maxSize) {
+                const ratio = Math.min(maxSize / width, maxSize / height);
+                width = Math.floor(width * ratio);
+                height = Math.floor(height * ratio);
+            }
+            
+            canvas.width = width;
+            canvas.height = height;
+            
+            // 绘制图像
+            ctx.drawImage(img, 0, 0, width, height);
+            
+            // 转为二值图
+            originalImageData = ctx.getImageData(0, 0, width, height);
+            originalImageData = binarizeImage(originalImageData);
+            ctx.putImageData(originalImageData, 0, 0);
+            
+            // 同步到结果画布
+            resizeCanvas('resultCanvas', width, height);
+            
+            // 清空结果
+            resultImageData = null;
+            clearCanvas('resultCanvas');
+            
+            document.getElementById('originalInfo').textContent = `${width}×${height} 二值图`;
+            document.getElementById('resultInfo').textContent = '-';
+            updateStats();
+        }
+        
+        /**
+         * 二值化图像（使用 Otsu 方法）
+         */
+        function binarizeImage(imageData) {
+            const data = imageData.data;
+            
+            // 先转灰度
+            for (let i = 0; i < data.length; i += 4) {
+                const gray = Math.round(0.299 * data[i] + 0.587 * data[i + 1] + 0.114 * data[i + 2]);
+                data[i] = gray;
+                data[i + 1] = gray;
+                data[i + 2] = gray;
+            }
+            
+            // 计算直方图
+            const histogram = new Array(256).fill(0);
+            for (let i = 0; i < data.length; i += 4) {
+                histogram[data[i]]++;
+            }
+            
+            // Otsu 阈值
+            const total = imageData.width * imageData.height;
+            let sum = 0;
+            for (let i = 0; i < 256; i++) sum += i * histogram[i];
+            
+            let sumB = 0, wB = 0;
+            let maxVariance = 0, threshold = 128;
+            
+            for (let t = 0; t < 256; t++) {
+                wB += histogram[t];
+                if (wB === 0) continue;
+                
+                const wF = total - wB;
+                if (wF === 0) break;
+                
+                sumB += t * histogram[t];
+                const mB = sumB / wB;
+                const mF = (sum - sumB) / wF;
+                
+                const variance = wB * wF * (mB - mF) * (mB - mF);
+                
+                if (variance > maxVariance) {
+                    maxVariance = variance;
+                    threshold = t;
+                }
+            }
+            
+            // 应用阈值
+            for (let i = 0; i < data.length; i += 4) {
+                const value = data[i] >= threshold ? 255 : 0;
+                data[i] = value;
+                data[i + 1] = value;
+                data[i + 2] = value;
+            }
+            
+            return imageData;
+        }
+        
+        /**
+         * 调整画布大小
+         */
+        function resizeCanvas(canvasId, width, height) {
+            const canvas = document.getElementById(canvasId);
+            canvas.width = width;
+            canvas.height = height;
+        }
+        
+        /**
+         * 清空画布
+         */
+        function clearCanvas(canvasId) {
+            const canvas = document.getElementById(canvasId);
+            const ctx = canvas.getContext('2d');
+            ctx.fillStyle = '#1a1a2e';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+        }
+        
+        // ==================== 形态学操作 ====================
+        
+        /**
+         * 腐蚀操作
+         */
+        function erode(imageData, se) {
+            const { width, height } = imageData;
+            const result = cloneImageData(imageData);
+            const resultData = result.data;
+            
+            const seSize = se.length;
+            const seCenter = Math.floor(seSize / 2);
+            
+            // 先将结果全部设为黑色
+            for (let i = 0; i < resultData.length; i += 4) {
+                resultData[i] = 0;
+                resultData[i + 1] = 0;
+                resultData[i + 2] = 0;
+            }
+            
+            for (let y = 0; y < height; y++) {
+                for (let x = 0; x < width; x++) {
+                    let fits = true;
+                    
+                    for (let sy = 0; sy < seSize && fits; sy++) {
+                        for (let sx = 0; sx < seSize && fits; sx++) {
+                            if (se[sy][sx] === 1) {
+                                const imgX = x + sx - seCenter;
+                                const imgY = y + sy - seCenter;
+                                
+                                if (imgX < 0 || imgX >= width || imgY < 0 || imgY >= height) {
+                                    fits = false;
+                                } else {
+                                    const index = (imgY * width + imgX) * 4;
+                                    if (imageData.data[index] < 128) {
+                                        fits = false;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    
+                    if (fits) {
+                        const index = (y * width + x) * 4;
+                        resultData[index] = 255;
+                        resultData[index + 1] = 255;
+                        resultData[index + 2] = 255;
+                    }
+                }
+            }
+            
+            return result;
+        }
+        
+        /**
+         * 膨胀操作
+         */
+        function dilate(imageData, se) {
+            const { width, height } = imageData;
+            const result = cloneImageData(imageData);
+            const resultData = result.data;
+            
+            const seSize = se.length;
+            const seCenter = Math.floor(seSize / 2);
+            
+            // 先将结果全部设为黑色
+            for (let i = 0; i < resultData.length; i += 4) {
+                resultData[i] = 0;
+                resultData[i + 1] = 0;
+                resultData[i + 2] = 0;
+            }
+            
+            for (let y = 0; y < height; y++) {
+                for (let x = 0; x < width; x++) {
+                    let hits = false;
+                    
+                    for (let sy = 0; sy < seSize && !hits; sy++) {
+                        for (let sx = 0; sx < seSize && !hits; sx++) {
+                            if (se[sy][sx] === 1) {
+                                const imgX = x + sx - seCenter;
+                                const imgY = y + sy - seCenter;
+                                
+                                if (imgX >= 0 && imgX < width && imgY >= 0 && imgY < height) {
+                                    const index = (imgY * width + imgX) * 4;
+                                    if (imageData.data[index] >= 128) {
+                                        hits = true;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    
+                    if (hits) {
+                        const index = (y * width + x) * 4;
+                        resultData[index] = 255;
+                        resultData[index + 1] = 255;
+                        resultData[index + 2] = 255;
+                    }
+                }
+            }
+            
+            return result;
+        }
+        
+        /**
+         * 开运算（先腐蚀后膨胀）
+         */
+        function morphOpen(imageData, se) {
+            const eroded = erode(imageData, se);
+            return dilate(eroded, se);
+        }
+        
+        /**
+         * 闭运算（先膨胀后腐蚀）
+         */
+        function morphClose(imageData, se) {
+            const dilated = dilate(imageData, se);
+            return erode(dilated, se);
+        }
+        
+        /**
+         * 形态学梯度（膨胀 - 腐蚀）
+         */
+        function morphGradient(imageData, se) {
+            const dilated = dilate(imageData, se);
+            const eroded = erode(imageData, se);
+            
+            const result = cloneImageData(imageData);
+            const { width, height } = imageData;
+            
+            for (let i = 0; i < result.data.length; i += 4) {
+                const value = Math.max(0, dilated.data[i] - eroded.data[i]);
+                result.data[i] = value;
+                result.data[i + 1] = value;
+                result.data[i + 2] = value;
+            }
+            
+            return result;
+        }
+        
+        // ==================== 操作按钮 ====================
+        
+        function getCurrentSE() {
+            const shape = document.getElementById('seShape').value;
+            const size = parseInt(document.getElementById('seSize').value);
+            return createStructuringElement(shape, size);
+        }
+        
+        function applyErode() {
+            if (!originalImageData) {
+                alert('请先加载图片！');
+                return;
+            }
+            
+            const se = getCurrentSE();
+            const startTime = performance.now();
+            resultImageData = erode(originalImageData, se);
+            const endTime = performance.now();
+            
+            displayResult(`腐蚀操作 - ${(endTime - startTime).toFixed(1)}ms`);
+        }
+        
+        function applyDilate() {
+            if (!originalImageData) {
+                alert('请先加载图片！');
+                return;
+            }
+            
+            const se = getCurrentSE();
+            const startTime = performance.now();
+            resultImageData = dilate(originalImageData, se);
+            const endTime = performance.now();
+            
+            displayResult(`膨胀操作 - ${(endTime - startTime).toFixed(1)}ms`);
+        }
+        
+        function applyOpen() {
+            if (!originalImageData) {
+                alert('请先加载图片！');
+                return;
+            }
+            
+            const se = getCurrentSE();
+            const startTime = performance.now();
+            resultImageData = morphOpen(originalImageData, se);
+            const endTime = performance.now();
+            
+            displayResult(`开运算 - ${(endTime - startTime).toFixed(1)}ms`);
+        }
+        
+        function applyClose() {
+            if (!originalImageData) {
+                alert('请先加载图片！');
+                return;
+            }
+            
+            const se = getCurrentSE();
+            const startTime = performance.now();
+            resultImageData = morphClose(originalImageData, se);
+            const endTime = performance.now();
+            
+            displayResult(`闭运算 - ${(endTime - startTime).toFixed(1)}ms`);
+        }
+        
+        function applyGradient() {
+            if (!originalImageData) {
+                alert('请先加载图片！');
+                return;
+            }
+            
+            const se = getCurrentSE();
+            const startTime = performance.now();
+            resultImageData = morphGradient(originalImageData, se);
+            const endTime = performance.now();
+            
+            displayResult(`形态学梯度 - ${(endTime - startTime).toFixed(1)}ms`);
+        }
+        
+        function displayResult(info) {
+            const canvas = document.getElementById('resultCanvas');
+            const ctx = canvas.getContext('2d');
+            ctx.putImageData(resultImageData, 0, 0);
+            document.getElementById('resultInfo').textContent = info;
+            updateStats();
+        }
+        
+        // ==================== 工具函数 ====================
+        
+        /**
+         * 克隆 ImageData
+         */
+        function cloneImageData(imageData) {
+            const canvas = document.createElement('canvas');
+            canvas.width = imageData.width;
+            canvas.height = imageData.height;
+            const ctx = canvas.getContext('2d');
+            ctx.putImageData(imageData, 0, 0);
+            return ctx.getImageData(0, 0, imageData.width, imageData.height);
+        }
+        
+        /**
+         * 统计前景像素数
+         */
+        function countForegroundPixels(imageData) {
+            let count = 0;
+            for (let i = 0; i < imageData.data.length; i += 4) {
+                if (imageData.data[i] >= 128) count++;
+            }
+            return count;
+        }
+        
+        /**
+         * 更新统计信息
+         */
+        function updateStats() {
+            if (!originalImageData) {
+                document.getElementById('originalPixels').textContent = '-';
+                document.getElementById('resultPixels').textContent = '-';
+                document.getElementById('pixelChange').textContent = '-';
+                return;
+            }
+            
+            const originalCount = countForegroundPixels(originalImageData);
+            document.getElementById('originalPixels').textContent = originalCount.toLocaleString();
+            
+            if (resultImageData) {
+                const resultCount = countForegroundPixels(resultImageData);
+                document.getElementById('resultPixels').textContent = resultCount.toLocaleString();
+                
+                const change = resultCount - originalCount;
+                const changeText = (change >= 0 ? '+' : '') + change.toLocaleString();
+                document.getElementById('pixelChange').textContent = changeText;
+                document.getElementById('pixelChange').style.color = 
+                    change > 0 ? '#4caf50' : (change < 0 ? '#f44336' : '#888');
+            } else {
+                document.getElementById('resultPixels').textContent = '-';
+                document.getElementById('pixelChange').textContent = '-';
+            }
+        }
+        
+        /**
+         * 重置为原图
+         */
+        function resetImage() {
+            if (!originalImageData) return;
+            
+            resultImageData = null;
+            clearCanvas('resultCanvas');
+            document.getElementById('resultInfo').textContent = '-';
+            document.getElementById('comparisonSection').style.display = 'none';
+            updateStats();
+        }
+        
+        /**
+         * 对比所有操作
+         */
+        function compareAllOperations() {
+            if (!originalImageData) {
+                alert('请先加载图片！');
+                return;
+            }
+            
+            const se = getCurrentSE();
+            
+            // 显示对比区域
+            document.getElementById('comparisonSection').style.display = 'block';
+            
+            // 调整对比画布大小
+            const width = originalImageData.width;
+            const height = originalImageData.height;
+            
+            ['compOriginal', 'compErode', 'compDilate', 'compOpen', 'compClose'].forEach(id => {
+                const canvas = document.getElementById(id);
+                canvas.width = width;
+                canvas.height = height;
+            });
+            
+            // 显示原图
+            document.getElementById('compOriginal').getContext('2d').putImageData(originalImageData, 0, 0);
+            
+            // 应用各种操作
+            const erodeResult = erode(originalImageData, se);
+            const dilateResult = dilate(originalImageData, se);
+            const openResult = morphOpen(originalImageData, se);
+            const closeResult = morphClose(originalImageData, se);
+            
+            document.getElementById('compErode').getContext('2d').putImageData(erodeResult, 0, 0);
+            document.getElementById('compDilate').getContext('2d').putImageData(dilateResult, 0, 0);
+            document.getElementById('compOpen').getContext('2d').putImageData(openResult, 0, 0);
+            document.getElementById('compClose').getContext('2d').putImageData(closeResult, 0, 0);
+            
+            // 显示像素数
+            const originalCount = countForegroundPixels(originalImageData);
+            document.getElementById('compOriginalPixels').textContent = `${originalCount} 像素`;
+            document.getElementById('compErodePixels').textContent = `${countForegroundPixels(erodeResult)} 像素`;
+            document.getElementById('compDilatePixels').textContent = `${countForegroundPixels(dilateResult)} 像素`;
+            document.getElementById('compOpenPixels').textContent = `${countForegroundPixels(openResult)} 像素`;
+            document.getElementById('compClosePixels').textContent = `${countForegroundPixels(closeResult)} 像素`;
+        }
+    </script>
+</body>
+</html>

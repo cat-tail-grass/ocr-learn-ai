@@ -676,6 +676,610 @@ function binarizeAdaptive(imageData, blockSize = 15, C = 5) {
     return result;
 }
 
+// ==================== 去噪函数 ====================
+// 来源：05. 图像去噪
+
+/**
+ * 创建均值滤波核
+ * 
+ * 原理说明：
+ * - 均值核的所有元素都相等
+ * - 每个元素的值为 1/(size × size)
+ * - 保证卷积后像素值在合理范围内
+ * 
+ * 来源：05. 图像去噪
+ * 
+ * @param {number} size - 核的大小（必须是奇数）
+ * @returns {number[][]} 二维数组表示的滤波核
+ */
+function createMeanKernel(size) {
+    if (size % 2 === 0) size = size + 1;
+    
+    const weight = 1 / (size * size);
+    const kernel = [];
+    
+    for (let y = 0; y < size; y++) {
+        const row = [];
+        for (let x = 0; x < size; x++) {
+            row.push(weight);
+        }
+        kernel.push(row);
+    }
+    
+    return kernel;
+}
+
+/**
+ * 创建高斯滤波核
+ * 
+ * 原理说明：
+ * - 高斯核的权重服从二维高斯分布
+ * - 公式：G(x,y) = (1 / 2πσ²) × e^(-(x² + y²) / 2σ²)
+ * - 中心权重最大，向边缘递减
+ * 
+ * 来源：05. 图像去噪
+ * 
+ * @param {number} size - 核的大小（必须是奇数）
+ * @param {number} sigma - 高斯分布的标准差（默认1.0）
+ * @returns {number[][]} 二维数组表示的高斯核
+ */
+function createGaussianKernel(size, sigma = 1.0) {
+    if (size % 2 === 0) size = size + 1;
+    
+    const kernel = [];
+    const center = Math.floor(size / 2);
+    let sum = 0;
+    
+    for (let y = 0; y < size; y++) {
+        const row = [];
+        for (let x = 0; x < size; x++) {
+            const dx = x - center;
+            const dy = y - center;
+            const exponent = -(dx * dx + dy * dy) / (2 * sigma * sigma);
+            const value = Math.exp(exponent);
+            row.push(value);
+            sum += value;
+        }
+        kernel.push(row);
+    }
+    
+    // 归一化
+    for (let y = 0; y < size; y++) {
+        for (let x = 0; x < size; x++) {
+            kernel[y][x] /= sum;
+        }
+    }
+    
+    return kernel;
+}
+
+/**
+ * 对灰度图像执行卷积操作
+ * 
+ * 原理说明：
+ * - 卷积是图像处理的基础操作
+ * - 滤波核在图像上滑动，对每个位置计算加权和
+ * - 使用边缘复制策略处理边界
+ * 
+ * 来源：05. 图像去噪
+ * 
+ * @param {ImageData|MockImageData} imageData - 灰度图像数据
+ * @param {number[][]} kernel - 滤波核（二维数组）
+ * @returns {MockImageData} 卷积后的图像数据
+ */
+function convolve(imageData, kernel) {
+    const { width, height } = imageData;
+    const result = cloneImageData(imageData);
+    
+    const kernelSize = kernel.length;
+    const halfKernel = Math.floor(kernelSize / 2);
+    
+    for (let y = 0; y < height; y++) {
+        for (let x = 0; x < width; x++) {
+            let sum = 0;
+            
+            for (let ky = 0; ky < kernelSize; ky++) {
+                for (let kx = 0; kx < kernelSize; kx++) {
+                    let imgX = x + kx - halfKernel;
+                    let imgY = y + ky - halfKernel;
+                    
+                    // 边界处理：边缘复制
+                    imgX = clamp(imgX, 0, width - 1);
+                    imgY = clamp(imgY, 0, height - 1);
+                    
+                    const pixel = getPixel(imageData, imgX, imgY);
+                    sum += pixel.r * kernel[ky][kx];
+                }
+            }
+            
+            const newValue = clamp(Math.round(sum), 0, 255);
+            setPixel(result, x, y, newValue, newValue, newValue);
+        }
+    }
+    
+    return result;
+}
+
+/**
+ * 均值滤波
+ * 
+ * 原理说明：
+ * - 用邻域内所有像素的平均值替代中心像素
+ * - 效果：平滑图像，减少噪声
+ * - 缺点：会模糊边缘
+ * 
+ * 来源：05. 图像去噪
+ * 
+ * @param {ImageData|MockImageData} imageData - 灰度图像数据
+ * @param {number} size - 滤波器大小（默认3）
+ * @returns {MockImageData} 滤波后的图像数据
+ */
+function meanFilter(imageData, size = 3) {
+    const kernel = createMeanKernel(size);
+    return convolve(imageData, kernel);
+}
+
+/**
+ * 高斯滤波
+ * 
+ * 原理说明：
+ * - 用邻域内像素的加权平均值替代中心像素
+ * - 权重服从高斯分布，中心权重最大
+ * - 效果：比均值滤波更好地保留边缘
+ * 
+ * 来源：05. 图像去噪
+ * 
+ * @param {ImageData|MockImageData} imageData - 灰度图像数据
+ * @param {number} size - 滤波器大小（默认3）
+ * @param {number} sigma - 高斯标准差（默认1.0）
+ * @returns {MockImageData} 滤波后的图像数据
+ */
+function gaussianFilter(imageData, size = 3, sigma = 1.0) {
+    const kernel = createGaussianKernel(size, sigma);
+    return convolve(imageData, kernel);
+}
+
+/**
+ * 中值滤波
+ * 
+ * 原理说明：
+ * - 用邻域内所有像素的中值替代中心像素
+ * - 中值不受极值影响，对椒盐噪声效果极佳
+ * - 保留边缘效果好
+ * 
+ * 来源：05. 图像去噪
+ * 
+ * @param {ImageData|MockImageData} imageData - 灰度图像数据
+ * @param {number} size - 滤波器大小（默认3）
+ * @returns {MockImageData} 滤波后的图像数据
+ */
+function medianFilter(imageData, size = 3) {
+    const { width, height } = imageData;
+    const result = cloneImageData(imageData);
+    const halfSize = Math.floor(size / 2);
+    
+    for (let y = 0; y < height; y++) {
+        for (let x = 0; x < width; x++) {
+            const values = [];
+            
+            for (let dy = -halfSize; dy <= halfSize; dy++) {
+                for (let dx = -halfSize; dx <= halfSize; dx++) {
+                    const imgX = clamp(x + dx, 0, width - 1);
+                    const imgY = clamp(y + dy, 0, height - 1);
+                    const pixel = getPixel(imageData, imgX, imgY);
+                    values.push(pixel.r);
+                }
+            }
+            
+            values.sort((a, b) => a - b);
+            const medianValue = values[Math.floor(values.length / 2)];
+            
+            setPixel(result, x, y, medianValue, medianValue, medianValue);
+        }
+    }
+    
+    return result;
+}
+
+/**
+ * 向图像添加高斯噪声（用于测试）
+ * 
+ * 原理说明：
+ * - 使用 Box-Muller 变换生成正态分布随机数
+ * - 将噪声叠加到每个像素上
+ * 
+ * 来源：05. 图像去噪
+ * 
+ * @param {ImageData|MockImageData} imageData - 原始图像数据
+ * @param {number} sigma - 噪声标准差（默认25）
+ * @returns {MockImageData} 添加噪声后的图像数据
+ */
+function addGaussianNoise(imageData, sigma = 25) {
+    const result = cloneImageData(imageData);
+    const data = result.data;
+    
+    for (let i = 0; i < data.length; i += 4) {
+        const u1 = Math.random();
+        const u2 = Math.random();
+        const z = Math.sqrt(-2 * Math.log(u1)) * Math.cos(2 * Math.PI * u2);
+        const noise = z * sigma;
+        
+        const newValue = clamp(Math.round(data[i] + noise), 0, 255);
+        data[i] = newValue;
+        data[i + 1] = newValue;
+        data[i + 2] = newValue;
+    }
+    
+    return result;
+}
+
+/**
+ * 向图像添加椒盐噪声（用于测试）
+ * 
+ * 原理说明：
+ * - 随机选择一定比例的像素
+ * - 将它们设为纯黑（0）或纯白（255）
+ * 
+ * 来源：05. 图像去噪
+ * 
+ * @param {ImageData|MockImageData} imageData - 原始图像数据
+ * @param {number} density - 噪声密度（0-1，默认0.05即5%）
+ * @returns {MockImageData} 添加噪声后的图像数据
+ */
+function addSaltPepperNoise(imageData, density = 0.05) {
+    const result = cloneImageData(imageData);
+    const { width, height } = result;
+    
+    const totalPixels = width * height;
+    const noisePixels = Math.floor(totalPixels * density);
+    
+    for (let i = 0; i < noisePixels; i++) {
+        const x = Math.floor(Math.random() * width);
+        const y = Math.floor(Math.random() * height);
+        const value = Math.random() < 0.5 ? 0 : 255;
+        setPixel(result, x, y, value, value, value);
+    }
+    
+    return result;
+}
+
+// ==================== 形态学操作 ====================
+// 来源：06. 形态学操作
+
+/**
+ * 创建结构元素
+ * 
+ * 原理说明：
+ * - 结构元素是形态学操作的"模板"
+ * - 定义了操作的形状和大小
+ * - 1表示有效区域，0表示忽略
+ * 
+ * 来源：06. 形态学操作
+ * 
+ * @param {string} shape - 形状类型：'rect'（矩形）、'cross'（十字）、'ellipse'（椭圆）
+ * @param {number} size - 结构元素大小（奇数）
+ * @returns {number[][]} 二维数组表示的结构元素
+ */
+function createStructuringElement(shape, size) {
+    // 确保是奇数
+    if (size % 2 === 0) size = size + 1;
+    
+    const element = [];
+    const center = Math.floor(size / 2);
+    
+    for (let y = 0; y < size; y++) {
+        const row = [];
+        for (let x = 0; x < size; x++) {
+            let value = 0;
+            
+            if (shape === 'rect') {
+                // 矩形：所有位置都是1
+                value = 1;
+            } else if (shape === 'cross') {
+                // 十字形：只有中心行和中心列是1
+                if (x === center || y === center) {
+                    value = 1;
+                }
+            } else if (shape === 'ellipse') {
+                // 椭圆形：使用椭圆方程判断
+                const dx = x - center;
+                const dy = y - center;
+                const radius = center + 0.5; // 半径略大于center，使边缘更圆滑
+                if (dx * dx + dy * dy <= radius * radius) {
+                    value = 1;
+                }
+            }
+            
+            row.push(value);
+        }
+        element.push(row);
+    }
+    
+    return element;
+}
+
+/**
+ * 腐蚀操作 (Erosion)
+ * 
+ * 原理说明：
+ * - 只有当结构元素完全匹配前景时，中心像素才保留为前景
+ * - 使用 AND 逻辑：所有对应位置都必须是前景
+ * - 效果：缩小前景区域，去除小噪点
+ * 
+ * 数学表达式：
+ * Erosion(A, B) = { z | (B)z ⊆ A }
+ * 
+ * 来源：06. 形态学操作
+ * 
+ * @param {ImageData|MockImageData} imageData - 二值图像数据
+ * @param {number[][]} structuringElement - 结构元素
+ * @returns {MockImageData} 腐蚀后的图像数据
+ */
+function erode(imageData, structuringElement) {
+    const { width, height } = imageData;
+    const result = createImageData(width, height, 0, 0, 0); // 初始化为黑色
+    
+    const seSize = structuringElement.length;
+    const seCenter = Math.floor(seSize / 2);
+    
+    // Step 1: 遍历图像每个像素
+    for (let y = 0; y < height; y++) {
+        for (let x = 0; x < width; x++) {
+            let fits = true; // 假设结构元素完全匹配
+            
+            // Step 2: 检查结构元素覆盖的所有位置
+            for (let sy = 0; sy < seSize && fits; sy++) {
+                for (let sx = 0; sx < seSize && fits; sx++) {
+                    // 只检查结构元素中值为1的位置
+                    if (structuringElement[sy][sx] === 1) {
+                        // 计算图像中对应的位置
+                        const imgX = x + sx - seCenter;
+                        const imgY = y + sy - seCenter;
+                        
+                        // 获取像素值（边界外视为背景/黑色）
+                        const pixel = getPixel(imageData, imgX, imgY);
+                        
+                        // 如果任何一个位置不是前景（不是白色），则不匹配
+                        if (pixel.r < 128) { // 假设 < 128 是背景
+                            fits = false;
+                        }
+                    }
+                }
+            }
+            
+            // Step 3: 如果完全匹配，中心像素设为前景（白色）
+            if (fits) {
+                setPixel(result, x, y, 255, 255, 255);
+            }
+        }
+    }
+    
+    return result;
+}
+
+/**
+ * 膨胀操作 (Dilation)
+ * 
+ * 原理说明：
+ * - 只要结构元素有任意部分与前景重叠，中心像素就变为前景
+ * - 使用 OR 逻辑：只要有一个位置是前景
+ * - 效果：扩大前景区域，填补空洞
+ * 
+ * 数学表达式：
+ * Dilation(A, B) = { z | (B̂)z ∩ A ≠ ∅ }
+ * 
+ * 来源：06. 形态学操作
+ * 
+ * @param {ImageData|MockImageData} imageData - 二值图像数据
+ * @param {number[][]} structuringElement - 结构元素
+ * @returns {MockImageData} 膨胀后的图像数据
+ */
+function dilate(imageData, structuringElement) {
+    const { width, height } = imageData;
+    const result = createImageData(width, height, 0, 0, 0); // 初始化为黑色
+    
+    const seSize = structuringElement.length;
+    const seCenter = Math.floor(seSize / 2);
+    
+    // Step 1: 遍历图像每个像素
+    for (let y = 0; y < height; y++) {
+        for (let x = 0; x < width; x++) {
+            let hits = false; // 假设没有任何重叠
+            
+            // Step 2: 检查结构元素覆盖的所有位置
+            for (let sy = 0; sy < seSize && !hits; sy++) {
+                for (let sx = 0; sx < seSize && !hits; sx++) {
+                    // 只检查结构元素中值为1的位置
+                    if (structuringElement[sy][sx] === 1) {
+                        // 计算图像中对应的位置
+                        const imgX = x + sx - seCenter;
+                        const imgY = y + sy - seCenter;
+                        
+                        // 获取像素值
+                        const pixel = getPixel(imageData, imgX, imgY);
+                        
+                        // 如果任何一个位置是前景（白色），则有重叠
+                        if (pixel.r >= 128) { // 假设 >= 128 是前景
+                            hits = true;
+                        }
+                    }
+                }
+            }
+            
+            // Step 3: 如果有任何重叠，中心像素设为前景（白色）
+            if (hits) {
+                setPixel(result, x, y, 255, 255, 255);
+            }
+        }
+    }
+    
+    return result;
+}
+
+/**
+ * 开运算 (Opening)
+ * 
+ * 原理说明：
+ * - 先腐蚀，后膨胀
+ * - 效果：去除小于结构元素的噪点，同时保持主体形状
+ * 
+ * 公式：Opening(A, B) = Dilation(Erosion(A, B), B)
+ * 
+ * 来源：06. 形态学操作
+ * 
+ * @param {ImageData|MockImageData} imageData - 二值图像数据
+ * @param {number[][]} structuringElement - 结构元素
+ * @returns {MockImageData} 开运算后的图像数据
+ */
+function morphOpen(imageData, structuringElement) {
+    // Step 1: 先腐蚀 - 去除小噪点
+    const eroded = erode(imageData, structuringElement);
+    
+    // Step 2: 后膨胀 - 恢复主体形状
+    const opened = dilate(eroded, structuringElement);
+    
+    return opened;
+}
+
+/**
+ * 闭运算 (Closing)
+ * 
+ * 原理说明：
+ * - 先膨胀，后腐蚀
+ * - 效果：填补小于结构元素的空洞，同时保持主体形状
+ * 
+ * 公式：Closing(A, B) = Erosion(Dilation(A, B), B)
+ * 
+ * 来源：06. 形态学操作
+ * 
+ * @param {ImageData|MockImageData} imageData - 二值图像数据
+ * @param {number[][]} structuringElement - 结构元素
+ * @returns {MockImageData} 闭运算后的图像数据
+ */
+function morphClose(imageData, structuringElement) {
+    // Step 1: 先膨胀 - 填补空洞
+    const dilated = dilate(imageData, structuringElement);
+    
+    // Step 2: 后腐蚀 - 恢复主体形状
+    const closed = erode(dilated, structuringElement);
+    
+    return closed;
+}
+
+/**
+ * 形态学梯度 (Morphological Gradient)
+ * 
+ * 原理说明：
+ * - 膨胀结果减去腐蚀结果
+ * - 效果：提取前景的边缘轮廓
+ * 
+ * 公式：Gradient(A, B) = Dilation(A, B) - Erosion(A, B)
+ * 
+ * 来源：06. 形态学操作
+ * 
+ * @param {ImageData|MockImageData} imageData - 二值图像数据
+ * @param {number[][]} structuringElement - 结构元素
+ * @returns {MockImageData} 形态学梯度图像
+ */
+function morphGradient(imageData, structuringElement) {
+    const { width, height } = imageData;
+    
+    // Step 1: 计算膨胀
+    const dilated = dilate(imageData, structuringElement);
+    
+    // Step 2: 计算腐蚀
+    const eroded = erode(imageData, structuringElement);
+    
+    // Step 3: 相减得到梯度
+    const result = createImageData(width, height, 0, 0, 0);
+    
+    for (let y = 0; y < height; y++) {
+        for (let x = 0; x < width; x++) {
+            const dilatedPixel = getPixel(dilated, x, y);
+            const erodedPixel = getPixel(eroded, x, y);
+            
+            const gradValue = clamp(dilatedPixel.r - erodedPixel.r, 0, 255);
+            setPixel(result, x, y, gradValue, gradValue, gradValue);
+        }
+    }
+    
+    return result;
+}
+
+/**
+ * 顶帽变换 (Top-Hat)
+ * 
+ * 原理说明：
+ * - 原图减去开运算结果
+ * - 效果：提取比周围亮的细节（亮点、细纹）
+ * 
+ * 公式：TopHat(A, B) = A - Opening(A, B)
+ * 
+ * 来源：06. 形态学操作
+ * 
+ * @param {ImageData|MockImageData} imageData - 二值图像数据
+ * @param {number[][]} structuringElement - 结构元素
+ * @returns {MockImageData} 顶帽变换结果
+ */
+function topHat(imageData, structuringElement) {
+    const { width, height } = imageData;
+    
+    // Step 1: 计算开运算
+    const opened = morphOpen(imageData, structuringElement);
+    
+    // Step 2: 原图减去开运算结果
+    const result = createImageData(width, height, 0, 0, 0);
+    
+    for (let y = 0; y < height; y++) {
+        for (let x = 0; x < width; x++) {
+            const originalPixel = getPixel(imageData, x, y);
+            const openedPixel = getPixel(opened, x, y);
+            
+            const value = clamp(originalPixel.r - openedPixel.r, 0, 255);
+            setPixel(result, x, y, value, value, value);
+        }
+    }
+    
+    return result;
+}
+
+/**
+ * 黑帽变换 (Black-Hat)
+ * 
+ * 原理说明：
+ * - 闭运算结果减去原图
+ * - 效果：提取比周围暗的细节（暗点、裂缝）
+ * 
+ * 公式：BlackHat(A, B) = Closing(A, B) - A
+ * 
+ * 来源：06. 形态学操作
+ * 
+ * @param {ImageData|MockImageData} imageData - 二值图像数据
+ * @param {number[][]} structuringElement - 结构元素
+ * @returns {MockImageData} 黑帽变换结果
+ */
+function blackHat(imageData, structuringElement) {
+    const { width, height } = imageData;
+    
+    // Step 1: 计算闭运算
+    const closed = morphClose(imageData, structuringElement);
+    
+    // Step 2: 闭运算结果减去原图
+    const result = createImageData(width, height, 0, 0, 0);
+    
+    for (let y = 0; y < height; y++) {
+        for (let x = 0; x < width; x++) {
+            const closedPixel = getPixel(closed, x, y);
+            const originalPixel = getPixel(imageData, x, y);
+            
+            const value = clamp(closedPixel.r - originalPixel.r, 0, 255);
+            setPixel(result, x, y, value, value, value);
+        }
+    }
+    
+    return result;
+}
+
 // ==================== 工具函数 ====================
 
 /**
@@ -741,6 +1345,26 @@ module.exports = {
     binarizeOtsu,
     calculateOtsuThreshold,
     binarizeAdaptive,
+    
+    // 去噪（来源：05. 图像去噪）
+    createMeanKernel,
+    createGaussianKernel,
+    convolve,
+    meanFilter,
+    gaussianFilter,
+    medianFilter,
+    addGaussianNoise,
+    addSaltPepperNoise,
+    
+    // 形态学操作（来源：06. 形态学操作）
+    createStructuringElement,
+    erode,
+    dilate,
+    morphOpen,
+    morphClose,
+    morphGradient,
+    topHat,
+    blackHat,
     
     // 工具函数
     clamp,
