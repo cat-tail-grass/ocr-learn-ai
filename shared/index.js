@@ -47,6 +47,9 @@ const textLocalization = require('./10-text-localization');
 // 特征提取模块（11章节）
 const featureExtraction = require('./11-feature-extraction');
 
+// 模板匹配模块（12章节）
+const templateMatching = require('./12-template-matching');
+
 // 统一导出所有函数
 module.exports = {
     // ==================== 核心模块（01-02章节） ====================
@@ -196,5 +199,26 @@ module.exports = {
     // 距离度量
     euclideanDistance: featureExtraction.euclideanDistance,
     cosineSimilarity: featureExtraction.cosineSimilarity,
-    manhattanDistance: featureExtraction.manhattanDistance
+    manhattanDistance: featureExtraction.manhattanDistance,
+    
+    // ==================== 模板匹配模块（12章节） ====================
+    // 相似度度量
+    normalizedCrossCorrelation: templateMatching.normalizedCrossCorrelation,
+    calculateDistance: templateMatching.calculateDistance,
+    
+    // 模板创建
+    createTemplate: templateMatching.createTemplate,
+    buildTemplateLibrary: templateMatching.buildTemplateLibrary,
+    
+    // 模板匹配
+    matchTemplate: templateMatching.matchTemplate,
+    calculateConfidence: templateMatching.calculateConfidence,
+    
+    // 模板匹配器类
+    TemplateMatcher: templateMatching.TemplateMatcher,
+    
+    // 便捷函数
+    recognizeCharacter: templateMatching.recognizeCharacter,
+    createDigitMatcher: templateMatching.createDigitMatcher,
+    evaluateMatcher: templateMatching.evaluateMatcher
 };

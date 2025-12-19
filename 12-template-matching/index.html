@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第12章 - 模板匹配</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            color: white;
+            text-align: center;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .subtitle {
+            color: rgba(255,255,255,0.9);
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+        
+        .card h2 {
+            color: #333;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #11998e;
+        }
+        
+        .card h3 {
+            color: #555;
+            margin: 15px 0 10px;
+        }
+        
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        @media (max-width: 800px) {
+            .grid-2 { grid-template-columns: 1fr; }
+        }
+        
+        .input-section {
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+            flex-wrap: wrap;
+        }
+        
+        .drawing-area {
+            flex: 0 0 auto;
+        }
+        
+        .drawing-area canvas {
+            border: 3px solid #11998e;
+            border-radius: 10px;
+            cursor: crosshair;
+            background: white;
+        }
+        
+        .drawing-controls {
+            margin-top: 10px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(17, 153, 142, 0.4);
+        }
+        
+        .btn-secondary {
+            background: #f0f0f0;
+            color: #333;
+        }
+        
+        .btn-secondary:hover {
+            background: #e0e0e0;
+        }
+        
+        .template-library {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 15px;
+        }
+        
+        .template-item {
+            text-align: center;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            transition: all 0.3s;
+        }
+        
+        .template-item canvas {
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 5px;
+        }
+        
+        .template-item.best-match {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+        }
+        
+        .template-item.best-match .template-label,
+        .template-item.best-match .template-score {
+            color: white;
+        }
+        
+        .template-label {
+            font-weight: bold;
+            font-size: 16px;
+            color: #333;
+        }
+        
+        .template-score {
+            font-size: 11px;
+            color: #666;
+        }
+        
+        .result-section {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .result-box {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .result-char {
+            font-size: 80px;
+            font-weight: bold;
+            color: #11998e;
+            line-height: 1;
+        }
+        
+        .result-confidence {
+            font-size: 24px;
+            color: #666;
+            margin-top: 10px;
+        }
+        
+        .result-rejected {
+            color: #f44336;
+        }
+        
+        .confidence-bar {
+            width: 100%;
+            height: 20px;
+            background: #e0e0e0;
+            border-radius: 10px;
+            margin-top: 15px;
+            overflow: hidden;
+        }
+        
+        .confidence-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #11998e, #38ef7d);
+            transition: width 0.5s;
+            border-radius: 10px;
+        }
+        
+        .candidates-list {
+            margin-top: 20px;
+            text-align: left;
+        }
+        
+        .candidate-item {
+            display: flex;
+            align-items: center;
+            padding: 8px 12px;
+            background: white;
+            border-radius: 8px;
+            margin-bottom: 5px;
+        }
+        
+        .candidate-label {
+            font-weight: bold;
+            font-size: 18px;
+            width: 30px;
+        }
+        
+        .candidate-bar {
+            flex: 1;
+            height: 8px;
+            background: #e0e0e0;
+            border-radius: 4px;
+            margin: 0 10px;
+            overflow: hidden;
+        }
+        
+        .candidate-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #11998e, #38ef7d);
+            transition: width 0.3s;
+        }
+        
+        .candidate-score {
+            font-size: 12px;
+            color: #666;
+            width: 50px;
+            text-align: right;
+        }
+        
+        .settings-panel {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .setting-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .setting-row:last-child {
+            margin-bottom: 0;
+        }
+        
+        .setting-label {
+            width: 150px;
+            font-weight: 500;
+        }
+        
+        .setting-control {
+            flex: 1;
+        }
+        
+        select, input[type="range"] {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        
+        .info-box {
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+            border-left: 4px solid #11998e;
+            padding: 15px;
+            border-radius: 0 8px 8px 0;
+            margin: 15px 0;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .stat-item {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #11998e;
+        }
+        
+        .stat-label {
+            font-size: 12px;
+            color: #666;
+            margin-top: 5px;
+        }
+        
+        .distance-comparison {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .distance-item {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        .distance-name {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+        }
+        
+        .distance-value {
+            font-size: 20px;
+            color: #11998e;
+        }
+        
+        @media (max-width: 600px) {
+            .stats-grid { grid-template-columns: 1fr; }
+            .distance-comparison { grid-template-columns: repeat(2, 1fr); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎯 第12章：模板匹配</h1>
+        <p class="subtitle">通过与标准模板比对来识别字符</p>
+        
+        <!-- 设置面板 -->
+        <div class="card">
+            <h2>⚙️ 匹配设置</h2>
+            <div class="settings-panel">
+                <div class="setting-row">
+                    <span class="setting-label">距离度量：</span>
+                    <div class="setting-control">
+                        <select id="distanceMetric" onchange="updateSettings()">
+                            <option value="euclidean">欧氏距离 (Euclidean)</option>
+                            <option value="manhattan">曼哈顿距离 (Manhattan)</option>
+                            <option value="cosine">余弦距离 (Cosine)</option>
+                            <option value="correlation">相关距离 (Correlation)</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="setting-row">
+                    <span class="setting-label">特征类型：</span>
+                    <div class="setting-control">
+                        <select id="featureType" onchange="rebuildTemplates()">
+                            <option value="combined">组合特征 (推荐)</option>
+                            <option value="pixel">像素特征</option>
+                            <option value="projection">投影特征</option>
+                            <option value="zone">网格特征</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="setting-row">
+                    <span class="setting-label">拒绝阈值：</span>
+                    <div class="setting-control">
+                        <input type="range" id="rejectThreshold" min="0" max="20" step="0.5" value="0" 
+                               oninput="updateThreshold()">
+                        <span id="thresholdValue">无 (不拒绝)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 输入与识别 -->
+        <div class="card">
+            <h2>✏️ 绘制字符</h2>
+            <div class="input-section">
+                <div class="drawing-area">
+                    <canvas id="drawCanvas" width="140" height="140"></canvas>
+                    <div class="drawing-controls">
+                        <button class="btn btn-primary" onclick="recognize()">识别</button>
+                        <button class="btn btn-secondary" onclick="clearCanvas()">清除</button>
+                    </div>
+                    <div class="drawing-controls" style="margin-top: 10px;">
+                        <span style="font-size: 12px; color: #666;">快速测试：</span>
+                    </div>
+                    <div class="drawing-controls">
+                        <button class="btn btn-secondary" onclick="loadDigit(0)">0</button>
+                        <button class="btn btn-secondary" onclick="loadDigit(1)">1</button>
+                        <button class="btn btn-secondary" onclick="loadDigit(2)">2</button>
+                        <button class="btn btn-secondary" onclick="loadDigit(3)">3</button>
+                        <button class="btn btn-secondary" onclick="loadDigit(4)">4</button>
+                    </div>
+                    <div class="drawing-controls">
+                        <button class="btn btn-secondary" onclick="loadDigit(5)">5</button>
+                        <button class="btn btn-secondary" onclick="loadDigit(6)">6</button>
+                        <button class="btn btn-secondary" onclick="loadDigit(7)">7</button>
+                        <button class="btn btn-secondary" onclick="loadDigit(8)">8</button>
+                        <button class="btn btn-secondary" onclick="loadDigit(9)">9</button>
+                    </div>
+                </div>
+                
+                <div class="result-section">
+                    <div class="result-box">
+                        <div class="result-char" id="resultChar">?</div>
+                        <div class="result-confidence" id="resultConfidence">等待识别...</div>
+                        <div class="confidence-bar">
+                            <div class="confidence-fill" id="confidenceFill" style="width: 0%"></div>
+                        </div>
+                        <div class="candidates-list" id="candidatesList"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 模板库 -->
+        <div class="card">
+            <h2>📚 模板库</h2>
+            <div class="info-box">
+                <p>模板库包含标准数字 0-9 的模板。识别时，将输入与每个模板比较，选择距离最小的模板作为结果。</p>
+            </div>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-value" id="numClasses">10</div>
+                    <div class="stat-label">类别数</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="numTemplates">10</div>
+                    <div class="stat-label">模板数</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="featureDim">-</div>
+                    <div class="stat-label">特征维度</div>
+                </div>
+            </div>
+            <div class="template-library" id="templateLibrary"></div>
+        </div>
+        
+        <!-- 距离比较 -->
+        <div class="card">
+            <h2>📏 距离度量比较</h2>
+            <div class="info-box">
+                <p>不同的距离度量方法会产生不同的匹配结果。选择合适的度量方法对识别效果很重要。</p>
+            </div>
+            <div class="distance-comparison" id="distanceComparison">
+                <div class="distance-item">
+                    <div class="distance-name">欧氏距离</div>
+                    <div class="distance-value" id="euclideanDist">-</div>
+                </div>
+                <div class="distance-item">
+                    <div class="distance-name">曼哈顿距离</div>
+                    <div class="distance-value" id="manhattanDist">-</div>
+                </div>
+                <div class="distance-item">
+                    <div class="distance-name">余弦距离</div>
+                    <div class="distance-value" id="cosineDist">-</div>
+                </div>
+                <div class="distance-item">
+                    <div class="distance-name">相关距离</div>
+                    <div class="distance-value" id="correlationDist">-</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // ==================== 全局变量 ====================
+        const drawCanvas = document.getElementById('drawCanvas');
+        const drawCtx = drawCanvas.getContext('2d');
+        let isDrawing = false;
+        let lastX = 0;
+        let lastY = 0;
+        
+        // 模板库
+        const templates = {};
+        let featureType = 'combined';
+        let distanceMetric = 'euclidean';
+        let rejectThreshold = null;
+        
+        // ==================== 初始化 ====================
+        function init() {
+            clearCanvas();
+            
+            // 鼠标事件
+            drawCanvas.addEventListener('mousedown', startDrawing);
+            drawCanvas.addEventListener('mousemove', draw);
+            drawCanvas.addEventListener('mouseup', stopDrawing);
+            drawCanvas.addEventListener('mouseout', stopDrawing);
+            
+            // 触摸事件
+            drawCanvas.addEventListener('touchstart', handleTouchStart);
+            drawCanvas.addEventListener('touchmove', handleTouchMove);
+            drawCanvas.addEventListener('touchend', stopDrawing);
+            
+            // 构建模板库
+            buildTemplates();
+        }
+        
+        function startDrawing(e) {
+            isDrawing = true;
+            [lastX, lastY] = getMousePos(e);
+        }
+        
+        function draw(e) {
+            if (!isDrawing) return;
+            
+            const [x, y] = getMousePos(e);
+            
+            drawCtx.beginPath();
+            drawCtx.moveTo(lastX, lastY);
+            drawCtx.lineTo(x, y);
+            drawCtx.strokeStyle = '#000';
+            drawCtx.lineWidth = 10;
+            drawCtx.lineCap = 'round';
+            drawCtx.stroke();
+            
+            [lastX, lastY] = [x, y];
+        }
+        
+        function stopDrawing() {
+            isDrawing = false;
+        }
+        
+        function getMousePos(e) {
+            const rect = drawCanvas.getBoundingClientRect();
+            const x = (e.clientX || e.touches[0].clientX) - rect.left;
+            const y = (e.clientY || e.touches[0].clientY) - rect.top;
+            return [x, y];
+        }
+        
+        function handleTouchStart(e) {
+            e.preventDefault();
+            startDrawing(e);
+        }
+        
+        function handleTouchMove(e) {
+            e.preventDefault();
+            draw(e);
+        }
+        
+        function clearCanvas() {
+            drawCtx.fillStyle = '#ffffff';
+            drawCtx.fillRect(0, 0, drawCanvas.width, drawCanvas.height);
+        }
+        
+        // ==================== 模板管理 ====================
+        function buildTemplates() {
+            const library = document.getElementById('templateLibrary');
+            library.innerHTML = '';
+            
+            for (let d = 0; d <= 9; d++) {
+                // 创建模板图像
+                const canvas = document.createElement('canvas');
+                canvas.width = 28;
+                canvas.height = 28;
+                const ctx = canvas.getContext('2d');
+                
+                // 绘制数字
+                ctx.fillStyle = '#ffffff';
+                ctx.fillRect(0, 0, 28, 28);
+                ctx.fillStyle = '#000';
+                ctx.font = 'bold 24px Arial';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText(d.toString(), 14, 15);
+                
+                // 提取特征
+                const imageData = ctx.getImageData(0, 0, 28, 28);
+                const features = extractFeatures(imageData);
+                
+                templates[d] = {
+                    imageData,
+                    features,
+                    canvas
+                };
+                
+                // 添加到界面
+                const item = document.createElement('div');
+                item.className = 'template-item';
+                item.id = `template-${d}`;
+                
+                const displayCanvas = document.createElement('canvas');
+                displayCanvas.width = 28;
+                displayCanvas.height = 28;
+                displayCanvas.style.width = '56px';
+                displayCanvas.style.height = '56px';
+                displayCanvas.style.imageRendering = 'pixelated';
+                const displayCtx = displayCanvas.getContext('2d');
+                displayCtx.putImageData(imageData, 0, 0);
+                
+                const label = document.createElement('div');
+                label.className = 'template-label';
+                label.textContent = d;
+                
+                const score = document.createElement('div');
+                score.className = 'template-score';
+                score.id = `score-${d}`;
+                score.textContent = '-';
+                
+                item.appendChild(displayCanvas);
+                item.appendChild(label);
+                item.appendChild(score);
+                library.appendChild(item);
+            }
+            
+            // 更新统计
+            document.getElementById('numClasses').textContent = '10';
+            document.getElementById('numTemplates').textContent = '10';
+            document.getElementById('featureDim').textContent = templates[0].features.length;
+        }
+        
+        function rebuildTemplates() {
+            featureType = document.getElementById('featureType').value;
+            
+            // 重新提取所有模板的特征
+            for (let d = 0; d <= 9; d++) {
+                templates[d].features = extractFeatures(templates[d].imageData);
+            }
+            
+            document.getElementById('featureDim').textContent = templates[0].features.length;
+        }
+        
+        // ==================== 特征提取 ====================
+        function extractFeatures(imageData) {
+            switch (featureType) {
+                case 'pixel':
+                    return extractPixelFeatures(imageData);
+                case 'projection':
+                    return extractProjectionFeatures(imageData);
+                case 'zone':
+                    return extractZoneFeatures(imageData);
+                case 'combined':
+                default:
+                    return extractCombinedFeatures(imageData);
+            }
+        }
+        
+        function extractPixelFeatures(imageData) {
+            const features = [];
+            for (let i = 0; i < imageData.data.length; i += 4) {
+                features.push(imageData.data[i] / 255);
+            }
+            return features;
+        }
+        
+        function extractProjectionFeatures(imageData) {
+            const { width, height, data } = imageData;
+            const horizontal = new Array(height).fill(0);
+            const vertical = new Array(width).fill(0);
+            
+            for (let y = 0; y < height; y++) {
+                for (let x = 0; x < width; x++) {
+                    const idx = (y * width + x) * 4;
+                    if (data[idx] < 128) {
+                        horizontal[y]++;
+                        vertical[x]++;
+                    }
+                }
+            }
+            
+            const maxH = Math.max(...horizontal, 1);
+            const maxV = Math.max(...vertical, 1);
+            
+            return [
+                ...horizontal.map(v => v / maxH),
+                ...vertical.map(v => v / maxV)
+            ];
+        }
+        
+        function extractZoneFeatures(imageData, gridSize = 4) {
+            const { width, height, data } = imageData;
+            const cellWidth = width / gridSize;
+            const cellHeight = height / gridSize;
+            const features = [];
+            
+            for (let gy = 0; gy < gridSize; gy++) {
+                for (let gx = 0; gx < gridSize; gx++) {
+                    let foreground = 0;
+                    let total = 0;
+                    
+                    const startX = Math.floor(gx * cellWidth);
+                    const startY = Math.floor(gy * cellHeight);
+                    const endX = Math.floor((gx + 1) * cellWidth);
+                    const endY = Math.floor((gy + 1) * cellHeight);
+                    
+                    for (let y = startY; y < endY; y++) {
+                        for (let x = startX; x < endX; x++) {
+                            const idx = (y * width + x) * 4;
+                            total++;
+                            if (data[idx] < 128) foreground++;
+                        }
+                    }
+                    
+                    features.push(total > 0 ? foreground / total : 0);
+                }
+            }
+            
+            return features;
+        }
+        
+        function extractCombinedFeatures(imageData) {
+            const stats = extractStatisticalFeatures(imageData);
+            const projection = extractProjectionFeatures(imageData);
+            const zone = extractZoneFeatures(imageData);
+            
+            return [...stats, ...projection, ...zone];
+        }
+        
+        function extractStatisticalFeatures(imageData) {
+            const { width, height, data } = imageData;
+            let sum = 0, foreground = 0, sumX = 0, sumY = 0;
+            
+            for (let y = 0; y < height; y++) {
+                for (let x = 0; x < width; x++) {
+                    const idx = (y * width + x) * 4;
+                    sum += data[idx];
+                    if (data[idx] < 128) {
+                        foreground++;
+                        sumX += x;
+                        sumY += y;
+                    }
+                }
+            }
+            
+            const total = width * height;
+            const mean = sum / total / 255;
+            const fillRatio = foreground / total;
+            const centroidX = foreground > 0 ? sumX / foreground / width : 0.5;
+            const centroidY = foreground > 0 ? sumY / foreground / height : 0.5;
+            
+            return [mean, fillRatio, centroidX, centroidY];
+        }
+        
+        // ==================== 距离计算 ====================
+        function euclideanDistance(a, b) {
+            let sum = 0;
+            for (let i = 0; i < a.length; i++) {
+                sum += (a[i] - b[i]) ** 2;
+            }
+            return Math.sqrt(sum);
+        }
+        
+        function manhattanDistance(a, b) {
+            let sum = 0;
+            for (let i = 0; i < a.length; i++) {
+                sum += Math.abs(a[i] - b[i]);
+            }
+            return sum;
+        }
+        
+        function cosineSimilarity(a, b) {
+            let dot = 0, normA = 0, normB = 0;
+            for (let i = 0; i < a.length; i++) {
+                dot += a[i] * b[i];
+                normA += a[i] * a[i];
+                normB += b[i] * b[i];
+            }
+            const denom = Math.sqrt(normA) * Math.sqrt(normB);
+            return denom === 0 ? 0 : dot / denom;
+        }
+        
+        function normalizedCorrelation(a, b) {
+            const n = a.length;
+            const meanA = a.reduce((s, v) => s + v, 0) / n;
+            const meanB = b.reduce((s, v) => s + v, 0) / n;
+            
+            let varA = 0, varB = 0, covar = 0;
+            for (let i = 0; i < n; i++) {
+                const diffA = a[i] - meanA;
+                const diffB = b[i] - meanB;
+                varA += diffA * diffA;
+                varB += diffB * diffB;
+                covar += diffA * diffB;
+            }
+            
+            const stdA = Math.sqrt(varA / n);
+            const stdB = Math.sqrt(varB / n);
+            
+            if (stdA === 0 || stdB === 0) return 1;
+            return covar / (n * stdA * stdB);
+        }
+        
+        function calculateDistance(a, b, metric) {
+            switch (metric) {
+                case 'euclidean': return euclideanDistance(a, b);
+                case 'manhattan': return manhattanDistance(a, b);
+                case 'cosine': return 1 - cosineSimilarity(a, b);
+                case 'correlation': return 1 - normalizedCorrelation(a, b);
+                default: return euclideanDistance(a, b);
+            }
+        }
+        
+        // ==================== 识别 ====================
+        function recognize() {
+            // 获取绘制的图像
+            const inputData = drawCtx.getImageData(0, 0, 140, 140);
+            
+            // 缩放到 28x28
+            const resized = resizeImage(inputData, 28, 28);
+            
+            // 提取特征
+            const features = extractFeatures(resized);
+            
+            // 计算与所有模板的距离
+            const distances = [];
+            for (let d = 0; d <= 9; d++) {
+                const dist = calculateDistance(features, templates[d].features, distanceMetric);
+                distances.push({ label: d.toString(), distance: dist });
+            }
+            
+            // 排序
+            distances.sort((a, b) => a.distance - b.distance);
+            
+            // 计算置信度 (Softmax)
+            const temp = 1.0;
+            const negDists = distances.map(d => -d.distance / temp);
+            const maxNeg = Math.max(...negDists);
+            const expVals = negDists.map(d => Math.exp(d - maxNeg));
+            const sumExp = expVals.reduce((a, b) => a + b, 0);
+            
+            distances.forEach((d, i) => {
+                d.confidence = expVals[i] / sumExp;
+            });
+            
+            // 更新所有距离显示
+            updateDistanceComparison(features);
+            
+            // 更新模板显示
+            updateTemplateDisplay(distances);
+            
+            // 显示结果
+            displayResult(distances);
+        }
+        
+        function resizeImage(imageData, targetWidth, targetHeight) {
+            const { width, height, data } = imageData;
+            const result = new ImageData(targetWidth, targetHeight);
+            
+            const scaleX = width / targetWidth;
+            const scaleY = height / targetHeight;
+            
+            for (let y = 0; y < targetHeight; y++) {
+                for (let x = 0; x < targetWidth; x++) {
+                    const srcX = Math.min(Math.floor(x * scaleX), width - 1);
+                    const srcY = Math.min(Math.floor(y * scaleY), height - 1);
+                    
+                    const srcIdx = (srcY * width + srcX) * 4;
+                    const dstIdx = (y * targetWidth + x) * 4;
+                    
+                    result.data[dstIdx] = data[srcIdx];
+                    result.data[dstIdx + 1] = data[srcIdx + 1];
+                    result.data[dstIdx + 2] = data[srcIdx + 2];
+                    result.data[dstIdx + 3] = data[srcIdx + 3];
+                }
+            }
+            
+            return result;
+        }
+        
+        function updateDistanceComparison(features) {
+            // 计算与最佳匹配的各种距离
+            let bestLabel = 0;
+            let bestDist = Infinity;
+            
+            for (let d = 0; d <= 9; d++) {
+                const dist = euclideanDistance(features, templates[d].features);
+                if (dist < bestDist) {
+                    bestDist = dist;
+                    bestLabel = d;
+                }
+            }
+            
+            const bestFeatures = templates[bestLabel].features;
+            
+            document.getElementById('euclideanDist').textContent = 
+                euclideanDistance(features, bestFeatures).toFixed(3);
+            document.getElementById('manhattanDist').textContent = 
+                manhattanDistance(features, bestFeatures).toFixed(3);
+            document.getElementById('cosineDist').textContent = 
+                (1 - cosineSimilarity(features, bestFeatures)).toFixed(4);
+            document.getElementById('correlationDist').textContent = 
+                (1 - normalizedCorrelation(features, bestFeatures)).toFixed(4);
+        }
+        
+        function updateTemplateDisplay(distances) {
+            // 清除之前的标记
+            for (let d = 0; d <= 9; d++) {
+                document.getElementById(`template-${d}`).classList.remove('best-match');
+                document.getElementById(`score-${d}`).textContent = 
+                    distances.find(x => x.label === d.toString()).distance.toFixed(3);
+            }
+            
+            // 标记最佳匹配
+            document.getElementById(`template-${distances[0].label}`).classList.add('best-match');
+        }
+        
+        function displayResult(distances) {
+            const best = distances[0];
+            const resultChar = document.getElementById('resultChar');
+            const resultConfidence = document.getElementById('resultConfidence');
+            const confidenceFill = document.getElementById('confidenceFill');
+            
+            // 检查拒绝阈值
+            if (rejectThreshold !== null && best.distance > rejectThreshold) {
+                resultChar.textContent = '?';
+                resultChar.classList.add('result-rejected');
+                resultConfidence.textContent = `拒绝识别 (距离 ${best.distance.toFixed(2)} > ${rejectThreshold})`;
+                resultConfidence.classList.add('result-rejected');
+                confidenceFill.style.width = '0%';
+            } else {
+                resultChar.textContent = best.label;
+                resultChar.classList.remove('result-rejected');
+                resultConfidence.textContent = `置信度: ${(best.confidence * 100).toFixed(1)}%`;
+                resultConfidence.classList.remove('result-rejected');
+                confidenceFill.style.width = `${best.confidence * 100}%`;
+            }
+            
+            // 显示候选列表
+            const list = document.getElementById('candidatesList');
+            list.innerHTML = '<h4 style="margin-bottom: 10px;">候选结果：</h4>';
+            
+            distances.slice(0, 5).forEach(d => {
+                const item = document.createElement('div');
+                item.className = 'candidate-item';
+                item.innerHTML = `
+                    <span class="candidate-label">${d.label}</span>
+                    <div class="candidate-bar">
+                        <div class="candidate-bar-fill" style="width: ${d.confidence * 100}%"></div>
+                    </div>
+                    <span class="candidate-score">${(d.confidence * 100).toFixed(1)}%</span>
+                `;
+                list.appendChild(item);
+            });
+        }
+        
+        // ==================== 设置 ====================
+        function updateSettings() {
+            distanceMetric = document.getElementById('distanceMetric').value;
+        }
+        
+        function updateThreshold() {
+            const value = parseFloat(document.getElementById('rejectThreshold').value);
+            if (value === 0) {
+                rejectThreshold = null;
+                document.getElementById('thresholdValue').textContent = '无 (不拒绝)';
+            } else {
+                rejectThreshold = value;
+                document.getElementById('thresholdValue').textContent = value.toFixed(1);
+            }
+        }
+        
+        function loadDigit(d) {
+            clearCanvas();
+            drawCtx.fillStyle = '#000';
+            drawCtx.font = 'bold 100px Arial';
+            drawCtx.textAlign = 'center';
+            drawCtx.textBaseline = 'middle';
+            drawCtx.fillText(d.toString(), 70, 75);
+            
+            setTimeout(recognize, 100);
+        }
+        
+        // 初始化
+        init();
+    </script>
+</body>
+</html>
