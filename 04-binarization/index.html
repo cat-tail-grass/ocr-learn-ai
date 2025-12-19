@@ -495,6 +495,118 @@
 }
             </div>
         </div>
+        
+        <!-- 自适应阈值算法详解 -->
+        <div class="section">
+            <h2>📖 自适应阈值原理</h2>
+            
+            <div class="otsu-highlight" style="border-left-color: #6bff6b; background: rgba(107, 255, 107, 0.1);">
+                <h3>🔧 为什么需要自适应阈值？</h3>
+                <p style="color: #aaa; margin-top: 10px;">
+                    全局阈值（固定/Otsu）对光照不均的图像效果不佳。自适应阈值为<strong>每个像素</strong>单独计算阈值，
+                    基于其<strong>局部邻域的均值</strong>动态调整，能有效处理阴影、渐变背景等问题。
+                </p>
+            </div>
+            
+            <h3 style="margin-top: 20px;">参数影响</h3>
+            <div class="stats-grid">
+                <div class="stat-card" style="background: rgba(107, 255, 107, 0.1);">
+                    <div class="stat-value" style="color: #6bff6b;">blockSize</div>
+                    <div class="stat-label">邻域大小（奇数）<br>推荐 11-31</div>
+                </div>
+                <div class="stat-card" style="background: rgba(107, 255, 107, 0.1);">
+                    <div class="stat-value" style="color: #6bff6b;">C</div>
+                    <div class="stat-label">常数偏移量<br>推荐 2-10</div>
+                </div>
+                <div class="stat-card" style="background: rgba(107, 255, 107, 0.1);">
+                    <div class="stat-value" style="color: #6bff6b; font-size: 14px;">mean - C</div>
+                    <div class="stat-label">局部阈值公式</div>
+                </div>
+            </div>
+            
+            <div class="code-block">
+<span class="code-comment">/**
+ * 自适应阈值二值化
+ * 
+ * 核心思想：每个像素的阈值 = 邻域均值 - 常数C
+ * 
+ * 适用场景：
+ * - 光照不均匀的图像
+ * - 有阴影或渐变背景的文档
+ * - 扫描质量不佳的文档
+ */</span>
+<span class="code-keyword">function</span> <span class="code-function">binarizeAdaptive</span>(imageData, blockSize, C) {
+    <span class="code-keyword">const</span> { width, height, data } = imageData;
+    <span class="code-keyword">const</span> halfBlock = Math.floor(blockSize / <span class="code-number">2</span>);
+    
+    <span class="code-keyword">for</span> (<span class="code-keyword">let</span> y = <span class="code-number">0</span>; y < height; y++) {
+        <span class="code-keyword">for</span> (<span class="code-keyword">let</span> x = <span class="code-number">0</span>; x < width; x++) {
+            <span class="code-comment">// Step 1: 计算邻域均值</span>
+            <span class="code-keyword">let</span> sum = <span class="code-number">0</span>, count = <span class="code-number">0</span>;
+            
+            <span class="code-keyword">for</span> (<span class="code-keyword">let</span> dy = -halfBlock; dy <= halfBlock; dy++) {
+                <span class="code-keyword">for</span> (<span class="code-keyword">let</span> dx = -halfBlock; dx <= halfBlock; dx++) {
+                    <span class="code-keyword">const</span> nx = x + dx, ny = y + dy;
+                    <span class="code-keyword">if</span> (nx >= <span class="code-number">0</span> && nx < width && ny >= <span class="code-number">0</span> && ny < height) {
+                        sum += data[(ny * width + nx) * <span class="code-number">4</span>];
+                        count++;
+                    }
+                }
+            }
+            
+            <span class="code-keyword">const</span> mean = sum / count;
+            
+            <span class="code-comment">// Step 2: 计算局部阈值并二值化</span>
+            <span class="code-keyword">const</span> threshold = mean - C;
+            <span class="code-keyword">const</span> idx = (y * width + x) * <span class="code-number">4</span>;
+            <span class="code-keyword">const</span> binary = data[idx] >= threshold ? <span class="code-number">255</span> : <span class="code-number">0</span>;
+            
+            result[idx] = result[idx + <span class="code-number">1</span>] = result[idx + <span class="code-number">2</span>] = binary;
+        }
+    }
+}
+            </div>
+            
+            <h3 style="margin-top: 20px;">三种方法对比</h3>
+            <div style="overflow-x: auto;">
+                <table style="width: 100%; border-collapse: collapse; margin-top: 10px; color: #ccc;">
+                    <thead>
+                        <tr style="background: rgba(0, 217, 255, 0.2);">
+                            <th style="padding: 12px; text-align: left; border-bottom: 2px solid #444;">特性</th>
+                            <th style="padding: 12px; text-align: center; border-bottom: 2px solid #444;">固定阈值</th>
+                            <th style="padding: 12px; text-align: center; border-bottom: 2px solid #444;">Otsu</th>
+                            <th style="padding: 12px; text-align: center; border-bottom: 2px solid #444;">自适应阈值</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="padding: 10px; border-bottom: 1px solid #333;">阈值计算</td>
+                            <td style="padding: 10px; text-align: center; border-bottom: 1px solid #333;">手动指定</td>
+                            <td style="padding: 10px; text-align: center; border-bottom: 1px solid #333;">自动（全局）</td>
+                            <td style="padding: 10px; text-align: center; border-bottom: 1px solid #333;">自动（局部）</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px; border-bottom: 1px solid #333;">计算速度</td>
+                            <td style="padding: 10px; text-align: center; border-bottom: 1px solid #333;">⭐⭐⭐⭐⭐</td>
+                            <td style="padding: 10px; text-align: center; border-bottom: 1px solid #333;">⭐⭐⭐⭐</td>
+                            <td style="padding: 10px; text-align: center; border-bottom: 1px solid #333;">⭐⭐</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px; border-bottom: 1px solid #333;">光照均匀</td>
+                            <td style="padding: 10px; text-align: center; border-bottom: 1px solid #333;">⭐⭐⭐</td>
+                            <td style="padding: 10px; text-align: center; border-bottom: 1px solid #333; color: #6bff6b;">⭐⭐⭐⭐⭐ 最佳</td>
+                            <td style="padding: 10px; text-align: center; border-bottom: 1px solid #333;">⭐⭐⭐</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px;">光照不均</td>
+                            <td style="padding: 10px; text-align: center;">⭐</td>
+                            <td style="padding: 10px; text-align: center;">⭐⭐</td>
+                            <td style="padding: 10px; text-align: center; color: #6bff6b;">⭐⭐⭐⭐⭐ 最佳</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 
     <script>

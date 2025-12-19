@@ -451,6 +451,70 @@ threshold(x, y) = mean(邻域) - C
     console.log('  - 正值：阈值降低，更多像素变白');
     console.log('  - 负值：阈值升高，更多像素变黑');
     console.log('  - 推荐：2-10 之间');
+    
+    // 创建模拟光照不均的图像
+    console.log('\n【自适应阈值演示】\n');
+    console.log('模拟光照不均的图像（左暗右亮，中间有文字）：\n');
+    
+    const imageData = new MockImageData(10, 5);
+    // 模拟光照不均：左边暗（低灰度背景），右边亮（高灰度背景）
+    // 文字在中间位置
+    const pattern = [
+        // 第1行：渐变背景
+        [60, 70, 80, 90, 100, 160, 170, 180, 190, 200],
+        // 第2行：左边有文字（暗背景上的更暗文字），右边有文字（亮背景上的更暗文字）
+        [20, 70, 80, 90, 100, 160, 170, 120, 190, 200],
+        // 第3行：更多文字
+        [60, 20, 80, 90, 100, 160, 120, 180, 190, 200],
+        // 第4行：文字
+        [60, 70, 20, 90, 100, 120, 170, 180, 190, 200],
+        // 第5行：渐变背景
+        [60, 70, 80, 90, 100, 160, 170, 180, 190, 200]
+    ];
+    
+    // 设置像素
+    for (let y = 0; y < 5; y++) {
+        for (let x = 0; x < 10; x++) {
+            const gray = pattern[y][x];
+            setPixel(imageData, x, y, gray, gray, gray);
+        }
+    }
+    
+    console.log('原始灰度值（20=文字，60-200=渐变背景）：');
+    for (let y = 0; y < 5; y++) {
+        let row = '  ';
+        for (let x = 0; x < 10; x++) {
+            const pixel = getPixel(imageData, x, y);
+            row += String(pixel.r).padStart(4);
+        }
+        console.log(row);
+    }
+    
+    // 使用固定阈值（全局）- 效果不佳
+    console.log('\n【使用固定阈值 = 100 的结果】（全局阈值，效果不佳）：\n');
+    const fixedBinary = binarizeFixed(imageData, 100);
+    for (let y = 0; y < 5; y++) {
+        let row = '  ';
+        for (let x = 0; x < 10; x++) {
+            const pixel = getPixel(fixedBinary, x, y);
+            row += pixel.r === 0 ? '  ■ ' : '  □ ';
+        }
+        console.log(row);
+    }
+    console.log('  问题：左边的背景被误判为文字（都是■）');
+    
+    // 使用自适应阈值 - 效果更好
+    console.log('\n【使用自适应阈值的结果】（blockSize=5, C=10）：\n');
+    const adaptiveBinary = binarizeAdaptive(imageData, 5, 10);
+    for (let y = 0; y < 5; y++) {
+        let row = '  ';
+        for (let x = 0; x < 10; x++) {
+            const pixel = getPixel(adaptiveBinary, x, y);
+            row += pixel.r === 0 ? '  ■ ' : '  □ ';
+        }
+        console.log(row);
+    }
+    console.log('  自适应阈值能更好地分离文字和渐变背景！');
 }
 
 /**
