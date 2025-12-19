@@ -4,10 +4,10 @@
 
 | 项目 | 状态 |
 |------|------|
-| 当前阶段 | 第二阶段：图像预处理 |
-| 已完成知识点 | 6/26 |
-| 当前知识点 | 06. 形态学操作 ✅ |
-| 完成度 | 23% |
+| 当前阶段 | 第三阶段：文本检测 |
+| 已完成知识点 | 8/26 |
+| 当前知识点 | 08. 边缘检测 ✅ |
+| 完成度 | 31% |
 
 ---
 
@@ -116,37 +116,100 @@
 
 ---
 
+### 07. 倾斜校正 ✅
+- 完成日期：2024-12-18
+- 核心收获：
+  1. **理解文档倾斜的影响**：倾斜会导致文本行检测失败、字符分割错误、OCR识别率大幅下降
+  2. **掌握投影分析法检测倾斜角度**：通过旋转图像计算水平投影方差，方差最大的角度即为倾斜角度
+  3. 了解霍夫变换检测直线：将图像空间的点映射到参数空间，检测累加器峰值找到直线
+  4. **理解仿射变换**：图像旋转的数学基础，绕中心点旋转使用逆变换公式
+  5. **掌握双线性插值**：旋转后像素值的计算方法，使用周围4个像素的加权平均，效果比最近邻插值更平滑
+  6. 理解为什么使用逆变换：正向变换会导致目标图像有空洞，逆变换确保每个目标像素都有值
+  7. 掌握两阶段搜索优化：粗搜索 + 细化搜索，提高效率和精度
+- 关键代码文件：
+  - `07-deskewing/README.md` - 知识点说明（投影分析法、霍夫变换、仿射变换、双线性插值）
+  - `07-deskewing/index.html` - 浏览器交互演示（实时倾斜模拟、检测校正、投影可视化、角度-方差曲线）
+  - `07-deskewing/index.js` - Node.js 代码示例（完整的倾斜检测与校正流程）
+- 可复用模块（已添加到 shared/imageUtils.js）：
+  - `calculateHorizontalProjection(imageData)` - 计算水平投影直方图
+  - `calculateVerticalProjection(imageData)` - 计算垂直投影直方图
+  - `calculateProjectionVariance(projection)` - 计算投影方差
+  - `bilinearInterpolate(imageData, x, y)` - 双线性插值
+  - `rotateImage(imageData, angle, interpolation)` - 旋转图像
+  - `detectSkewAngle(imageData, options)` - 检测倾斜角度
+  - `deskew(imageData, options)` - 完整的倾斜校正
+- 与下一知识点的关联：
+  - 倾斜校正后的图像是水平的，适合进行边缘检测
+  - 投影分析的概念将在文本区域定位中再次使用
+
+---
+
+### 08. 边缘检测 ✅
+- 完成日期：2024-12-18
+- 核心收获：
+  1. **理解图像梯度**：梯度描述图像亮度的变化率和变化方向，边缘就是梯度幅值较大的地方
+  2. **掌握 Sobel 算子**：使用 3×3 卷积核计算 X 和 Y 方向的梯度，检测垂直和水平边缘
+  3. **掌握 Prewitt 算子**：类似 Sobel 但权重更简单，计算更快但噪声敏感度更高
+  4. **深入理解 Canny 边缘检测算法**（五步经典算法）：
+     - Step 1: 高斯滤波去噪
+     - Step 2: 使用 Sobel 算子计算梯度幅值和方向
+     - Step 3: 非极大值抑制（NMS），细化边缘至单像素宽
+     - Step 4: 双阈值检测，区分强边缘、弱边缘、非边缘
+     - Step 5: 滞后阈值边缘连接，保留与强边缘相连的弱边缘
+  5. 理解梯度幅值和方向的计算：G = √(Gx² + Gy²)，θ = arctan(Gy/Gx)
+  6. 理解不同边缘检测算法的适用场景：Sobel 快速、Canny 精确
+- 关键代码文件：
+  - `08-edge-detection/README.md` - 知识点说明（梯度、Sobel、Prewitt、Canny 详解）
+  - `08-edge-detection/index.html` - 浏览器交互演示（三种算法对比、Canny 五步可视化、参数调节）
+  - `08-edge-detection/index.js` - Node.js 代码示例（完整的边缘检测算法实现）
+- 可复用模块（已添加到 shared/imageUtils.js）：
+  - `createSobelKernelX()` - 创建 Sobel X 方向核
+  - `createSobelKernelY()` - 创建 Sobel Y 方向核
+  - `createPrewittKernelX()` - 创建 Prewitt X 方向核
+  - `createPrewittKernelY()` - 创建 Prewitt Y 方向核
+  - `computeGradient(imageData, kernelX, kernelY)` - 计算梯度幅值和方向
+  - `sobelEdgeDetection(imageData)` - Sobel 边缘检测
+  - `prewittEdgeDetection(imageData)` - Prewitt 边缘检测
+  - `nonMaxSuppression(magnitude, direction, width, height)` - 非极大值抑制
+  - `doubleThreshold(magnitude, low, high, width, height)` - 双阈值处理
+  - `hysteresisTracking(strong, weak, width, height)` - 滞后阈值边缘连接
+  - `cannyEdgeDetection(imageData, options)` - Canny 边缘检测
+- 与下一知识点的关联：
+  - 边缘检测的结果可以用于连通域分析
+  - 检测到的边缘帮助定位文字笔画的边界
+
+---
+
 ## 下一步学习
 
-### 下一个知识点：07. 倾斜校正
+### 下一个知识点：09. 连通域分析
 
 | 属性 | 内容 |
 |------|------|
-| **学术名称** | Deskewing / Skew Correction |
-| **学习目的** | 矫正因拍摄角度导致的文字倾斜，提高 OCR 识别准确率 |
-| **前置知识** | 01-06 全部完成 ✅ |
+| **学术名称** | Connected Component Analysis (CCA) / Connected Component Labeling (CCL) |
+| **学习目的** | 将相连的像素归为同一区域，用于分割单个字符或文字块 |
+| **前置知识** | 01-08 全部完成 ✅ |
 
 **学习建议：**
 
-1. 理解倾斜检测的原理：霍夫变换（Hough Transform）
-2. 学习投影分析法检测倾斜角度
-3. 掌握图像旋转的仿射变换
-4. 理解双线性插值在旋转中的应用
-5. 实现完整的倾斜检测与校正流程
+1. 理解 4 连通和 8 连通的区别
+2. 学习 Two-Pass 标记算法
+3. 了解并查集（Union-Find）优化
+4. 掌握区域属性提取（面积、边界框、质心等）
+5. 理解连通域在 OCR 字符分割中的应用
 
 **核心概念预览：**
 
-- **霍夫变换**：将图像空间的直线转换到参数空间，检测文本行方向
-- **投影法**：计算不同角度的投影直方图，方差最大的角度即为倾斜角
-- **仿射变换**：旋转图像的数学基础
-- **插值算法**：旋转后像素坐标的处理方式
+- **连通性**：4 连通只考虑上下左右，8 连通还包括对角线
+- **Two-Pass 算法**：第一遍标记，第二遍合并等价标签
+- **并查集**：高效管理等价类的数据结构
+- **区域属性**：面积、周长、边界框、质心、宽高比等
 
 **学完后你将能够：**
 
-- 检测文档图像的倾斜角度
-- 使用旋转变换校正倾斜的文档
-- 处理插值问题，保持图像质量
-- 为后续的文本检测和识别做好准备
+- 将二值图像中的前景像素分割成独立区域
+- 提取每个区域的几何特征
+- 为后续的字符分割和文本区域定位做准备
 
 ---
 
@@ -165,9 +228,13 @@
     ↓
 06.形态学操作 ✅
     ↓
-07.倾斜校正 ← 当前目标
+07.倾斜校正 ✅
     ↓
-08.边缘检测
+08.边缘检测 ✅
+    ↓
+09.连通域分析 ← 当前目标
+    ↓
+10.文本区域定位
 ```
 
 ---
@@ -181,6 +248,8 @@
 | 2024-12-18 | 04 | 二值化函数（固定/Otsu/自适应） |
 | 2024-12-18 | 05 | 卷积操作、滤波函数（均值/高斯/中值） |
 | 2024-12-18 | 06 | 形态学操作（腐蚀/膨胀/开运算/闭运算/梯度/顶帽/黑帽） |
+| 2024-12-18 | 07 | 倾斜校正（投影分析/旋转变换/双线性插值） |
+| 2024-12-18 | 08 | 边缘检测（Sobel/Prewitt/Canny/梯度计算/NMS/双阈值） |
 
 ### shared/imageUtils.js 函数列表
 
@@ -225,6 +294,24 @@
 | | `morphGradient` | 形态学梯度 |
 | | `topHat` | 顶帽变换 |
 | | `blackHat` | 黑帽变换 |
+| **倾斜校正** | `calculateHorizontalProjection` | 计算水平投影 |
+| | `calculateVerticalProjection` | 计算垂直投影 |
+| | `calculateProjectionVariance` | 计算投影方差 |
+| | `bilinearInterpolate` | 双线性插值 |
+| | `rotateImage` | 旋转图像 |
+| | `detectSkewAngle` | 检测倾斜角度 |
+| | `deskew` | 完整倾斜校正 |
+| **边缘检测** | `createSobelKernelX` | Sobel X 方向核 |
+| | `createSobelKernelY` | Sobel Y 方向核 |
+| | `createPrewittKernelX` | Prewitt X 方向核 |
+| | `createPrewittKernelY` | Prewitt Y 方向核 |
+| | `computeGradient` | 计算梯度幅值和方向 |
+| | `sobelEdgeDetection` | Sobel 边缘检测 |
+| | `prewittEdgeDetection` | Prewitt 边缘检测 |
+| | `nonMaxSuppression` | 非极大值抑制 |
+| | `doubleThreshold` | 双阈值检测 |
+| | `hysteresisTracking` | 滞后阈值边缘连接 |
+| | `cannyEdgeDetection` | Canny 边缘检测 |
 | **工具** | `clamp` | 限制值在范围内 |
 | | `lerp` | 线性插值 |
 
@@ -235,10 +322,30 @@
 | 阶段 | 知识点范围 | 状态 |
 |------|-----------|------|
 | 第一阶段：基础准备 | 01-02 | ✅ 已完成 (2/2) |
-| 第二阶段：图像预处理 | 03-07 | 进行中 (4/5) |
-| 第三阶段：文本检测 | 08-10 | 未开始 |
+| 第二阶段：图像预处理 | 03-07 | ✅ 已完成 (5/5) |
+| 第三阶段：文本检测 | 08-10 | 🔄 进行中 (1/3) |
 | 第四阶段：传统识别 | 11-13 | 未开始 |
 | 第五阶段：深度学习基础 | 14-16 | 未开始 |
 | 第六阶段：深度学习OCR | 17-21 | 未开始 |
 | 第七阶段：现代OCR | 22-23 | 未开始 |
 | 第八阶段：自主OCR引擎开发与验证 | 24-26 | 未开始 |
+
+---
+
+## 🎉 阶段里程碑
+
+### 第二阶段：图像预处理 - 完成！
+
+恭喜！你已完成 OCR 学习的第二阶段——**图像预处理**。
+
+在这个阶段，你学会了：
+
+1. **灰度化**：将彩色图像转换为灰度图，降低复杂度
+2. **二值化**：将灰度图转换为黑白图，分离前景和背景
+3. **图像去噪**：使用滤波器去除噪声干扰
+4. **形态学操作**：优化文字形态，填补空洞、去除噪点
+5. **倾斜校正**：检测并校正文档倾斜
+
+这些预处理步骤是 OCR 的基础，为后续的文本检测和识别奠定了坚实基础。
+
+接下来进入第三阶段：**文本检测**！

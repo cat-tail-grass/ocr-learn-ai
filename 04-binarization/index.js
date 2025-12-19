@@ -73,50 +73,52 @@ function binarizeFixed(imageData, threshold) {
 function calculateOtsuThreshold(histogram) {
     // 计算总像素数
     const total = histogram.reduce((sum, count) => sum + count, 0);
-    
+
     if (total === 0) {
         return { threshold: 128, variance: 0, w0: 0, w1: 0 };
     }
-    
+
     // 计算灰度值总和（用于快速计算均值）
     let sum = 0;
     for (let i = 0; i < 256; i++) {
         sum += i * histogram[i];
     }
-    
+
     // 遍历所有可能的阈值
     let sumB = 0;      // 前景灰度值累计
     let wB = 0;        // 前景像素数
     let maxVariance = 0;
     let bestThreshold = 0;
-    
+    let bestW0 = 0;    // ✅ 记录最佳阈值时的前景像素数
+
     for (let t = 0; t < 256; t++) {
         wB += histogram[t];           // 前景权重（像素数）
         if (wB === 0) continue;       // 跳过空的前景
-        
+
         const wF = total - wB;        // 背景权重
         if (wF === 0) break;          // 没有背景了，结束
-        
+
         sumB += t * histogram[t];     // 前景灰度值累计
-        
+
         const mB = sumB / wB;                 // 前景均值
         const mF = (sum - sumB) / wF;         // 背景均值
-        
+
         // 类间方差
         const variance = wB * wF * (mB - mF) * (mB - mF);
-        
+
         // 记录最大方差对应的阈值
         if (variance > maxVariance) {
             maxVariance = variance;
             bestThreshold = t;
+            bestW0 = wB;              // ✅ 同时记录此时的前景像素数
         }
     }
-    
+
     return {
         threshold: bestThreshold,
         variance: maxVariance,
-        w0: wB,      // 在最佳阈值时的前景像素数
-        w1: total - wB  // 背景像素数
+        w0: bestW0,              // ✅ 使用最佳阈值时记录的值
+        w1: total - bestW0       // ✅ 背景像素数
     };
 }
 

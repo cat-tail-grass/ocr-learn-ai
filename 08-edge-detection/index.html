@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>08. 边缘检测 - Edge Detection</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #e0e0e0;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            text-align: center;
+            margin-bottom: 10px;
+            color: #4facfe;
+            font-size: 2em;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #888;
+            margin-bottom: 30px;
+        }
+        
+        .control-panel {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .control-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .control-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        label {
+            color: #aaa;
+            font-size: 0.9em;
+            min-width: 80px;
+        }
+        
+        input[type="range"] {
+            width: 120px;
+            accent-color: #4facfe;
+        }
+        
+        .value-display {
+            background: rgba(79, 172, 254, 0.2);
+            padding: 3px 8px;
+            border-radius: 5px;
+            font-family: monospace;
+            min-width: 50px;
+            text-align: center;
+            color: #4facfe;
+        }
+        
+        select {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #e0e0e0;
+            padding: 8px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        
+        button {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            border: none;
+            color: #1a1a2e;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(79, 172, 254, 0.4);
+        }
+        
+        .upload-btn {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+        
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+        
+        .image-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .image-card h3 {
+            color: #4facfe;
+            margin-bottom: 10px;
+            font-size: 1em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .image-card canvas {
+            width: 100%;
+            border-radius: 8px;
+            background: #2a2a3e;
+        }
+        
+        .canny-steps {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .canny-steps h2 {
+            color: #4facfe;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+        
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 15px;
+        }
+        
+        @media (max-width: 900px) {
+            .steps-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        @media (max-width: 600px) {
+            .steps-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        .step-card {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 8px;
+            padding: 10px;
+            text-align: center;
+        }
+        
+        .step-card h4 {
+            color: #f093fb;
+            font-size: 0.8em;
+            margin-bottom: 8px;
+        }
+        
+        .step-card canvas {
+            width: 100%;
+            border-radius: 6px;
+            background: #1a1a2e;
+        }
+        
+        .info-panel {
+            background: rgba(79, 172, 254, 0.1);
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid rgba(79, 172, 254, 0.3);
+        }
+        
+        .info-panel h3 {
+            color: #4facfe;
+            margin-bottom: 15px;
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        
+        .info-item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 12px;
+            border-radius: 8px;
+        }
+        
+        .info-item .label {
+            color: #888;
+            font-size: 0.85em;
+        }
+        
+        .info-item .value {
+            color: #4facfe;
+            font-size: 1.2em;
+            font-weight: 600;
+        }
+        
+        .arrow {
+            color: #f093fb;
+            font-size: 1.5em;
+        }
+        
+        .step-number {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7em;
+            font-weight: bold;
+        }
+        
+        .comparison-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .comparison-row span {
+            color: #888;
+            font-size: 0.9em;
+        }
+        
+        #fileInput {
+            display: none;
+        }
+        
+        .algorithm-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .algorithm-buttons button {
+            flex: 1;
+            min-width: 100px;
+        }
+        
+        .algorithm-buttons button.active {
+            box-shadow: 0 0 15px rgba(79, 172, 254, 0.6);
+        }
+        
+        .sobel-btn { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .prewitt-btn { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
+        .canny-btn { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔍 08. 边缘检测 (Edge Detection)</h1>
+        <p class="subtitle">检测图像中亮度变化剧烈的位置 - OCR 文本定位的基础</p>
+        
+        <!-- 控制面板 -->
+        <div class="control-panel">
+            <div class="control-row">
+                <input type="file" id="fileInput" accept="image/*">
+                <button class="upload-btn" onclick="document.getElementById('fileInput').click()">📷 上传图片</button>
+                <button onclick="loadSampleImage()">🎨 使用示例图</button>
+                <button onclick="generateTextImage()">📝 生成文字图</button>
+            </div>
+            
+            <div class="control-row">
+                <span style="color: #4facfe; font-weight: 600;">选择算法：</span>
+                <div class="algorithm-buttons">
+                    <button class="sobel-btn" onclick="detectEdges('sobel')">Sobel</button>
+                    <button class="prewitt-btn" onclick="detectEdges('prewitt')">Prewitt</button>
+                    <button class="canny-btn active" onclick="detectEdges('canny')">Canny ⭐</button>
+                </div>
+            </div>
+            
+            <div class="control-row" id="cannyControls">
+                <div class="control-group">
+                    <label>高斯核大小:</label>
+                    <input type="range" id="gaussianSize" min="3" max="9" step="2" value="5">
+                    <span class="value-display" id="gaussianSizeValue">5</span>
+                </div>
+                <div class="control-group">
+                    <label>高斯σ:</label>
+                    <input type="range" id="gaussianSigma" min="0.5" max="3" step="0.1" value="1.4">
+                    <span class="value-display" id="gaussianSigmaValue">1.4</span>
+                </div>
+                <div class="control-group">
+                    <label>低阈值:</label>
+                    <input type="range" id="lowThreshold" min="10" max="100" value="50">
+                    <span class="value-display" id="lowThresholdValue">50</span>
+                </div>
+                <div class="control-group">
+                    <label>高阈值:</label>
+                    <input type="range" id="highThreshold" min="50" max="200" value="100">
+                    <span class="value-display" id="highThresholdValue">100</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 主要结果显示 -->
+        <div class="image-grid">
+            <div class="image-card">
+                <h3>📷 原始图像</h3>
+                <canvas id="originalCanvas"></canvas>
+            </div>
+            <div class="image-card">
+                <h3>⚫ 灰度图像</h3>
+                <canvas id="grayCanvas"></canvas>
+            </div>
+            <div class="image-card">
+                <h3>🔲 边缘检测结果</h3>
+                <canvas id="edgeCanvas"></canvas>
+            </div>
+        </div>
+        
+        <!-- Canny 步骤可视化 -->
+        <div class="canny-steps" id="cannyStepsSection">
+            <h2>🔬 Canny 边缘检测 - 五步详解</h2>
+            <div class="steps-grid">
+                <div class="step-card">
+                    <h4><span class="step-number">1</span> 高斯滤波</h4>
+                    <canvas id="step1Canvas"></canvas>
+                </div>
+                <div class="step-card">
+                    <h4><span class="step-number">2</span> 梯度幅值</h4>
+                    <canvas id="step2Canvas"></canvas>
+                </div>
+                <div class="step-card">
+                    <h4><span class="step-number">3</span> 非极大值抑制</h4>
+                    <canvas id="step3Canvas"></canvas>
+                </div>
+                <div class="step-card">
+                    <h4><span class="step-number">4</span> 双阈值</h4>
+                    <canvas id="step4Canvas"></canvas>
+                </div>
+                <div class="step-card">
+                    <h4><span class="step-number">5</span> 边缘连接</h4>
+                    <canvas id="step5Canvas"></canvas>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 信息面板 -->
+        <div class="info-panel">
+            <h3>📊 检测结果统计</h3>
+            <div class="info-grid">
+                <div class="info-item">
+                    <div class="label">图像尺寸</div>
+                    <div class="value" id="imageSizeInfo">-</div>
+                </div>
+                <div class="info-item">
+                    <div class="label">当前算法</div>
+                    <div class="value" id="algorithmInfo">Canny</div>
+                </div>
+                <div class="info-item">
+                    <div class="label">边缘像素数</div>
+                    <div class="value" id="edgeCountInfo">-</div>
+                </div>
+                <div class="info-item">
+                    <div class="label">边缘占比</div>
+                    <div class="value" id="edgeRatioInfo">-</div>
+                </div>
+                <div class="info-item">
+                    <div class="label">处理时间</div>
+                    <div class="value" id="processTimeInfo">-</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // ==================== 全局变量 ====================
+        let currentImageData = null;
+        let grayImageData = null;
+        let currentAlgorithm = 'canny';
+        
+        // ==================== 工具函数 ====================
+        
+        function clamp(value, min, max) {
+            return Math.max(min, Math.min(max, value));
+        }
+        
+        function getPixel(imageData, x, y) {
+            if (x < 0 || x >= imageData.width || y < 0 || y >= imageData.height) {
+                return { r: 0, g: 0, b: 0, a: 0 };
+            }
+            const index = (y * imageData.width + x) * 4;
+            return {
+                r: imageData.data[index],
+                g: imageData.data[index + 1],
+                b: imageData.data[index + 2],
+                a: imageData.data[index + 3]
+            };
+        }
+        
+        function setPixel(imageData, x, y, r, g, b, a = 255) {
+            if (x < 0 || x >= imageData.width || y < 0 || y >= imageData.height) return;
+            const index = (y * imageData.width + x) * 4;
+            imageData.data[index] = r;
+            imageData.data[index + 1] = g;
+            imageData.data[index + 2] = b;
+            imageData.data[index + 3] = a;
+        }
+        
+        function createImageDataCopy(imageData) {
+            const copy = new ImageData(imageData.width, imageData.height);
+            copy.data.set(imageData.data);
+            return copy;
+        }
+        
+        // ==================== 灰度化 ====================
+        
+        function toGrayscale(imageData) {
+            const result = createImageDataCopy(imageData);
+            for (let i = 0; i < result.data.length; i += 4) {
+                const gray = Math.round(
+                    0.299 * result.data[i] + 
+                    0.587 * result.data[i + 1] + 
+                    0.114 * result.data[i + 2]
+                );
+                result.data[i] = result.data[i + 1] = result.data[i + 2] = gray;
+            }
+            return result;
+        }
+        
+        // ==================== 高斯滤波 ====================
+        
+        function createGaussianKernel(size, sigma) {
+            const kernel = [];
+            const center = Math.floor(size / 2);
+            let sum = 0;
+            
+            for (let y = 0; y < size; y++) {
+                const row = [];
+                for (let x = 0; x < size; x++) {
+                    const dx = x - center;
+                    const dy = y - center;
+                    const value = Math.exp(-(dx * dx + dy * dy) / (2 * sigma * sigma));
+                    row.push(value);
+                    sum += value;
+                }
+                kernel.push(row);
+            }
+            
+            // 归一化
+            for (let y = 0; y < size; y++) {
+                for (let x = 0; x < size; x++) {
+                    kernel[y][x] /= sum;
+                }
+            }
+            
+            return kernel;
+        }
+        
+        function convolve(imageData, kernel) {
+            const { width, height } = imageData;
+            const result = new ImageData(width, height);
+            const kernelSize = kernel.length;
+            const halfKernel = Math.floor(kernelSize / 2);
+            
+            for (let y = 0; y < height; y++) {
+                for (let x = 0; x < width; x++) {
+                    let sum = 0;
+                    
+                    for (let ky = 0; ky < kernelSize; ky++) {
+                        for (let kx = 0; kx < kernelSize; kx++) {
+                            const imgX = clamp(x + kx - halfKernel, 0, width - 1);
+                            const imgY = clamp(y + ky - halfKernel, 0, height - 1);
+                            const pixel = getPixel(imageData, imgX, imgY);
+                            sum += pixel.r * kernel[ky][kx];
+                        }
+                    }
+                    
+                    const value = clamp(Math.round(sum), 0, 255);
+                    setPixel(result, x, y, value, value, value);
+                }
+            }
+            
+            return result;
+        }
+        
+        function gaussianFilter(imageData, size, sigma) {
+            const kernel = createGaussianKernel(size, sigma);
+            return convolve(imageData, kernel);
+        }
+        
+        // ==================== 梯度计算 ====================
+        
+        const SOBEL_X = [[-1, 0, 1], [-2, 0, 2], [-1, 0, 1]];
+        const SOBEL_Y = [[-1, -2, -1], [0, 0, 0], [1, 2, 1]];
+        const PREWITT_X = [[-1, 0, 1], [-1, 0, 1], [-1, 0, 1]];
+        const PREWITT_Y = [[-1, -1, -1], [0, 0, 0], [1, 1, 1]];
+        
+        function computeGradient(imageData, kernelX, kernelY) {
+            const { width, height } = imageData;
+            const size = width * height;
+            
+            const gx = new Float32Array(size);
+            const gy = new Float32Array(size);
+            const magnitude = new Float32Array(size);
+            const direction = new Float32Array(size);
+            
+            for (let y = 0; y < height; y++) {
+                for (let x = 0; x < width; x++) {
+                    let sumX = 0, sumY = 0;
+                    
+                    for (let ky = 0; ky < 3; ky++) {
+                        for (let kx = 0; kx < 3; kx++) {
+                            const imgX = clamp(x + kx - 1, 0, width - 1);
+                            const imgY = clamp(y + ky - 1, 0, height - 1);
+                            const gray = getPixel(imageData, imgX, imgY).r;
+                            
+                            sumX += gray * kernelX[ky][kx];
+                            sumY += gray * kernelY[ky][kx];
+                        }
+                    }
+                    
+                    const idx = y * width + x;
+                    gx[idx] = sumX;
+                    gy[idx] = sumY;
+                    magnitude[idx] = Math.sqrt(sumX * sumX + sumY * sumY);
+                    direction[idx] = Math.atan2(sumY, sumX) * 180 / Math.PI;
+                }
+            }
+            
+            return { gx, gy, magnitude, direction };
+        }
+        
+        // ==================== Sobel 边缘检测 ====================
+        
+        function sobelEdgeDetection(imageData) {
+            const gradient = computeGradient(imageData, SOBEL_X, SOBEL_Y);
+            return gradientToImage(imageData, gradient.magnitude);
+        }
+        
+        // ==================== Prewitt 边缘检测 ====================
+        
+        function prewittEdgeDetection(imageData) {
+            const gradient = computeGradient(imageData, PREWITT_X, PREWITT_Y);
+            return gradientToImage(imageData, gradient.magnitude);
+        }
+        
+        function gradientToImage(imageData, magnitude) {
+            const { width, height } = imageData;
+            const result = new ImageData(width, height);
+            
+            let maxMag = 0;
+            for (let i = 0; i < magnitude.length; i++) {
+                if (magnitude[i] > maxMag) maxMag = magnitude[i];
+            }
+            
+            for (let y = 0; y < height; y++) {
+                for (let x = 0; x < width; x++) {
+                    const idx = y * width + x;
+                    const value = Math.round(magnitude[idx] / maxMag * 255);
+                    setPixel(result, x, y, value, value, value);
+                }
+            }
+            
+            return { imageData: result, magnitude };
+        }
+        
+        // ==================== Canny 边缘检测 ====================
+        
+        function nonMaxSuppression(magnitude, direction, width, height) {
+            const result = new Float32Array(width * height);
+            
+            for (let y = 1; y < height - 1; y++) {
+                for (let x = 1; x < width - 1; x++) {
+                    const idx = y * width + x;
+                    const mag = magnitude[idx];
+                    
+                    let angle = direction[idx];
+                    if (angle < 0) angle += 180;
+                    
+                    let neighbor1, neighbor2;
+                    
+                    if ((angle >= 0 && angle < 22.5) || (angle >= 157.5 && angle <= 180)) {
+                        neighbor1 = magnitude[idx - 1];
+                        neighbor2 = magnitude[idx + 1];
+                    } else if (angle >= 22.5 && angle < 67.5) {
+                        neighbor1 = magnitude[(y - 1) * width + (x + 1)];
+                        neighbor2 = magnitude[(y + 1) * width + (x - 1)];
+                    } else if (angle >= 67.5 && angle < 112.5) {
+                        neighbor1 = magnitude[(y - 1) * width + x];
+                        neighbor2 = magnitude[(y + 1) * width + x];
+                    } else {
+                        neighbor1 = magnitude[(y - 1) * width + (x - 1)];
+                        neighbor2 = magnitude[(y + 1) * width + (x + 1)];
+                    }
+                    
+                    if (mag >= neighbor1 && mag >= neighbor2) {
+                        result[idx] = mag;
+                    }
+                }
+            }
+            
+            return result;
+        }
+        
+        function doubleThreshold(magnitude, lowThreshold, highThreshold, width, height) {
+            const size = width * height;
+            const strong = new Uint8Array(size);
+            const weak = new Uint8Array(size);
+            
+            for (let i = 0; i < size; i++) {
+                if (magnitude[i] >= highThreshold) {
+                    strong[i] = 1;
+                } else if (magnitude[i] >= lowThreshold) {
+                    weak[i] = 1;
+                }
+            }
+            
+            return { strong, weak };
+        }
+        
+        function hysteresisTracking(strong, weak, width, height) {
+            const result = new Uint8Array(width * height);
+            const visited = new Uint8Array(width * height);
+            
+            for (let i = 0; i < strong.length; i++) {
+                if (strong[i]) result[i] = 1;
+            }
+            
+            const dx = [-1, 0, 1, -1, 1, -1, 0, 1];
+            const dy = [-1, -1, -1, 0, 0, 1, 1, 1];
+            
+            const queue = [];
+            
+            for (let y = 1; y < height - 1; y++) {
+                for (let x = 1; x < width - 1; x++) {
+                    const idx = y * width + x;
+                    if (strong[idx]) {
+                        queue.push({ x, y });
+                        visited[idx] = 1;
+                    }
+                }
+            }
+            
+            while (queue.length > 0) {
+                const current = queue.shift();
+                
+                for (let i = 0; i < 8; i++) {
+                    const nx = current.x + dx[i];
+                    const ny = current.y + dy[i];
+                    
+                    if (nx < 0 || nx >= width || ny < 0 || ny >= height) continue;
+                    
+                    const nidx = ny * width + nx;
+                    
+                    if (weak[nidx] && !visited[nidx]) {
+                        result[nidx] = 1;
+                        visited[nidx] = 1;
+                        queue.push({ x: nx, y: ny });
+                    }
+                }
+            }
+            
+            return result;
+        }
+        
+        function cannyEdgeDetection(imageData, options = {}) {
+            const {
+                gaussianSize = 5,
+                gaussianSigma = 1.4,
+                lowThreshold = 50,
+                highThreshold = 100
+            } = options;
+            
+            const { width, height } = imageData;
+            const steps = {};
+            
+            // Step 1: 高斯滤波
+            const blurred = gaussianFilter(imageData, gaussianSize, gaussianSigma);
+            steps.blurred = blurred;
+            
+            // Step 2: 计算梯度
+            const gradient = computeGradient(blurred, SOBEL_X, SOBEL_Y);
+            
+            let maxMag = 0;
+            for (let i = 0; i < gradient.magnitude.length; i++) {
+                if (gradient.magnitude[i] > maxMag) maxMag = gradient.magnitude[i];
+            }
+            
+            const magnitudeImage = new ImageData(width, height);
+            for (let y = 0; y < height; y++) {
+                for (let x = 0; x < width; x++) {
+                    const idx = y * width + x;
+                    const value = Math.round(gradient.magnitude[idx] / maxMag * 255);
+                    setPixel(magnitudeImage, x, y, value, value, value);
+                }
+            }
+            steps.magnitude = magnitudeImage;
+            
+            // Step 3: 非极大值抑制
+            const suppressed = nonMaxSuppression(gradient.magnitude, gradient.direction, width, height);
+            
+            const nmsImage = new ImageData(width, height);
+            for (let y = 0; y < height; y++) {
+                for (let x = 0; x < width; x++) {
+                    const idx = y * width + x;
+                    const value = clamp(Math.round(suppressed[idx] / maxMag * 255), 0, 255);
+                    setPixel(nmsImage, x, y, value, value, value);
+                }
+            }
+            steps.nms = nmsImage;
+            
+            // Step 4: 双阈值检测
+            const { strong, weak } = doubleThreshold(suppressed, lowThreshold, highThreshold, width, height);
+            
+            const thresholdImage = new ImageData(width, height);
+            for (let y = 0; y < height; y++) {
+                for (let x = 0; x < width; x++) {
+                    const idx = y * width + x;
+                    let value = 0;
+                    if (strong[idx]) value = 255;
+                    else if (weak[idx]) value = 128;
+                    setPixel(thresholdImage, x, y, value, value, value);
+                }
+            }
+            steps.threshold = thresholdImage;
+            
+            // Step 5: 边缘连接
+            const finalEdges = hysteresisTracking(strong, weak, width, height);
+            
+            const result = new ImageData(width, height);
+            let edgeCount = 0;
+            
+            for (let y = 0; y < height; y++) {
+                for (let x = 0; x < width; x++) {
+                    const idx = y * width + x;
+                    if (finalEdges[idx]) {
+                        setPixel(result, x, y, 255, 255, 255);
+                        edgeCount++;
+                    } else {
+                        setPixel(result, x, y, 0, 0, 0);
+                    }
+                }
+            }
+            steps.final = result;
+            
+            return { imageData: result, steps, edgeCount };
+        }
+        
+        // ==================== UI 函数 ====================
+        
+        function displayImageOnCanvas(imageData, canvasId) {
+            const canvas = document.getElementById(canvasId);
+            canvas.width = imageData.width;
+            canvas.height = imageData.height;
+            const ctx = canvas.getContext('2d');
+            ctx.putImageData(imageData, 0, 0);
+        }
+        
+        function updateSliderDisplays() {
+            document.getElementById('gaussianSizeValue').textContent = 
+                document.getElementById('gaussianSize').value;
+            document.getElementById('gaussianSigmaValue').textContent = 
+                document.getElementById('gaussianSigma').value;
+            document.getElementById('lowThresholdValue').textContent = 
+                document.getElementById('lowThreshold').value;
+            document.getElementById('highThresholdValue').textContent = 
+                document.getElementById('highThreshold').value;
+        }
+        
+        function detectEdges(algorithm) {
+            if (!grayImageData) return;
+            
+            currentAlgorithm = algorithm;
+            
+            // 更新按钮状态
+            document.querySelectorAll('.algorithm-buttons button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // 显示/隐藏 Canny 控制项
+            document.getElementById('cannyControls').style.display = 
+                algorithm === 'canny' ? 'flex' : 'none';
+            document.getElementById('cannyStepsSection').style.display = 
+                algorithm === 'canny' ? 'block' : 'none';
+            
+            const startTime = performance.now();
+            let result;
+            
+            switch (algorithm) {
+                case 'sobel':
+                    result = sobelEdgeDetection(grayImageData);
+                    displayImageOnCanvas(result.imageData, 'edgeCanvas');
+                    break;
+                case 'prewitt':
+                    result = prewittEdgeDetection(grayImageData);
+                    displayImageOnCanvas(result.imageData, 'edgeCanvas');
+                    break;
+                case 'canny':
+                    const options = {
+                        gaussianSize: parseInt(document.getElementById('gaussianSize').value),
+                        gaussianSigma: parseFloat(document.getElementById('gaussianSigma').value),
+                        lowThreshold: parseInt(document.getElementById('lowThreshold').value),
+                        highThreshold: parseInt(document.getElementById('highThreshold').value)
+                    };
+                    result = cannyEdgeDetection(grayImageData, options);
+                    displayImageOnCanvas(result.imageData, 'edgeCanvas');
+                    
+                    // 显示 Canny 步骤
+                    displayImageOnCanvas(result.steps.blurred, 'step1Canvas');
+                    displayImageOnCanvas(result.steps.magnitude, 'step2Canvas');
+                    displayImageOnCanvas(result.steps.nms, 'step3Canvas');
+                    displayImageOnCanvas(result.steps.threshold, 'step4Canvas');
+                    displayImageOnCanvas(result.steps.final, 'step5Canvas');
+                    break;
+            }
+            
+            const endTime = performance.now();
+            
+            // 更新统计信息
+            updateInfo(algorithm, result, endTime - startTime);
+        }
+        
+        function updateInfo(algorithm, result, processTime) {
+            const { width, height } = grayImageData;
+            const totalPixels = width * height;
+            
+            let edgeCount = 0;
+            if (result.edgeCount !== undefined) {
+                edgeCount = result.edgeCount;
+            } else {
+                for (let i = 0; i < result.imageData.data.length; i += 4) {
+                    if (result.imageData.data[i] > 128) edgeCount++;
+                }
+            }
+            
+            document.getElementById('imageSizeInfo').textContent = `${width} × ${height}`;
+            document.getElementById('algorithmInfo').textContent = algorithm.charAt(0).toUpperCase() + algorithm.slice(1);
+            document.getElementById('edgeCountInfo').textContent = edgeCount.toLocaleString();
+            document.getElementById('edgeRatioInfo').textContent = (edgeCount / totalPixels * 100).toFixed(2) + '%';
+            document.getElementById('processTimeInfo').textContent = processTime.toFixed(2) + 'ms';
+        }
+        
+        function processImage(imageData) {
+            currentImageData = imageData;
+            grayImageData = toGrayscale(imageData);
+            
+            displayImageOnCanvas(currentImageData, 'originalCanvas');
+            displayImageOnCanvas(grayImageData, 'grayCanvas');
+            
+            detectEdges(currentAlgorithm);
+        }
+        
+        function loadSampleImage() {
+            // 创建一个包含各种边缘的示例图像
+            const width = 300;
+            const height = 200;
+            const canvas = document.createElement('canvas');
+            canvas.width = width;
+            canvas.height = height;
+            const ctx = canvas.getContext('2d');
+            
+            // 白色背景
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(0, 0, width, height);
+            
+            // 绘制各种形状
+            // 矩形
+            ctx.fillStyle = '#333333';
+            ctx.fillRect(30, 30, 80, 60);
+            
+            // 圆形
+            ctx.beginPath();
+            ctx.arc(180, 60, 35, 0, Math.PI * 2);
+            ctx.fill();
+            
+            // 三角形
+            ctx.beginPath();
+            ctx.moveTo(260, 90);
+            ctx.lineTo(230, 30);
+            ctx.lineTo(290, 30);
+            ctx.closePath();
+            ctx.fill();
+            
+            // 渐变区域
+            const gradient = ctx.createLinearGradient(30, 120, 130, 120);
+            gradient.addColorStop(0, '#ffffff');
+            gradient.addColorStop(1, '#333333');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(30, 110, 100, 50);
+            
+            // 线条
+            ctx.strokeStyle = '#333333';
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            ctx.moveTo(150, 120);
+            ctx.lineTo(280, 170);
+            ctx.stroke();
+            
+            // 同心圆
+            ctx.beginPath();
+            ctx.arc(220, 150, 30, 0, Math.PI * 2);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.arc(220, 150, 20, 0, Math.PI * 2);
+            ctx.stroke();
+            
+            const imageData = ctx.getImageData(0, 0, width, height);
+            processImage(imageData);
+        }
+        
+        function generateTextImage() {
+            const width = 400;
+            const height = 150;
+            const canvas = document.createElement('canvas');
+            canvas.width = width;
+            canvas.height = height;
+            const ctx = canvas.getContext('2d');
+            
+            // 白色背景
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(0, 0, width, height);
+            
+            // 绘制文字
+            ctx.fillStyle = '#333333';
+            ctx.font = 'bold 48px Arial';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('Edge Detection', width / 2, 50);
+            
+            ctx.font = '24px Arial';
+            ctx.fillText('边缘检测 OCR', width / 2, 100);
+            
+            const imageData = ctx.getImageData(0, 0, width, height);
+            processImage(imageData);
+        }
+        
+        // ==================== 事件监听 ====================
+        
+        document.getElementById('fileInput').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+            
+            const img = new Image();
+            img.onload = function() {
+                const canvas = document.createElement('canvas');
+                canvas.width = img.width;
+                canvas.height = img.height;
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(img, 0, 0);
+                const imageData = ctx.getImageData(0, 0, img.width, img.height);
+                processImage(imageData);
+            };
+            img.src = URL.createObjectURL(file);
+        });
+        
+        // 滑块事件
+        ['gaussianSize', 'gaussianSigma', 'lowThreshold', 'highThreshold'].forEach(id => {
+            document.getElementById(id).addEventListener('input', function() {
+                updateSliderDisplays();
+                if (currentAlgorithm === 'canny' && grayImageData) {
+                    detectEdges('canny');
+                }
+            });
+        });
+        
+        // 初始化
+        updateSliderDisplays();
+        loadSampleImage();
+    </script>
+</body>
+</html>

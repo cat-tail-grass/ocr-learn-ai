@@ -1,0 +1,17 @@
+{
+  "name": "ocr-learning",
+  "version": "1.0.0",
+  "description": "OCR 学习项目 - 自主开发 OCR 工具库",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage"
+  },
+  "keywords": ["ocr", "image-processing", "javascript"],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^30.2.0"
+  }
+}
