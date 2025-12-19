@@ -38,6 +38,12 @@ const deskewing = require('./07-deskewing');
 // 边缘检测模块（08章节）
 const edgeDetection = require('./08-edge-detection');
 
+// 连通域分析模块（09章节）
+const connectedComponents = require('./09-connected-components');
+
+// 文本区域定位模块（10章节）
+const textLocalization = require('./10-text-localization');
+
 // 统一导出所有函数
 module.exports = {
     // ==================== 核心模块（01-02章节） ====================
@@ -122,5 +128,28 @@ module.exports = {
     nonMaxSuppression: edgeDetection.nonMaxSuppression,
     doubleThreshold: edgeDetection.doubleThreshold,
     hysteresisTracking: edgeDetection.hysteresisTracking,
-    cannyEdgeDetection: edgeDetection.cannyEdgeDetection
+    cannyEdgeDetection: edgeDetection.cannyEdgeDetection,
+    
+    // ==================== 连通域分析模块（09章节） ====================
+    UnionFind: connectedComponents.UnionFind,
+    labelConnectedComponents: connectedComponents.labelConnectedComponents,
+    extractRegionProperties: connectedComponents.extractRegionProperties,
+    filterRegions: connectedComponents.filterRegions,
+    generateDistinctColors: connectedComponents.generateDistinctColors,
+    colorizeLabels: connectedComponents.colorizeLabels,
+    extractRegionMask: connectedComponents.extractRegionMask,
+    extractRegionImage: connectedComponents.extractRegionImage,
+    
+    // ==================== 文本区域定位模块（10章节） ====================
+    horizontalRLSA: textLocalization.horizontalRLSA,
+    verticalRLSA: textLocalization.verticalRLSA,
+    filterCandidateCharacters: textLocalization.filterCandidateCharacters,
+    detectTextLines: textLocalization.detectTextLines,
+    groupRegionsIntoLines: textLocalization.groupRegionsIntoLines,
+    segmentCharacters: textLocalization.segmentCharacters,
+    segmentCharactersByCC: textLocalization.segmentCharactersByCC,
+    sortCharacters: textLocalization.sortCharacters,
+    extractLineImage: textLocalization.extractLineImage,
+    calculateRegionStats: textLocalization.calculateRegionStats,
+    localizeText: textLocalization.localizeText
 };
