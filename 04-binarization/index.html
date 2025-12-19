@@ -578,6 +578,7 @@
             let sumB = 0, wB = 0, wF = 0;
             let maxVariance = 0, threshold = 0;
             let varianceAtThreshold = 0;
+            let wBAtThreshold = 0;  // 保存最优阈值时的前景权重
             
             for (let t = 0; t < 256; t++) {
                 wB += histogram[t];
@@ -596,10 +597,11 @@
                     maxVariance = variance;
                     threshold = t;
                     varianceAtThreshold = variance;
+                    wBAtThreshold = wB;  // 记录最优阈值时的 wB
                 }
             }
             
-            return { threshold, variance: varianceAtThreshold, wB, wF: total - wB, total };
+            return { threshold, variance: varianceAtThreshold, wB: wBAtThreshold, wF: total - wBAtThreshold, total };
         }
         
         /**
