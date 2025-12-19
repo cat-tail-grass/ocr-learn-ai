@@ -44,6 +44,9 @@ const connectedComponents = require('./09-connected-components');
 // 文本区域定位模块（10章节）
 const textLocalization = require('./10-text-localization');
 
+// 特征提取模块（11章节）
+const featureExtraction = require('./11-feature-extraction');
+
 // 统一导出所有函数
 module.exports = {
     // ==================== 核心模块（01-02章节） ====================
@@ -151,5 +154,47 @@ module.exports = {
     sortCharacters: textLocalization.sortCharacters,
     extractLineImage: textLocalization.extractLineImage,
     calculateRegionStats: textLocalization.calculateRegionStats,
-    localizeText: textLocalization.localizeText
+    localizeText: textLocalization.localizeText,
+    
+    // ==================== 特征提取模块（11章节） ====================
+    // 像素级特征
+    extractPixelFeatures: featureExtraction.extractPixelFeatures,
+    
+    // 统计特征
+    extractStatisticalFeatures: featureExtraction.extractStatisticalFeatures,
+    statisticalFeaturesToVector: featureExtraction.statisticalFeaturesToVector,
+    
+    // 图像矩
+    calculateRawMoment: featureExtraction.calculateRawMoment,
+    calculateCentralMoments: featureExtraction.calculateCentralMoments,
+    calculateHuMoments: featureExtraction.calculateHuMoments,
+    logTransformHuMoments: featureExtraction.logTransformHuMoments,
+    
+    // 投影特征
+    extractProjectionFeatures: featureExtraction.extractProjectionFeatures,
+    
+    // 网格特征
+    extractZoneFeatures: featureExtraction.extractZoneFeatures,
+    
+    // 梯度计算
+    computeImageGradients: featureExtraction.computeImageGradients,
+    
+    // HOG 特征
+    extractHOGFeatures: featureExtraction.extractHOGFeatures,
+    
+    // 特征归一化
+    normalizeFeatures: featureExtraction.normalizeFeatures,
+    
+    // 图像预处理
+    resizeImage: featureExtraction.resizeImage,
+    getBoundingBox: featureExtraction.getBoundingBox,
+    cropAndCenter: featureExtraction.cropAndCenter,
+    
+    // 组合特征
+    extractCombinedFeatures: featureExtraction.extractCombinedFeatures,
+    
+    // 距离度量
+    euclideanDistance: featureExtraction.euclideanDistance,
+    cosineSimilarity: featureExtraction.cosineSimilarity,
+    manhattanDistance: featureExtraction.manhattanDistance
 };

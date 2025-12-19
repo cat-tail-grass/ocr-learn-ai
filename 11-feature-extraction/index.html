@@ -1,0 +1,1317 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第11章 - 特征提取基础</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            color: white;
+            text-align: center;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .subtitle {
+            color: rgba(255,255,255,0.9);
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+        
+        .card h2 {
+            color: #333;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #667eea;
+        }
+        
+        .card h3 {
+            color: #555;
+            margin: 15px 0 10px;
+        }
+        
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+        }
+        
+        @media (max-width: 1200px) {
+            .grid-4 { grid-template-columns: repeat(2, 1fr); }
+        }
+        
+        @media (max-width: 800px) {
+            .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+        }
+        
+        .input-section {
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+            flex-wrap: wrap;
+        }
+        
+        .drawing-area {
+            flex: 0 0 auto;
+        }
+        
+        .drawing-area canvas {
+            border: 3px solid #667eea;
+            border-radius: 10px;
+            cursor: crosshair;
+            background: white;
+        }
+        
+        .drawing-controls {
+            margin-top: 10px;
+            display: flex;
+            gap: 10px;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn-secondary {
+            background: #f0f0f0;
+            color: #333;
+        }
+        
+        .btn-secondary:hover {
+            background: #e0e0e0;
+        }
+        
+        .preset-chars {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 15px;
+        }
+        
+        .preset-char {
+            width: 50px;
+            height: 50px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: white;
+        }
+        
+        .preset-char:hover {
+            border-color: #667eea;
+            transform: scale(1.1);
+        }
+        
+        .preset-char.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-color: transparent;
+        }
+        
+        .feature-display {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .feature-box {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .feature-box h4 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+        
+        .feature-values {
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 12px;
+            color: #333;
+            line-height: 1.6;
+            word-break: break-all;
+        }
+        
+        .feature-dim {
+            font-size: 11px;
+            color: #888;
+            margin-bottom: 5px;
+        }
+        
+        .projection-chart {
+            height: 100px;
+            background: #f0f0f0;
+            border-radius: 5px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .projection-bar {
+            position: absolute;
+            bottom: 0;
+            background: linear-gradient(to top, #667eea, #764ba2);
+            transition: height 0.3s;
+        }
+        
+        .zone-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 3px;
+            max-width: 200px;
+        }
+        
+        .zone-cell {
+            aspect-ratio: 1;
+            background: #667eea;
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .hu-moments {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
+        }
+        
+        .hu-value {
+            background: #667eea;
+            color: white;
+            padding: 8px 5px;
+            border-radius: 5px;
+            text-align: center;
+            font-size: 10px;
+        }
+        
+        .hu-label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 3px;
+        }
+        
+        .comparison-section {
+            margin-top: 20px;
+        }
+        
+        .comparison-result {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            margin-top: 10px;
+        }
+        
+        .comparison-canvas {
+            border: 2px solid #ddd;
+            border-radius: 5px;
+        }
+        
+        .distance-bar {
+            flex: 1;
+            height: 30px;
+            background: #e0e0e0;
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .distance-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #4CAF50, #FFC107, #f44336);
+            transition: width 0.5s;
+        }
+        
+        .distance-label {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .hog-viz {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .hog-cell {
+            width: 60px;
+            height: 60px;
+            background: #f0f0f0;
+            border-radius: 5px;
+            position: relative;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+        
+        .stat-item {
+            background: #f8f9fa;
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .stat-label {
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 5px;
+        }
+        
+        .stat-value {
+            font-size: 18px;
+            font-weight: bold;
+            color: #667eea;
+        }
+        
+        .info-box {
+            background: linear-gradient(135deg, #e8f4fd 0%, #d4e9f7 100%);
+            border-left: 4px solid #667eea;
+            padding: 15px;
+            border-radius: 0 8px 8px 0;
+            margin: 15px 0;
+        }
+        
+        .info-box p {
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .template-gallery {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 15px;
+        }
+        
+        .template-item {
+            text-align: center;
+        }
+        
+        .template-item canvas {
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 5px;
+        }
+        
+        .template-item.best-match canvas {
+            border-color: #4CAF50;
+            box-shadow: 0 0 10px rgba(76, 175, 80, 0.5);
+        }
+        
+        .match-score {
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .match-score.best {
+            color: #4CAF50;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📊 第11章：特征提取基础</h1>
+        <p class="subtitle">将字符图像转换为可用于分类的数值特征向量</p>
+        
+        <!-- 输入区域 -->
+        <div class="card">
+            <h2>🖌️ 绘制或选择字符</h2>
+            <div class="input-section">
+                <div class="drawing-area">
+                    <canvas id="drawCanvas" width="140" height="140"></canvas>
+                    <div class="drawing-controls">
+                        <button class="btn btn-primary" onclick="extractFeatures()">提取特征</button>
+                        <button class="btn btn-secondary" onclick="clearCanvas()">清除</button>
+                    </div>
+                    <div class="preset-chars">
+                        <div class="preset-char" onclick="loadPreset('0')">0</div>
+                        <div class="preset-char" onclick="loadPreset('1')">1</div>
+                        <div class="preset-char" onclick="loadPreset('7')">7</div>
+                        <div class="preset-char" onclick="loadPreset('A')">A</div>
+                        <div class="preset-char" onclick="loadPreset('O')">O</div>
+                        <div class="preset-char" onclick="loadPreset('X')">X</div>
+                    </div>
+                </div>
+                
+                <div class="feature-display">
+                    <h3>📈 统计特征</h3>
+                    <div class="stats-grid" id="statsDisplay">
+                        <div class="stat-item">
+                            <div class="stat-label">填充率</div>
+                            <div class="stat-value" id="fillRatio">-</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">质心 X</div>
+                            <div class="stat-value" id="centroidX">-</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">质心 Y</div>
+                            <div class="stat-value" id="centroidY">-</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">均值</div>
+                            <div class="stat-value" id="mean">-</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">标准差</div>
+                            <div class="stat-value" id="stdDev">-</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">前景像素</div>
+                            <div class="stat-value" id="fgCount">-</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Hu 矩 -->
+        <div class="card">
+            <h2>🔄 Hu 矩（旋转不变特征）</h2>
+            <div class="info-box">
+                <p><strong>Hu 矩</strong>是一组 7 个特征，具有平移、尺度和旋转不变性。相似形状的字符（如 0 和 O）具有接近的 Hu 矩值。</p>
+            </div>
+            <div class="hu-moments" id="huMomentsDisplay">
+                <div class="hu-value"><span class="hu-label">h1</span><span id="hu1">-</span></div>
+                <div class="hu-value"><span class="hu-label">h2</span><span id="hu2">-</span></div>
+                <div class="hu-value"><span class="hu-label">h3</span><span id="hu3">-</span></div>
+                <div class="hu-value"><span class="hu-label">h4</span><span id="hu4">-</span></div>
+                <div class="hu-value"><span class="hu-label">h5</span><span id="hu5">-</span></div>
+                <div class="hu-value"><span class="hu-label">h6</span><span id="hu6">-</span></div>
+                <div class="hu-value"><span class="hu-label">h7</span><span id="hu7">-</span></div>
+            </div>
+        </div>
+        
+        <!-- 投影特征 -->
+        <div class="card">
+            <h2>📊 投影特征</h2>
+            <div class="grid-2">
+                <div>
+                    <h3>水平投影（每行前景像素数）</h3>
+                    <canvas id="hProjectionCanvas" width="300" height="140"></canvas>
+                </div>
+                <div>
+                    <h3>垂直投影（每列前景像素数）</h3>
+                    <canvas id="vProjectionCanvas" width="300" height="140"></canvas>
+                </div>
+            </div>
+            <div class="feature-dim" style="margin-top: 10px;">
+                投影特征维度：<span id="projectionDim">-</span>
+            </div>
+        </div>
+        
+        <!-- 网格特征 -->
+        <div class="card">
+            <h2>🔲 网格（分区）特征</h2>
+            <div class="info-box">
+                <p>将图像划分为 4×4 的网格，统计每个区域的前景像素填充率。颜色越深表示填充率越高。</p>
+            </div>
+            <div class="grid-2">
+                <div>
+                    <h3>原始图像（归一化）</h3>
+                    <canvas id="normalizedCanvas" width="140" height="140" style="border: 2px solid #ddd; border-radius: 5px;"></canvas>
+                </div>
+                <div>
+                    <h3>4×4 网格填充率</h3>
+                    <div class="zone-grid" id="zoneGrid"></div>
+                    <div class="feature-dim" style="margin-top: 10px;">
+                        网格特征维度：<span id="zoneDim">16</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- HOG 特征 -->
+        <div class="card">
+            <h2>🎯 HOG 特征（方向梯度直方图）</h2>
+            <div class="info-box">
+                <p><strong>HOG（Histogram of Oriented Gradients）</strong>是一种强大的特征描述子。它将图像划分为多个 Cell，计算每个 Cell 的梯度方向直方图，然后进行 Block 归一化。</p>
+            </div>
+            <div class="grid-2">
+                <div>
+                    <h3>梯度幅值图</h3>
+                    <canvas id="gradientCanvas" width="140" height="140" style="border: 2px solid #ddd; border-radius: 5px;"></canvas>
+                </div>
+                <div>
+                    <h3>HOG 特征可视化</h3>
+                    <canvas id="hogCanvas" width="140" height="140" style="border: 2px solid #ddd; border-radius: 5px;"></canvas>
+                    <div class="feature-dim" style="margin-top: 10px;">
+                        HOG 特征维度：<span id="hogDim">-</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 特征匹配 -->
+        <div class="card">
+            <h2>🔍 特征匹配演示</h2>
+            <div class="info-box">
+                <p>将当前字符的特征与预设模板进行比较，找出最相似的字符。距离越小表示越相似。</p>
+            </div>
+            <div class="template-gallery" id="templateGallery"></div>
+            <div id="matchResult" style="margin-top: 15px; font-size: 18px; font-weight: bold; color: #667eea;"></div>
+        </div>
+        
+        <!-- 组合特征 -->
+        <div class="card">
+            <h2>📋 组合特征向量</h2>
+            <div class="feature-box">
+                <h4>完整特征向量（统计 + Hu矩 + 投影 + 网格）</h4>
+                <div class="feature-dim" id="combinedDim">总维度：-</div>
+                <div class="feature-values" id="combinedFeatures" style="max-height: 100px; overflow-y: auto;">
+                    请先绘制或选择一个字符...
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // ==================== 全局变量 ====================
+        const drawCanvas = document.getElementById('drawCanvas');
+        const drawCtx = drawCanvas.getContext('2d');
+        let isDrawing = false;
+        let lastX = 0;
+        let lastY = 0;
+        
+        // 模板库
+        const templates = {};
+        
+        // ==================== 初始化 ====================
+        function init() {
+            // 设置画布
+            clearCanvas();
+            
+            // 鼠标事件
+            drawCanvas.addEventListener('mousedown', startDrawing);
+            drawCanvas.addEventListener('mousemove', draw);
+            drawCanvas.addEventListener('mouseup', stopDrawing);
+            drawCanvas.addEventListener('mouseout', stopDrawing);
+            
+            // 触摸事件
+            drawCanvas.addEventListener('touchstart', handleTouchStart);
+            drawCanvas.addEventListener('touchmove', handleTouchMove);
+            drawCanvas.addEventListener('touchend', stopDrawing);
+            
+            // 初始化模板
+            initTemplates();
+        }
+        
+        function startDrawing(e) {
+            isDrawing = true;
+            [lastX, lastY] = getMousePos(e);
+        }
+        
+        function draw(e) {
+            if (!isDrawing) return;
+            
+            const [x, y] = getMousePos(e);
+            
+            drawCtx.beginPath();
+            drawCtx.moveTo(lastX, lastY);
+            drawCtx.lineTo(x, y);
+            drawCtx.strokeStyle = '#000';
+            drawCtx.lineWidth = 8;
+            drawCtx.lineCap = 'round';
+            drawCtx.stroke();
+            
+            [lastX, lastY] = [x, y];
+        }
+        
+        function stopDrawing() {
+            isDrawing = false;
+        }
+        
+        function getMousePos(e) {
+            const rect = drawCanvas.getBoundingClientRect();
+            const x = (e.clientX || e.touches[0].clientX) - rect.left;
+            const y = (e.clientY || e.touches[0].clientY) - rect.top;
+            return [x, y];
+        }
+        
+        function handleTouchStart(e) {
+            e.preventDefault();
+            startDrawing(e);
+        }
+        
+        function handleTouchMove(e) {
+            e.preventDefault();
+            draw(e);
+        }
+        
+        function clearCanvas() {
+            drawCtx.fillStyle = '#ffffff';
+            drawCtx.fillRect(0, 0, drawCanvas.width, drawCanvas.height);
+        }
+        
+        // ==================== 预设字符 ====================
+        function loadPreset(char) {
+            clearCanvas();
+            
+            // 更新 active 状态
+            document.querySelectorAll('.preset-char').forEach(el => {
+                el.classList.remove('active');
+                if (el.textContent === char) el.classList.add('active');
+            });
+            
+            const ctx = drawCtx;
+            ctx.fillStyle = '#000';
+            ctx.font = 'bold 100px Arial';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(char, 70, 75);
+            
+            // 自动提取特征
+            setTimeout(extractFeatures, 100);
+        }
+        
+        function initTemplates() {
+            const templateChars = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'O', 'X'];
+            const tempCanvas = document.createElement('canvas');
+            tempCanvas.width = 28;
+            tempCanvas.height = 28;
+            const tempCtx = tempCanvas.getContext('2d');
+            
+            templateChars.forEach(char => {
+                // 绘制字符
+                tempCtx.fillStyle = '#ffffff';
+                tempCtx.fillRect(0, 0, 28, 28);
+                tempCtx.fillStyle = '#000';
+                tempCtx.font = 'bold 24px Arial';
+                tempCtx.textAlign = 'center';
+                tempCtx.textBaseline = 'middle';
+                tempCtx.fillText(char, 14, 15);
+                
+                // 获取图像数据并提取特征
+                const imageData = tempCtx.getImageData(0, 0, 28, 28);
+                const features = extractAllFeatures(imageData);
+                
+                templates[char] = {
+                    imageData: imageData,
+                    features: features
+                };
+            });
+            
+            // 显示模板库
+            updateTemplateGallery();
+        }
+        
+        function updateTemplateGallery() {
+            const gallery = document.getElementById('templateGallery');
+            gallery.innerHTML = '';
+            
+            Object.keys(templates).forEach(char => {
+                const item = document.createElement('div');
+                item.className = 'template-item';
+                item.id = `template-${char}`;
+                
+                const canvas = document.createElement('canvas');
+                canvas.width = 28;
+                canvas.height = 28;
+                canvas.style.width = '56px';
+                canvas.style.height = '56px';
+                canvas.style.imageRendering = 'pixelated';
+                const ctx = canvas.getContext('2d');
+                ctx.putImageData(templates[char].imageData, 0, 0);
+                
+                const label = document.createElement('div');
+                label.textContent = char;
+                label.style.fontWeight = 'bold';
+                
+                const score = document.createElement('div');
+                score.className = 'match-score';
+                score.id = `score-${char}`;
+                score.textContent = '-';
+                
+                item.appendChild(canvas);
+                item.appendChild(label);
+                item.appendChild(score);
+                gallery.appendChild(item);
+            });
+        }
+        
+        // ==================== 特征提取 ====================
+        function extractFeatures() {
+            // 获取绘制的图像
+            const imageData = drawCtx.getImageData(0, 0, drawCanvas.width, drawCanvas.height);
+            
+            // 归一化到 28×28
+            const normalized = resizeImage(imageData, 28, 28);
+            
+            // 显示归一化后的图像
+            const normCanvas = document.getElementById('normalizedCanvas');
+            const normCtx = normCanvas.getContext('2d');
+            normCtx.imageSmoothingEnabled = false;
+            normCtx.clearRect(0, 0, 140, 140);
+            
+            // 放大显示
+            const tempCanvas = document.createElement('canvas');
+            tempCanvas.width = 28;
+            tempCanvas.height = 28;
+            const tempCtx = tempCanvas.getContext('2d');
+            tempCtx.putImageData(normalized, 0, 0);
+            normCtx.drawImage(tempCanvas, 0, 0, 140, 140);
+            
+            // 提取所有特征
+            const features = extractAllFeatures(normalized);
+            
+            // 更新显示
+            updateStatsDisplay(features.stats);
+            updateHuMomentsDisplay(features.huMoments);
+            updateProjectionDisplay(features.projection, normalized);
+            updateZoneDisplay(features.zone);
+            updateGradientDisplay(normalized);
+            updateHOGDisplay(features.hog, normalized);
+            updateCombinedDisplay(features);
+            updateTemplateMatching(features);
+        }
+        
+        function extractAllFeatures(imageData) {
+            // 统计特征
+            const stats = extractStatisticalFeatures(imageData);
+            
+            // Hu 矩
+            const huMoments = calculateHuMoments(imageData);
+            const logHu = logTransformHuMoments(huMoments);
+            
+            // 投影特征
+            const projection = extractProjectionFeatures(imageData);
+            
+            // 网格特征
+            const zone = extractZoneFeatures(imageData, 4);
+            
+            // HOG 特征
+            const hog = extractHOGFeatures(imageData);
+            
+            // 组合特征（不包含像素和 HOG，因为维度太高）
+            const combined = [
+                ...statisticalFeaturesToVector(stats),
+                ...logHu,
+                ...projection.combined,
+                ...zone
+            ];
+            
+            return {
+                stats,
+                huMoments: logHu,
+                projection,
+                zone,
+                hog,
+                combined
+            };
+        }
+        
+        // ==================== 特征提取函数 ====================
+        
+        function extractStatisticalFeatures(imageData) {
+            const { width, height, data } = imageData;
+            const totalPixels = width * height;
+            
+            let sum = 0;
+            let foregroundCount = 0;
+            let sumX = 0, sumY = 0;
+            
+            for (let y = 0; y < height; y++) {
+                for (let x = 0; x < width; x++) {
+                    const idx = (y * width + x) * 4;
+                    const gray = data[idx];
+                    sum += gray;
+                    
+                    if (gray < 128) {
+                        foregroundCount++;
+                        sumX += x;
+                        sumY += y;
+                    }
+                }
+            }
+            
+            const mean = sum / totalPixels;
+            const fillRatio = foregroundCount / totalPixels;
+            const centroidX = foregroundCount > 0 ? (sumX / foregroundCount) / width : 0.5;
+            const centroidY = foregroundCount > 0 ? (sumY / foregroundCount) / height : 0.5;
+            
+            let varianceSum = 0;
+            for (let y = 0; y < height; y++) {
+                for (let x = 0; x < width; x++) {
+                    const idx = (y * width + x) * 4;
+                    varianceSum += (data[idx] - mean) ** 2;
+                }
+            }
+            const stdDev = Math.sqrt(varianceSum / totalPixels);
+            
+            return {
+                mean: mean / 255,
+                stdDev: stdDev / 255,
+                fillRatio,
+                centroidX,
+                centroidY,
+                foregroundCount
+            };
+        }
+        
+        function statisticalFeaturesToVector(stats) {
+            return [stats.mean, stats.stdDev, stats.fillRatio, stats.centroidX, stats.centroidY];
+        }
+        
+        function calculateRawMoment(imageData, p, q) {
+            const { width, height, data } = imageData;
+            let moment = 0;
+            
+            for (let y = 0; y < height; y++) {
+                for (let x = 0; x < width; x++) {
+                    const idx = (y * width + x) * 4;
+                    const intensity = data[idx] < 128 ? 1 : 0;
+                    moment += Math.pow(x, p) * Math.pow(y, q) * intensity;
+                }
+            }
+            
+            return moment;
+        }
+        
+        function calculateHuMoments(imageData) {
+            const m00 = calculateRawMoment(imageData, 0, 0);
+            const m10 = calculateRawMoment(imageData, 1, 0);
+            const m01 = calculateRawMoment(imageData, 0, 1);
+            const m20 = calculateRawMoment(imageData, 2, 0);
+            const m02 = calculateRawMoment(imageData, 0, 2);
+            const m11 = calculateRawMoment(imageData, 1, 1);
+            const m30 = calculateRawMoment(imageData, 3, 0);
+            const m03 = calculateRawMoment(imageData, 0, 3);
+            const m21 = calculateRawMoment(imageData, 2, 1);
+            const m12 = calculateRawMoment(imageData, 1, 2);
+            
+            if (m00 === 0) return [0, 0, 0, 0, 0, 0, 0];
+            
+            const xBar = m10 / m00;
+            const yBar = m01 / m00;
+            
+            const mu20 = m20 - xBar * m10;
+            const mu02 = m02 - yBar * m01;
+            const mu11 = m11 - xBar * m01;
+            const mu30 = m30 - 3 * xBar * m20 + 2 * xBar * xBar * m10;
+            const mu03 = m03 - 3 * yBar * m02 + 2 * yBar * yBar * m01;
+            const mu21 = m21 - 2 * xBar * m11 - yBar * m20 + 2 * xBar * xBar * m01;
+            const mu12 = m12 - 2 * yBar * m11 - xBar * m02 + 2 * yBar * yBar * m10;
+            
+            const norm = (p, q) => Math.pow(m00, (p + q) / 2 + 1);
+            
+            const eta20 = mu20 / norm(2, 0);
+            const eta02 = mu02 / norm(0, 2);
+            const eta11 = mu11 / norm(1, 1);
+            const eta30 = mu30 / norm(3, 0);
+            const eta03 = mu03 / norm(0, 3);
+            const eta21 = mu21 / norm(2, 1);
+            const eta12 = mu12 / norm(1, 2);
+            
+            const h1 = eta20 + eta02;
+            const h2 = Math.pow(eta20 - eta02, 2) + 4 * Math.pow(eta11, 2);
+            const h3 = Math.pow(eta30 - 3 * eta12, 2) + Math.pow(3 * eta21 - eta03, 2);
+            const h4 = Math.pow(eta30 + eta12, 2) + Math.pow(eta21 + eta03, 2);
+            const h5 = (eta30 - 3 * eta12) * (eta30 + eta12) * 
+                       (Math.pow(eta30 + eta12, 2) - 3 * Math.pow(eta21 + eta03, 2)) +
+                       (3 * eta21 - eta03) * (eta21 + eta03) * 
+                       (3 * Math.pow(eta30 + eta12, 2) - Math.pow(eta21 + eta03, 2));
+            const h6 = (eta20 - eta02) * 
+                       (Math.pow(eta30 + eta12, 2) - Math.pow(eta21 + eta03, 2)) +
+                       4 * eta11 * (eta30 + eta12) * (eta21 + eta03);
+            const h7 = (3 * eta21 - eta03) * (eta30 + eta12) * 
+                       (Math.pow(eta30 + eta12, 2) - 3 * Math.pow(eta21 + eta03, 2)) -
+                       (eta30 - 3 * eta12) * (eta21 + eta03) * 
+                       (3 * Math.pow(eta30 + eta12, 2) - Math.pow(eta21 + eta03, 2));
+            
+            return [h1, h2, h3, h4, h5, h6, h7];
+        }
+        
+        function logTransformHuMoments(huMoments) {
+            return huMoments.map(h => {
+                if (h === 0) return 0;
+                return -Math.sign(h) * Math.log10(Math.abs(h) + 1e-10);
+            });
+        }
+        
+        function extractProjectionFeatures(imageData) {
+            const { width, height, data } = imageData;
+            
+            const horizontal = new Array(height).fill(0);
+            const vertical = new Array(width).fill(0);
+            
+            for (let y = 0; y < height; y++) {
+                for (let x = 0; x < width; x++) {
+                    const idx = (y * width + x) * 4;
+                    if (data[idx] < 128) {
+                        horizontal[y]++;
+                        vertical[x]++;
+                    }
+                }
+            }
+            
+            const maxH = Math.max(...horizontal, 1);
+            const maxV = Math.max(...vertical, 1);
+            
+            return {
+                horizontal: horizontal.map(v => v / maxH),
+                vertical: vertical.map(v => v / maxV),
+                combined: [...horizontal.map(v => v / maxH), ...vertical.map(v => v / maxV)]
+            };
+        }
+        
+        function extractZoneFeatures(imageData, gridSize) {
+            const { width, height, data } = imageData;
+            const cellWidth = width / gridSize;
+            const cellHeight = height / gridSize;
+            
+            const features = [];
+            
+            for (let gy = 0; gy < gridSize; gy++) {
+                for (let gx = 0; gx < gridSize; gx++) {
+                    let foregroundCount = 0;
+                    let totalCount = 0;
+                    
+                    const startX = Math.floor(gx * cellWidth);
+                    const startY = Math.floor(gy * cellHeight);
+                    const endX = Math.floor((gx + 1) * cellWidth);
+                    const endY = Math.floor((gy + 1) * cellHeight);
+                    
+                    for (let y = startY; y < endY && y < height; y++) {
+                        for (let x = startX; x < endX && x < width; x++) {
+                            const idx = (y * width + x) * 4;
+                            totalCount++;
+                            if (data[idx] < 128) foregroundCount++;
+                        }
+                    }
+                    
+                    features.push(totalCount > 0 ? foregroundCount / totalCount : 0);
+                }
+            }
+            
+            return features;
+        }
+        
+        function extractHOGFeatures(imageData) {
+            const { width, height, data } = imageData;
+            const cellSize = 7;
+            const blockSize = 2;
+            const numBins = 9;
+            
+            // 计算梯度
+            const magnitude = new Float32Array(width * height);
+            const direction = new Float32Array(width * height);
+            
+            for (let y = 1; y < height - 1; y++) {
+                for (let x = 1; x < width - 1; x++) {
+                    const idx = y * width + x;
+                    const left = data[((y) * width + (x - 1)) * 4];
+                    const right = data[((y) * width + (x + 1)) * 4];
+                    const up = data[((y - 1) * width + x) * 4];
+                    const down = data[((y + 1) * width + x) * 4];
+                    
+                    const gx = right - left;
+                    const gy = down - up;
+                    
+                    magnitude[idx] = Math.sqrt(gx * gx + gy * gy);
+                    direction[idx] = Math.atan2(gy, gx) * 180 / Math.PI;
+                }
+            }
+            
+            // 计算 Cell 直方图
+            const numCellsX = Math.floor(width / cellSize);
+            const numCellsY = Math.floor(height / cellSize);
+            const binWidth = 180 / numBins;
+            
+            const cellHistograms = [];
+            
+            for (let cy = 0; cy < numCellsY; cy++) {
+                for (let cx = 0; cx < numCellsX; cx++) {
+                    const histogram = new Array(numBins).fill(0);
+                    
+                    for (let y = cy * cellSize; y < (cy + 1) * cellSize && y < height; y++) {
+                        for (let x = cx * cellSize; x < (cx + 1) * cellSize && x < width; x++) {
+                            const idx = y * width + x;
+                            let dir = direction[idx];
+                            if (dir < 0) dir += 180;
+                            if (dir >= 180) dir -= 180;
+                            
+                            const bin = Math.floor(dir / binWidth) % numBins;
+                            histogram[bin] += magnitude[idx];
+                        }
+                    }
+                    
+                    cellHistograms.push(histogram);
+                }
+            }
+            
+            // Block 归一化
+            const numBlocksX = numCellsX - blockSize + 1;
+            const numBlocksY = numCellsY - blockSize + 1;
+            
+            if (numBlocksX <= 0 || numBlocksY <= 0) return [];
+            
+            const features = [];
+            
+            for (let by = 0; by < numBlocksY; by++) {
+                for (let bx = 0; bx < numBlocksX; bx++) {
+                    const blockFeatures = [];
+                    
+                    for (let dy = 0; dy < blockSize; dy++) {
+                        for (let dx = 0; dx < blockSize; dx++) {
+                            const cellIdx = (by + dy) * numCellsX + (bx + dx);
+                            blockFeatures.push(...cellHistograms[cellIdx]);
+                        }
+                    }
+                    
+                    const norm = Math.sqrt(blockFeatures.reduce((sum, val) => sum + val * val, 0) + 1e-6);
+                    features.push(...blockFeatures.map(v => v / norm));
+                }
+            }
+            
+            return features;
+        }
+        
+        function resizeImage(imageData, targetWidth, targetHeight) {
+            const { width: srcWidth, height: srcHeight, data: srcData } = imageData;
+            
+            const result = new ImageData(targetWidth, targetHeight);
+            const dstData = result.data;
+            
+            const scaleX = srcWidth / targetWidth;
+            const scaleY = srcHeight / targetHeight;
+            
+            for (let y = 0; y < targetHeight; y++) {
+                for (let x = 0; x < targetWidth; x++) {
+                    const srcX = Math.min(Math.floor(x * scaleX), srcWidth - 1);
+                    const srcY = Math.min(Math.floor(y * scaleY), srcHeight - 1);
+                    
+                    const srcIdx = (srcY * srcWidth + srcX) * 4;
+                    const dstIdx = (y * targetWidth + x) * 4;
+                    
+                    dstData[dstIdx] = srcData[srcIdx];
+                    dstData[dstIdx + 1] = srcData[srcIdx + 1];
+                    dstData[dstIdx + 2] = srcData[srcIdx + 2];
+                    dstData[dstIdx + 3] = srcData[srcIdx + 3];
+                }
+            }
+            
+            return result;
+        }
+        
+        function euclideanDistance(a, b) {
+            let sum = 0;
+            for (let i = 0; i < a.length; i++) {
+                sum += (a[i] - b[i]) ** 2;
+            }
+            return Math.sqrt(sum);
+        }
+        
+        // ==================== 显示更新函数 ====================
+        
+        function updateStatsDisplay(stats) {
+            document.getElementById('fillRatio').textContent = (stats.fillRatio * 100).toFixed(1) + '%';
+            document.getElementById('centroidX').textContent = stats.centroidX.toFixed(3);
+            document.getElementById('centroidY').textContent = stats.centroidY.toFixed(3);
+            document.getElementById('mean').textContent = stats.mean.toFixed(3);
+            document.getElementById('stdDev').textContent = stats.stdDev.toFixed(3);
+            document.getElementById('fgCount').textContent = stats.foregroundCount;
+        }
+        
+        function updateHuMomentsDisplay(huMoments) {
+            for (let i = 0; i < 7; i++) {
+                document.getElementById(`hu${i + 1}`).textContent = huMoments[i].toFixed(2);
+            }
+        }
+        
+        function updateProjectionDisplay(projection, imageData) {
+            const { horizontal, vertical } = projection;
+            
+            // 水平投影
+            const hCanvas = document.getElementById('hProjectionCanvas');
+            const hCtx = hCanvas.getContext('2d');
+            hCtx.clearRect(0, 0, hCanvas.width, hCanvas.height);
+            
+            // 绘制原始图像缩略图
+            hCtx.fillStyle = '#f0f0f0';
+            hCtx.fillRect(0, 0, 100, 140);
+            
+            const tempCanvas = document.createElement('canvas');
+            tempCanvas.width = 28;
+            tempCanvas.height = 28;
+            const tempCtx = tempCanvas.getContext('2d');
+            tempCtx.putImageData(imageData, 0, 0);
+            hCtx.drawImage(tempCanvas, 0, 0, 100, 140);
+            
+            // 绘制投影条形图
+            const barWidth = 190 / horizontal.length;
+            for (let i = 0; i < horizontal.length; i++) {
+                const height = horizontal[i] * 130;
+                hCtx.fillStyle = `rgba(102, 126, 234, ${0.5 + horizontal[i] * 0.5})`;
+                hCtx.fillRect(105 + i * barWidth, 140 - height, barWidth - 1, height);
+            }
+            
+            // 垂直投影
+            const vCanvas = document.getElementById('vProjectionCanvas');
+            const vCtx = vCanvas.getContext('2d');
+            vCtx.clearRect(0, 0, vCanvas.width, vCanvas.height);
+            
+            // 绘制投影条形图（顶部）
+            const vBarWidth = 200 / vertical.length;
+            for (let i = 0; i < vertical.length; i++) {
+                const height = vertical[i] * 50;
+                vCtx.fillStyle = `rgba(118, 75, 162, ${0.5 + vertical[i] * 0.5})`;
+                vCtx.fillRect(50 + i * vBarWidth, 50 - height, vBarWidth - 1, height);
+            }
+            
+            // 绘制原始图像
+            vCtx.drawImage(tempCanvas, 50, 55, 200, 80);
+            
+            document.getElementById('projectionDim').textContent = projection.combined.length;
+        }
+        
+        function updateZoneDisplay(zone) {
+            const grid = document.getElementById('zoneGrid');
+            grid.innerHTML = '';
+            
+            for (let i = 0; i < 16; i++) {
+                const cell = document.createElement('div');
+                cell.className = 'zone-cell';
+                const value = zone[i];
+                cell.style.opacity = 0.2 + value * 0.8;
+                cell.textContent = (value * 100).toFixed(0) + '%';
+                grid.appendChild(cell);
+            }
+        }
+        
+        function updateGradientDisplay(imageData) {
+            const { width, height, data } = imageData;
+            const canvas = document.getElementById('gradientCanvas');
+            const ctx = canvas.getContext('2d');
+            
+            const gradientData = new ImageData(width, height);
+            
+            for (let y = 1; y < height - 1; y++) {
+                for (let x = 1; x < width - 1; x++) {
+                    const left = data[((y) * width + (x - 1)) * 4];
+                    const right = data[((y) * width + (x + 1)) * 4];
+                    const up = data[((y - 1) * width + x) * 4];
+                    const down = data[((y + 1) * width + x) * 4];
+                    
+                    const gx = right - left;
+                    const gy = down - up;
+                    const mag = Math.sqrt(gx * gx + gy * gy);
+                    const normalized = Math.min(255, mag);
+                    
+                    const idx = (y * width + x) * 4;
+                    gradientData.data[idx] = normalized;
+                    gradientData.data[idx + 1] = normalized;
+                    gradientData.data[idx + 2] = normalized;
+                    gradientData.data[idx + 3] = 255;
+                }
+            }
+            
+            const tempCanvas = document.createElement('canvas');
+            tempCanvas.width = width;
+            tempCanvas.height = height;
+            const tempCtx = tempCanvas.getContext('2d');
+            tempCtx.putImageData(gradientData, 0, 0);
+            
+            ctx.imageSmoothingEnabled = false;
+            ctx.clearRect(0, 0, 140, 140);
+            ctx.drawImage(tempCanvas, 0, 0, 140, 140);
+        }
+        
+        function updateHOGDisplay(hog, imageData) {
+            const canvas = document.getElementById('hogCanvas');
+            const ctx = canvas.getContext('2d');
+            ctx.clearRect(0, 0, 140, 140);
+            
+            // 显示 HOG 可视化（简化版）
+            const cellSize = 35; // 140 / 4
+            const numBins = 9;
+            const binAngle = 180 / numBins;
+            
+            // 从 HOG 特征重建 Cell 直方图
+            // 简化显示：每个 Cell 显示主方向
+            const numCellsX = 4;
+            const numCellsY = 4;
+            
+            for (let cy = 0; cy < numCellsY; cy++) {
+                for (let cx = 0; cx < numCellsX; cx++) {
+                    const centerX = cx * cellSize + cellSize / 2;
+                    const centerY = cy * cellSize + cellSize / 2;
+                    
+                    // 计算该 Cell 区域的主要梯度方向
+                    const { width, height, data } = imageData;
+                    let maxMag = 0;
+                    let mainDir = 0;
+                    
+                    const startX = Math.floor(cx * 7);
+                    const startY = Math.floor(cy * 7);
+                    
+                    for (let y = startY; y < startY + 7 && y < height - 1; y++) {
+                        for (let x = startX; x < startX + 7 && x < width - 1; x++) {
+                            const left = data[((y) * width + (x - 1)) * 4];
+                            const right = data[((y) * width + (x + 1)) * 4];
+                            const up = data[((y - 1) * width + x) * 4];
+                            const down = data[((y + 1) * width + x) * 4];
+                            
+                            const gx = right - left;
+                            const gy = down - up;
+                            const mag = Math.sqrt(gx * gx + gy * gy);
+                            
+                            if (mag > maxMag) {
+                                maxMag = mag;
+                                mainDir = Math.atan2(gy, gx);
+                            }
+                        }
+                    }
+                    
+                    // 绘制方向线
+                    if (maxMag > 10) {
+                        const lineLength = Math.min(15, maxMag / 10);
+                        ctx.beginPath();
+                        ctx.moveTo(
+                            centerX - Math.cos(mainDir) * lineLength,
+                            centerY - Math.sin(mainDir) * lineLength
+                        );
+                        ctx.lineTo(
+                            centerX + Math.cos(mainDir) * lineLength,
+                            centerY + Math.sin(mainDir) * lineLength
+                        );
+                        ctx.strokeStyle = `rgba(102, 126, 234, ${Math.min(1, maxMag / 200)})`;
+                        ctx.lineWidth = 2;
+                        ctx.stroke();
+                    }
+                }
+            }
+            
+            document.getElementById('hogDim').textContent = hog.length;
+        }
+        
+        function updateCombinedDisplay(features) {
+            const combined = features.combined;
+            const dim = combined.length;
+            
+            document.getElementById('combinedDim').textContent = 
+                `总维度：${dim}（统计: 5 + Hu矩: 7 + 投影: ${features.projection.combined.length} + 网格: 16）`;
+            
+            const display = document.getElementById('combinedFeatures');
+            display.textContent = '[' + combined.map(v => v.toFixed(4)).join(', ') + ']';
+        }
+        
+        function updateTemplateMatching(features) {
+            const distances = [];
+            
+            Object.keys(templates).forEach(char => {
+                const dist = euclideanDistance(features.combined, templates[char].features.combined);
+                distances.push({ char, dist });
+                
+                // 更新显示
+                const scoreEl = document.getElementById(`score-${char}`);
+                if (scoreEl) {
+                    scoreEl.textContent = dist.toFixed(2);
+                    scoreEl.className = 'match-score';
+                }
+                
+                // 移除之前的最佳匹配标记
+                const itemEl = document.getElementById(`template-${char}`);
+                if (itemEl) {
+                    itemEl.classList.remove('best-match');
+                }
+            });
+            
+            // 找到最佳匹配
+            distances.sort((a, b) => a.dist - b.dist);
+            const best = distances[0];
+            
+            // 标记最佳匹配
+            const bestItemEl = document.getElementById(`template-${best.char}`);
+            if (bestItemEl) {
+                bestItemEl.classList.add('best-match');
+            }
+            const bestScoreEl = document.getElementById(`score-${best.char}`);
+            if (bestScoreEl) {
+                bestScoreEl.className = 'match-score best';
+            }
+            
+            document.getElementById('matchResult').textContent = 
+                `最佳匹配：${best.char}（距离：${best.dist.toFixed(4)}）`;
+        }
+        
+        // 初始化
+        init();
+    </script>
+</body>
+</html>
