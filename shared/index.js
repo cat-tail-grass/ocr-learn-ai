@@ -50,6 +50,9 @@ const featureExtraction = require('./11-feature-extraction');
 // 模板匹配模块（12章节）
 const templateMatching = require('./12-template-matching');
 
+// KNN 分类器模块（13章节）
+const knnClassifier = require('./13-knn-classifier');
+
 // 统一导出所有函数
 module.exports = {
     // ==================== 核心模块（01-02章节） ====================
@@ -98,6 +101,7 @@ module.exports = {
     createMeanKernel: denoising.createMeanKernel,
     createGaussianKernel: denoising.createGaussianKernel,
     convolve: denoising.convolve,
+    correlate: denoising.correlate,
     meanFilter: denoising.meanFilter,
     gaussianFilter: denoising.gaussianFilter,
     medianFilter: denoising.medianFilter,
@@ -220,5 +224,32 @@ module.exports = {
     // 便捷函数
     recognizeCharacter: templateMatching.recognizeCharacter,
     createDigitMatcher: templateMatching.createDigitMatcher,
-    evaluateMatcher: templateMatching.evaluateMatcher
+    evaluateMatcher: templateMatching.evaluateMatcher,
+
+    // ==================== KNN 分类器模块（13章节） ====================
+    calculateKNNDistance: knnClassifier.calculateDistance,
+    getKNearestNeighbors: knnClassifier.getKNearestNeighbors,
+    voteByNeighbors: knnClassifier.voteByNeighbors,
+    splitTrainTest: knnClassifier.splitTrainTest,
+    calculateAccuracy: knnClassifier.calculateAccuracy,
+    buildConfusionMatrix: knnClassifier.buildConfusionMatrix,
+    createKNNSample: knnClassifier.createKNNSample,
+    buildKNNDataset: knnClassifier.buildKNNDataset,
+    KNNClassifier: knnClassifier.KNNClassifier,
+    evaluateKValues: knnClassifier.evaluateKValues,
+
+    // 第 14–26 章按主题导出，避免不同课程的同名数学函数互相覆盖。
+    neuralNetwork: require('./14-neural-network-basics'),
+    cnn: require('./15-cnn-basics'),
+    tensorflowjsIntro: require('./16-tensorflowjs-intro'),
+    digitClassifier: require('./17-cnn-classifier'),
+    rnn: require('./18-rnn-basics'),
+    ctc: require('./19-ctc-loss'),
+    crnn: require('./20-crnn'),
+    attention: require('./21-attention'),
+    textDetectionNetworks: require('./22-text-detection-networks'),
+    transformer: require('./23-transformer-ocr'),
+    postProcessing: require('./24-post-processing'),
+    ocrEngine: require('./25-ocr-engine'),
+    validation: require('./26-validation')
 };

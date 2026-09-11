@@ -1,0 +1,1168 @@
+{
+  "timestamp": "2026-09-11T12:47:47.880Z",
+  "url": "http://127.0.0.1:4173/",
+  "label": "dev-root-search-final",
+  "independent": true,
+  "skippedSearch": false,
+  "checks": [
+    {
+      "name": "source has exactly 26 consecutive chapters",
+      "pass": true,
+      "detail": [
+        "01-image-fundamentals",
+        "02-js-image-basics",
+        "03-grayscale",
+        "04-binarization",
+        "05-denoising",
+        "06-morphology",
+        "07-deskewing",
+        "08-edge-detection",
+        "09-connected-components",
+        "10-text-localization",
+        "11-feature-extraction",
+        "12-template-matching",
+        "13-knn-classifier",
+        "14-neural-network-basics",
+        "15-cnn-basics",
+        "16-tensorflowjs-intro",
+        "17-cnn-classifier",
+        "18-rnn-basics",
+        "19-ctc-loss",
+        "20-crnn",
+        "21-attention",
+        "22-text-detection-networks",
+        "23-transformer-ocr",
+        "24-post-processing",
+        "25-ocr-engine",
+        "26-validation"
+      ]
+    },
+    {
+      "name": "search 类间方差: course body results",
+      "pass": true,
+      "detail": {
+        "links": [
+          {
+            "body": false,
+            "href": "/04-binarization/#类间方差公式解读",
+            "text": "类间方差公式解读"
+          },
+          {
+            "body": true,
+            "href": "/04-binarization/#类间方差公式解读",
+            "text": "类间方差 σ²(t) = w₀ × w₁ × (μ₀ - μ₁)² 其中： - w₀ = 前景像素占比（前景有多少个像素） - w₁ = 背景像素占比（背景有多少个像素） - μ₀ = 前景的平均灰度… "
+          },
+          {
+            "body": false,
+            "href": "/04-binarization/#为什么类间方差最大化是最优的",
+            "text": "为什么类间方差最大化是最优的？"
+          },
+          {
+            "body": true,
+            "href": "/04-binarization/#为什么类间方差最大化是最优的",
+            "text": "… 键洞察：图像的总方差 = 类内方差 + 类间方差（这是数学定理）"
+          },
+          {
+            "body": true,
+            "href": "/04-binarization/#为什么类间方差最大化是最优的",
+            "text": "总方差（固定不变）= 类内方差 + 类间方差 ↓ ↓ ↓ 图像本身 组内差异 组间差异 的特性 （坏） （好） "
+          },
+          {
+            "body": true,
+            "href": "/04-binarization/#为什么类间方差最大化是最优的",
+            "text": "类间方差：两组之间的差异（越大越好，说明前景背景分得开）"
+          },
+          {
+            "body": true,
+            "href": "/04-binarization/#为什么类间方差最大化是最优的",
+            "text": "类间方差最大 ⟺ 加权类内方差最小（对同一幅图像） 这不等于 OCR 识别效果最好，也不保证分出的两类就是文字与背景 "
+          },
+          {
+            "body": true,
+            "href": "/04-binarization/#为什么类间方差最大化是最优的",
+            "text": "好的分班：文科班和理科班的特点差异明显（类间方差大）"
+          },
+          {
+            "body": false,
+            "href": "/04-binarization/#类间方差的直观理解",
+            "text": "类间方差的直观理解"
+          },
+          {
+            "body": true,
+            "href": "/04-binarization/#类间方差的直观理解",
+            "text": "类间方差衡量的是：前景均值和背景均值之间的\"距离\"有多大。"
+          },
+          {
+            "body": true,
+            "href": "/04-binarization/#直方图视角",
+            "text": "… 值 (浅色) (谷底) Otsu 最大化类间方差，不直接寻找局部谷底。此例 t=50…179 都产生相同分组；本实现并列取最小值50，而不是谷底中心。 "
+          },
+          {
+            "body": true,
+            "href": "/04-binarization/#自测问题",
+            "text": "寻找使概率加权类间方差最大的阈值；这等价于最小化加权类内方差，不保证文字识别最优"
+          },
+          {
+            "body": true,
+            "href": "/04-binarization/#具体计算示例",
+            "text": "… 80+190+200)/3 = 190 类间方差 = w₀ × w₁ × (μ₀ - μ₁)² = 0.5 × 0.5 × (40 - 190)² = 0.25 × 22500 = 5625 ← … "
+          },
+          {
+            "body": true,
+            "href": "/25-ocr-engine/#_3-1-固定阈值与-otsu-的精确边界",
+            "text": "…  variance 统一为上式的概率加权类间方差；只重复整张图片的像素计数，不会改变这个方差。旧版返回的是 n0n1(μ0−μ1)²，比正确方差大 N² 倍；最优阈值虽相同，但数值与公式不一致。"
+          },
+          {
+            "body": true,
+            "href": "/25-ocr-engine/#_3-1-固定阈值与-otsu-的精确边界",
+            "text": "… 时 n0=n1=2，两类均值0与255；类间方差为 0.5×0.5×255²=16,256.25，当前代码返回同一数值。t=1…254 产生相同分组；代码只在严格变好时更新，因此保留最早的 t=0… "
+          },
+          {
+            "body": true,
+            "href": "/25-ocr-engine/#参考与实现边界",
+            "text": "… ay-Level Histograms：类间方差选择阈值；本仓库的等号与计数约定见第04章。"
+          },
+          {
+            "body": true,
+            "href": "/25-ocr-engine/#_13-自测问题与答案",
+            "text": "… u返回t=0，固定阈值应传几？当前返回的类间方差是多少？"
+          },
+          {
+            "body": true,
+            "href": "/docs/reviews/2026-09-11/01-05.html#逐章结论",
+            "text": "… [t+1,255]，输出同步使用该边界；类间方差返回概率权重而非像素数乘积；自适应窗口必须是≥3奇数"
+          },
+          {
+            "body": true,
+            "href": "/docs/reviews/2026-09-11/01-05.html#可独立核对的反例",
+            "text": "… ,255]：t=0，w₀=w₁=0.5，类间方差0.25×255²=16256.25。原variance=260100是N²倍；阈值排序可能不变，但不能称为该概率方差。全相同灰度没有有效两类划分，… "
+          },
+          {
+            "body": true,
+            "href": "/PROGRESS.html#_04-二值化-✅",
+            "text": "深入理解 Otsu 算法：基于类间方差最大化自动计算最佳阈值"
+          },
+          {
+            "body": true,
+            "href": "/docs/reviews/2026-09-11/25-26.html#_3-共享修复后不能沿用旧流程的成绩和指纹解释",
+            "text": "… 4章将variance由计数乘积修为概率类间方差，第07章修复旋转中心/边缘，第17章修复缩放后空白。主代理同步25章的方差算例：[0,0,255,255]返回16256.25；旧260100是N… "
+          },
+          {
+            "body": true,
+            "href": "/docs/VUEPRESS_INTEGRATION_PLAN.html#_9-验收标准",
+            "text": "搜索“类间方差”“梯度消失”“CTC”“blank”可以定位对应正文。"
+          }
+        ],
+        "text": "Tab\n类间方差\n04. 二值化 (Binarization / Thresholding)\n类间方差公式解读\n类间方差 σ²(t) = w₀ × w₁ × (μ₀ - μ₁)² 其中： - w₀ = 前景像素占比（前景有多少个像素） - w₁ = 背景像素占比（背景有多少个像素） - μ₀ = 前景的平均灰度… \n为什么类间方差最大化是最优的？\n… 键洞察：图像的总方差 = 类内方差 + 类间方差（这是数学定理）\n总方差（固定不变）= 类内方差 + 类间方差 ↓ ↓ ↓ 图像本身 组内差异 组间差异 的特性 （坏） （好） \n类间方差：两组之间的差异（越大越好，说明前景背景分得开）\n类间方差最大 ⟺ 加权类内方差最小（对同一幅图像） 这不等于 OCR 识别效果最好，也不保证分出的两类就是文字与背景 \n好的分班：文科班和理科班的特点差异明显（类间方差大）\n类间方差的直观理解\n类间方差衡量的是：前景均值和背景均值之间的\"距离\"有多大。\n… 值 (浅色) (谷底) Otsu 最大化类间方差，不直接寻找局部谷底。此例 t=50…179 都产生相同分组；本实现并列取最小值50，而不是谷底中心。 \n寻找使概率加权类间方差最大的阈值；这等价于最小化加权类内方差，不保证文字识别最优\n… 80+190+200)/3 = 190 类间方差 = w₀ × w₁ × (μ₀ - μ₁)² = 0.5 × 0.5 × (40 - 190)² = 0.25 × 22500 = 5625 ← … \n25. OCR 引擎整合：从照片到完整数字串\n…  variance 统一为上式的概率加权类间方差；只重复整张图片的像素计数，不会改变这个方差。旧版返回的是 n0n1(μ0−μ1)²，比正确方差大 N² 倍；最优阈值虽相同，但数值与公式不一致。\n… 时 n0=n1=2，两类均值0与255；类间方差为 0.5×0.5×255²=16,256.25，当前代码返回同一数值。t=1…254 产生相同分组；代码只在严格变好时更新，因此保留最早的 t=0… \n… ay-Level Histograms：类间方差选择阈值；本仓库的等号与计数约定见第04章。\n… u返回t=0，固定阈值应传几？当前返回的类间方差是多少？\n第01–05章复核\n… [t+1,255]，输出同步使用该边界；类间方差返回概率权重而非像素数乘积；自适应窗口必须是≥3奇数\n… ,255]：t=0，w₀=w₁=0.5，类间方差0.25×255²=16256.25。原variance=260100是N²倍；阈值排序可能不变，但不能称为该概率方差。全相同灰度没有有效两类划分，… \nOCR 学习进度追踪\n深入理解 Otsu 算法：基于类间方差最大化自动计算最佳阈值\n第25–26章与全局衔接复核\n… 4章将variance由计数乘积修为概率类间方差，第07章修复旋转中心/边缘，第17章修复缩放后空白。主代理同步25章的方差算例：[0,0,255,255]返回16256.25；旧260100是N… \nVuePress课程站整合方案\n搜索“类间方差”“梯度消失”“CTC”“blank”可以定位对应正文。\n选择\n切换结果\n关闭",
+        "destination": {
+          "anchorExists": true,
+          "h1": "04. 二值化 (Binarization / Thresholding)",
+          "hash": "类间方差公式解读",
+          "url": "http://127.0.0.1:4173/04-binarization/#%E7%B1%BB%E9%97%B4%E6%96%B9%E5%B7%AE%E5%85%AC%E5%BC%8F%E8%A7%A3%E8%AF%BB"
+        }
+      }
+    },
+    {
+      "name": "search 类间方差: excerpts do not expose HTML entities",
+      "pass": true,
+      "detail": "Tab\n类间方差\n04. 二值化 (Binarization / Thresholding)\n类间方差公式解读\n类间方差 σ²(t) = w₀ × w₁ × (μ₀ - μ₁)² 其中： - w₀ = 前景像素占比（前景有多少个像素） - w₁ = 背景像素占比（背景有多少个像素） - μ₀ = 前景的平均灰度… \n为什么类间方差最大化是最优的？\n… 键洞察：图像的总方差 = 类内方差 + 类间方差（这是数学定理）\n总方差（固定不变）= 类内方差 + 类间方差 ↓ ↓ ↓ 图像本身 组内差异 组间差异 的特性 （坏） （好） \n类间方差：两组之间的差异（越大越好，说明前景背景分得开）\n类间方差"
+    },
+    {
+      "name": "search 类间方差: result navigates to real course anchor",
+      "pass": true,
+      "detail": {
+        "anchorExists": true,
+        "h1": "04. 二值化 (Binarization / Thresholding)",
+        "hash": "类间方差公式解读",
+        "url": "http://127.0.0.1:4173/04-binarization/#%E7%B1%BB%E9%97%B4%E6%96%B9%E5%B7%AE%E5%85%AC%E5%BC%8F%E8%A7%A3%E8%AF%BB"
+      }
+    },
+    {
+      "name": "search 梯度消失: course body results",
+      "pass": true,
+      "detail": {
+        "links": [
+          {
+            "body": true,
+            "href": "/18-rnn-basics/#知识点与三个入口对应",
+            "text": "梯度消失与爆炸"
+          },
+          {
+            "body": true,
+            "href": "/18-rnn-basics/#_4-lstm-让记忆以加法更新",
+            "text": "… ，不能从这个局部偏导推导“LSTM 永不梯度消失”。"
+          },
+          {
+            "body": true,
+            "href": "/OUTLINE.html#_18-循环神经网络基础",
+            "text": "梯度消失问题"
+          },
+          {
+            "body": true,
+            "href": "/docs/VUEPRESS_INTEGRATION_PLAN.html#_9-验收标准",
+            "text": "搜索“类间方差”“梯度消失”“CTC”“blank”可以定位对应正文。"
+          },
+          {
+            "body": true,
+            "href": "/docs/reviews/2026-09-11/#建议重新阅读的技术点",
+            "text": "饱和softmax/DB小梯度消失、教学检测与完整模型混同"
+          },
+          {
+            "body": true,
+            "href": "/docs/COURSE_REVIEW.html#逐章检查依据",
+            "text": "… 与门值手算已对照；权重大于1仍可能因饱和梯度消失"
+          }
+        ],
+        "text": "Tab\n梯度消失\n18. 循环神经网络：RNN、LSTM 与双向状态\n梯度消失与爆炸\n… ，不能从这个局部偏导推导“LSTM 永不梯度消失”。\nOCR 系统学习大纲 (JavaScript 实现)\n梯度消失问题\nVuePress课程站整合方案\n搜索“类间方差”“梯度消失”“CTC”“blank”可以定位对应正文。\nOCR课程正确性复核 · 2026-09-11\n饱和softmax/DB小梯度消失、教学检测与完整模型混同\n第 14–26 章课程一致性审查\n… 与门值手算已对照；权重大于1仍可能因饱和梯度消失\n选择\n切换结果\n关闭",
+        "destination": {
+          "anchorExists": true,
+          "h1": "18. 循环神经网络：RNN、LSTM 与双向状态",
+          "hash": "知识点与三个入口对应",
+          "url": "http://127.0.0.1:4173/18-rnn-basics/#%E7%9F%A5%E8%AF%86%E7%82%B9%E4%B8%8E%E4%B8%89%E4%B8%AA%E5%85%A5%E5%8F%A3%E5%AF%B9%E5%BA%94"
+        }
+      }
+    },
+    {
+      "name": "search 梯度消失: excerpts do not expose HTML entities",
+      "pass": true,
+      "detail": "Tab\n梯度消失\n18. 循环神经网络：RNN、LSTM 与双向状态\n梯度消失与爆炸\n… ，不能从这个局部偏导推导“LSTM 永不梯度消失”。\nOCR 系统学习大纲 (JavaScript 实现)\n梯度消失问题\nVuePress课程站整合方案\n搜索“类间方差”“梯度消失”“CTC”“blank”可以定位对应正文。\nOCR课程正确性复核 · 2026-09-11\n饱和softmax/DB小梯度消失、教学检测与完整模型混同\n第 14–26 章课程一致性审查\n… 与门值手算已对照；权重大于1仍可能因饱和梯度消失\n选择\n切换结果\n关闭"
+    },
+    {
+      "name": "search 梯度消失: result navigates to real course anchor",
+      "pass": true,
+      "detail": {
+        "anchorExists": true,
+        "h1": "18. 循环神经网络：RNN、LSTM 与双向状态",
+        "hash": "知识点与三个入口对应",
+        "url": "http://127.0.0.1:4173/18-rnn-basics/#%E7%9F%A5%E8%AF%86%E7%82%B9%E4%B8%8E%E4%B8%89%E4%B8%AA%E5%85%A5%E5%8F%A3%E5%AF%B9%E5%BA%94"
+      }
+    },
+    {
+      "name": "search CTC: course body results",
+      "pass": true,
+      "detail": {
+        "links": [
+          {
+            "body": false,
+            "href": "/OUTLINE.html#_19-ctc-loss",
+            "text": "19. ctc Loss"
+          },
+          {
+            "body": true,
+            "href": "/OUTLINE.html#_19-ctc-loss",
+            "text": "19-ctc-loss/"
+          },
+          {
+            "body": true,
+            "href": "/OUTLINE.html#_19-ctc-loss",
+            "text": "理解ctc的原理；理解为什么OCR需要ctc；能使用ctc训练模型"
+          },
+          {
+            "body": true,
+            "href": "/OUTLINE.html#_19-ctc-loss",
+            "text": "ctc的动机与思想"
+          },
+          {
+            "body": true,
+            "href": "/OUTLINE.html#_19-ctc-loss",
+            "text": "ctc解码（贪婪解码、束搜索）"
+          },
+          {
+            "body": true,
+            "href": "/OUTLINE.html#_19-ctc-loss",
+            "text": "ctc Loss计算"
+          },
+          {
+            "body": true,
+            "href": "/OUTLINE.html#_20-crnn架构",
+            "text": "实现可训练的微型CNN+BiLSTM+ctc，用合成0/1短串核验端到端学习；理解真实手写整行任务还需要相应训练数据"
+          },
+          {
+            "body": true,
+            "href": "/OUTLINE.html#_20-crnn架构",
+            "text": "CRNN = CNN + RNN + ctc"
+          },
+          {
+            "body": true,
+            "href": "/OUTLINE.html#_20-crnn架构",
+            "text": "… ence → BiLSTM序列建模 → ctc解码 → 输出文本 "
+          },
+          {
+            "body": true,
+            "href": "/OUTLINE.html#项目结构预览",
+            "text": "… ics/ # RNN基础 ├── 19-ctc-loss/ # ctc Loss ├── 20-crnn/ # CRNN架构 ├── 21-attention/ # Attention机制 ├──… "
+          },
+          {
+            "body": true,
+            "href": "/OUTLINE.html#各阶段说明",
+            "text": "特征提取、CNN、RNN、ctc、Attention"
+          },
+          {
+            "body": true,
+            "href": "/OUTLINE.html#_18-循环神经网络基础",
+            "text": "ctc Loss - 解决序列标注的关键技术"
+          },
+          {
+            "body": true,
+            "href": "/OUTLINE.html#学习路线图",
+            "text": "… 分类器 → 18.RNN基础 → 19.ctc Loss → 20.CRNN → 21.Attention 第七阶段：现代OCR 22.检测网络 → 23.Transformer 第八阶段：自主O… "
+          },
+          {
+            "body": true,
+            "href": "/19-ctc-loss/#_6-原理、三个主文件与运行对应",
+            "text": "… nd shared/__tests__/ctcloss.test.js npm run build npm start "
+          },
+          {
+            "body": true,
+            "href": "/19-ctc-loss/#_6-原理、三个主文件与运行对应",
+            "text": "… a, beta, posterior} ctc.greedydecode(p); // {path, labels, logProbability} ctc.prefixBeamDecode(p,… … ls, logProbability} ctc.prefixbeamdecode(p, 0, 20); // 已排序的{labels,logProbability,probability}数组 /… … 1], [0.1,0.8,0.1]]; ctc.ctcforwardbackward(p, [1,1]); // 默认blank=0 // {loss, probability, logProba… … softmax的有限数值[T,K]数组 ctc.ctclossandgradient(p.map(row => row.map(Math.log)), [1,1]); // TensorFlow.… … 返回调用者负责释放的scalar // ctc.differentiablectcloss(tf, logitsTensor[B,T,K], targets[B], blank) "
+          },
+          {
+            "body": false,
+            "href": "/19-ctc-loss/#_4-后向、后验与可微-ctc",
+            "text": "4. 后向、后验与可微 ctc"
+          },
+          {
+            "body": false,
+            "href": "/19-ctc-loss/",
+            "text": "19. ctc：对齐、损失、梯度与字符串解码"
+          },
+          {
+            "body": true,
+            "href": "/19-ctc-loss/#_4-3-tensorflow-js-的真实支持与实现边界",
+            "text": "… rget已在外部定义。 const { ctclossandgradient } = require('../sha … => { const result = ctclossandgradient …"
+          },
+          {
+            "body": true,
+            "href": "/19-ctc-loss/#_4-4-真实小实验和验证",
+            "text": "node 19-ctc-loss/index.js 从 [1,3,3] 全零 logits 开始，目标为连续两个数字0，Adam 学习率0.15，40步："
+          },
+          {
+            "body": true,
+            "href": "/19-ctc-loss/#_4-4-真实小实验和验证",
+            "text": "更新前 ctc loss = 3.29583693 更 … ss = 3.29583693 更新后 ctc loss = 0.01954518 贪婪路径索引 = [1,0,1] 折叠输出 = [1,1… "
+          },
+          {
+            "body": true,
+            "href": "/19-ctc-loss/#_4-4-真实小实验和验证",
+            "text": "… 故初始损失恰好是 ln(27)。这证明 ctc 梯度能学习重复与blank，只训练 logits，还没有图像模型。"
+          },
+          {
+            "body": true,
+            "href": "/19-ctc-loss/#学习目标与-ocr-中的位置",
+            "text": "… 不知道，连续两个相同数字也不能简单合并。ctc（Connectionist Temporal Classification）让训练者只提供顺序正确的字符串，通过对所有合法对齐求和来计算损失。"
+          },
+          {
+            "body": true,
+            "href": "/19-ctc-loss/#学习目标与-ocr-中的位置",
+            "text": "… M → 每帧K类概率 [T,K] ├→ ctc损失 ← 训练目标字符串 └→ ctc解码 → 预测字符串 "
+          },
+          {
+            "body": true,
+            "href": "/19-ctc-loss/#学习目标与-ocr-中的位置",
+            "text": "… 连接训练损失和独立评估，不连接解码器。 ctc 不是图像特征提取器，也不等同于整个 CRNN。Node 最后的小实验只训练 3 帧 logits，第 20 章才训练图像到字符串的完整小型模型。最终… "
+          },
+          {
+            "body": true,
+            "href": "/19-ctc-loss/#参考来源与核验",
+            "text": "… z、Gomez、Schmidhuber：ctc，ICML 2006：路径概率、折叠、前后向与训练目标。"
+          },
+          {
+            "body": true,
+            "href": "/19-ctc-loss/#参考来源与核验",
+            "text": "… al Networks，博士论文第7章：ctc推导及转录解码背景。"
+          },
+          {
+            "body": true,
+            "href": "/19-ctc-loss/#参考来源与核验",
+            "text": "… 字均来自本仓库实验；教学实现不是框架原生ctc实现，也没有复现论文的大规模数据评测。"
+          },
+          {
+            "body": true,
+            "href": "/19-ctc-loss/#_7-排障与模型边界",
+            "text": "当前ctc是CPU教学桥接，换后端不等于有原生ctc核"
+          },
+          {
+            "body": true,
+            "href": "/19-ctc-loss/#_7-排障与模型边界",
+            "text": "ctc 假设标签与帧有单调顺序，适合文字行、语音帧。它不擅长本质非单调的重排，也没有自回归字符依赖模型。换用 Attention 并不是自动更准确，而是改变对齐和输出建模假设。"
+          },
+          {
+            "body": true,
+            "href": "/19-ctc-loss/#_8-自测与答案",
+            "text": "题5： 为什么 ctc logits 梯度每帧行和为0？"
+          },
+          {
+            "body": true,
+            "href": "/19-ctc-loss/#_8-自测与答案",
+            "text": "题8： 可微 ctc logits 小实验成功，是否证明 CRNN 已训练？"
+          },
+          {
+            "body": true,
+            "href": "/19-ctc-loss/#_2-1-符号与条件独立",
+            "text": "ctc 的路径模型在给定网络输入后，将各帧的路径发射概率相乘："
+          },
+          {
+            "body": true,
+            "href": "/19-ctc-loss/#_1-1-逐帧交叉熵缺少监督对象",
+            "text": "…  00000 会抹去“两个字符”的事实。ctc 把这个未知对齐作为隐变量。"
+          },
+          {
+            "body": false,
+            "href": "/20-crnn/#_5-ctc-与真实端到端梯度",
+            "text": "5. ctc 与真实端到端梯度"
+          },
+          {
+            "body": false,
+            "href": "/20-crnn/",
+            "text": "… RNN：把 CNN、双向 LSTM 与 ctc 训练成一条链"
+          },
+          {
+            "body": true,
+            "href": "/20-crnn/#_5-3-两级梯度核验",
+            "text": "… 的9个logit坐标，用中心差分核对解析ctc梯度。报告最大绝对误差约3.10×10⁻⁸，ε=1e−4。"
+          },
+          {
+            "body": true,
+            "href": "/20-crnn/#_5-3-两级梯度核验",
+            "text": "第二级会同时经过CNN→BiLSTM→ctc，因此能发现“只有ctc公式正确、图像链路没梯度”的问题。纯JS … 式正确、图像链路没梯度”的问题。纯JS ctc读取数值后保存一阶梯度，不支持可信的二阶… "
+          },
+          {
+            "body": true,
+            "href": "/20-crnn/#_6-3-已完成的真实训练结果",
+            "text": "初始训练集平均ctc损失"
+          },
+          {
+            "body": true,
+            "href": "/20-crnn/#_6-3-已完成的真实训练结果",
+            "text": "最终训练集平均ctc损失"
+          },
+          {
+            "body": true,
+            "href": "/20-crnn/#_6-3-已完成的真实训练结果",
+            "text": "ctc梯度差分最大绝对误差"
+          },
+          {
+            "body": true,
+            "href": "/20-crnn/#_6-3-已完成的真实训练结果",
+            "text": "这说明训练的是完整小型CRNN，不是只有ctc logits，也不是单字符分类拼接。原始逐图结果、参数、步数、梯度检查、耗时和数据边界记录在 training-report.json。重新运行时间会受… "
+          },
+          {
+            "body": true,
+            "href": "/20-crnn/#_5-2-当前框架能做什么-实测而不是猜接口",
+            "text": "… ck、门函数、矩阵乘法与变量梯度。tf.ctcLoss 不存在，因此使用 tf.cus … tomGrad 将经过有限差分核验的解析ctc梯度接回计算图。自定义梯度机制见官方指南。"
+          },
+          {
+            "body": true,
+            "href": "/20-crnn/#_5-2-当前框架能做什么-实测而不是猜接口",
+            "text": "ctc损失 ↓ p−γ（本项目前后向算法；按批次平均） 每帧logits ↓ 输出矩阵、偏置的梯度 两个方向的LSTM状态 ↓ 在各自时间展开图上做BPTT 列序列 ↓ transpose/resha… "
+          },
+          {
+            "body": true,
+            "href": "/20-crnn/#_5-2-当前框架能做什么-实测而不是猜接口",
+            "text": "… ，后段仍可能学习，CNN却被截断。本章在ctc边界读取数值并显式回接梯度；其余网络全部用框架可微操作。"
+          },
+          {
+            "body": true,
+            "href": "/20-crnn/#_1-2-端到端-到底指什么",
+            "text": "ctc只是损失/转录机制，不增加一组可训练的“ctc权重”。本模型的参数在 CNN、两个 LSTM 和线性输出层中。"
+          },
+          {
+            "body": true,
+            "href": "/20-crnn/#参考来源",
+            "text": "Graves等：ctc，2006：核对整串监督和单调路径求和。"
+          },
+          {
+            "body": true,
+            "href": "/20-crnn/#参考来源",
+            "text": "… 、customGrad API：核对解析ctc一阶梯度回接方式。"
+          },
+          {
+            "body": true,
+            "href": "/20-crnn/#学习目标、前置知识与实验范围",
+            "text": "沿 ctc loss → logits → LSTM → CNN 检查真实梯度。"
+          },
+          {
+            "body": true,
+            "href": "/20-crnn/#学习目标、前置知识与实验范围",
+            "text": "…  18 章 LSTM 门、第 19 章 ctc 和 prefix beam。不依赖第 17 章的任何模型或数据产物。"
+          },
+          {
+            "body": true,
+            "href": "/20-crnn/#学习目标、前置知识与实验范围",
+            "text": "… 整训练了 CNN + BiLSTM + ctc，但规模有意限制为：8×20 灰度图、0/1 两种点阵字形、1–3个数字、1,691个参数、28个合成训练样本。它不是 MNIST 或真实手机照片模型… "
+          },
+          {
+            "body": true,
+            "href": "/20-crnn/#_9-知识点到三个主入口的对应",
+            "text": "… js shared/__tests__/ctcloss.test.js npm run build npm start "
+          },
+          {
+            "body": true,
+            "href": "/20-crnn/#_1-1-显式切字的脆弱点",
+            "text": "… 图像编码器学习特征，序列网络整合上下文，ctc 在训练时求对齐、在推理时折叠输出。"
+          },
+          {
+            "body": true,
+            "href": "/20-crnn/#_1-1-显式切字的脆弱点",
+            "text": "… ogits ↓ [B,T,K] ├── ctc损失 ← 整串训练标签 └── softmax → greedy/prefix beam → 字符串 "
+          },
+          {
+            "body": true,
+            "href": "/20-crnn/#_4-4-参数量与配置取舍",
+            "text": "… 出和LSTM输入F；增加图像宽度增加T及ctc表。不是只改一个最终全连接层大小那么简单。"
+          },
+          {
+            "body": true,
+            "href": "/20-crnn/#_11-分享重点与下一章",
+            "text": "… 关的加权读取显式化：RNN状态压缩历史，ctc对单调路径求和，Attention则学习当前位置应该关注哪些输入表示。它们解决的问题有交集，具体架构应按数据、延迟和错误表现比较。"
+          },
+          {
+            "body": true,
+            "href": "/20-crnn/#_8-1-三条路线的比较",
+            "text": "CNN + BiLSTM + ctc"
+          },
+          {
+            "body": true,
+            "href": "/20-crnn/#_8-2-常见故障的定位顺序",
+            "text": "… ing与有效长度、独立照片评估和更高吞吐ctc实现。本章当前固定图像宽度和共同T，没有掩码、动态宽批次、多层BiLSTM或生产训练恢复系统。"
+          },
+          {
+            "body": true,
+            "href": "/20-crnn/#_10-自测与答案",
+            "text": "… 训练成功，是否说明我们实现了高效GPU ctc内核？"
+          },
+          {
+            "body": false,
+            "href": "/23-transformer-ocr/#_9-与crnn-ctc及paddleocr的比较",
+            "text": "9. 与CRNN/ctc及PaddleOCR的比较"
+          },
+          {
+            "body": true,
+            "href": "/23-transformer-ocr/#_9-与crnn-ctc及paddleocr的比较",
+            "text": "CRNN+ctc"
+          },
+          {
+            "body": true,
+            "href": "/23-transformer-ocr/#_9-与crnn-ctc及paddleocr的比较",
+            "text": "Transformer+ctc"
+          },
+          {
+            "body": true,
+            "href": "/23-transformer-ocr/#_9-与crnn-ctc及paddleocr的比较",
+            "text": "仍可使用ctc"
+          },
+          {
+            "body": true,
+            "href": "/23-transformer-ocr/#_9-与crnn-ctc及paddleocr的比较",
+            "text": "… 一类结构，不必然使用自回归解码，也不排斥ctc。TrOCR是一种具体识别路线，PaddleOCR则是包含模型与检测/识别等能力的系统工具集合，不能将其视为单个固定的Transformer网络。"
+          },
+          {
+            "body": true,
+            "href": "/23-transformer-ocr/#学习目标与前置知识",
+            "text": "… ，第15章图像通道，第18–20章序列与ctc，第21章缩放点积，第22章裁剪与几何。 … 享模块直接引用第21章，无需等待RNN、ctc代码，也不依赖训练框架。"
+          },
+          {
+            "body": true,
+            "href": "/23-transformer-ocr/#自回归生成步骤与手算",
+            "text": "… 识别出“001”。两个相邻0保留，不使用ctc重复折叠。"
+          },
+          {
+            "body": true,
+            "href": "/23-transformer-ocr/#_11-常见误区与排障",
+            "text": "误用了ctc折叠或数值转换"
+          },
+          {
+            "body": true,
+            "href": "/docs/reviews/2026-09-11/18-20.html#依据",
+            "text": "Graves等ctc原论文：路径求和、折叠、动态规划与训练。"
+          },
+          {
+            "body": true,
+            "href": "/docs/reviews/2026-09-11/18-20.html#依据",
+            "text": "… 、TF.js自定义梯度：架构和本项目一阶ctc桥接范围。"
+          },
+          {
+            "body": true,
+            "href": "/docs/reviews/2026-09-11/18-20.html#修改与验证",
+            "text": "… gression.test.js、19-ctc-regression.test.js、 … ssion.test.js，配合原循环、ctc和CRNN测试。包括批次/列序对照、有限差分、自定义梯度上… "
+          },
+          {
+            "body": true,
+            "href": "/docs/reviews/2026-09-11/18-20.html",
+            "text": "子代理E负责RNN/LSTM、ctc和CRNN主要审查与修复，因额度中断未形成最终报告；本记录由主代理结合改动、独立数值检查与全量结果整理。"
+          },
+          {
+            "body": true,
+            "href": "/docs/reviews/2026-09-11/18-20.html#逐章结论",
+            "text": "CNN→序列、双向LSTM、ctc一阶梯度、训练/推理、模型加载"
+          },
+          {
+            "body": true,
+            "href": "/docs/reviews/2026-09-11/18-20.html#核心数值核验",
+            "text": "ctc先对相邻重复折叠再删除blank：0,blank,0产生00，不是0。目标重复需要额外时间步。路径枚举、前后向后验与解析梯度相互校验，覆盖非零blank索引和空目标。"
+          },
+          {
+            "body": true,
+            "href": "/shared/#第-09–26-章模块导航",
+            "text": "19-ctc-loss"
+          },
+          {
+            "body": true,
+            "href": "/shared/#第-09–26-章模块导航",
+            "text": "ctc"
+          },
+          {
+            "body": true,
+            "href": "/shared/#第-09–26-章模块导航",
+            "text": "CNN + BiLSTM + 可微 ctc"
+          },
+          {
+            "body": true,
+            "href": "/21-attention/#_6-self-attention-与-cross-attention-在-ocr-中的位置",
+            "text": "与 ctc 相比，常规注意力解码器在输出时可以利用 … ntion 读取视觉位置；但通常不具有 ctc 路径折叠的强制单调结构。它可能跳读、重 … 个“0”是两个输出 token，不能按 ctc 式规… "
+          },
+          {
+            "body": true,
+            "href": "/21-attention/#学习目标与前置知识",
+            "text": "… 通道与特征，第18章序列状态，第19章 ctc 对齐，第20章图像特征到序列。矩阵乘法若不熟，先核对 (m×k)(k×d)=m×d：中间轴是相加的轴。"
+          },
+          {
+            "body": true,
+            "href": "/21-attention/#_10-自测与答案",
+            "text": "… 普通生成token的重复有实际字符含义，ctc折叠规则不适用。"
+          },
+          {
+            "body": true,
+            "href": "/18-rnn-basics/#_9-分享重点与衔接",
+            "text": "… 符，逐帧监督标签从哪来？第 19 章用 ctc 对所有合法对齐求和回答这个问题。"
+          },
+          {
+            "body": true,
+            "href": "/18-rnn-basics/#_7-适用条件、局限与常见误区",
+            "text": "… 复、blank 或长度不一致；这些属于 ctc 问题。"
+          },
+          {
+            "body": true,
+            "href": "/18-rnn-basics/#学习目标与前置知识",
+            "text": "… 可训练的 CNN + BiLSTM + ctc 在第 20 章。"
+          },
+          {
+            "body": true,
+            "href": "/25-ocr-engine/#_7-3-字符串拼接与资源释放",
+            "text": "… er会丢前导零，Set去重会丢重复数字，ctc折叠会错误地把相邻两个1合并；这三种操作均不属于本引擎。"
+          },
+          {
+            "body": true,
+            "href": "/25-ocr-engine/#_8-方法路线比较-哪些课程知识进入本版引擎",
+            "text": "CRNN+ctc，18–20章"
+          },
+          {
+            "body": true,
+            "href": "/25-ocr-engine/#学习目标与前置知识",
+            "text": "… 不把第24章的词典纠错接入识别，也不做 ctc 重复折叠。"
+          },
+          {
+            "body": true,
+            "href": "/PROGRESS.html#_2026-09-11-正确性复核完成",
+            "text": "… 证选参、Dropout种子、交叉熵裁剪、ctc稳定性和评估来源等。"
+          },
+          {
+            "body": true,
+            "href": "/PROGRESS.html#第14–26章材料交付-用户学习状态另记",
+            "text": "RNN/LSTM、ctc、完整可训练的小型CRNN"
+          },
+          {
+            "body": true,
+            "href": "/24-post-processing/#_9-任意数字串为什么不该被擅自-润色",
+            "text": "… 原始预测与人工修订必须分开保存。第19章ctc去blank/折叠路径的操作属于解码定义，不能在拼接后的普通数字串上再次去重。"
+          },
+          {
+            "body": true,
+            "href": "/24-post-processing/#_1-学习目标与前置知识",
+            "text": "18–20 序列识别、ctc、CRNN"
+          },
+          {
+            "body": true,
+            "href": "/docs/COURSE_REVIEW.html#逐章检查依据",
+            "text": "19 ctc"
+          },
+          {
+            "body": true,
+            "href": "/docs/COURSE_REVIEW.html#逐章检查依据",
+            "text": "… 的transpose、BiLSTM、可微ctc、端到端梯度与1691参数"
+          },
+          {
+            "body": true,
+            "href": "/docs/SHARING_GUIDE.html#_1-六节分享路线",
+            "text": "18RNN、19ctc：序列如何表示与对齐？"
+          },
+          {
+            "body": true,
+            "href": "/docs/SHARING_GUIDE.html#_1-六节分享路线",
+            "text": "特征图变时间步→双向上下文与ctc→Q/K/V与注意力矩阵"
+          },
+          {
+            "body": true,
+            "href": "/17-cnn-classifier/#分享重点与下一章",
+            "text": "第 18–20 章将讨论 RNN、ctc、CRNN 怎样直接建模序列。本章单字符路线需要先切字，它的优点是每个错误阶段可检查；遇到严重粘连或自然语言序列时，切分假设可能成为瓶颈。序列课程是可解释的另一… "
+          },
+          {
+            "body": true,
+            "href": "/docs/VUEPRESS_INTEGRATION_PLAN.html#_9-验收标准",
+            "text": "搜索“类间方差”“梯度消失”“ctc”“blank”可以定位对应正文。"
+          },
+          {
+            "body": true,
+            "href": "/#开始学习",
+            "text": "… cs/index.js node 19-ctc-loss/index.js node 25-ocr-engine/index.js node 26-validation/index.js "
+          },
+          {
+            "body": true,
+            "href": "/docs/reviews/2026-09-11/#建议重新阅读的技术点",
+            "text": "… 四个LSTM门”、直接状态偏导当总梯度、ctc巨大logits偏移误归一化"
+          }
+        ],
+        "text": "Tab\nCTC\nctc\nOCR 系统学习大纲 (JavaScript 实现)\n19. ctc Loss\n19-ctc-loss/\n理解ctc的原理；理解为什么OCR需要ctc；能使用ctc训练模型\nctc的动机与思想\nctc解码（贪婪解码、束搜索）\nctc Loss计算\n实现可训练的微型CNN+BiLSTM+ctc，用合成0/1短串核验端到端学习；理解真实手写整行任务还需要相应训练数据\nCRNN = CNN + RNN + ctc\n… ence → BiLSTM序列建模 → ctc解码 → 输出文本 \n… ics/ # RNN基础 ├── 19-ctc-loss/ # ctc Loss ├── 20-crnn/ # CRNN架构 ├── 21-attention/ # Attention机制 ├──… \n特征提取、CNN、RNN、ctc、Attention\nctc Loss - 解决序列标注的关键技术\n… 分类器 → 18.RNN基础 → 19.ctc Loss → 20.CRNN → 21.Attention 第七阶段：现代OCR 22.检测网络 → 23.Transformer 第八阶段：自主O… \n19. CTC：对齐、损失、梯度与字符串解码\n… nd shared/__tests__/ctcloss.test.js npm run build npm start \n… a, beta, posterior} ctc.greedydecode(p); // {path, labels, logProbability} ctc.prefixBeamDecode(p,… \n… ls, logProbability} ctc.prefixbeamdecode(p, 0, 20); // 已排序的{labels,logProbability,probability}数组 /… \n… 1], [0.1,0.8,0.1]]; ctc.ctcforwardbackward(p, [1,1]); // 默认blank=0 // {loss, probability, logProba… \n… softmax的有限数值[T,K]数组 ctc.ctclossandgradient(p.map(row => row.map(Math.log)), [1,1]); // TensorFlow.… \n… 返回调用者负责释放的scalar // ctc.differentiablectcloss(tf, logitsTensor[B,T,K], targets[B], blank) \n4. 后向、后验与可微 ctc\n19. ctc：对齐、损失、梯度与字符串解码\n… rget已在外部定义。 const { ctclossandgradient } = require('../sha … => { const result = ctclossandgradient …\nnode 19-ctc-loss/index.js 从 [1,3,3] 全零 logits 开始，目标为连续两个数字0，Adam 学习率0.15，40步：\n更新前 ctc loss = 3.29583693 更 … ss = 3.29583693 更新后 ctc loss = 0.01954518 贪婪路径索引 = [1,0,1] 折叠输出 = [1,1… \n… 故初始损失恰好是 ln(27)。这证明 ctc 梯度能学习重复与blank，只训练 logits，还没有图像模型。\n… 不知道，连续两个相同数字也不能简单合并。ctc（Connectionist Temporal Classification）让训练者只提供顺序正确的字符串，通过对所有合法对齐求和来计算损失。\n… M → 每帧K类概率 [T,K] ├→ ctc损失 ← 训练目标字符串 └→ ctc解码 → 预测字符串 \n… 连接训练损失和独立评估，不连接解码器。 ctc 不是图像特征提取器，也不等同于整个 CRNN。Node 最后的小实验只训练 3 帧 logits，第 20 章才训练图像到字符串的完整小型模型。最终… \n… z、Gomez、Schmidhuber：ctc，ICML 2006：路径概率、折叠、前后向与训练目标。\n… al Networks，博士论文第7章：ctc推导及转录解码背景。\n… 字均来自本仓库实验；教学实现不是框架原生ctc实现，也没有复现论文的大规模数据评测。\n当前ctc是CPU教学桥接，换后端不等于有原生ctc核\nctc 假设标签与帧有单调顺序，适合文字行、语音帧。它不擅长本质非单调的重排，也没有自回归字符依赖模型。换用 Attention 并不是自动更准确，而是改变对齐和输出建模假设。\n题5： 为什么 ctc logits 梯度每帧行和为0？\n题8： 可微 ctc logits 小实验成功，是否证明 CRNN 已训练？\nctc 的路径模型在给定网络输入后，将各帧的路径发射概率相乘：\n…  00000 会抹去“两个字符”的事实。ctc 把这个未知对齐作为隐变量。\n20. CRNN：把 CNN、双向 LSTM 与 CTC 训练成一条链\n5. ctc 与真实端到端梯度\n… RNN：把 CNN、双向 LSTM 与 ctc 训练成一条链\n… 的9个logit坐标，用中心差分核对解析ctc梯度。报告最大绝对误差约3.10×10⁻⁸，ε=1e−4。\n第二级会同时经过CNN→BiLSTM→ctc，因此能发现“只有ctc公式正确、图像链路没梯度”的问题。纯JS … 式正确、图像链路没梯度”的问题。纯JS ctc读取数值后保存一阶梯度，不支持可信的二阶… \n初始训练集平均ctc损失\n最终训练集平均ctc损失\nctc梯度差分最大绝对误差\n这说明训练的是完整小型CRNN，不是只有ctc logits，也不是单字符分类拼接。原始逐图结果、参数、步数、梯度检查、耗时和数据边界记录在 training-report.json。重新运行时间会受… \n… ck、门函数、矩阵乘法与变量梯度。tf.ctcLoss 不存在，因此使用 tf.cus … tomGrad 将经过有限差分核验的解析ctc梯度接回计算图。自定义梯度机制见官方指南。\nctc损失 ↓ p−γ（本项目前后向算法；按批次平均） 每帧logits ↓ 输出矩阵、偏置的梯度 两个方向的LSTM状态 ↓ 在各自时间展开图上做BPTT 列序列 ↓ transpose/resha… \n… ，后段仍可能学习，CNN却被截断。本章在ctc边界读取数值并显式回接梯度；其余网络全部用框架可微操作。\nctc只是损失/转录机制，不增加一组可训练的“ctc权重”。本模型的参数在 CNN、两个 LSTM 和线性输出层中。\nGraves等：ctc，2006：核对整串监督和单调路径求和。\n… 、customGrad API：核对解析ctc一阶梯度回接方式。\n沿 ctc loss → logits → LSTM → CNN 检查真实梯度。\n…  18 章 LSTM 门、第 19 章 ctc 和 prefix beam。不依赖第 17 章的任何模型或数据产物。\n… 整训练了 CNN + BiLSTM + ctc，但规模有意限制为：8×20 灰度图、0/1 两种点阵字形、1–3个数字、1,691个参数、28个合成训练样本。它不是 MNIST 或真实手机照片模型… \n… js shared/__tests__/ctcloss.test.js npm run build npm start \n… 图像编码器学习特征，序列网络整合上下文，ctc 在训练时求对齐、在推理时折叠输出。\n… ogits ↓ [B,T,K] ├── ctc损失 ← 整串训练标签 └── softmax → greedy/prefix beam → 字符串 \n… 出和LSTM输入F；增加图像宽度增加T及ctc表。不是只改一个最终全连接层大小那么简单。\n… 关的加权读取显式化：RNN状态压缩历史，ctc对单调路径求和，Attention则学习当前位置应该关注哪些输入表示。它们解决的问题有交集，具体架构应按数据、延迟和错误表现比较。\nCNN + BiLSTM + ctc\n… ing与有效长度、独立照片评估和更高吞吐ctc实现。本章当前固定图像宽度和共同T，没有掩码、动态宽批次、多层BiLSTM或生产训练恢复系统。\n… 训练成功，是否说明我们实现了高效GPU ctc内核？\n23. Transformer OCR：位置、多头、图像块与自回归识别\n9. 与CRNN/ctc及PaddleOCR的比较\nCRNN+ctc\nTransformer+ctc\n仍可使用ctc\n… 一类结构，不必然使用自回归解码，也不排斥ctc。TrOCR是一种具体识别路线，PaddleOCR则是包含模型与检测/识别等能力的系统工具集合，不能将其视为单个固定的Transformer网络。\n… ，第15章图像通道，第18–20章序列与ctc，第21章缩放点积，第22章裁剪与几何。 … 享模块直接引用第21章，无需等待RNN、ctc代码，也不依赖训练框架。\n… 识别出“001”。两个相邻0保留，不使用ctc重复折叠。\n误用了ctc折叠或数值转换\n第18–20章复核\nGraves等ctc原论文：路径求和、折叠、动态规划与训练。\n… 、TF.js自定义梯度：架构和本项目一阶ctc桥接范围。\n… gression.test.js、19-ctc-regression.test.js、 … ssion.test.js，配合原循环、ctc和CRNN测试。包括批次/列序对照、有限差分、自定义梯度上… \n子代理E负责RNN/LSTM、ctc和CRNN主要审查与修复，因额度中断未形成最终报告；本记录由主代理结合改动、独立数值检查与全量结果整理。\nCNN→序列、双向LSTM、ctc一阶梯度、训练/推理、模型加载\nctc先对相邻重复折叠再删除blank：0,blank,0产生00，不是0。目标重复需要额外时间步。路径枚举、前后向后验与解析梯度相互校验，覆盖非零blank索引和空目标。\n共享工具模块 (Shared Utilities)\n19-ctc-loss\nctc\nCNN + BiLSTM + 可微 ctc\n21. Attention：从匹配、加权到可训练的对齐\n与 ctc 相比，常规注意力解码器在输出时可以利用 … ntion 读取视觉位置；但通常不具有 ctc 路径折叠的强制单调结构。它可能跳读、重 … 个“0”是两个输出 token，不能按 ctc 式规… \n… 通道与特征，第18章序列状态，第19章 ctc 对齐，第20章图像特征到序列。矩阵乘法若不熟，先核对 (m×k)(k×d)=m×d：中间轴是相加的轴。\n… 普通生成token的重复有实际字符含义，ctc折叠规则不适用。\n18. 循环神经网络：RNN、LSTM 与双向状态\n… 符，逐帧监督标签从哪来？第 19 章用 ctc 对所有合法对齐求和回答这个问题。\n… 复、blank 或长度不一致；这些属于 ctc 问题。\n… 可训练的 CNN + BiLSTM + ctc 在第 20 章。\n25. OCR 引擎整合：从照片到完整数字串\n… er会丢前导零，Set去重会丢重复数字，ctc折叠会错误地把相邻两个1合并；这三种操作均不属于本引擎。\nCRNN+ctc，18–20章\n… 不把第24章的词典纠错接入识别，也不做 ctc 重复折叠。\nOCR 学习进度追踪\n… 证选参、Dropout种子、交叉熵裁剪、ctc稳定性和评估来源等。\nRNN/LSTM、ctc、完整可训练的小型CRNN\n24. 后处理与独立评估\n… 原始预测与人工修订必须分开保存。第19章ctc去blank/折叠路径的操作属于解码定义，不能在拼接后的普通数字串上再次去重。\n18–20 序列识别、ctc、CRNN\n第 14–26 章课程一致性审查\n19 ctc\n… 的transpose、BiLSTM、可微ctc、端到端梯度与1691参数\nOCR课程分享与现场演示说明\n18RNN、19ctc：序列如何表示与对齐？\n特征图变时间步→双向上下文与ctc→Q/K/V与注意力矩阵\n17. CNN 字符分类器：真实训练、统一输入与独立评估\n第 18–20 章将讨论 RNN、ctc、CRNN 怎样直接建模序列。本章单字符路线需要先切字，它的优点是每个错误阶段可检查；遇到严重粘连或自然语言序列时，切分假设可能成为瓶颈。序列课程是可解释的另一… \nVuePress课程站整合方案\n搜索“类间方差”“梯度消失”“ctc”“blank”可以定位对应正文。\nOCR 原理学习与手写数字串实验\n… cs/index.js node 19-ctc-loss/index.js node 25-ocr-engine/index.js node 26-validation/index.js \nOCR课程正确性复核 · 2026-09-11\n… 四个LSTM门”、直接状态偏导当总梯度、ctc巨大logits偏移误归一化\n选择\n切换结果\n关闭",
+        "destination": {
+          "anchorExists": true,
+          "h1": "19. CTC：对齐、损失、梯度与字符串解码",
+          "hash": "_6-原理、三个主文件与运行对应",
+          "url": "http://127.0.0.1:4173/19-ctc-loss/#_6-%E5%8E%9F%E7%90%86%E3%80%81%E4%B8%89%E4%B8%AA%E4%B8%BB%E6%96%87%E4%BB%B6%E4%B8%8E%E8%BF%90%E8%A1%8C%E5%AF%B9%E5%BA%94"
+        }
+      }
+    },
+    {
+      "name": "search CTC: excerpts do not expose HTML entities",
+      "pass": true,
+      "detail": "Tab\nCTC\nctc\nOCR 系统学习大纲 (JavaScript 实现)\n19. ctc Loss\n19-ctc-loss/\n理解ctc的原理；理解为什么OCR需要ctc；能使用ctc训练模型\nctc的动机与思想\nctc解码（贪婪解码、束搜索）\nctc Loss计算\n实现可训练的微型CNN+BiLSTM+ctc，用合成0/1短串核验端到端学习；理解真实手写整行任务还需要相应训练数据\nCRNN = CNN + RNN + ctc\n… ence → BiLSTM序列建模 → ctc解码 → 输出文本 \n… ics/ # RNN基础 ├── 19-ctc-loss/ # ctc Loss ├──"
+    },
+    {
+      "name": "search CTC: result navigates to real course anchor",
+      "pass": true,
+      "detail": {
+        "anchorExists": true,
+        "h1": "19. CTC：对齐、损失、梯度与字符串解码",
+        "hash": "_6-原理、三个主文件与运行对应",
+        "url": "http://127.0.0.1:4173/19-ctc-loss/#_6-%E5%8E%9F%E7%90%86%E3%80%81%E4%B8%89%E4%B8%AA%E4%B8%BB%E6%96%87%E4%BB%B6%E4%B8%8E%E8%BF%90%E8%A1%8C%E5%AF%B9%E5%BA%94"
+      }
+    },
+    {
+      "name": "search blank: course body results",
+      "pass": true,
+      "detail": {
+        "links": [
+          {
+            "body": false,
+            "href": "/19-ctc-loss/#_3-1-为什么要插入-blank-状态",
+            "text": "3.1 为什么要插入 blank 状态"
+          },
+          {
+            "body": true,
+            "href": "/19-ctc-loss/#_3-1-为什么要插入-blank-状态",
+            "text": "空目标只有一个 blank 状态，不初始化状态1。"
+          },
+          {
+            "body": false,
+            "href": "/19-ctc-loss/#_1-从字符标签到路径-为什么需要-blank",
+            "text": "1. 从字符标签到路径：为什么需要 blank"
+          },
+          {
+            "body": true,
+            "href": "/19-ctc-loss/#_2-2-两帧一字符的手算",
+            "text": "只有 blank 和 a 两类："
+          },
+          {
+            "body": true,
+            "href": "/19-ctc-loss/#_2-2-两帧一字符的手算",
+            "text": "blank"
+          },
+          {
+            "body": true,
+            "href": "/19-ctc-loss/#_2-2-两帧一字符的手算",
+            "text": "… ) 0.6×0.4 = 0.24 (a,blank) 0.6×0.6 = 0.36 (blank,a) 0.4×0.4 = 0.16 合计 0.76 loss = -ln(0.76) = 0.27… "
+          },
+          {
+            "body": true,
+            "href": "/19-ctc-loss/#_2-2-两帧一字符的手算",
+            "text": "全 blank 路径的概率为 0.24，两种输出串的概率和是 1。注意路径 (a,a) 不是两个 a；本例 T=2 无法输出连续重复 aa。"
+          },
+          {
+            "body": true,
+            "href": "/19-ctc-loss/#_5-2-一个贪婪失败、beam成功的手算",
+            "text": "两帧的概率都为 [blank=0.4, a=0.35, b=0.25 … a=0.35, b=0.25]。贪婪选 blank、blank，输出空串，路径概率0.16。"
+          },
+          {
+            "body": true,
+            "href": "/19-ctc-loss/#_5-2-一个贪婪失败、beam成功的手算",
+            "text": "… 35×0.35 = 0.1225 (a,blank) 0.35×0.40 = 0.1400 … 0.35×0.40 = 0.1400 (blank,a) 0.40×0.35 = 0.1400 总概… "
+          },
+          {
+            "body": true,
+            "href": "/19-ctc-loss/#_3-3-连续重复-00-的完整小表",
+            "text": "本例列顺序 [blank,数字0,数字1]："
+          },
+          {
+            "body": true,
+            "href": "/19-ctc-loss/#_3-3-连续重复-00-的完整小表",
+            "text": "s0 blank"
+          },
+          {
+            "body": true,
+            "href": "/19-ctc-loss/#_3-3-连续重复-00-的完整小表",
+            "text": "s2 blank"
+          },
+          {
+            "body": true,
+            "href": "/19-ctc-loss/#_3-3-连续重复-00-的完整小表",
+            "text": "s4 blank"
+          },
+          {
+            "body": true,
+            "href": "/19-ctc-loss/#_3-3-连续重复-00-的完整小表",
+            "text": "… 6205。三帧下恰好只有路径 [数字0,blank,数字0] 合法，因此独立枚举也得到 0.7×0.8×0.8=0.448。"
+          },
+          {
+            "body": true,
+            "href": "/19-ctc-loss/#_3-2-三种来源与跳跃条件",
+            "text": "同一状态 s 留下：让一个字符或 blank 跨越多帧。"
+          },
+          {
+            "body": true,
+            "href": "/19-ctc-loss/#_3-2-三种来源与跳跃条件",
+            "text": "前一状态 s−1 前进：blank 与字符交替。"
+          },
+          {
+            "body": true,
+            "href": "/19-ctc-loss/#_3-2-三种来源与跳跃条件",
+            "text": "前两状态 s−2 跳跃：跳过字符间可选 blank，但只允许当前类别非blank且与 s−2 的类别不同。"
+          },
+          {
+            "body": true,
+            "href": "/19-ctc-loss/#_3-2-三种来源与跳跃条件",
+            "text": "… s) = s≥2 && l'[s]!==blank && l'[s]!==l'[s−2]。 … 超出范围的 α 为0。相同字符不能跳过 blank，否则会把一个持续发射的字符误认为两个字符。"
+          },
+          {
+            "body": true,
+            "href": "/19-ctc-loss/#_3-2-三种来源与跳跃条件",
+            "text": "完成整个目标的路径可停在末尾 blank 或最后一个字符："
+          },
+          {
+            "body": true,
+            "href": "/19-ctc-loss/#_1-1-逐帧交叉熵缺少监督对象",
+            "text": "设普通类别集合为 A，在其中增加 blank，得到 A' = A ∪ {∅}，K=| … 恰好为 T 的类别序列，可以包含重复与 blank。字符串 y 的长度可以小于 T。"
+          },
+          {
+            "body": true,
+            "href": "/19-ctc-loss/#_1-1-逐帧交叉熵缺少监督对象",
+            "text": "blank，对齐占位"
+          },
+          {
+            "body": true,
+            "href": "/19-ctc-loss/#_1-1-逐帧交叉熵缺少监督对象",
+            "text": "blank 的索引 0 不是数字字符 0。共享算法 … 0 不是数字字符 0。共享算法允许别的 blank 索引与更多类别，页面与第 20 章实验固定使用上表。"
+          },
+          {
+            "body": true,
+            "href": "/19-ctc-loss/#_1-1-逐帧交叉熵缺少监督对象",
+            "text": "blank 表示“这一帧不增加字符”。它不是词语里 … 位置输出；上下文网络可以在笔画区域输出 blank，其他帧输出字符尖峰。"
+          },
+          {
+            "body": true,
+            "href": "/19-ctc-loss/#_1-2-折叠函数-b-的两个步骤",
+            "text": "删除 blank。"
+          },
+          {
+            "body": true,
+            "href": "/19-ctc-loss/#_1-2-折叠函数-b-的两个步骤",
+            "text": "…  → 合并 [a,∅,a,b] → 删除blank [a,a,b] 路径 [a,a] → [a] → [a] 路径 [a,∅,a] → [a,∅,a] → [a,a] 路径 [∅,∅] → [∅]… "
+          },
+          {
+            "body": true,
+            "href": "/19-ctc-loss/#_1-2-折叠函数-b-的两个步骤",
+            "text": "如果先删除 blank，再合并重复，第三行会错误变为一个 a。实现必须和原路径的前一项比较，而不是与“上一个输出字符”比较。"
+          },
+          {
+            "body": true,
+            "href": "/19-ctc-loss/#_1-2-折叠函数-b-的两个步骤",
+            "text": "… 1]; if (current !== blank && !sameAsPreviousFrame) { labels.push(current); } } "
+          },
+          {
+            "body": true,
+            "href": "/19-ctc-loss/#_6-原理、三个主文件与运行对应",
+            "text": "blank与折叠顺序"
+          },
+          {
+            "body": true,
+            "href": "/19-ctc-loss/#_6-原理、三个主文件与运行对应",
+            "text": "连续重复、全blank示例"
+          },
+          {
+            "body": true,
+            "href": "/19-ctc-loss/#_6-原理、三个主文件与运行对应",
+            "text": "… ard(p, [1,1]); // 默认blank=0 // {loss, probabi … B,T,K], targets[B], blank) "
+          },
+          {
+            "body": true,
+            "href": "/19-ctc-loss/#_6-原理、三个主文件与运行对应",
+            "text": "… 稀疏数组的空槽不会当作0。目标不能包含 blank；beamWidth 必须为正整数。当前批次所有样本使用同一 T，不提供 inputLengths 或补齐帧遮罩；变宽批次留到更完整实现。"
+          },
+          {
+            "body": true,
+            "href": "/19-ctc-loss/#_8-自测与答案",
+            "text": "… 1： 路径 [1,1,0,1,2,2]，blank=0，输出是什么？"
+          },
+          {
+            "body": true,
+            "href": "/19-ctc-loss/#_8-自测与答案",
+            "text": "… 并路径重复得到 [1,0,1,2]，再删blank。"
+          },
+          {
+            "body": true,
+            "href": "/19-ctc-loss/#_8-自测与答案",
+            "text": "答： 当前状态为blank不能这样跳；当前字符与s−2相同也不能跳 … ；当前字符与s−2相同也不能跳，否则没有blank分隔的重复会被错误当成两个字符。"
+          },
+          {
+            "body": true,
+            "href": "/19-ctc-loss/#_1-3-重复数字需要多少时间步",
+            "text": "… 少占一帧，每一对相邻相同字符还需要一个 blank 分开。例如："
+          },
+          {
+            "body": true,
+            "href": "/19-ctc-loss/#_1-3-重复数字需要多少时间步",
+            "text": "无字符；非空输入只能全blank"
+          },
+          {
+            "body": true,
+            "href": "/19-ctc-loss/#_7-排障与模型边界",
+            "text": "是否先删blank、后去重"
+          },
+          {
+            "body": true,
+            "href": "/19-ctc-loss/#_7-排障与模型边界",
+            "text": "训练只出blank"
+          },
+          {
+            "body": true,
+            "href": "/19-ctc-loss/#_7-排障与模型边界",
+            "text": "blank可占多数帧；观察损失和逐帧输出，不能只看argmax"
+          },
+          {
+            "body": true,
+            "href": "/19-ctc-loss/#_2-1-符号与条件独立",
+            "text": "长度 U 的非blank数组"
+          },
+          {
+            "body": true,
+            "href": "/19-ctc-loss/#_2-1-符号与条件独立",
+            "text": "合并重复后删除blank"
+          },
+          {
+            "body": true,
+            "href": "/19-ctc-loss/#_4-2-从路径概率推导-logits-梯度",
+            "text": "blank梯度"
+          },
+          {
+            "body": true,
+            "href": "/19-ctc-loss/#_4-4-真实小实验和验证",
+            "text": "… 27)。这证明 CTC 梯度能学习重复与blank，只训练 logits，还没有图像模型。"
+          },
+          {
+            "body": true,
+            "href": "/19-ctc-loss/#学习目标与-ocr-中的位置",
+            "text": "本章要回答：blank 是什么、重复怎么保留、怎样避免枚举爆炸、为什么贪婪与 beam 不同，以及如何把损失梯度传回网络。前置知识是第 14 章 softmax/交叉熵、链式法则，第 16 章张量，第… "
+          },
+          {
+            "body": true,
+            "href": "/20-crnn/#_5-1-标签及损失",
+            "text": "映射固定 blank=0、字符0=1、字符1=2。字符串“001”对应标签 [1,1,2]。不把字符串转成整数，所以前导零不会丢失。"
+          },
+          {
+            "body": true,
+            "href": "/20-crnn/#_5-1-标签及损失",
+            "text": "… 1,0,1,0,1]，可以在10帧中通过blank和重复持续发射形成很多合法对齐。没有人为指定“第几帧必须是某个0”。"
+          },
+          {
+            "body": true,
+            "href": "/20-crnn/#_8-2-常见故障的定位顺序",
+            "text": "T、逐帧blank、折叠顺序"
+          },
+          {
+            "body": true,
+            "href": "/20-crnn/#_8-2-常见故障的定位顺序",
+            "text": "帧预算不足、模型没学会blank、decoder顺序错"
+          },
+          {
+            "body": true,
+            "href": "/20-crnn/#_8-2-常见故障的定位顺序",
+            "text": "图像压缩过度，或把blank放入目标"
+          },
+          {
+            "body": true,
+            "href": "/20-crnn/#_11-分享重点与下一章",
+            "text": "… ose，以宽度预算解释相邻重复为什么需要blank。最后展示真实loss下降、卷积梯度范数和合成逐串结果，把“端到端可训练”与“真实场景准确”两个结论分别给证据。"
+          },
+          {
+            "body": true,
+            "href": "/20-crnn/#_1-1-显式切字的脆弱点",
+            "text": "… ,2h] 线性输出层：每帧K=字符类数+blank个logits ↓ [B,T,K] ├── CTC损失 ← 整串训练标签 └── softmax → greedy/prefix beam → 字… "
+          },
+          {
+            "body": true,
+            "href": "/20-crnn/#_6-2-优化步骤可逐行追踪",
+            "text": "… 数下loss下降不足；过大可能造成震荡、blank塌缩或非有限值。页面可分别改变更新次数与学习率，保留损失曲线和最终逐串表现；比较时应使用相同模型/数据种子，不能换数据后把差异全部归因于学习率。"
+          },
+          {
+            "body": true,
+            "href": "/20-crnn/#_2-4-宽高计算、奇数宽度与时间预算",
+            "text": "blank、数字0、数字1"
+          },
+          {
+            "body": true,
+            "href": "/17-cnn-classifier/#关键接口",
+            "text": "… els,imageData,blank,blankreason?,bounds,preprocessingId}；空白原因区分原图/缩放后；无 Tensor"
+          },
+          {
+            "body": true,
+            "href": "/17-cnn-classifier/#_2-从-rgba-到前景强度",
+            "text": "… 画包围框；没有任何超过阈值的像素就返回 blank=true。再除以本图最大 u，保留笔画灰度层次。"
+          },
+          {
+            "body": true,
+            "href": "/17-cnn-classifier/#_4-重心居中与第-11-章的联系",
+            "text": "… 样点会错过两点，最终m=0。本模块返回 blank:true, blankReason:'empty-after-resize' 并保留原bbox，不计算0/0、不调用分类器。原图就没有前景时原因… … 0。本模块返回 blank:true, blankreason:'empty-after-resize' 并保留原bbox，不计算0/0、不调用分类器。原图就没有前景时原因是 no-foregro… "
+          },
+          {
+            "body": true,
+            "href": "/17-cnn-classifier/#常见失败与定位顺序",
+            "text": "是否先检查 blank"
+          },
+          {
+            "body": true,
+            "href": "/docs/reviews/2026-09-11/18-20.html#核心数值核验",
+            "text": "CTC先对相邻重复折叠再删除blank：0,blank,0产生00，不是0。目标重复需要额外时 … 、前后向后验与解析梯度相互校验，覆盖非零blank索引和空目标。"
+          },
+          {
+            "body": true,
+            "href": "/docs/reviews/2026-09-11/18-20.html#逐章结论",
+            "text": "… 减；拒绝稀疏数组；保留先合并相邻重复再删blank和T≥U+相邻重复数的条件"
+          },
+          {
+            "body": true,
+            "href": "/docs/SHARING_GUIDE.html#_1-六节分享路线",
+            "text": "时间展开、隐藏状态、梯度问题→blank与重复→路径合并和损失"
+          },
+          {
+            "body": true,
+            "href": "/docs/SHARING_GUIDE.html#_1-六节分享路线",
+            "text": "手算短序列状态；对照重复数字与blank路径"
+          },
+          {
+            "body": true,
+            "href": "/docs/COURSE_REVIEW.html#逐章检查依据",
+            "text": "先合并再删blank、T≥U+r、路径和0.76、重复串0.448、log域DP/后验/梯度"
+          },
+          {
+            "body": true,
+            "href": "/docs/COURSE_REVIEW.html#逐章检查依据",
+            "text": "… dy/beam、α表和梯度、不可对齐/全blank"
+          },
+          {
+            "body": true,
+            "href": "/25-ocr-engine/#_10-2-七个node实验应观察什么",
+            "text": "… 8×13、输出28×28与784维；白图blank"
+          },
+          {
+            "body": true,
+            "href": "/25-ocr-engine/#_6-2-从强度到固定维度的完整计算",
+            "text": "… 成1。完全白/透明输入没有有效框，返回 blank:true，不会除以0后硬送进模型。"
+          },
+          {
+            "body": true,
+            "href": "/OUTLINE.html#_19-ctc-loss",
+            "text": "空白标签（blank Token）"
+          },
+          {
+            "body": true,
+            "href": "/18-rnn-basics/#_7-适用条件、局限与常见误区",
+            "text": "… 能用两侧上下文，但不会自动解决字符重复、blank 或长度不一致；这些属于 CTC 问题。"
+          },
+          {
+            "body": true,
+            "href": "/docs/VUEPRESS_INTEGRATION_PLAN.html#_9-验收标准",
+            "text": "搜索“类间方差”“梯度消失”“CTC”“blank”可以定位对应正文。"
+          },
+          {
+            "body": true,
+            "href": "/24-post-processing/#_9-任意数字串为什么不该被擅自-润色",
+            "text": "… 与人工修订必须分开保存。第19章CTC去blank/折叠路径的操作属于解码定义，不能在拼接后的普通数字串上再次去重。"
+          },
+          {
+            "body": true,
+            "href": "/23-transformer-ocr/#_9-与crnn-ctc及paddleocr的比较",
+            "text": "blank与单调路径合并"
+          },
+          {
+            "body": true,
+            "href": "/docs/reviews/2026-09-11/14-17.html#_3-输入为空的判断必须延续到归一化后",
+            "text": "… 器猜测。prepareDigit现在返回blank:true和empty-after-resize原因；25章整合遇到这种区域直接失败，不调用分类器。"
+          },
+          {
+            "body": true,
+            "href": "/22-text-detection-networks/#_9-运行、api-与实测",
+            "text": "… 两支路框；默认expandRatio1；blank:true生成空P"
+          }
+        ],
+        "text": "Tab\nblank\nblank:true\n19. CTC：对齐、损失、梯度与字符串解码\n3.1 为什么要插入 blank 状态\n空目标只有一个 blank 状态，不初始化状态1。\n1. 从字符标签到路径：为什么需要 blank\n只有 blank 和 a 两类：\nblank\n… ) 0.6×0.4 = 0.24 (a,blank) 0.6×0.6 = 0.36 (blank,a) 0.4×0.4 = 0.16 合计 0.76 loss = -ln(0.76) = 0.27… \n全 blank 路径的概率为 0.24，两种输出串的概率和是 1。注意路径 (a,a) 不是两个 a；本例 T=2 无法输出连续重复 aa。\n两帧的概率都为 [blank=0.4, a=0.35, b=0.25 … a=0.35, b=0.25]。贪婪选 blank、blank，输出空串，路径概率0.16。\n… 35×0.35 = 0.1225 (a,blank) 0.35×0.40 = 0.1400 … 0.35×0.40 = 0.1400 (blank,a) 0.40×0.35 = 0.1400 总概… \n本例列顺序 [blank,数字0,数字1]：\ns0 blank\ns2 blank\ns4 blank\n… 6205。三帧下恰好只有路径 [数字0,blank,数字0] 合法，因此独立枚举也得到 0.7×0.8×0.8=0.448。\n同一状态 s 留下：让一个字符或 blank 跨越多帧。\n前一状态 s−1 前进：blank 与字符交替。\n前两状态 s−2 跳跃：跳过字符间可选 blank，但只允许当前类别非blank且与 s−2 的类别不同。\n… s) = s≥2 && l'[s]!==blank && l'[s]!==l'[s−2]。 … 超出范围的 α 为0。相同字符不能跳过 blank，否则会把一个持续发射的字符误认为两个字符。\n完成整个目标的路径可停在末尾 blank 或最后一个字符：\n设普通类别集合为 A，在其中增加 blank，得到 A' = A ∪ {∅}，K=| … 恰好为 T 的类别序列，可以包含重复与 blank。字符串 y 的长度可以小于 T。\nblank，对齐占位\nblank 的索引 0 不是数字字符 0。共享算法 … 0 不是数字字符 0。共享算法允许别的 blank 索引与更多类别，页面与第 20 章实验固定使用上表。\nblank 表示“这一帧不增加字符”。它不是词语里 … 位置输出；上下文网络可以在笔画区域输出 blank，其他帧输出字符尖峰。\n删除 blank。\n…  → 合并 [a,∅,a,b] → 删除blank [a,a,b] 路径 [a,a] → [a] → [a] 路径 [a,∅,a] → [a,∅,a] → [a,a] 路径 [∅,∅] → [∅]… \n如果先删除 blank，再合并重复，第三行会错误变为一个 a。实现必须和原路径的前一项比较，而不是与“上一个输出字符”比较。\n… 1]; if (current !== blank && !sameAsPreviousFrame) { labels.push(current); } } \nblank与折叠顺序\n连续重复、全blank示例\n… ard(p, [1,1]); // 默认blank=0 // {loss, probabi … B,T,K], targets[B], blank) \n… 稀疏数组的空槽不会当作0。目标不能包含 blank；beamWidth 必须为正整数。当前批次所有样本使用同一 T，不提供 inputLengths 或补齐帧遮罩；变宽批次留到更完整实现。\n… 1： 路径 [1,1,0,1,2,2]，blank=0，输出是什么？\n… 并路径重复得到 [1,0,1,2]，再删blank。\n答： 当前状态为blank不能这样跳；当前字符与s−2相同也不能跳 … ；当前字符与s−2相同也不能跳，否则没有blank分隔的重复会被错误当成两个字符。\n… 少占一帧，每一对相邻相同字符还需要一个 blank 分开。例如：\n无字符；非空输入只能全blank\n是否先删blank、后去重\n训练只出blank\nblank可占多数帧；观察损失和逐帧输出，不能只看argmax\n长度 U 的非blank数组\n合并重复后删除blank\nblank梯度\n… 27)。这证明 CTC 梯度能学习重复与blank，只训练 logits，还没有图像模型。\n本章要回答：blank 是什么、重复怎么保留、怎样避免枚举爆炸、为什么贪婪与 beam 不同，以及如何把损失梯度传回网络。前置知识是第 14 章 softmax/交叉熵、链式法则，第 16 章张量，第… \n20. CRNN：把 CNN、双向 LSTM 与 CTC 训练成一条链\n映射固定 blank=0、字符0=1、字符1=2。字符串“001”对应标签 [1,1,2]。不把字符串转成整数，所以前导零不会丢失。\n… 1,0,1,0,1]，可以在10帧中通过blank和重复持续发射形成很多合法对齐。没有人为指定“第几帧必须是某个0”。\nT、逐帧blank、折叠顺序\n帧预算不足、模型没学会blank、decoder顺序错\n图像压缩过度，或把blank放入目标\n… ose，以宽度预算解释相邻重复为什么需要blank。最后展示真实loss下降、卷积梯度范数和合成逐串结果，把“端到端可训练”与“真实场景准确”两个结论分别给证据。\n… ,2h] 线性输出层：每帧K=字符类数+blank个logits ↓ [B,T,K] ├── CTC损失 ← 整串训练标签 └── softmax → greedy/prefix beam → 字… \n… 数下loss下降不足；过大可能造成震荡、blank塌缩或非有限值。页面可分别改变更新次数与学习率，保留损失曲线和最终逐串表现；比较时应使用相同模型/数据种子，不能换数据后把差异全部归因于学习率。\nblank、数字0、数字1\n17. CNN 字符分类器：真实训练、统一输入与独立评估\n… els,imageData,blank,blankreason?,bounds,preprocessingId}；空白原因区分原图/缩放后；无 Tensor\n… 画包围框；没有任何超过阈值的像素就返回 blank=true。再除以本图最大 u，保留笔画灰度层次。\n… 样点会错过两点，最终m=0。本模块返回 blank:true, blankReason:'empty-after-resize' 并保留原bbox，不计算0/0、不调用分类器。原图就没有前景时原因… \n… 0。本模块返回 blank:true, blankreason:'empty-after-resize' 并保留原bbox，不计算0/0、不调用分类器。原图就没有前景时原因是 no-foregro… \n是否先检查 blank\n第18–20章复核\nCTC先对相邻重复折叠再删除blank：0,blank,0产生00，不是0。目标重复需要额外时 … 、前后向后验与解析梯度相互校验，覆盖非零blank索引和空目标。\n… 减；拒绝稀疏数组；保留先合并相邻重复再删blank和T≥U+相邻重复数的条件\nOCR课程分享与现场演示说明\n时间展开、隐藏状态、梯度问题→blank与重复→路径合并和损失\n手算短序列状态；对照重复数字与blank路径\n第 14–26 章课程一致性审查\n先合并再删blank、T≥U+r、路径和0.76、重复串0.448、log域DP/后验/梯度\n… dy/beam、α表和梯度、不可对齐/全blank\n25. OCR 引擎整合：从照片到完整数字串\n… 8×13、输出28×28与784维；白图blank\n… 成1。完全白/透明输入没有有效框，返回 blank:true，不会除以0后硬送进模型。\nOCR 系统学习大纲 (JavaScript 实现)\n空白标签（blank Token）\n18. 循环神经网络：RNN、LSTM 与双向状态\n… 能用两侧上下文，但不会自动解决字符重复、blank 或长度不一致；这些属于 CTC 问题。\nVuePress课程站整合方案\n搜索“类间方差”“梯度消失”“CTC”“blank”可以定位对应正文。\n24. 后处理与独立评估\n… 与人工修订必须分开保存。第19章CTC去blank/折叠路径的操作属于解码定义，不能在拼接后的普通数字串上再次去重。\n23. Transformer OCR：位置、多头、图像块与自回归识别\nblank与单调路径合并\n第14–17章复核\n… 器猜测。prepareDigit现在返回blank:true和empty-after-resize原因；25章整合遇到这种区域直接失败，不调用分类器。\n22. 文本检测网络：EAST、DBNet 与可检查的后处理\n… 两支路框；默认expandRatio1；blank:true生成空P\n选择\n切换结果\n关闭",
+        "destination": {
+          "anchorExists": true,
+          "h1": "19. CTC：对齐、损失、梯度与字符串解码",
+          "hash": "_3-1-为什么要插入-blank-状态",
+          "url": "http://127.0.0.1:4173/19-ctc-loss/#_3-1-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E6%8F%92%E5%85%A5-blank-%E7%8A%B6%E6%80%81"
+        }
+      }
+    },
+    {
+      "name": "search blank: excerpts do not expose HTML entities",
+      "pass": true,
+      "detail": "Tab\nblank\nblank:true\n19. CTC：对齐、损失、梯度与字符串解码\n3.1 为什么要插入 blank 状态\n空目标只有一个 blank 状态，不初始化状态1。\n1. 从字符标签到路径：为什么需要 blank\n只有 blank 和 a 两类：\nblank\n… ) 0.6×0.4 = 0.24 (a,blank) 0.6×0.6 = 0.36 (blank,a) 0.4×0.4 = 0.16 合计 0.76 loss = -ln(0.76) = 0.27… \n全 blank 路径的概率为 0.24，两种输出串的概率和是 1。注意路径 (a,a) 不是两个 a；本例 T=2 无法"
+    },
+    {
+      "name": "search blank: result navigates to real course anchor",
+      "pass": true,
+      "detail": {
+        "anchorExists": true,
+        "h1": "19. CTC：对齐、损失、梯度与字符串解码",
+        "hash": "_3-1-为什么要插入-blank-状态",
+        "url": "http://127.0.0.1:4173/19-ctc-loss/#_3-1-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E6%8F%92%E5%85%A5-blank-%E7%8A%B6%E6%80%81"
+      }
+    },
+    {
+      "name": "no uncaught browser runtime errors",
+      "pass": true,
+      "detail": {
+        "errors": [],
+        "lifecycle": {
+          "effectiveLaunch": {
+            "browserLaunched": true,
+            "engine": "chrome",
+            "launchHash": 11677035664275012000
+          },
+          "launched": false,
+          "relaunchedBrowser": false,
+          "restartedBackground": false,
+          "restoreStatus": "not_configured",
+          "reused": true,
+          "saveStatus": "not_attempted"
+        }
+      }
+    },
+    {
+      "name": "no browser console errors",
+      "pass": true,
+      "detail": []
+    }
+  ],
+  "passed": 15,
+  "failed": 0
+}

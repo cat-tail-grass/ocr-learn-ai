@@ -1,0 +1,3419 @@
+{
+  "timestamp": "2026-09-11T12:53:44.588Z",
+  "url": "http://127.0.0.1:4173/",
+  "checks": [
+    {
+      "name": "source has exactly 26 consecutive chapters",
+      "pass": true,
+      "detail": [
+        "01-image-fundamentals",
+        "02-js-image-basics",
+        "03-grayscale",
+        "04-binarization",
+        "05-denoising",
+        "06-morphology",
+        "07-deskewing",
+        "08-edge-detection",
+        "09-connected-components",
+        "10-text-localization",
+        "11-feature-extraction",
+        "12-template-matching",
+        "13-knn-classifier",
+        "14-neural-network-basics",
+        "15-cnn-basics",
+        "16-tensorflowjs-intro",
+        "17-cnn-classifier",
+        "18-rnn-basics",
+        "19-ctc-loss",
+        "20-crnn",
+        "21-attention",
+        "22-text-detection-networks",
+        "23-transformer-ocr",
+        "24-post-processing",
+        "25-ocr-engine",
+        "26-validation"
+      ]
+    },
+    {
+      "name": "home eight stages and complete source order",
+      "pass": true,
+      "detail": {
+        "chapters": [
+          "/01-image-fundamentals/",
+          "/02-js-image-basics/",
+          "/03-grayscale/",
+          "/04-binarization/",
+          "/05-denoising/",
+          "/06-morphology/",
+          "/07-deskewing/",
+          "/08-edge-detection/",
+          "/09-connected-components/",
+          "/10-text-localization/",
+          "/11-feature-extraction/",
+          "/12-template-matching/",
+          "/13-knn-classifier/",
+          "/14-neural-network-basics/",
+          "/15-cnn-basics/",
+          "/16-tensorflowjs-intro/",
+          "/17-cnn-classifier/",
+          "/18-rnn-basics/",
+          "/19-ctc-loss/",
+          "/20-crnn/",
+          "/21-attention/",
+          "/22-text-detection-networks/",
+          "/23-transformer-ocr/",
+          "/24-post-processing/",
+          "/25-ocr-engine/",
+          "/26-validation/"
+        ],
+        "labs": [
+          {
+            "href": "/labs/01-image-fundamentals/index.html",
+            "target": "_blank"
+          },
+          {
+            "href": "/labs/02-js-image-basics/index.html",
+            "target": "_blank"
+          },
+          {
+            "href": "/labs/03-grayscale/index.html",
+            "target": "_blank"
+          },
+          {
+            "href": "/labs/04-binarization/index.html",
+            "target": "_blank"
+          },
+          {
+            "href": "/labs/05-denoising/index.html",
+            "target": "_blank"
+          },
+          {
+            "href": "/labs/06-morphology/index.html",
+            "target": "_blank"
+          },
+          {
+            "href": "/labs/07-deskewing/index.html",
+            "target": "_blank"
+          },
+          {
+            "href": "/labs/08-edge-detection/index.html",
+            "target": "_blank"
+          },
+          {
+            "href": "/labs/09-connected-components/index.html",
+            "target": "_blank"
+          },
+          {
+            "href": "/labs/10-text-localization/index.html",
+            "target": "_blank"
+          },
+          {
+            "href": "/labs/11-feature-extraction/index.html",
+            "target": "_blank"
+          },
+          {
+            "href": "/labs/12-template-matching/index.html",
+            "target": "_blank"
+          },
+          {
+            "href": "/labs/13-knn-classifier/index.html",
+            "target": "_blank"
+          },
+          {
+            "href": "/labs/14-neural-network-basics/index.html",
+            "target": "_blank"
+          },
+          {
+            "href": "/labs/15-cnn-basics/index.html",
+            "target": "_blank"
+          },
+          {
+            "href": "/labs/16-tensorflowjs-intro/index.html",
+            "target": "_blank"
+          },
+          {
+            "href": "/labs/17-cnn-classifier/index.html",
+            "target": "_blank"
+          },
+          {
+            "href": "/labs/18-rnn-basics/index.html",
+            "target": "_blank"
+          },
+          {
+            "href": "/labs/19-ctc-loss/index.html",
+            "target": "_blank"
+          },
+          {
+            "href": "/labs/20-crnn/index.html",
+            "target": "_blank"
+          },
+          {
+            "href": "/labs/21-attention/index.html",
+            "target": "_blank"
+          },
+          {
+            "href": "/labs/22-text-detection-networks/index.html",
+            "target": "_blank"
+          },
+          {
+            "href": "/labs/23-transformer-ocr/index.html",
+            "target": "_blank"
+          },
+          {
+            "href": "/labs/24-post-processing/index.html",
+            "target": "_blank"
+          },
+          {
+            "href": "/labs/25-ocr-engine/index.html",
+            "target": "_blank"
+          },
+          {
+            "href": "/labs/26-validation/index.html",
+            "target": "_blank"
+          }
+        ],
+        "modelLoads": [],
+        "stages": 8,
+        "text": "OCR 学习实验室\n课程实验目录分享指南勘误记录源码\n搜索课程\n⌃K\nOCR 原理学习与手写数字串实验\n\n面向有机器学习基础的研发同学，沿着像素处理、传统识别、神经网络、序列识别和现代 OCR，学习从照片到字符串的完整过程。第 01–13 章为既有课程；第 14–26 章延续同样的讲解尺度。每章都有 README.md 知识文档、index.html 交互实验、index.js Node.js 实验。\n\n完整学习路径\n\n8 个阶段，26 章循序学习\n\n从图像基础到自主 OCR 引擎。先读讲义，再打开实验验证；每章都提供本地运行命令。\n\n01\n基础准备\n02\n图像预处理\n03\n文本检测\n04\n传统识别\n05\n深度学习基础\n06\n深度学习 OCR\n07\n现代 OCR\n08\n自主引擎开发\n01\n基础准备\n\n01—02 章 · 2 节讲义与实验\n\n01\n数字图像基础\n实验 ↗\n02\nJavaScript 图像处理基础\n实验 ↗\n02\n图像预处理\n\n03—07 章 · 5 节讲义与实验\n\n03\n灰度化\n实验 ↗\n04\n二值化\n实验 ↗\n05\n图像去噪\n实验 ↗\n06\n形态学操作\n实验 ↗\n07\n"
+      }
+    },
+    {
+      "name": "home has 26 new-tab experiments; no model load",
+      "pass": true,
+      "detail": {
+        "chapters": [
+          "/01-image-fundamentals/",
+          "/02-js-image-basics/",
+          "/03-grayscale/",
+          "/04-binarization/",
+          "/05-denoising/",
+          "/06-morphology/",
+          "/07-deskewing/",
+          "/08-edge-detection/",
+          "/09-connected-components/",
+          "/10-text-localization/",
+          "/11-feature-extraction/",
+          "/12-template-matching/",
+          "/13-knn-classifier/",
+          "/14-neural-network-basics/",
+          "/15-cnn-basics/",
+          "/16-tensorflowjs-intro/",
+          "/17-cnn-classifier/",
+          "/18-rnn-basics/",
+          "/19-ctc-loss/",
+          "/20-crnn/",
+          "/21-attention/",
+          "/22-text-detection-networks/",
+          "/23-transformer-ocr/",
+          "/24-post-processing/",
+          "/25-ocr-engine/",
+          "/26-validation/"
+        ],
+        "labs": [
+          {
+            "href": "/labs/01-image-fundamentals/index.html",
+            "target": "_blank"
+          },
+          {
+            "href": "/labs/02-js-image-basics/index.html",
+            "target": "_blank"
+          },
+          {
+            "href": "/labs/03-grayscale/index.html",
+            "target": "_blank"
+          },
+          {
+            "href": "/labs/04-binarization/index.html",
+            "target": "_blank"
+          },
+          {
+            "href": "/labs/05-denoising/index.html",
+            "target": "_blank"
+          },
+          {
+            "href": "/labs/06-morphology/index.html",
+            "target": "_blank"
+          },
+          {
+            "href": "/labs/07-deskewing/index.html",
+            "target": "_blank"
+          },
+          {
+            "href": "/labs/08-edge-detection/index.html",
+            "target": "_blank"
+          },
+          {
+            "href": "/labs/09-connected-components/index.html",
+            "target": "_blank"
+          },
+          {
+            "href": "/labs/10-text-localization/index.html",
+            "target": "_blank"
+          },
+          {
+            "href": "/labs/11-feature-extraction/index.html",
+            "target": "_blank"
+          },
+          {
+            "href": "/labs/12-template-matching/index.html",
+            "target": "_blank"
+          },
+          {
+            "href": "/labs/13-knn-classifier/index.html",
+            "target": "_blank"
+          },
+          {
+            "href": "/labs/14-neural-network-basics/index.html",
+            "target": "_blank"
+          },
+          {
+            "href": "/labs/15-cnn-basics/index.html",
+            "target": "_blank"
+          },
+          {
+            "href": "/labs/16-tensorflowjs-intro/index.html",
+            "target": "_blank"
+          },
+          {
+            "href": "/labs/17-cnn-classifier/index.html",
+            "target": "_blank"
+          },
+          {
+            "href": "/labs/18-rnn-basics/index.html",
+            "target": "_blank"
+          },
+          {
+            "href": "/labs/19-ctc-loss/index.html",
+            "target": "_blank"
+          },
+          {
+            "href": "/labs/20-crnn/index.html",
+            "target": "_blank"
+          },
+          {
+            "href": "/labs/21-attention/index.html",
+            "target": "_blank"
+          },
+          {
+            "href": "/labs/22-text-detection-networks/index.html",
+            "target": "_blank"
+          },
+          {
+            "href": "/labs/23-transformer-ocr/index.html",
+            "target": "_blank"
+          },
+          {
+            "href": "/labs/24-post-processing/index.html",
+            "target": "_blank"
+          },
+          {
+            "href": "/labs/25-ocr-engine/index.html",
+            "target": "_blank"
+          },
+          {
+            "href": "/labs/26-validation/index.html",
+            "target": "_blank"
+          }
+        ],
+        "modelLoads": [],
+        "stages": 8,
+        "text": "OCR 学习实验室\n课程实验目录分享指南勘误记录源码\n搜索课程\n⌃K\nOCR 原理学习与手写数字串实验\n\n面向有机器学习基础的研发同学，沿着像素处理、传统识别、神经网络、序列识别和现代 OCR，学习从照片到字符串的完整过程。第 01–13 章为既有课程；第 14–26 章延续同样的讲解尺度。每章都有 README.md 知识文档、index.html 交互实验、index.js Node.js 实验。\n\n完整学习路径\n\n8 个阶段，26 章循序学习\n\n从图像基础到自主 OCR 引擎。先读讲义，再打开实验验证；每章都提供本地运行命令。\n\n01\n基础准备\n02\n图像预处理\n03\n文本检测\n04\n传统识别\n05\n深度学习基础\n06\n深度学习 OCR\n07\n现代 OCR\n08\n自主引擎开发\n01\n基础准备\n\n01—02 章 · 2 节讲义与实验\n\n01\n数字图像基础\n实验 ↗\n02\nJavaScript 图像处理基础\n实验 ↗\n02\n图像预处理\n\n03—07 章 · 5 节讲义与实验\n\n03\n灰度化\n实验 ↗\n04\n二值化\n实验 ↗\n05\n图像去噪\n实验 ↗\n06\n形态学操作\n实验 ↗\n07\n"
+      }
+    },
+    {
+      "name": "04-binarization: full heading sequence",
+      "pass": true,
+      "detail": {
+        "source": 45,
+        "actual": 45
+      }
+    },
+    {
+      "name": "04-binarization: static/deployed full code block count",
+      "pass": true,
+      "detail": {
+        "source": 27,
+        "actual": 27
+      }
+    },
+    {
+      "name": "04-binarization: details preserved",
+      "pass": true,
+      "detail": 1
+    },
+    {
+      "name": "04-binarization: all h2/h3 anchors in chapter toc",
+      "pass": true,
+      "detail": {
+        "headings": 41,
+        "toc": 41
+      }
+    },
+    {
+      "name": "04-binarization: source-order previous/next and boundaries",
+      "pass": true,
+      "detail": {
+        "previous": "/03-grayscale/",
+        "next": "/05-denoising/"
+      }
+    },
+    {
+      "name": "04-binarization: current command and new-tab experiment",
+      "pass": true,
+      "detail": {
+        "command": "node 04-binarization/index.js",
+        "lab": {
+          "href": "/labs/04-binarization/index.html",
+          "rel": "noopener noreferrer",
+          "target": "_blank"
+        }
+      }
+    },
+    {
+      "name": "04-binarization: no overflow, math parse error, overlay, or model loading",
+      "pass": true,
+      "detail": {
+        "width": {
+          "document": 1536,
+          "viewport": 1536
+        },
+        "mathErrors": [],
+        "modelLoads": []
+      }
+    },
+    {
+      "name": "04-binarization: eight-stage sidebar marks current chapter",
+      "pass": true,
+      "detail": {
+        "groups": [
+          "1. 基础准备",
+          "2. 图像预处理",
+          "3. 文本检测",
+          "4. 传统识别",
+          "5. 深度学习基础",
+          "6. 深度学习 OCR",
+          "7. 现代 OCR",
+          "8. 自主引擎开发"
+        ],
+        "current": [
+          "/04-binarization/"
+        ]
+      }
+    },
+    {
+      "name": "11-feature-extraction: full heading sequence",
+      "pass": true,
+      "detail": {
+        "source": 41,
+        "actual": 41
+      }
+    },
+    {
+      "name": "11-feature-extraction: static/deployed full code block count",
+      "pass": true,
+      "detail": {
+        "source": 19,
+        "actual": 19
+      }
+    },
+    {
+      "name": "11-feature-extraction: details preserved",
+      "pass": true,
+      "detail": 1
+    },
+    {
+      "name": "11-feature-extraction: all h2/h3 anchors in chapter toc",
+      "pass": true,
+      "detail": {
+        "headings": 36,
+        "toc": 36
+      }
+    },
+    {
+      "name": "11-feature-extraction: source-order previous/next and boundaries",
+      "pass": true,
+      "detail": {
+        "previous": "/10-text-localization/",
+        "next": "/12-template-matching/"
+      }
+    },
+    {
+      "name": "11-feature-extraction: current command and new-tab experiment",
+      "pass": true,
+      "detail": {
+        "command": "node 11-feature-extraction/index.js",
+        "lab": {
+          "href": "/labs/11-feature-extraction/index.html",
+          "rel": "noopener noreferrer",
+          "target": "_blank"
+        }
+      }
+    },
+    {
+      "name": "11-feature-extraction: no overflow, math parse error, overlay, or model loading",
+      "pass": true,
+      "detail": {
+        "width": {
+          "document": 1536,
+          "viewport": 1536
+        },
+        "mathErrors": [],
+        "modelLoads": []
+      }
+    },
+    {
+      "name": "11-feature-extraction: eight-stage sidebar marks current chapter",
+      "pass": true,
+      "detail": {
+        "groups": [
+          "1. 基础准备",
+          "2. 图像预处理",
+          "3. 文本检测",
+          "4. 传统识别",
+          "5. 深度学习基础",
+          "6. 深度学习 OCR",
+          "7. 现代 OCR",
+          "8. 自主引擎开发"
+        ],
+        "current": [
+          "/11-feature-extraction/"
+        ]
+      }
+    },
+    {
+      "name": "17-cnn-classifier: full heading sequence",
+      "pass": true,
+      "detail": {
+        "source": 44,
+        "actual": 44
+      }
+    },
+    {
+      "name": "17-cnn-classifier: static/deployed full code block count",
+      "pass": true,
+      "detail": {
+        "source": 12,
+        "actual": 12
+      }
+    },
+    {
+      "name": "17-cnn-classifier: details preserved",
+      "pass": true,
+      "detail": 1
+    },
+    {
+      "name": "17-cnn-classifier: all h2/h3 anchors in chapter toc",
+      "pass": true,
+      "detail": {
+        "headings": 43,
+        "toc": 43
+      }
+    },
+    {
+      "name": "17-cnn-classifier: source-order previous/next and boundaries",
+      "pass": true,
+      "detail": {
+        "previous": "/16-tensorflowjs-intro/",
+        "next": "/18-rnn-basics/"
+      }
+    },
+    {
+      "name": "17-cnn-classifier: current command and new-tab experiment",
+      "pass": true,
+      "detail": {
+        "command": "node 17-cnn-classifier/index.js",
+        "lab": {
+          "href": "/labs/17-cnn-classifier/index.html",
+          "rel": "noopener noreferrer",
+          "target": "_blank"
+        }
+      }
+    },
+    {
+      "name": "17-cnn-classifier: no overflow, math parse error, overlay, or model loading",
+      "pass": true,
+      "detail": {
+        "width": {
+          "document": 1536,
+          "viewport": 1536
+        },
+        "mathErrors": [],
+        "modelLoads": []
+      }
+    },
+    {
+      "name": "17-cnn-classifier: eight-stage sidebar marks current chapter",
+      "pass": true,
+      "detail": {
+        "groups": [
+          "1. 基础准备",
+          "2. 图像预处理",
+          "3. 文本检测",
+          "4. 传统识别",
+          "5. 深度学习基础",
+          "6. 深度学习 OCR",
+          "7. 现代 OCR",
+          "8. 自主引擎开发"
+        ],
+        "current": [
+          "/17-cnn-classifier/"
+        ]
+      }
+    },
+    {
+      "name": "25-ocr-engine: full heading sequence",
+      "pass": true,
+      "detail": {
+        "source": 41,
+        "actual": 41
+      }
+    },
+    {
+      "name": "25-ocr-engine: static/deployed full code block count",
+      "pass": true,
+      "detail": {
+        "source": 18,
+        "actual": 18
+      }
+    },
+    {
+      "name": "25-ocr-engine: details preserved",
+      "pass": true,
+      "detail": 1
+    },
+    {
+      "name": "25-ocr-engine: all h2/h3 anchors in chapter toc",
+      "pass": true,
+      "detail": {
+        "headings": 40,
+        "toc": 40
+      }
+    },
+    {
+      "name": "25-ocr-engine: source-order previous/next and boundaries",
+      "pass": true,
+      "detail": {
+        "previous": "/24-post-processing/",
+        "next": "/26-validation/"
+      }
+    },
+    {
+      "name": "25-ocr-engine: current command and new-tab experiment",
+      "pass": true,
+      "detail": {
+        "command": "node 25-ocr-engine/index.js",
+        "lab": {
+          "href": "/labs/25-ocr-engine/index.html",
+          "rel": "noopener noreferrer",
+          "target": "_blank"
+        }
+      }
+    },
+    {
+      "name": "25-ocr-engine: no overflow, math parse error, overlay, or model loading",
+      "pass": true,
+      "detail": {
+        "width": {
+          "document": 1536,
+          "viewport": 1536
+        },
+        "mathErrors": [],
+        "modelLoads": []
+      }
+    },
+    {
+      "name": "25-ocr-engine: eight-stage sidebar marks current chapter",
+      "pass": true,
+      "detail": {
+        "groups": [
+          "1. 基础准备",
+          "2. 图像预处理",
+          "3. 文本检测",
+          "4. 传统识别",
+          "5. 深度学习基础",
+          "6. 深度学习 OCR",
+          "7. 现代 OCR",
+          "8. 自主引擎开发"
+        ],
+        "current": [
+          "/25-ocr-engine/"
+        ]
+      }
+    },
+    {
+      "name": "01-image-fundamentals: full heading sequence",
+      "pass": true,
+      "detail": {
+        "source": 23,
+        "actual": 23
+      }
+    },
+    {
+      "name": "01-image-fundamentals: static/deployed full code block count",
+      "pass": true,
+      "detail": {
+        "source": 8,
+        "actual": 8
+      }
+    },
+    {
+      "name": "01-image-fundamentals: details preserved",
+      "pass": true,
+      "detail": 1
+    },
+    {
+      "name": "01-image-fundamentals: all h2/h3 anchors in chapter toc",
+      "pass": true,
+      "detail": {
+        "headings": 17,
+        "toc": 17
+      }
+    },
+    {
+      "name": "01-image-fundamentals: source-order previous/next and boundaries",
+      "pass": true,
+      "detail": {
+        "previous": null,
+        "next": "/02-js-image-basics/"
+      }
+    },
+    {
+      "name": "01-image-fundamentals: current command and new-tab experiment",
+      "pass": true,
+      "detail": {
+        "command": "node 01-image-fundamentals/index.js",
+        "lab": {
+          "href": "/labs/01-image-fundamentals/index.html",
+          "rel": "noopener noreferrer",
+          "target": "_blank"
+        }
+      }
+    },
+    {
+      "name": "01-image-fundamentals: no overflow, math parse error, overlay, or model loading",
+      "pass": true,
+      "detail": {
+        "width": {
+          "document": 1536,
+          "viewport": 1536
+        },
+        "mathErrors": [],
+        "modelLoads": []
+      }
+    },
+    {
+      "name": "01-image-fundamentals: eight-stage sidebar marks current chapter",
+      "pass": true,
+      "detail": {
+        "groups": [
+          "1. 基础准备",
+          "2. 图像预处理",
+          "3. 文本检测",
+          "4. 传统识别",
+          "5. 深度学习基础",
+          "6. 深度学习 OCR",
+          "7. 现代 OCR",
+          "8. 自主引擎开发"
+        ],
+        "current": [
+          "/01-image-fundamentals/"
+        ]
+      }
+    },
+    {
+      "name": "02-js-image-basics: full heading sequence",
+      "pass": true,
+      "detail": {
+        "source": 20,
+        "actual": 20
+      }
+    },
+    {
+      "name": "02-js-image-basics: static/deployed full code block count",
+      "pass": true,
+      "detail": {
+        "source": 10,
+        "actual": 10
+      }
+    },
+    {
+      "name": "02-js-image-basics: details preserved",
+      "pass": true,
+      "detail": 1
+    },
+    {
+      "name": "02-js-image-basics: all h2/h3 anchors in chapter toc",
+      "pass": true,
+      "detail": {
+        "headings": 19,
+        "toc": 19
+      }
+    },
+    {
+      "name": "02-js-image-basics: source-order previous/next and boundaries",
+      "pass": true,
+      "detail": {
+        "previous": "/01-image-fundamentals/",
+        "next": "/03-grayscale/"
+      }
+    },
+    {
+      "name": "02-js-image-basics: current command and new-tab experiment",
+      "pass": true,
+      "detail": {
+        "command": "node 02-js-image-basics/index.js",
+        "lab": {
+          "href": "/labs/02-js-image-basics/index.html",
+          "rel": "noopener noreferrer",
+          "target": "_blank"
+        }
+      }
+    },
+    {
+      "name": "02-js-image-basics: no overflow, math parse error, overlay, or model loading",
+      "pass": true,
+      "detail": {
+        "width": {
+          "document": 1536,
+          "viewport": 1536
+        },
+        "mathErrors": [],
+        "modelLoads": []
+      }
+    },
+    {
+      "name": "02-js-image-basics: eight-stage sidebar marks current chapter",
+      "pass": true,
+      "detail": {
+        "groups": [
+          "1. 基础准备",
+          "2. 图像预处理",
+          "3. 文本检测",
+          "4. 传统识别",
+          "5. 深度学习基础",
+          "6. 深度学习 OCR",
+          "7. 现代 OCR",
+          "8. 自主引擎开发"
+        ],
+        "current": [
+          "/02-js-image-basics/"
+        ]
+      }
+    },
+    {
+      "name": "03-grayscale: full heading sequence",
+      "pass": true,
+      "detail": {
+        "source": 24,
+        "actual": 24
+      }
+    },
+    {
+      "name": "03-grayscale: static/deployed full code block count",
+      "pass": true,
+      "detail": {
+        "source": 11,
+        "actual": 11
+      }
+    },
+    {
+      "name": "03-grayscale: details preserved",
+      "pass": true,
+      "detail": 1
+    },
+    {
+      "name": "03-grayscale: all h2/h3 anchors in chapter toc",
+      "pass": true,
+      "detail": {
+        "headings": 17,
+        "toc": 17
+      }
+    },
+    {
+      "name": "03-grayscale: source-order previous/next and boundaries",
+      "pass": true,
+      "detail": {
+        "previous": "/02-js-image-basics/",
+        "next": "/04-binarization/"
+      }
+    },
+    {
+      "name": "03-grayscale: current command and new-tab experiment",
+      "pass": true,
+      "detail": {
+        "command": "node 03-grayscale/index.js",
+        "lab": {
+          "href": "/labs/03-grayscale/index.html",
+          "rel": "noopener noreferrer",
+          "target": "_blank"
+        }
+      }
+    },
+    {
+      "name": "03-grayscale: no overflow, math parse error, overlay, or model loading",
+      "pass": true,
+      "detail": {
+        "width": {
+          "document": 1536,
+          "viewport": 1536
+        },
+        "mathErrors": [],
+        "modelLoads": []
+      }
+    },
+    {
+      "name": "03-grayscale: eight-stage sidebar marks current chapter",
+      "pass": true,
+      "detail": {
+        "groups": [
+          "1. 基础准备",
+          "2. 图像预处理",
+          "3. 文本检测",
+          "4. 传统识别",
+          "5. 深度学习基础",
+          "6. 深度学习 OCR",
+          "7. 现代 OCR",
+          "8. 自主引擎开发"
+        ],
+        "current": [
+          "/03-grayscale/"
+        ]
+      }
+    },
+    {
+      "name": "05-denoising: full heading sequence",
+      "pass": true,
+      "detail": {
+        "source": 31,
+        "actual": 31
+      }
+    },
+    {
+      "name": "05-denoising: static/deployed full code block count",
+      "pass": true,
+      "detail": {
+        "source": 16,
+        "actual": 16
+      }
+    },
+    {
+      "name": "05-denoising: details preserved",
+      "pass": true,
+      "detail": 1
+    },
+    {
+      "name": "05-denoising: all h2/h3 anchors in chapter toc",
+      "pass": true,
+      "detail": {
+        "headings": 25,
+        "toc": 25
+      }
+    },
+    {
+      "name": "05-denoising: source-order previous/next and boundaries",
+      "pass": true,
+      "detail": {
+        "previous": "/04-binarization/",
+        "next": "/06-morphology/"
+      }
+    },
+    {
+      "name": "05-denoising: current command and new-tab experiment",
+      "pass": true,
+      "detail": {
+        "command": "node 05-denoising/index.js",
+        "lab": {
+          "href": "/labs/05-denoising/index.html",
+          "rel": "noopener noreferrer",
+          "target": "_blank"
+        }
+      }
+    },
+    {
+      "name": "05-denoising: no overflow, math parse error, overlay, or model loading",
+      "pass": true,
+      "detail": {
+        "width": {
+          "document": 1536,
+          "viewport": 1536
+        },
+        "mathErrors": [],
+        "modelLoads": []
+      }
+    },
+    {
+      "name": "05-denoising: eight-stage sidebar marks current chapter",
+      "pass": true,
+      "detail": {
+        "groups": [
+          "1. 基础准备",
+          "2. 图像预处理",
+          "3. 文本检测",
+          "4. 传统识别",
+          "5. 深度学习基础",
+          "6. 深度学习 OCR",
+          "7. 现代 OCR",
+          "8. 自主引擎开发"
+        ],
+        "current": [
+          "/05-denoising/"
+        ]
+      }
+    },
+    {
+      "name": "06-morphology: full heading sequence",
+      "pass": true,
+      "detail": {
+        "source": 21,
+        "actual": 21
+      }
+    },
+    {
+      "name": "06-morphology: static/deployed full code block count",
+      "pass": true,
+      "detail": {
+        "source": 15,
+        "actual": 15
+      }
+    },
+    {
+      "name": "06-morphology: details preserved",
+      "pass": true,
+      "detail": 1
+    },
+    {
+      "name": "06-morphology: all h2/h3 anchors in chapter toc",
+      "pass": true,
+      "detail": {
+        "headings": 20,
+        "toc": 20
+      }
+    },
+    {
+      "name": "06-morphology: source-order previous/next and boundaries",
+      "pass": true,
+      "detail": {
+        "previous": "/05-denoising/",
+        "next": "/07-deskewing/"
+      }
+    },
+    {
+      "name": "06-morphology: current command and new-tab experiment",
+      "pass": true,
+      "detail": {
+        "command": "node 06-morphology/index.js",
+        "lab": {
+          "href": "/labs/06-morphology/index.html",
+          "rel": "noopener noreferrer",
+          "target": "_blank"
+        }
+      }
+    },
+    {
+      "name": "06-morphology: no overflow, math parse error, overlay, or model loading",
+      "pass": true,
+      "detail": {
+        "width": {
+          "document": 1536,
+          "viewport": 1536
+        },
+        "mathErrors": [],
+        "modelLoads": []
+      }
+    },
+    {
+      "name": "06-morphology: eight-stage sidebar marks current chapter",
+      "pass": true,
+      "detail": {
+        "groups": [
+          "1. 基础准备",
+          "2. 图像预处理",
+          "3. 文本检测",
+          "4. 传统识别",
+          "5. 深度学习基础",
+          "6. 深度学习 OCR",
+          "7. 现代 OCR",
+          "8. 自主引擎开发"
+        ],
+        "current": [
+          "/06-morphology/"
+        ]
+      }
+    },
+    {
+      "name": "07-deskewing: full heading sequence",
+      "pass": true,
+      "detail": {
+        "source": 30,
+        "actual": 30
+      }
+    },
+    {
+      "name": "07-deskewing: static/deployed full code block count",
+      "pass": true,
+      "detail": {
+        "source": 19,
+        "actual": 19
+      }
+    },
+    {
+      "name": "07-deskewing: details preserved",
+      "pass": true,
+      "detail": 1
+    },
+    {
+      "name": "07-deskewing: all h2/h3 anchors in chapter toc",
+      "pass": true,
+      "detail": {
+        "headings": 22,
+        "toc": 22
+      }
+    },
+    {
+      "name": "07-deskewing: source-order previous/next and boundaries",
+      "pass": true,
+      "detail": {
+        "previous": "/06-morphology/",
+        "next": "/08-edge-detection/"
+      }
+    },
+    {
+      "name": "07-deskewing: current command and new-tab experiment",
+      "pass": true,
+      "detail": {
+        "command": "node 07-deskewing/index.js",
+        "lab": {
+          "href": "/labs/07-deskewing/index.html",
+          "rel": "noopener noreferrer",
+          "target": "_blank"
+        }
+      }
+    },
+    {
+      "name": "07-deskewing: no overflow, math parse error, overlay, or model loading",
+      "pass": true,
+      "detail": {
+        "width": {
+          "document": 1536,
+          "viewport": 1536
+        },
+        "mathErrors": [],
+        "modelLoads": []
+      }
+    },
+    {
+      "name": "07-deskewing: eight-stage sidebar marks current chapter",
+      "pass": true,
+      "detail": {
+        "groups": [
+          "1. 基础准备",
+          "2. 图像预处理",
+          "3. 文本检测",
+          "4. 传统识别",
+          "5. 深度学习基础",
+          "6. 深度学习 OCR",
+          "7. 现代 OCR",
+          "8. 自主引擎开发"
+        ],
+        "current": [
+          "/07-deskewing/"
+        ]
+      }
+    },
+    {
+      "name": "08-edge-detection: full heading sequence",
+      "pass": true,
+      "detail": {
+        "source": 23,
+        "actual": 23
+      }
+    },
+    {
+      "name": "08-edge-detection: static/deployed full code block count",
+      "pass": true,
+      "detail": {
+        "source": 18,
+        "actual": 18
+      }
+    },
+    {
+      "name": "08-edge-detection: details preserved",
+      "pass": true,
+      "detail": 1
+    },
+    {
+      "name": "08-edge-detection: all h2/h3 anchors in chapter toc",
+      "pass": true,
+      "detail": {
+        "headings": 22,
+        "toc": 22
+      }
+    },
+    {
+      "name": "08-edge-detection: source-order previous/next and boundaries",
+      "pass": true,
+      "detail": {
+        "previous": "/07-deskewing/",
+        "next": "/09-connected-components/"
+      }
+    },
+    {
+      "name": "08-edge-detection: current command and new-tab experiment",
+      "pass": true,
+      "detail": {
+        "command": "node 08-edge-detection/index.js",
+        "lab": {
+          "href": "/labs/08-edge-detection/index.html",
+          "rel": "noopener noreferrer",
+          "target": "_blank"
+        }
+      }
+    },
+    {
+      "name": "08-edge-detection: no overflow, math parse error, overlay, or model loading",
+      "pass": true,
+      "detail": {
+        "width": {
+          "document": 1536,
+          "viewport": 1536
+        },
+        "mathErrors": [],
+        "modelLoads": []
+      }
+    },
+    {
+      "name": "08-edge-detection: eight-stage sidebar marks current chapter",
+      "pass": true,
+      "detail": {
+        "groups": [
+          "1. 基础准备",
+          "2. 图像预处理",
+          "3. 文本检测",
+          "4. 传统识别",
+          "5. 深度学习基础",
+          "6. 深度学习 OCR",
+          "7. 现代 OCR",
+          "8. 自主引擎开发"
+        ],
+        "current": [
+          "/08-edge-detection/"
+        ]
+      }
+    },
+    {
+      "name": "09-connected-components: full heading sequence",
+      "pass": true,
+      "detail": {
+        "source": 26,
+        "actual": 26
+      }
+    },
+    {
+      "name": "09-connected-components: static/deployed full code block count",
+      "pass": true,
+      "detail": {
+        "source": 17,
+        "actual": 17
+      }
+    },
+    {
+      "name": "09-connected-components: details preserved",
+      "pass": true,
+      "detail": 1
+    },
+    {
+      "name": "09-connected-components: all h2/h3 anchors in chapter toc",
+      "pass": true,
+      "detail": {
+        "headings": 22,
+        "toc": 22
+      }
+    },
+    {
+      "name": "09-connected-components: source-order previous/next and boundaries",
+      "pass": true,
+      "detail": {
+        "previous": "/08-edge-detection/",
+        "next": "/10-text-localization/"
+      }
+    },
+    {
+      "name": "09-connected-components: current command and new-tab experiment",
+      "pass": true,
+      "detail": {
+        "command": "node 09-connected-components/index.js",
+        "lab": {
+          "href": "/labs/09-connected-components/index.html",
+          "rel": "noopener noreferrer",
+          "target": "_blank"
+        }
+      }
+    },
+    {
+      "name": "09-connected-components: no overflow, math parse error, overlay, or model loading",
+      "pass": true,
+      "detail": {
+        "width": {
+          "document": 1536,
+          "viewport": 1536
+        },
+        "mathErrors": [],
+        "modelLoads": []
+      }
+    },
+    {
+      "name": "09-connected-components: eight-stage sidebar marks current chapter",
+      "pass": true,
+      "detail": {
+        "groups": [
+          "1. 基础准备",
+          "2. 图像预处理",
+          "3. 文本检测",
+          "4. 传统识别",
+          "5. 深度学习基础",
+          "6. 深度学习 OCR",
+          "7. 现代 OCR",
+          "8. 自主引擎开发"
+        ],
+        "current": [
+          "/09-connected-components/"
+        ]
+      }
+    },
+    {
+      "name": "10-text-localization: full heading sequence",
+      "pass": true,
+      "detail": {
+        "source": 35,
+        "actual": 35
+      }
+    },
+    {
+      "name": "10-text-localization: static/deployed full code block count",
+      "pass": true,
+      "detail": {
+        "source": 17,
+        "actual": 17
+      }
+    },
+    {
+      "name": "10-text-localization: details preserved",
+      "pass": true,
+      "detail": 1
+    },
+    {
+      "name": "10-text-localization: all h2/h3 anchors in chapter toc",
+      "pass": true,
+      "detail": {
+        "headings": 32,
+        "toc": 32
+      }
+    },
+    {
+      "name": "10-text-localization: source-order previous/next and boundaries",
+      "pass": true,
+      "detail": {
+        "previous": "/09-connected-components/",
+        "next": "/11-feature-extraction/"
+      }
+    },
+    {
+      "name": "10-text-localization: current command and new-tab experiment",
+      "pass": true,
+      "detail": {
+        "command": "node 10-text-localization/index.js",
+        "lab": {
+          "href": "/labs/10-text-localization/index.html",
+          "rel": "noopener noreferrer",
+          "target": "_blank"
+        }
+      }
+    },
+    {
+      "name": "10-text-localization: no overflow, math parse error, overlay, or model loading",
+      "pass": true,
+      "detail": {
+        "width": {
+          "document": 1536,
+          "viewport": 1536
+        },
+        "mathErrors": [],
+        "modelLoads": []
+      }
+    },
+    {
+      "name": "10-text-localization: eight-stage sidebar marks current chapter",
+      "pass": true,
+      "detail": {
+        "groups": [
+          "1. 基础准备",
+          "2. 图像预处理",
+          "3. 文本检测",
+          "4. 传统识别",
+          "5. 深度学习基础",
+          "6. 深度学习 OCR",
+          "7. 现代 OCR",
+          "8. 自主引擎开发"
+        ],
+        "current": [
+          "/10-text-localization/"
+        ]
+      }
+    },
+    {
+      "name": "12-template-matching: full heading sequence",
+      "pass": true,
+      "detail": {
+        "source": 34,
+        "actual": 34
+      }
+    },
+    {
+      "name": "12-template-matching: static/deployed full code block count",
+      "pass": true,
+      "detail": {
+        "source": 15,
+        "actual": 15
+      }
+    },
+    {
+      "name": "12-template-matching: details preserved",
+      "pass": true,
+      "detail": 1
+    },
+    {
+      "name": "12-template-matching: all h2/h3 anchors in chapter toc",
+      "pass": true,
+      "detail": {
+        "headings": 29,
+        "toc": 29
+      }
+    },
+    {
+      "name": "12-template-matching: source-order previous/next and boundaries",
+      "pass": true,
+      "detail": {
+        "previous": "/11-feature-extraction/",
+        "next": "/13-knn-classifier/"
+      }
+    },
+    {
+      "name": "12-template-matching: current command and new-tab experiment",
+      "pass": true,
+      "detail": {
+        "command": "node 12-template-matching/index.js",
+        "lab": {
+          "href": "/labs/12-template-matching/index.html",
+          "rel": "noopener noreferrer",
+          "target": "_blank"
+        }
+      }
+    },
+    {
+      "name": "12-template-matching: no overflow, math parse error, overlay, or model loading",
+      "pass": true,
+      "detail": {
+        "width": {
+          "document": 1536,
+          "viewport": 1536
+        },
+        "mathErrors": [],
+        "modelLoads": []
+      }
+    },
+    {
+      "name": "12-template-matching: eight-stage sidebar marks current chapter",
+      "pass": true,
+      "detail": {
+        "groups": [
+          "1. 基础准备",
+          "2. 图像预处理",
+          "3. 文本检测",
+          "4. 传统识别",
+          "5. 深度学习基础",
+          "6. 深度学习 OCR",
+          "7. 现代 OCR",
+          "8. 自主引擎开发"
+        ],
+        "current": [
+          "/12-template-matching/"
+        ]
+      }
+    },
+    {
+      "name": "13-knn-classifier: full heading sequence",
+      "pass": true,
+      "detail": {
+        "source": 23,
+        "actual": 23
+      }
+    },
+    {
+      "name": "13-knn-classifier: static/deployed full code block count",
+      "pass": true,
+      "detail": {
+        "source": 6,
+        "actual": 6
+      }
+    },
+    {
+      "name": "13-knn-classifier: details preserved",
+      "pass": true,
+      "detail": 0
+    },
+    {
+      "name": "13-knn-classifier: all h2/h3 anchors in chapter toc",
+      "pass": true,
+      "detail": {
+        "headings": 17,
+        "toc": 17
+      }
+    },
+    {
+      "name": "13-knn-classifier: source-order previous/next and boundaries",
+      "pass": true,
+      "detail": {
+        "previous": "/12-template-matching/",
+        "next": "/14-neural-network-basics/"
+      }
+    },
+    {
+      "name": "13-knn-classifier: current command and new-tab experiment",
+      "pass": true,
+      "detail": {
+        "command": "node 13-knn-classifier/index.js",
+        "lab": {
+          "href": "/labs/13-knn-classifier/index.html",
+          "rel": "noopener noreferrer",
+          "target": "_blank"
+        }
+      }
+    },
+    {
+      "name": "13-knn-classifier: no overflow, math parse error, overlay, or model loading",
+      "pass": true,
+      "detail": {
+        "width": {
+          "document": 1536,
+          "viewport": 1536
+        },
+        "mathErrors": [],
+        "modelLoads": []
+      }
+    },
+    {
+      "name": "13-knn-classifier: eight-stage sidebar marks current chapter",
+      "pass": true,
+      "detail": {
+        "groups": [
+          "1. 基础准备",
+          "2. 图像预处理",
+          "3. 文本检测",
+          "4. 传统识别",
+          "5. 深度学习基础",
+          "6. 深度学习 OCR",
+          "7. 现代 OCR",
+          "8. 自主引擎开发"
+        ],
+        "current": [
+          "/13-knn-classifier/"
+        ]
+      }
+    },
+    {
+      "name": "14-neural-network-basics: full heading sequence",
+      "pass": true,
+      "detail": {
+        "source": 35,
+        "actual": 35
+      }
+    },
+    {
+      "name": "14-neural-network-basics: static/deployed full code block count",
+      "pass": true,
+      "detail": {
+        "source": 21,
+        "actual": 21
+      }
+    },
+    {
+      "name": "14-neural-network-basics: details preserved",
+      "pass": true,
+      "detail": 1
+    },
+    {
+      "name": "14-neural-network-basics: all h2/h3 anchors in chapter toc",
+      "pass": true,
+      "detail": {
+        "headings": 34,
+        "toc": 34
+      }
+    },
+    {
+      "name": "14-neural-network-basics: source-order previous/next and boundaries",
+      "pass": true,
+      "detail": {
+        "previous": "/13-knn-classifier/",
+        "next": "/15-cnn-basics/"
+      }
+    },
+    {
+      "name": "14-neural-network-basics: current command and new-tab experiment",
+      "pass": true,
+      "detail": {
+        "command": "node 14-neural-network-basics/index.js",
+        "lab": {
+          "href": "/labs/14-neural-network-basics/index.html",
+          "rel": "noopener noreferrer",
+          "target": "_blank"
+        }
+      }
+    },
+    {
+      "name": "14-neural-network-basics: no overflow, math parse error, overlay, or model loading",
+      "pass": true,
+      "detail": {
+        "width": {
+          "document": 1536,
+          "viewport": 1536
+        },
+        "mathErrors": [],
+        "modelLoads": []
+      }
+    },
+    {
+      "name": "14-neural-network-basics: eight-stage sidebar marks current chapter",
+      "pass": true,
+      "detail": {
+        "groups": [
+          "1. 基础准备",
+          "2. 图像预处理",
+          "3. 文本检测",
+          "4. 传统识别",
+          "5. 深度学习基础",
+          "6. 深度学习 OCR",
+          "7. 现代 OCR",
+          "8. 自主引擎开发"
+        ],
+        "current": [
+          "/14-neural-network-basics/"
+        ]
+      }
+    },
+    {
+      "name": "15-cnn-basics: full heading sequence",
+      "pass": true,
+      "detail": {
+        "source": 47,
+        "actual": 47
+      }
+    },
+    {
+      "name": "15-cnn-basics: static/deployed full code block count",
+      "pass": true,
+      "detail": {
+        "source": 31,
+        "actual": 31
+      }
+    },
+    {
+      "name": "15-cnn-basics: details preserved",
+      "pass": true,
+      "detail": 1
+    },
+    {
+      "name": "15-cnn-basics: all h2/h3 anchors in chapter toc",
+      "pass": true,
+      "detail": {
+        "headings": 46,
+        "toc": 46
+      }
+    },
+    {
+      "name": "15-cnn-basics: source-order previous/next and boundaries",
+      "pass": true,
+      "detail": {
+        "previous": "/14-neural-network-basics/",
+        "next": "/16-tensorflowjs-intro/"
+      }
+    },
+    {
+      "name": "15-cnn-basics: current command and new-tab experiment",
+      "pass": true,
+      "detail": {
+        "command": "node 15-cnn-basics/index.js",
+        "lab": {
+          "href": "/labs/15-cnn-basics/index.html",
+          "rel": "noopener noreferrer",
+          "target": "_blank"
+        }
+      }
+    },
+    {
+      "name": "15-cnn-basics: no overflow, math parse error, overlay, or model loading",
+      "pass": true,
+      "detail": {
+        "width": {
+          "document": 1536,
+          "viewport": 1536
+        },
+        "mathErrors": [],
+        "modelLoads": []
+      }
+    },
+    {
+      "name": "15-cnn-basics: eight-stage sidebar marks current chapter",
+      "pass": true,
+      "detail": {
+        "groups": [
+          "1. 基础准备",
+          "2. 图像预处理",
+          "3. 文本检测",
+          "4. 传统识别",
+          "5. 深度学习基础",
+          "6. 深度学习 OCR",
+          "7. 现代 OCR",
+          "8. 自主引擎开发"
+        ],
+        "current": [
+          "/15-cnn-basics/"
+        ]
+      }
+    },
+    {
+      "name": "16-tensorflowjs-intro: full heading sequence",
+      "pass": true,
+      "detail": {
+        "source": 37,
+        "actual": 37
+      }
+    },
+    {
+      "name": "16-tensorflowjs-intro: static/deployed full code block count",
+      "pass": true,
+      "detail": {
+        "source": 14,
+        "actual": 14
+      }
+    },
+    {
+      "name": "16-tensorflowjs-intro: details preserved",
+      "pass": true,
+      "detail": 1
+    },
+    {
+      "name": "16-tensorflowjs-intro: all h2/h3 anchors in chapter toc",
+      "pass": true,
+      "detail": {
+        "headings": 36,
+        "toc": 36
+      }
+    },
+    {
+      "name": "16-tensorflowjs-intro: source-order previous/next and boundaries",
+      "pass": true,
+      "detail": {
+        "previous": "/15-cnn-basics/",
+        "next": "/17-cnn-classifier/"
+      }
+    },
+    {
+      "name": "16-tensorflowjs-intro: current command and new-tab experiment",
+      "pass": true,
+      "detail": {
+        "command": "node 16-tensorflowjs-intro/index.js",
+        "lab": {
+          "href": "/labs/16-tensorflowjs-intro/index.html",
+          "rel": "noopener noreferrer",
+          "target": "_blank"
+        }
+      }
+    },
+    {
+      "name": "16-tensorflowjs-intro: no overflow, math parse error, overlay, or model loading",
+      "pass": true,
+      "detail": {
+        "width": {
+          "document": 1536,
+          "viewport": 1536
+        },
+        "mathErrors": [],
+        "modelLoads": []
+      }
+    },
+    {
+      "name": "16-tensorflowjs-intro: eight-stage sidebar marks current chapter",
+      "pass": true,
+      "detail": {
+        "groups": [
+          "1. 基础准备",
+          "2. 图像预处理",
+          "3. 文本检测",
+          "4. 传统识别",
+          "5. 深度学习基础",
+          "6. 深度学习 OCR",
+          "7. 现代 OCR",
+          "8. 自主引擎开发"
+        ],
+        "current": [
+          "/16-tensorflowjs-intro/"
+        ]
+      }
+    },
+    {
+      "name": "18-rnn-basics: full heading sequence",
+      "pass": true,
+      "detail": {
+        "source": 19,
+        "actual": 19
+      }
+    },
+    {
+      "name": "18-rnn-basics: static/deployed full code block count",
+      "pass": true,
+      "detail": {
+        "source": 6,
+        "actual": 6
+      }
+    },
+    {
+      "name": "18-rnn-basics: details preserved",
+      "pass": true,
+      "detail": 0
+    },
+    {
+      "name": "18-rnn-basics: all h2/h3 anchors in chapter toc",
+      "pass": true,
+      "detail": {
+        "headings": 18,
+        "toc": 18
+      }
+    },
+    {
+      "name": "18-rnn-basics: source-order previous/next and boundaries",
+      "pass": true,
+      "detail": {
+        "previous": "/17-cnn-classifier/",
+        "next": "/19-ctc-loss/"
+      }
+    },
+    {
+      "name": "18-rnn-basics: current command and new-tab experiment",
+      "pass": true,
+      "detail": {
+        "command": "node 18-rnn-basics/index.js",
+        "lab": {
+          "href": "/labs/18-rnn-basics/index.html",
+          "rel": "noopener noreferrer",
+          "target": "_blank"
+        }
+      }
+    },
+    {
+      "name": "18-rnn-basics: no overflow, math parse error, overlay, or model loading",
+      "pass": true,
+      "detail": {
+        "width": {
+          "document": 1536,
+          "viewport": 1536
+        },
+        "mathErrors": [],
+        "modelLoads": []
+      }
+    },
+    {
+      "name": "18-rnn-basics: eight-stage sidebar marks current chapter",
+      "pass": true,
+      "detail": {
+        "groups": [
+          "1. 基础准备",
+          "2. 图像预处理",
+          "3. 文本检测",
+          "4. 传统识别",
+          "5. 深度学习基础",
+          "6. 深度学习 OCR",
+          "7. 现代 OCR",
+          "8. 自主引擎开发"
+        ],
+        "current": [
+          "/18-rnn-basics/"
+        ]
+      }
+    },
+    {
+      "name": "19-ctc-loss: full heading sequence",
+      "pass": true,
+      "detail": {
+        "source": 30,
+        "actual": 30
+      }
+    },
+    {
+      "name": "19-ctc-loss: static/deployed full code block count",
+      "pass": true,
+      "detail": {
+        "source": 10,
+        "actual": 10
+      }
+    },
+    {
+      "name": "19-ctc-loss: details preserved",
+      "pass": true,
+      "detail": 0
+    },
+    {
+      "name": "19-ctc-loss: all h2/h3 anchors in chapter toc",
+      "pass": true,
+      "detail": {
+        "headings": 29,
+        "toc": 29
+      }
+    },
+    {
+      "name": "19-ctc-loss: source-order previous/next and boundaries",
+      "pass": true,
+      "detail": {
+        "previous": "/18-rnn-basics/",
+        "next": "/20-crnn/"
+      }
+    },
+    {
+      "name": "19-ctc-loss: current command and new-tab experiment",
+      "pass": true,
+      "detail": {
+        "command": "node 19-ctc-loss/index.js",
+        "lab": {
+          "href": "/labs/19-ctc-loss/index.html",
+          "rel": "noopener noreferrer",
+          "target": "_blank"
+        }
+      }
+    },
+    {
+      "name": "19-ctc-loss: no overflow, math parse error, overlay, or model loading",
+      "pass": true,
+      "detail": {
+        "width": {
+          "document": 1536,
+          "viewport": 1536
+        },
+        "mathErrors": [],
+        "modelLoads": []
+      }
+    },
+    {
+      "name": "19-ctc-loss: eight-stage sidebar marks current chapter",
+      "pass": true,
+      "detail": {
+        "groups": [
+          "1. 基础准备",
+          "2. 图像预处理",
+          "3. 文本检测",
+          "4. 传统识别",
+          "5. 深度学习基础",
+          "6. 深度学习 OCR",
+          "7. 现代 OCR",
+          "8. 自主引擎开发"
+        ],
+        "current": [
+          "/19-ctc-loss/"
+        ]
+      }
+    },
+    {
+      "name": "20-crnn: full heading sequence",
+      "pass": true,
+      "detail": {
+        "source": 37,
+        "actual": 37
+      }
+    },
+    {
+      "name": "20-crnn: static/deployed full code block count",
+      "pass": true,
+      "detail": {
+        "source": 10,
+        "actual": 10
+      }
+    },
+    {
+      "name": "20-crnn: details preserved",
+      "pass": true,
+      "detail": 0
+    },
+    {
+      "name": "20-crnn: all h2/h3 anchors in chapter toc",
+      "pass": true,
+      "detail": {
+        "headings": 36,
+        "toc": 36
+      }
+    },
+    {
+      "name": "20-crnn: source-order previous/next and boundaries",
+      "pass": true,
+      "detail": {
+        "previous": "/19-ctc-loss/",
+        "next": "/21-attention/"
+      }
+    },
+    {
+      "name": "20-crnn: current command and new-tab experiment",
+      "pass": true,
+      "detail": {
+        "command": "node 20-crnn/index.js",
+        "lab": {
+          "href": "/labs/20-crnn/index.html",
+          "rel": "noopener noreferrer",
+          "target": "_blank"
+        }
+      }
+    },
+    {
+      "name": "20-crnn: no overflow, math parse error, overlay, or model loading",
+      "pass": true,
+      "detail": {
+        "width": {
+          "document": 1536,
+          "viewport": 1536
+        },
+        "mathErrors": [],
+        "modelLoads": []
+      }
+    },
+    {
+      "name": "20-crnn: eight-stage sidebar marks current chapter",
+      "pass": true,
+      "detail": {
+        "groups": [
+          "1. 基础准备",
+          "2. 图像预处理",
+          "3. 文本检测",
+          "4. 传统识别",
+          "5. 深度学习基础",
+          "6. 深度学习 OCR",
+          "7. 现代 OCR",
+          "8. 自主引擎开发"
+        ],
+        "current": [
+          "/20-crnn/"
+        ]
+      }
+    },
+    {
+      "name": "21-attention: full heading sequence",
+      "pass": true,
+      "detail": {
+        "source": 31,
+        "actual": 31
+      }
+    },
+    {
+      "name": "21-attention: static/deployed full code block count",
+      "pass": true,
+      "detail": {
+        "source": 8,
+        "actual": 8
+      }
+    },
+    {
+      "name": "21-attention: details preserved",
+      "pass": true,
+      "detail": 1
+    },
+    {
+      "name": "21-attention: all h2/h3 anchors in chapter toc",
+      "pass": true,
+      "detail": {
+        "headings": 30,
+        "toc": 30
+      }
+    },
+    {
+      "name": "21-attention: source-order previous/next and boundaries",
+      "pass": true,
+      "detail": {
+        "previous": "/20-crnn/",
+        "next": "/22-text-detection-networks/"
+      }
+    },
+    {
+      "name": "21-attention: current command and new-tab experiment",
+      "pass": true,
+      "detail": {
+        "command": "node 21-attention/index.js",
+        "lab": {
+          "href": "/labs/21-attention/index.html",
+          "rel": "noopener noreferrer",
+          "target": "_blank"
+        }
+      }
+    },
+    {
+      "name": "21-attention: no overflow, math parse error, overlay, or model loading",
+      "pass": true,
+      "detail": {
+        "width": {
+          "document": 1536,
+          "viewport": 1536
+        },
+        "mathErrors": [],
+        "modelLoads": []
+      }
+    },
+    {
+      "name": "21-attention: eight-stage sidebar marks current chapter",
+      "pass": true,
+      "detail": {
+        "groups": [
+          "1. 基础准备",
+          "2. 图像预处理",
+          "3. 文本检测",
+          "4. 传统识别",
+          "5. 深度学习基础",
+          "6. 深度学习 OCR",
+          "7. 现代 OCR",
+          "8. 自主引擎开发"
+        ],
+        "current": [
+          "/21-attention/"
+        ]
+      }
+    },
+    {
+      "name": "22-text-detection-networks: full heading sequence",
+      "pass": true,
+      "detail": {
+        "source": 37,
+        "actual": 37
+      }
+    },
+    {
+      "name": "22-text-detection-networks: static/deployed full code block count",
+      "pass": true,
+      "detail": {
+        "source": 12,
+        "actual": 12
+      }
+    },
+    {
+      "name": "22-text-detection-networks: details preserved",
+      "pass": true,
+      "detail": 1
+    },
+    {
+      "name": "22-text-detection-networks: all h2/h3 anchors in chapter toc",
+      "pass": true,
+      "detail": {
+        "headings": 36,
+        "toc": 36
+      }
+    },
+    {
+      "name": "22-text-detection-networks: source-order previous/next and boundaries",
+      "pass": true,
+      "detail": {
+        "previous": "/21-attention/",
+        "next": "/23-transformer-ocr/"
+      }
+    },
+    {
+      "name": "22-text-detection-networks: current command and new-tab experiment",
+      "pass": true,
+      "detail": {
+        "command": "node 22-text-detection-networks/index.js",
+        "lab": {
+          "href": "/labs/22-text-detection-networks/index.html",
+          "rel": "noopener noreferrer",
+          "target": "_blank"
+        }
+      }
+    },
+    {
+      "name": "22-text-detection-networks: no overflow, math parse error, overlay, or model loading",
+      "pass": true,
+      "detail": {
+        "width": {
+          "document": 1536,
+          "viewport": 1536
+        },
+        "mathErrors": [],
+        "modelLoads": []
+      }
+    },
+    {
+      "name": "22-text-detection-networks: eight-stage sidebar marks current chapter",
+      "pass": true,
+      "detail": {
+        "groups": [
+          "1. 基础准备",
+          "2. 图像预处理",
+          "3. 文本检测",
+          "4. 传统识别",
+          "5. 深度学习基础",
+          "6. 深度学习 OCR",
+          "7. 现代 OCR",
+          "8. 自主引擎开发"
+        ],
+        "current": [
+          "/22-text-detection-networks/"
+        ]
+      }
+    },
+    {
+      "name": "23-transformer-ocr: full heading sequence",
+      "pass": true,
+      "detail": {
+        "source": 44,
+        "actual": 44
+      }
+    },
+    {
+      "name": "23-transformer-ocr: static/deployed full code block count",
+      "pass": true,
+      "detail": {
+        "source": 8,
+        "actual": 8
+      }
+    },
+    {
+      "name": "23-transformer-ocr: details preserved",
+      "pass": true,
+      "detail": 1
+    },
+    {
+      "name": "23-transformer-ocr: all h2/h3 anchors in chapter toc",
+      "pass": true,
+      "detail": {
+        "headings": 43,
+        "toc": 43
+      }
+    },
+    {
+      "name": "23-transformer-ocr: source-order previous/next and boundaries",
+      "pass": true,
+      "detail": {
+        "previous": "/22-text-detection-networks/",
+        "next": "/24-post-processing/"
+      }
+    },
+    {
+      "name": "23-transformer-ocr: current command and new-tab experiment",
+      "pass": true,
+      "detail": {
+        "command": "node 23-transformer-ocr/index.js",
+        "lab": {
+          "href": "/labs/23-transformer-ocr/index.html",
+          "rel": "noopener noreferrer",
+          "target": "_blank"
+        }
+      }
+    },
+    {
+      "name": "23-transformer-ocr: no overflow, math parse error, overlay, or model loading",
+      "pass": true,
+      "detail": {
+        "width": {
+          "document": 1536,
+          "viewport": 1536
+        },
+        "mathErrors": [],
+        "modelLoads": []
+      }
+    },
+    {
+      "name": "23-transformer-ocr: eight-stage sidebar marks current chapter",
+      "pass": true,
+      "detail": {
+        "groups": [
+          "1. 基础准备",
+          "2. 图像预处理",
+          "3. 文本检测",
+          "4. 传统识别",
+          "5. 深度学习基础",
+          "6. 深度学习 OCR",
+          "7. 现代 OCR",
+          "8. 自主引擎开发"
+        ],
+        "current": [
+          "/23-transformer-ocr/"
+        ]
+      }
+    },
+    {
+      "name": "24-post-processing: full heading sequence",
+      "pass": true,
+      "detail": {
+        "source": 46,
+        "actual": 46
+      }
+    },
+    {
+      "name": "24-post-processing: static/deployed full code block count",
+      "pass": true,
+      "detail": {
+        "source": 18,
+        "actual": 18
+      }
+    },
+    {
+      "name": "24-post-processing: details preserved",
+      "pass": true,
+      "detail": 14
+    },
+    {
+      "name": "24-post-processing: all h2/h3 anchors in chapter toc",
+      "pass": true,
+      "detail": {
+        "headings": 45,
+        "toc": 45
+      }
+    },
+    {
+      "name": "24-post-processing: source-order previous/next and boundaries",
+      "pass": true,
+      "detail": {
+        "previous": "/23-transformer-ocr/",
+        "next": "/25-ocr-engine/"
+      }
+    },
+    {
+      "name": "24-post-processing: current command and new-tab experiment",
+      "pass": true,
+      "detail": {
+        "command": "node 24-post-processing/index.js",
+        "lab": {
+          "href": "/labs/24-post-processing/index.html",
+          "rel": "noopener noreferrer",
+          "target": "_blank"
+        }
+      }
+    },
+    {
+      "name": "24-post-processing: no overflow, math parse error, overlay, or model loading",
+      "pass": true,
+      "detail": {
+        "width": {
+          "document": 1536,
+          "viewport": 1536
+        },
+        "mathErrors": [],
+        "modelLoads": []
+      }
+    },
+    {
+      "name": "24-post-processing: eight-stage sidebar marks current chapter",
+      "pass": true,
+      "detail": {
+        "groups": [
+          "1. 基础准备",
+          "2. 图像预处理",
+          "3. 文本检测",
+          "4. 传统识别",
+          "5. 深度学习基础",
+          "6. 深度学习 OCR",
+          "7. 现代 OCR",
+          "8. 自主引擎开发"
+        ],
+        "current": [
+          "/24-post-processing/"
+        ]
+      }
+    },
+    {
+      "name": "26-validation: full heading sequence",
+      "pass": true,
+      "detail": {
+        "source": 47,
+        "actual": 47
+      }
+    },
+    {
+      "name": "26-validation: static/deployed full code block count",
+      "pass": true,
+      "detail": {
+        "source": 21,
+        "actual": 21
+      }
+    },
+    {
+      "name": "26-validation: details preserved",
+      "pass": true,
+      "detail": 1
+    },
+    {
+      "name": "26-validation: all h2/h3 anchors in chapter toc",
+      "pass": true,
+      "detail": {
+        "headings": 46,
+        "toc": 46
+      }
+    },
+    {
+      "name": "26-validation: source-order previous/next and boundaries",
+      "pass": true,
+      "detail": {
+        "previous": "/25-ocr-engine/",
+        "next": null
+      }
+    },
+    {
+      "name": "26-validation: current command and new-tab experiment",
+      "pass": true,
+      "detail": {
+        "command": "node 26-validation/index.js",
+        "lab": {
+          "href": "/labs/26-validation/index.html",
+          "rel": "noopener noreferrer",
+          "target": "_blank"
+        }
+      }
+    },
+    {
+      "name": "26-validation: no overflow, math parse error, overlay, or model loading",
+      "pass": true,
+      "detail": {
+        "width": {
+          "document": 1536,
+          "viewport": 1536
+        },
+        "mathErrors": [],
+        "modelLoads": []
+      }
+    },
+    {
+      "name": "26-validation: eight-stage sidebar marks current chapter",
+      "pass": true,
+      "detail": {
+        "groups": [
+          "1. 基础准备",
+          "2. 图像预处理",
+          "3. 文本检测",
+          "4. 传统识别",
+          "5. 深度学习基础",
+          "6. 深度学习 OCR",
+          "7. 现代 OCR",
+          "8. 自主引擎开发"
+        ],
+        "current": [
+          "/26-validation/"
+        ]
+      }
+    },
+    {
+      "name": "Node command clipboard action",
+      "pass": true,
+      "detail": "在项目根目录执行。运行命令已复制，请在项目根目录执行。"
+    },
+    {
+      "name": "Experiment really opens separate tab",
+      "pass": true,
+      "detail": {
+        "lifecycle": {
+          "effectiveLaunch": {
+            "browserLaunched": true,
+            "engine": "chrome",
+            "launchHash": 11677035664275012000
+          },
+          "launched": false,
+          "relaunchedBrowser": false,
+          "restartedBackground": false,
+          "restoreStatus": "not_configured",
+          "reused": true,
+          "saveStatus": "not_attempted"
+        },
+        "tabs": [
+          {
+            "active": false,
+            "label": null,
+            "tabId": "t1",
+            "targetId": "4518698078FD173274828E65F7636417",
+            "title": "04. 二值化 (Binarization / Thresholding) | OCR 学习实验室",
+            "type": "page",
+            "url": "http://127.0.0.1:4173/04-binarization/"
+          },
+          {
+            "active": true,
+            "label": null,
+            "tabId": "t2",
+            "targetId": "F1242CF25F4C0E952C06351E51952DFE",
+            "title": "127.0.0.1:4173/labs/04-binarization/index.html",
+            "type": "page",
+            "url": "http://127.0.0.1:4173/labs/04-binarization/index.html"
+          }
+        ]
+      }
+    },
+    {
+      "name": "h3 anchor scroll and reading position",
+      "pass": true,
+      "detail": {
+        "active": [
+          "_1-什么是二值化"
+        ],
+        "hash": "_1-什么是二值化",
+        "top": 133.796875
+      }
+    },
+    {
+      "name": "direct heading refresh",
+      "pass": true,
+      "detail": {
+        "lifecycle": {
+          "effectiveLaunch": {
+            "browserLaunched": true,
+            "engine": "chrome",
+            "launchHash": 11677035664275012000
+          },
+          "launched": false,
+          "relaunchedBrowser": false,
+          "restartedBackground": false,
+          "restoreStatus": "not_configured",
+          "reused": true,
+          "saveStatus": "not_attempted"
+        },
+        "url": "http://127.0.0.1:4173/04-binarization/#_1-%E4%BB%80%E4%B9%88%E6%98%AF%E4%BA%8C%E5%80%BC%E5%8C%96"
+      }
+    },
+    {
+      "name": "cross-stage next navigation really reaches chapter 08",
+      "pass": true,
+      "detail": "http://127.0.0.1:4173/08-edge-detection/"
+    },
+    {
+      "name": "04-binarization: mobile page constrained",
+      "pass": true,
+      "detail": {
+        "details": true,
+        "localScroll": [
+          {
+            "overflow": "auto",
+            "scroll": 372,
+            "tag": "PRE",
+            "width": 302
+          },
+          {
+            "overflow": "auto",
+            "scroll": 431,
+            "tag": "PRE",
+            "width": 302
+          },
+          {
+            "overflow": "auto",
+            "scroll": 330,
+            "tag": "PRE",
+            "width": 302
+          },
+          {
+            "overflow": "auto",
+            "scroll": 431,
+            "tag": "PRE",
+            "width": 302
+          },
+          {
+            "overflow": "auto",
+            "scroll": 322,
+            "tag": "PRE",
+            "width": 302
+          },
+          {
+            "overflow": "auto",
+            "scroll": 422,
+            "tag": "PRE",
+            "width": 302
+          },
+          {
+            "overflow": "auto",
+            "scroll": 464,
+            "tag": "PRE",
+            "width": 302
+          },
+          {
+            "overflow": "auto",
+            "scroll": 338,
+            "tag": "PRE",
+            "width": 302
+          },
+          {
+            "overflow": "auto",
+            "scroll": 456,
+            "tag": "PRE",
+            "width": 302
+          },
+          {
+            "overflow": "auto",
+            "scroll": 406,
+            "tag": "PRE",
+            "width": 302
+          },
+          {
+            "overflow": "auto",
+            "scroll": 336,
+            "tag": "PRE",
+            "width": 302
+          },
+          {
+            "overflow": "auto",
+            "scroll": 442,
+            "tag": "PRE",
+            "width": 302
+          },
+          {
+            "overflow": "auto",
+            "scroll": 823,
+            "tag": "PRE",
+            "width": 302
+          },
+          {
+            "overflow": "auto",
+            "scroll": 396,
+            "tag": "PRE",
+            "width": 302
+          },
+          {
+            "overflow": "auto",
+            "scroll": 450,
+            "tag": "PRE",
+            "width": 302
+          },
+          {
+            "overflow": "auto",
+            "scroll": 484,
+            "tag": "PRE",
+            "width": 302
+          },
+          {
+            "overflow": "auto",
+            "scroll": 456,
+            "tag": "PRE",
+            "width": 302
+          },
+          {
+            "overflow": "auto",
+            "scroll": 439,
+            "tag": "PRE",
+            "width": 302
+          },
+          {
+            "overflow": "auto",
+            "scroll": 658,
+            "tag": "PRE",
+            "width": 302
+          },
+          {
+            "overflow": "auto",
+            "scroll": 431,
+            "tag": "TABLE",
+            "width": 350
+          },
+          {
+            "overflow": "auto",
+            "scroll": 509,
+            "tag": "PRE",
+            "width": 302
+          },
+          {
+            "overflow": "auto",
+            "scroll": 372,
+            "tag": "PRE",
+            "width": 302
+          },
+          {
+            "overflow": "auto",
+            "scroll": 344,
+            "tag": "PRE",
+            "width": 302
+          },
+          {
+            "overflow": "auto",
+            "scroll": 369,
+            "tag": "PRE",
+            "width": 302
+          },
+          {
+            "overflow": "auto",
+            "scroll": 599,
+            "tag": "PRE",
+            "width": 302
+          },
+          {
+            "overflow": "auto",
+            "scroll": 445,
+            "tag": "PRE",
+            "width": 302
+          },
+          {
+            "overflow": "auto",
+            "scroll": 431,
+            "tag": "TABLE",
+            "width": 350
+          }
+        ],
+        "math": 0,
+        "menu": "<div class=\"vp-toggle-sidebar-button\" title=\"打开课程目录\" aria-expanded=\"false\" role=\"button\" tabindex=\"0\"><div class=\"icon\" aria-hidden=\"true\"><span></span><span></span><span></span></div></div>",
+        "scroll": 390,
+        "width": 390
+      }
+    },
+    {
+      "name": "04-binarization: mobile chapter toc opens",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "11-feature-extraction: mobile page constrained",
+      "pass": true,
+      "detail": {
+        "details": true,
+        "localScroll": [
+          {
+            "overflow": "auto",
+            "scroll": 675,
+            "tag": "PRE",
+            "width": 302
+          },
+          {
+            "overflow": "auto",
+            "scroll": 675,
+            "tag": "PRE",
+            "width": 302
+          },
+          {
+            "overflow": "auto",
+            "scroll": 677,
+            "tag": "PRE",
+            "width": 302
+          },
+          {
+            "overflow": "auto",
+            "scroll": 675,
+            "tag": "PRE",
+            "width": 302
+          },
+          {
+            "overflow": "auto",
+            "scroll": 677,
+            "tag": "PRE",
+            "width": 302
+          },
+          {
+            "overflow": "auto",
+            "scroll": 680,
+            "tag": "PRE",
+            "width": 302
+          },
+          {
+            "overflow": "auto",
+            "scroll": 675,
+            "tag": "PRE",
+            "width": 302
+          },
+          {
+            "overflow": "auto",
+            "scroll": 680,
+            "tag": "PRE",
+            "width": 302
+          },
+          {
+            "overflow": "auto",
+            "scroll": 675,
+            "tag": "PRE",
+            "width": 302
+          },
+          {
+            "overflow": "auto",
+            "scroll": 675,
+            "tag": "PRE",
+            "width": 302
+          },
+          {
+            "overflow": "auto",
+            "scroll": 532,
+            "tag": "PRE",
+            "width": 302
+          },
+          {
+            "overflow": "auto",
+            "scroll": 742,
+            "tag": "PRE",
+            "width": 302
+          },
+          {
+            "overflow": "auto",
+            "scroll": 700,
+            "tag": "PRE",
+            "width": 302
+          },
+          {
+            "overflow": "auto",
+            "scroll": 661,
+            "tag": "PRE",
+            "width": 302
+          },
+          {
+            "overflow": "auto",
+            "scroll": 683,
+            "tag": "PRE",
+            "width": 302
+          },
+          {
+            "overflow": "auto",
+            "scroll": 994,
+            "tag": "PRE",
+            "width": 302
+          },
+          {
+            "overflow": "auto",
+            "scroll": 700,
+            "tag": "PRE",
+            "width": 302
+          },
+          {
+            "overflow": "auto",
+            "scroll": 539,
+            "tag": "TABLE",
+            "width": 350
+          },
+          {
+            "overflow": "auto",
+            "scroll": 522,
+            "tag": "TABLE",
+            "width": 350
+          }
+        ],
+        "math": 0,
+        "menu": "<div class=\"vp-toggle-sidebar-button\" title=\"打开课程目录\" aria-expanded=\"false\" role=\"button\" tabindex=\"0\"><div class=\"icon\" aria-hidden=\"true\"><span></span><span></span><span></span></div></div>",
+        "scroll": 390,
+        "width": 390
+      }
+    },
+    {
+      "name": "11-feature-extraction: mobile chapter toc opens",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "19-ctc-loss: mobile page constrained",
+      "pass": true,
+      "detail": {
+        "details": true,
+        "localScroll": [
+          {
+            "overflow": "auto",
+            "scroll": 548,
+            "tag": "PRE",
+            "width": 302
+          },
+          {
+            "overflow": "auto",
+            "scroll": 481,
+            "tag": "PRE",
+            "width": 302
+          },
+          {
+            "overflow": "auto",
+            "scroll": 582,
+            "tag": "PRE",
+            "width": 302
+          },
+          {
+            "overflow": "auto",
+            "scroll": 539,
+            "tag": "TABLE",
+            "width": 350
+          },
+          {
+            "overflow": "auto",
+            "scroll": 426,
+            "tag": "SPAN",
+            "width": 350
+          },
+          {
+            "overflow": "auto",
+            "scroll": 477,
+            "tag": "SPAN",
+            "width": 350
+          },
+          {
+            "overflow": "auto",
+            "scroll": 646,
+            "tag": "TABLE",
+            "width": 350
+          },
+          {
+            "overflow": "auto",
+            "scroll": 426,
+            "tag": "SPAN",
+            "width": 350
+          },
+          {
+            "overflow": "auto",
+            "scroll": 416,
+            "tag": "SPAN",
+            "width": 350
+          },
+          {
+            "overflow": "auto",
+            "scroll": 539,
+            "tag": "TABLE",
+            "width": 350
+          },
+          {
+            "overflow": "auto",
+            "scroll": 591,
+            "tag": "PRE",
+            "width": 302
+          },
+          {
+            "overflow": "auto",
+            "scroll": 327,
+            "tag": "PRE",
+            "width": 302
+          },
+          {
+            "overflow": "auto",
+            "scroll": 338,
+            "tag": "PRE",
+            "width": 302
+          },
+          {
+            "overflow": "auto",
+            "scroll": 431,
+            "tag": "TABLE",
+            "width": 350
+          },
+          {
+            "overflow": "auto",
+            "scroll": 431,
+            "tag": "TABLE",
+            "width": 350
+          },
+          {
+            "overflow": "auto",
+            "scroll": 481,
+            "tag": "PRE",
+            "width": 302
+          },
+          {
+            "overflow": "auto",
+            "scroll": 708,
+            "tag": "PRE",
+            "width": 302
+          }
+        ],
+        "math": 13,
+        "menu": "<div class=\"vp-toggle-sidebar-button\" title=\"打开课程目录\" aria-expanded=\"false\" role=\"button\" tabindex=\"0\"><div class=\"icon\" aria-hidden=\"true\"><span></span><span></span><span></span></div></div>",
+        "scroll": 390,
+        "width": 390
+      }
+    },
+    {
+      "name": "19-ctc-loss: mobile chapter toc opens",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "25-ocr-engine: mobile page constrained",
+      "pass": true,
+      "detail": {
+        "details": true,
+        "localScroll": [
+          {
+            "overflow": "auto",
+            "scroll": 428,
+            "tag": "PRE",
+            "width": 302
+          },
+          {
+            "overflow": "auto",
+            "scroll": 456,
+            "tag": "PRE",
+            "width": 302
+          },
+          {
+            "overflow": "auto",
+            "scroll": 352,
+            "tag": "PRE",
+            "width": 302
+          },
+          {
+            "overflow": "auto",
+            "scroll": 324,
+            "tag": "PRE",
+            "width": 302
+          },
+          {
+            "overflow": "auto",
+            "scroll": 322,
+            "tag": "PRE",
+            "width": 302
+          },
+          {
+            "overflow": "auto",
+            "scroll": 338,
+            "tag": "PRE",
+            "width": 302
+          },
+          {
+            "overflow": "auto",
+            "scroll": 322,
+            "tag": "PRE",
+            "width": 302
+          },
+          {
+            "overflow": "auto",
+            "scroll": 431,
+            "tag": "TABLE",
+            "width": 350
+          },
+          {
+            "overflow": "auto",
+            "scroll": 422,
+            "tag": "PRE",
+            "width": 302
+          },
+          {
+            "overflow": "auto",
+            "scroll": 434,
+            "tag": "PRE",
+            "width": 302
+          },
+          {
+            "overflow": "auto",
+            "scroll": 539,
+            "tag": "TABLE",
+            "width": 350
+          },
+          {
+            "overflow": "auto",
+            "scroll": 436,
+            "tag": "PRE",
+            "width": 302
+          },
+          {
+            "overflow": "auto",
+            "scroll": 336,
+            "tag": "PRE",
+            "width": 302
+          },
+          {
+            "overflow": "auto",
+            "scroll": 448,
+            "tag": "TABLE",
+            "width": 350
+          },
+          {
+            "overflow": "auto",
+            "scroll": 330,
+            "tag": "PRE",
+            "width": 302
+          },
+          {
+            "overflow": "auto",
+            "scroll": 441,
+            "tag": "TABLE",
+            "width": 350
+          },
+          {
+            "overflow": "auto",
+            "scroll": 362,
+            "tag": "TABLE",
+            "width": 350
+          },
+          {
+            "overflow": "auto",
+            "scroll": 364,
+            "tag": "PRE",
+            "width": 302
+          },
+          {
+            "overflow": "auto",
+            "scroll": 355,
+            "tag": "PRE",
+            "width": 302
+          },
+          {
+            "overflow": "auto",
+            "scroll": 431,
+            "tag": "TABLE",
+            "width": 350
+          }
+        ],
+        "math": 0,
+        "menu": "<div class=\"vp-toggle-sidebar-button\" title=\"打开课程目录\" aria-expanded=\"false\" role=\"button\" tabindex=\"0\"><div class=\"icon\" aria-hidden=\"true\"><span></span><span></span><span></span></div></div>",
+        "scroll": 390,
+        "width": 390
+      }
+    },
+    {
+      "name": "25-ocr-engine: mobile chapter toc opens",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "mobile eight-stage navigation opens",
+      "pass": true,
+      "detail": {
+        "bottom": 844,
+        "height": 844,
+        "left": -78.69155883789062,
+        "right": 157.46469116210938,
+        "top": 0,
+        "width": 236.15625,
+        "x": -78.69155883789062,
+        "y": 0
+      }
+    },
+    {
+      "name": "self-test answer expands",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "formulae include real display math and multiline alignment",
+      "pass": true,
+      "detail": {
+        "display": 7,
+        "matrices": 1
+      }
+    },
+    {
+      "name": "theme control changes rendered palette",
+      "pass": true,
+      "detail": {
+        "beforeDark": {
+          "bg": "rgb(27, 27, 31)",
+          "theme": "dark"
+        },
+        "afterDark": {
+          "bg": "rgb(231, 231, 231)",
+          "theme": "light"
+        }
+      }
+    },
+    {
+      "name": "01-image-fundamentals: laboratory direct HTML refresh",
+      "pass": true,
+      "detail": {
+        "title": "01. 数字图像基础 - OCR 学习",
+        "controls": 5,
+        "returnLink": {
+          "href": "http://127.0.0.1:4173/01-image-fundamentals/",
+          "text": "返回本章讲义"
+        }
+      }
+    },
+    {
+      "name": "02-js-image-basics: laboratory direct HTML refresh",
+      "pass": true,
+      "detail": {
+        "title": "02. JavaScript 图像处理基础 - OCR 学习",
+        "controls": 15,
+        "returnLink": {
+          "href": "http://127.0.0.1:4173/02-js-image-basics/",
+          "text": "返回本章讲义"
+        }
+      }
+    },
+    {
+      "name": "03-grayscale: laboratory direct HTML refresh",
+      "pass": true,
+      "detail": {
+        "title": "03. 灰度化 - OCR 学习",
+        "controls": 1,
+        "returnLink": {
+          "href": "http://127.0.0.1:4173/03-grayscale/",
+          "text": "返回本章讲义"
+        }
+      }
+    },
+    {
+      "name": "04-binarization: laboratory direct HTML refresh",
+      "pass": true,
+      "detail": {
+        "title": "04. 二值化 - OCR 学习",
+        "controls": 7,
+        "returnLink": {
+          "href": "http://127.0.0.1:4173/04-binarization/",
+          "text": "返回本章讲义"
+        }
+      }
+    },
+    {
+      "name": "05-denoising: laboratory direct HTML refresh",
+      "pass": true,
+      "detail": {
+        "title": "05. 图像去噪 (Image Denoising)",
+        "controls": 11,
+        "returnLink": {
+          "href": "http://127.0.0.1:4173/05-denoising/",
+          "text": "返回本章讲义"
+        }
+      }
+    },
+    {
+      "name": "06-morphology: laboratory direct HTML refresh",
+      "pass": true,
+      "detail": {
+        "title": "06. 形态学操作 (Morphological Operations)",
+        "controls": 15,
+        "returnLink": {
+          "href": "http://127.0.0.1:4173/06-morphology/",
+          "text": "返回本章讲义"
+        }
+      }
+    },
+    {
+      "name": "07-deskewing: laboratory direct HTML refresh",
+      "pass": true,
+      "detail": {
+        "title": "07. 倾斜校正 - OCR 学习项目",
+        "controls": 9,
+        "returnLink": {
+          "href": "http://127.0.0.1:4173/07-deskewing/",
+          "text": "返回本章讲义"
+        }
+      }
+    },
+    {
+      "name": "08-edge-detection: laboratory direct HTML refresh",
+      "pass": true,
+      "detail": {
+        "title": "08. 边缘检测 - Edge Detection",
+        "controls": 11,
+        "returnLink": {
+          "href": "http://127.0.0.1:4173/08-edge-detection/",
+          "text": "返回本章讲义"
+        }
+      }
+    },
+    {
+      "name": "09-connected-components: laboratory direct HTML refresh",
+      "pass": true,
+      "detail": {
+        "title": "09. 连通域分析 - Connected Component Analysis",
+        "controls": 10,
+        "returnLink": {
+          "href": "http://127.0.0.1:4173/09-connected-components/",
+          "text": "返回本章讲义"
+        }
+      }
+    },
+    {
+      "name": "10-text-localization: laboratory direct HTML refresh",
+      "pass": true,
+      "detail": {
+        "title": "10. 文本区域定位 - OCR 学习",
+        "controls": 13,
+        "returnLink": {
+          "href": "http://127.0.0.1:4173/10-text-localization/",
+          "text": "返回本章讲义"
+        }
+      }
+    },
+    {
+      "name": "11-feature-extraction: laboratory direct HTML refresh",
+      "pass": true,
+      "detail": {
+        "title": "第11章 - 特征提取基础",
+        "controls": 2,
+        "returnLink": {
+          "href": "http://127.0.0.1:4173/11-feature-extraction/",
+          "text": "返回本章讲义"
+        }
+      }
+    },
+    {
+      "name": "12-template-matching: laboratory direct HTML refresh",
+      "pass": true,
+      "detail": {
+        "title": "第12章 - 模板匹配",
+        "controls": 15,
+        "returnLink": {
+          "href": "http://127.0.0.1:4173/12-template-matching/",
+          "text": "返回本章讲义"
+        }
+      }
+    },
+    {
+      "name": "13-knn-classifier: laboratory direct HTML refresh",
+      "pass": true,
+      "detail": {
+        "title": "第13章 - KNN 分类器",
+        "controls": 19,
+        "returnLink": {
+          "href": "http://127.0.0.1:4173/13-knn-classifier/",
+          "text": "返回本章讲义"
+        }
+      }
+    },
+    {
+      "name": "14-neural-network-basics: laboratory direct HTML refresh",
+      "pass": true,
+      "detail": {
+        "title": "14 · 神经网络基础 — 看见参数如何学习",
+        "controls": 14,
+        "returnLink": {
+          "href": "http://127.0.0.1:4173/14-neural-network-basics/",
+          "text": "返回本章讲义"
+        }
+      }
+    },
+    {
+      "name": "15-cnn-basics: laboratory direct HTML refresh",
+      "pass": true,
+      "detail": {
+        "title": "15 · CNN 基础 — 卷积、通道与参数共享",
+        "controls": 9,
+        "returnLink": {
+          "href": "http://127.0.0.1:4173/15-cnn-basics/",
+          "text": "返回本章讲义"
+        }
+      }
+    },
+    {
+      "name": "16-tensorflowjs-intro: laboratory direct HTML refresh",
+      "pass": true,
+      "detail": {
+        "title": "16 · TensorFlow.js 入门",
+        "controls": 4,
+        "returnLink": {
+          "href": "http://127.0.0.1:4173/16-tensorflowjs-intro/",
+          "text": "返回本章讲义"
+        }
+      }
+    },
+    {
+      "name": "17-cnn-classifier: laboratory direct HTML refresh",
+      "pass": true,
+      "detail": {
+        "title": "17 · CNN 手写数字分类器",
+        "controls": 7,
+        "returnLink": {
+          "href": "http://127.0.0.1:4173/17-cnn-classifier/",
+          "text": "返回本章讲义"
+        }
+      }
+    },
+    {
+      "name": "18-rnn-basics: laboratory direct HTML refresh",
+      "pass": true,
+      "detail": {
+        "title": "18 · RNN 与 LSTM",
+        "controls": 5,
+        "returnLink": {
+          "href": "http://127.0.0.1:4173/18-rnn-basics/",
+          "text": "返回本章讲义"
+        }
+      }
+    },
+    {
+      "name": "19-ctc-loss: laboratory direct HTML refresh",
+      "pass": true,
+      "detail": {
+        "title": "19 · CTC 损失与解码",
+        "controls": 5,
+        "returnLink": {
+          "href": "http://127.0.0.1:4173/19-ctc-loss/",
+          "text": "返回本章讲义"
+        }
+      }
+    },
+    {
+      "name": "20-crnn: laboratory direct HTML refresh",
+      "pass": true,
+      "detail": {
+        "title": "20 · 可训练的小型 CRNN",
+        "controls": 10,
+        "returnLink": {
+          "href": "http://127.0.0.1:4173/20-crnn/",
+          "text": "返回本章讲义"
+        }
+      }
+    },
+    {
+      "name": "21-attention: laboratory direct HTML refresh",
+      "pass": true,
+      "detail": {
+        "title": "21 · Attention 权重实验",
+        "controls": 7,
+        "returnLink": {
+          "href": "http://127.0.0.1:4173/21-attention/",
+          "text": "返回本章讲义"
+        }
+      }
+    },
+    {
+      "name": "22-text-detection-networks: laboratory direct HTML refresh",
+      "pass": true,
+      "detail": {
+        "title": "22 · 文本检测输出与后处理",
+        "controls": 8,
+        "returnLink": {
+          "href": "http://127.0.0.1:4173/22-text-detection-networks/",
+          "text": "返回本章讲义"
+        }
+      }
+    },
+    {
+      "name": "23-transformer-ocr: laboratory direct HTML refresh",
+      "pass": true,
+      "detail": {
+        "title": "23 · Transformer OCR 运算实验",
+        "controls": 9,
+        "returnLink": {
+          "href": "http://127.0.0.1:4173/23-transformer-ocr/",
+          "text": "返回本章讲义"
+        }
+      }
+    },
+    {
+      "name": "24-post-processing: laboratory direct HTML refresh",
+      "pass": true,
+      "detail": {
+        "title": "24 · 后处理与独立评估 — OCR 学习实验室",
+        "controls": 25,
+        "returnLink": {
+          "href": "http://127.0.0.1:4173/24-post-processing/",
+          "text": "返回本章讲义"
+        }
+      }
+    },
+    {
+      "name": "25-ocr-engine: laboratory direct HTML refresh",
+      "pass": true,
+      "detail": {
+        "title": "25 · 照片中的手写数字串",
+        "controls": 12,
+        "returnLink": {
+          "href": "http://127.0.0.1:4173/25-ocr-engine/",
+          "text": "返回本章讲义"
+        }
+      }
+    },
+    {
+      "name": "26-validation: laboratory direct HTML refresh",
+      "pass": true,
+      "detail": {
+        "title": "26 · 手写数字串实战评估",
+        "controls": 3,
+        "returnLink": {
+          "href": "http://127.0.0.1:4173/26-validation/",
+          "text": "返回本章讲义"
+        }
+      }
+    },
+    {
+      "name": "all same-origin observed links and resources return HTTP success",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "all 78 manifest assets have their actual resource content type",
+      "pass": true,
+      "detail": []
+    }
+  ],
+  "passed": 256,
+  "failed": 0
+}

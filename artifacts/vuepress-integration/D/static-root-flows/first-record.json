@@ -1,0 +1,25 @@
+{
+  "config": {
+    "autoDeskew": true,
+    "correctionAngle": 0,
+    "denoise": false,
+    "pipelineVersion": "ocr-photo-v2-2026-09-11",
+    "preprocessingId": "dark-rgba-bbox20-centroid-v1",
+    "thresholdMethod": "otsu"
+  },
+  "createdAt": "2026-09-11T12:54:38.916Z",
+  "elapsedMs": 679,
+  "experimentId": "D-static-root-flows-synthetic-1789131277586",
+  "filename": "development-line.png",
+  "id": "04d0ae5c-6e91-45f6-bc2e-54e762dc3c67",
+  "imageId": "c95cc2fcaa6044548643845aadf003ca4d5e1b21b31c5f0b19bd69a113a94438",
+  "modelId": "ocr-mnist-cnn-v1-9c7b0b8e8224",
+  "pipelineId": "4cdf19a96839",
+  "prediction": "001208",
+  "sampleKind": "synthetic-mnist",
+  "status": "ok",
+  "truth": "001208",
+  "warnings": [
+    "有区域明显偏宽，可能存在数字粘连，请检查分割框。"
+  ]
+}

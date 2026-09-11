@@ -1,6 +1,38 @@
 # 共享工具模块 (Shared Utilities)
 
-本目录包含可复用的图像处理工具函数，供所有章节使用。这些模块最终将整合到 `25-ocr-engine` 中。
+本目录包含各章可复用的算法，浏览器与 Node.js 调用同一实现。第 25 章已组合预处理、分割和自主训练模型，第 26 章复用第 24 章评分。
+
+## 第 09–26 章模块导航
+
+以下目录补全早期目录图之后的课程。统一入口保留已有平铺导出，第 14–26 章增加主题命名空间以避免同名函数相互覆盖；直接按目录导入仍是推荐方式。
+
+| 目录 | 内容 | 第 14 章以后的统一入口名称 |
+|---|---|---|
+| `09-connected-components` | 连通域、区域属性 | 既有平铺导出 |
+| `10-text-localization` | 文本行定位与分割 | 既有平铺导出 |
+| `11-feature-extraction` | 特征、距离与归一化 | 既有平铺导出 |
+| `12-template-matching` | 模板与拒识 | 既有平铺导出 |
+| `13-knn-classifier` | 邻居搜索与投票 | 既有平铺导出 |
+| `14-neural-network-basics` | MLP 前向、反向和梯度检查 | `neuralNetwork` |
+| `15-cnn-basics` | 多通道卷积、池化和导数 | `cnn` |
+| `16-tensorflowjs-intro` | 张量、训练、序列化与资源 | `tensorflowjsIntro` |
+| `17-cnn-classifier` | CNN、共享输入规范与特征图 | `digitClassifier` |
+| `18-rnn-basics` | RNN、LSTM、双向状态 | `rnn` |
+| `19-ctc-loss` | 路径折叠、动态规划与解码 | `ctc` |
+| `20-crnn` | CNN + BiLSTM + 可微 CTC | `crnn` |
+| `21-attention` | Q/K/V、遮罩与梯度 | `attention` |
+| `22-text-detection-networks` | DB 运算、几何与区域后处理 | `textDetectionNetworks` |
+| `23-transformer-ocr` | 位置、patch、多头和编码解码 | `transformer` |
+| `24-post-processing` | 编辑距离、CER、先验和过滤 | `postProcessing` |
+| `25-ocr-engine` | 照片预处理、分割、分类流水线 | `ocrEngine` |
+| `26-validation` | 首次预测记录、标注与分组 | `validation` |
+
+```javascript
+const { recognizePhoto } = require('../shared/25-ocr-engine');
+// 或 const { ocrEngine } = require('../shared');
+```
+
+各函数的输入、公式、数值例子和误区见对应章节 README 的知识点对应表。`course.css`、`course.js` 提供浏览器教学样式和导航；构建文件不替代可读源代码。
 
 ## 目录结构
 
@@ -86,7 +118,8 @@ shared/
 |------|------|
 | `createMeanKernel(size)` | 创建均值滤波核 |
 | `createGaussianKernel(size, sigma)` | 创建高斯滤波核 |
-| `convolve(imageData, kernel)` | 卷积操作 |
+| `convolve(imageData, kernel)` | 翻转核后的数学卷积 |
+| `correlate(imageData, kernel)` | 不翻核的互相关；对称滤波核与卷积结果相同 |
 | `meanFilter(imageData, size)` | 均值滤波 |
 | `gaussianFilter(imageData, size, sigma)` | 高斯滤波 |
 | `medianFilter(imageData, size)` | 中值滤波 |

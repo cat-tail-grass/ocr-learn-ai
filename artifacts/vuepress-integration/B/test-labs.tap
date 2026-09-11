@@ -1,0 +1,72 @@
+TAP version 13
+# Subtest: explicit manifest covers 26 HTML entries, 22 bundles, direct scripts, model shards and linked assets
+ok 1 - explicit manifest covers 26 HTML entries, 22 bundles, direct scripts, model shards and linked assets
+  ---
+  duration_ms: 27.965292
+  type: 'test'
+  ...
+# Subtest: all assembled assets preserve bytes and paths, replacing stale output after validation
+ok 2 - all assembled assets preserve bytes and paths, replacing stale output after validation
+  ---
+  duration_ms: 290.942417
+  type: 'test'
+  ...
+# Subtest: missing resources fail with file names and preserve the previous successful assembly
+ok 3 - missing resources fail with file names and preserve the previous successful assembly
+  ---
+  duration_ms: 87.179625
+  type: 'test'
+  ...
+# Subtest: unified build propagates the lab build exit and does not start assembly or VuePress
+ok 4 - unified build propagates the lab build exit and does not start assembly or VuePress
+  ---
+  duration_ms: 31.595458
+  type: 'test'
+  ...
+# Subtest: unified build stops before VuePress when required model assets are missing
+ok 5 - unified build stops before VuePress when required model assets are missing
+  ---
+  duration_ms: 33.358125
+  type: 'test'
+  ...
+# Subtest: preview serves only final output under /, with correct redirects and resource bytes
+ok 6 - preview serves only final output under /, with correct redirects and resource bytes
+  ---
+  duration_ms: 38.145083
+  type: 'test'
+  ...
+# Subtest: preview serves only final output under /ocr/, with correct redirects and resource bytes
+ok 7 - preview serves only final output under /ocr/, with correct redirects and resource bytes
+  ---
+  duration_ms: 16.288917
+  type: 'test'
+  ...
+# Subtest: site option validation keeps all entry points on the same base/host/port/dest contract
+ok 8 - site option validation keeps all entry points on the same base/host/port/dest contract
+  ---
+  duration_ms: 0.268583
+  type: 'test'
+  ...
+# WebGL 数据桥已就绪：http://127.0.0.1:51587（只读配置）
+# 明确允许来源：http://127.0.0.1:4273；打开 http://127.0.0.1:4273/ocr/labs/17-cnn-classifier/train.html?bridge=http%3A%2F%2F127.0.0.1%3A51587
+# Subtest: training bridge config-only accepts explicit local origins and cannot read datasets or write models
+ok 9 - training bridge config-only accepts explicit local origins and cannot read datasets or write models
+  ---
+  duration_ms: 98.184958
+  type: 'test'
+  ...
+# Subtest: all protected model and historical evaluation artifacts retain baseline hashes
+ok 10 - all protected model and historical evaluation artifacts retain baseline hashes
+  ---
+  duration_ms: 5.025375
+  type: 'test'
+  ...
+1..10
+# tests 10
+# suites 0
+# pass 10
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 717.415583

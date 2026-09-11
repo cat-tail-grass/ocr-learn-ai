@@ -138,6 +138,10 @@
 • 通过谷值分割可以定位每个字符
 ```
 
+**输入与数值边界：** 统一黑字为前景 `F(x,y)=1[I(x,y)<128]`。水平投影 `H(y)=Σx F(x,y)` 长度H；垂直投影 `V(x)=Σy F(x,y)` 长度W。使用严格 `projection>maxProjection×ratio` 判断有效行/列，空白图不产生区域。
+
+例如 `[0,3,3,0,2]`、比例0、最小宽/高1，连续区间为 `[1,3)`、`[4,5)`，长度2、1。必须在数组末尾加入虚拟背景哨兵，否则仅最后一列或最后一行的前景会漏检。边界框采用半开区间 `[x,x+width)`；行内列下标dx对应全图 `x=line.x+dx`。
+
 ### 4. RLSA 算法（游程平滑算法）⭐
 
 RLSA（Run Length Smoothing Algorithm）是一种连接相邻像素的算法，常用于将同一行的字符连接成文字块。
@@ -166,6 +170,8 @@ RLSA（Run Length Smoothing Algorithm）是一种连接相邻像素的算法，�
 │                                                                  │
 └──────────────────────────────────────────────────────────────────┘
 ```
+
+本文水平/垂直RLSA只是游程连接原语，图像边界之外不虚构前景，不填充没有两端前景包夹的首尾空白；阈值按**间隙的背景像素数**计算，等于阈值也填充。HTML的先水平再垂直是独立教学对照，可能过度连成块，不等同于原论文包含逻辑组合与区域分类的完整版面分析系统。
 
 **RLSA 参数选择：**
 
@@ -240,6 +246,8 @@ RLSA（Run Length Smoothing Algorithm）是一种连接相邻像素的算法，�
 ```
 
 ### 7. 字符排序
+
+先按区域中心y排序并依当前行中心均值分组，再分别按x排序，最后依行从上到下展平。不能在 `sort` 比较器中使用“若两者y差≤阈值则比x”：例如A=(x20,cy0)、B=(x10,cy4)、C=(x0,cy8)，阈值5，会要求B在A前、C在B前，又要求A在C前，产生排序环。先确定组别后比较才具有一致性。这个中心阈值法仍是启发式，不处理竖排、多栏阅读顺序或复杂混合字号。
 
 将分割出的字符按阅读顺序排列：
 
@@ -358,7 +366,7 @@ function detectTextLines(imageData, options = {}) {
     const projection = calculateHorizontalProjection(imageData);
     
     // 找到投影阈值
-    const maxProjection = Math.max(...projection);
+    const maxProjection = projection.reduce((max, value) => Math.max(max, value), 0);
     const threshold = maxProjection * projectionThreshold;
     
     // 检测行区域
@@ -366,8 +374,8 @@ function detectTextLines(imageData, options = {}) {
     let inLine = false;
     let lineStart = 0;
     
-    for (let y = 0; y < height; y++) {
-        if (!inLine && projection[y] > threshold) {
+    for (let y = 0; y <= height; y++) {
+        if (!inLine && y < height && projection[y] > threshold) {
             inLine = true;
             lineStart = y;
         } else if (inLine && projection[y] <= threshold) {
@@ -492,6 +500,12 @@ node index.js
 
 ---
 
+## 实际主流程及限制
+
+`localizeText` 先提取并筛选连通域，再用候选区域的**真实像素**生成 `filteredImageData`，在该掩码上检测文字行、分割并排序。不能只计算候选数量却仍对原图投影，那样minArea等参数不会影响最终字符。也不能把候选边界框填满，它会抹掉字内孔洞。HTML同样用候选掩码，RLSA另作连接效果对照，防止把整行连接图当作字符图。
+
+这里的面积、比例阈值是示例起点，单位和图像缩放绑定。规则筛选可能误删标点、点状偏旁或细笔画。投影分割只沿低投影列分开，不能保证拆开没有谷值的连笔字；讲义中的合并/二次分割建议未自动实现。返回的是候选区域，不是已经验证的文字检测结果。
+
 ## 数学公式总结
 
 ### 投影阈值计算
@@ -507,12 +521,9 @@ node index.js
 ### 聚类阈值计算
 
 ```
-行间距阈值 = 平均字符高度 × 系数
+同行中心差容忍阈值 = 平均字符高度 × 系数
 
-常用系数：
-- 紧凑排版：0.5 ~ 1.0
-- 标准排版：1.0 ~ 1.5
-- 稀疏排版：1.5 ~ 2.0
+本章默认系数0.5。它是同行中心位置的容忍误差，不是行间距；应小于不同行中心间隔。不能按“稀疏排版”盲目增大到1.5~2.0，否则可能把两行并为一行。
 ```
 
 ### RLSA 阈值计算

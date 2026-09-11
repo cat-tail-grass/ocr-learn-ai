@@ -1,0 +1,532 @@
+{
+  "modelId": "ocr-mnist-cnn-v1-9c7b0b8e8224",
+  "weightsSha256": "9c7b0b8e8224d188ddc38bcaf680dd032753441d6b3413870e7722a457fed90c",
+  "weightBytes": 58152,
+  "createdAt": "2026-09-08T11:52:58.374Z",
+  "config": {
+    "seed": 1701,
+    "trainSize": 55000,
+    "validationSize": 5000,
+    "epochs": 5,
+    "batchSize": 128,
+    "learningRate": 0.001,
+    "augmentation": {
+      "probability": 0.5,
+      "rotationDegrees": [
+        -8,
+        8
+      ],
+      "stretchX": [
+        0.9,
+        1.1
+      ],
+      "regeneratedEachEpoch": true
+    }
+  },
+  "environment": {
+    "nodeBridge": "v24.11.1",
+    "platform": "darwin",
+    "arch": "arm64",
+    "cpu": "Apple M1 Pro",
+    "tfjs": "4.22.0",
+    "backend": "webgl",
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36"
+  },
+  "preprocessing": {
+    "id": "dark-rgba-bbox20-centroid-v1",
+    "width": 28,
+    "height": 28,
+    "foreground": 1,
+    "background": 0,
+    "threshold": 0.08,
+    "contentSize": 20,
+    "centering": "intensity-centroid-rounded",
+    "interpolation": "bilinear"
+  },
+  "sources": [
+    {
+      "file": "train-images-idx3-ubyte.gz",
+      "md5": "f68b3c2dcbeaaa9fbdd348bbdeb94873",
+      "url": "https://storage.googleapis.com/cvdf-datasets/mnist/train-images-idx3-ubyte.gz",
+      "bytes": 9912422,
+      "sha256": "440fcabf73cc546fa21475e81ea370265605f56be210a4024d2ca8f203523609"
+    },
+    {
+      "file": "train-labels-idx1-ubyte.gz",
+      "md5": "d53e105ee54ea40749a09fcbcd1e9432",
+      "url": "https://storage.googleapis.com/cvdf-datasets/mnist/train-labels-idx1-ubyte.gz",
+      "bytes": 28881,
+      "sha256": "3552534a0a558bbed6aed32b30c495cca23d567ec52cac8be1a0730e8010255c"
+    },
+    {
+      "file": "t10k-images-idx3-ubyte.gz",
+      "md5": "9fb629c4189551a2d022fa330f9573f3",
+      "url": "https://storage.googleapis.com/cvdf-datasets/mnist/t10k-images-idx3-ubyte.gz",
+      "bytes": 1648877,
+      "sha256": "8d422c7b0a1c1c79245a5bcf07fe86e33eeafee792b84584aec276f5a2dbc4e6"
+    },
+    {
+      "file": "t10k-labels-idx1-ubyte.gz",
+      "md5": "ec29112dd5afa0611ce80d1b7f02629c",
+      "url": "https://storage.googleapis.com/cvdf-datasets/mnist/t10k-labels-idx1-ubyte.gz",
+      "bytes": 4542,
+      "sha256": "f7ae60f92e00ec6debd23a6088c31dbd2371eca3ffa0defaefb259924204aec6"
+    }
+  ],
+  "parameters": 14538,
+  "bestEpoch": 5,
+  "selection": "minimum validation crossEntropy; test decoded only after epoch 5",
+  "trainingCurve": [
+    {
+      "epoch": 1,
+      "loss": 0.5868533849716187,
+      "accuracy": 0.8186908960342407,
+      "validationLoss": 0.19571077823638916,
+      "validationAccuracy": 0.940000057220459,
+      "seconds": 59.82910000014305
+    },
+    {
+      "epoch": 2,
+      "loss": 0.2158445417881012,
+      "accuracy": 0.9371454119682312,
+      "validationLoss": 0.12128312140703201,
+      "validationAccuracy": 0.963200032711029,
+      "seconds": 19.80040000009537
+    },
+    {
+      "epoch": 3,
+      "loss": 0.15557272732257843,
+      "accuracy": 0.9544000029563904,
+      "validationLoss": 0.09907084703445435,
+      "validationAccuracy": 0.9684000611305237,
+      "seconds": 18.313099999904633
+    },
+    {
+      "epoch": 4,
+      "loss": 0.1296408772468567,
+      "accuracy": 0.9613636136054993,
+      "validationLoss": 0.08182082325220108,
+      "validationAccuracy": 0.9748000502586365,
+      "seconds": 20.464700000047685
+    },
+    {
+      "epoch": 5,
+      "loss": 0.11807399988174438,
+      "accuracy": 0.9651454091072083,
+      "validationLoss": 0.07367528229951859,
+      "validationAccuracy": 0.9780000448226929,
+      "seconds": 19.006200000047684
+    }
+  ],
+  "validation": {
+    "count": 5000,
+    "correct": 4890,
+    "accuracy": 0.978,
+    "confusionMatrix": [
+      [
+        465,
+        0,
+        1,
+        0,
+        1,
+        0,
+        2,
+        0,
+        2,
+        0
+      ],
+      [
+        0,
+        582,
+        4,
+        0,
+        0,
+        0,
+        1,
+        1,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        480,
+        0,
+        2,
+        0,
+        0,
+        2,
+        1,
+        1
+      ],
+      [
+        0,
+        0,
+        2,
+        494,
+        0,
+        3,
+        0,
+        3,
+        0,
+        2
+      ],
+      [
+        0,
+        1,
+        2,
+        0,
+        474,
+        0,
+        3,
+        0,
+        0,
+        5
+      ],
+      [
+        0,
+        0,
+        1,
+        3,
+        0,
+        439,
+        1,
+        0,
+        0,
+        0
+      ],
+      [
+        2,
+        1,
+        0,
+        0,
+        1,
+        2,
+        480,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        3,
+        0,
+        0,
+        0,
+        0,
+        488,
+        1,
+        4
+      ],
+      [
+        1,
+        2,
+        6,
+        2,
+        5,
+        4,
+        5,
+        0,
+        496,
+        3
+      ],
+      [
+        0,
+        2,
+        0,
+        2,
+        2,
+        4,
+        0,
+        9,
+        4,
+        492
+      ]
+    ],
+    "perClass": [
+      {
+        "label": 0,
+        "support": 471,
+        "correct": 465,
+        "recall": 0.9872611464968153,
+        "precision": 0.9935897435897436
+      },
+      {
+        "label": 1,
+        "support": 588,
+        "correct": 582,
+        "recall": 0.9897959183673469,
+        "precision": 0.9881154499151104
+      },
+      {
+        "label": 2,
+        "support": 486,
+        "correct": 480,
+        "recall": 0.9876543209876543,
+        "precision": 0.9619238476953907
+      },
+      {
+        "label": 3,
+        "support": 504,
+        "correct": 494,
+        "recall": 0.9801587301587301,
+        "precision": 0.9860279441117764
+      },
+      {
+        "label": 4,
+        "support": 485,
+        "correct": 474,
+        "recall": 0.977319587628866,
+        "precision": 0.977319587628866
+      },
+      {
+        "label": 5,
+        "support": 444,
+        "correct": 439,
+        "recall": 0.9887387387387387,
+        "precision": 0.9712389380530974
+      },
+      {
+        "label": 6,
+        "support": 486,
+        "correct": 480,
+        "recall": 0.9876543209876543,
+        "precision": 0.975609756097561
+      },
+      {
+        "label": 7,
+        "support": 497,
+        "correct": 488,
+        "recall": 0.9818913480885312,
+        "precision": 0.9701789264413518
+      },
+      {
+        "label": 8,
+        "support": 524,
+        "correct": 496,
+        "recall": 0.9465648854961832,
+        "precision": 0.9841269841269841
+      },
+      {
+        "label": 9,
+        "support": 515,
+        "correct": 492,
+        "recall": 0.9553398058252427,
+        "precision": 0.9704142011834319
+      }
+    ],
+    "crossEntropy": 0.07423155154381314
+  },
+  "test": {
+    "count": 10000,
+    "correct": 9769,
+    "accuracy": 0.9769,
+    "confusionMatrix": [
+      [
+        967,
+        0,
+        0,
+        0,
+        1,
+        0,
+        5,
+        2,
+        4,
+        1
+      ],
+      [
+        0,
+        1128,
+        4,
+        0,
+        0,
+        0,
+        1,
+        2,
+        0,
+        0
+      ],
+      [
+        1,
+        2,
+        1008,
+        6,
+        4,
+        0,
+        1,
+        4,
+        5,
+        1
+      ],
+      [
+        0,
+        0,
+        7,
+        987,
+        0,
+        4,
+        0,
+        7,
+        5,
+        0
+      ],
+      [
+        1,
+        0,
+        1,
+        0,
+        968,
+        0,
+        6,
+        1,
+        0,
+        5
+      ],
+      [
+        1,
+        1,
+        0,
+        9,
+        0,
+        871,
+        6,
+        1,
+        2,
+        1
+      ],
+      [
+        8,
+        1,
+        0,
+        0,
+        2,
+        6,
+        941,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        4,
+        12,
+        2,
+        0,
+        0,
+        0,
+        1008,
+        1,
+        1
+      ],
+      [
+        5,
+        2,
+        8,
+        1,
+        3,
+        5,
+        4,
+        4,
+        941,
+        1
+      ],
+      [
+        1,
+        6,
+        0,
+        4,
+        13,
+        6,
+        1,
+        18,
+        10,
+        950
+      ]
+    ],
+    "perClass": [
+      {
+        "label": 0,
+        "support": 980,
+        "correct": 967,
+        "recall": 0.986734693877551,
+        "precision": 0.9827235772357723
+      },
+      {
+        "label": 1,
+        "support": 1135,
+        "correct": 1128,
+        "recall": 0.9938325991189427,
+        "precision": 0.986013986013986
+      },
+      {
+        "label": 2,
+        "support": 1032,
+        "correct": 1008,
+        "recall": 0.9767441860465116,
+        "precision": 0.9692307692307692
+      },
+      {
+        "label": 3,
+        "support": 1010,
+        "correct": 987,
+        "recall": 0.9772277227722772,
+        "precision": 0.9781962338949455
+      },
+      {
+        "label": 4,
+        "support": 982,
+        "correct": 968,
+        "recall": 0.9857433808553971,
+        "precision": 0.9767911200807265
+      },
+      {
+        "label": 5,
+        "support": 892,
+        "correct": 871,
+        "recall": 0.976457399103139,
+        "precision": 0.976457399103139
+      },
+      {
+        "label": 6,
+        "support": 958,
+        "correct": 941,
+        "recall": 0.9822546972860126,
+        "precision": 0.9751295336787564
+      },
+      {
+        "label": 7,
+        "support": 1028,
+        "correct": 1008,
+        "recall": 0.980544747081712,
+        "precision": 0.9627507163323782
+      },
+      {
+        "label": 8,
+        "support": 974,
+        "correct": 941,
+        "recall": 0.9661190965092402,
+        "precision": 0.9721074380165289
+      },
+      {
+        "label": 9,
+        "support": 1009,
+        "correct": 950,
+        "recall": 0.9415262636273538,
+        "precision": 0.9895833333333334
+      }
+    ],
+    "crossEntropy": 0.07047560696062512
+  },
+  "elapsedSeconds": 151.357,
+  "browserTrainingSeconds": 141.18059999990464,
+  "browserTensorCheck": {
+    "baseline": 0,
+    "afterDispose": 0
+  },
+  "photoEvaluation": {
+    "count": 0,
+    "accuracy": null,
+    "reason": "未提供独立真实照片；MNIST 成绩不能代表照片数字串准确率"
+  }
+}

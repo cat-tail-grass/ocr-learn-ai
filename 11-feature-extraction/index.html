@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>第11章 - 特征提取基础</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22%3E%3Crect width=%2264%22 height=%2264%22 rx=%2214%22 fill=%22%23126451%22/%3E%3Ctext x=%2232%22 y=%2246%22 text-anchor=%22middle%22 font-size=%2244%22 fill=%22white%22 font-family=%22sans-serif%22%3EO%3C/text%3E%3C/svg%3E">
     <style>
         * {
             margin: 0;
@@ -383,8 +384,10 @@
             font-weight: bold;
         }
     </style>
+    <script src="../shared/course.js" defer></script>
 </head>
 <body>
+<nav class="course-nav" aria-label="课程导航"><a href="../../" data-course-catalog><strong>OCR / 学习实验室</strong></a><div class="links"><a href="../../11-feature-extraction/" data-course-doc="11-feature-extraction">返回本章讲义</a><a href="../../" data-course-catalog>课程目录</a><a href="../25-ocr-engine/index.html" data-course-lab="25-ocr-engine">照片识别</a><a href="../26-validation/index.html" data-course-lab="26-validation">评估记录</a></div></nav>
     <div class="container">
         <h1>📊 第11章：特征提取基础</h1>
         <p class="subtitle">将字符图像转换为可用于分类的数值特征向量</p>
@@ -445,7 +448,7 @@
         <div class="card">
             <h2>🔄 Hu 矩（旋转不变特征）</h2>
             <div class="info-box">
-                <p><strong>Hu 矩</strong>是一组 7 个特征，具有平移、尺度和旋转不变性。相似形状的字符（如 0 和 O）具有接近的 Hu 矩值。</p>
+                <p><strong>Hu 矩</strong>是一组 7 个特征，在连续图形上对平移、等比例缩放和旋转不变；栅格重采样只能近似保持，第 7 项在镜像时变号。本页显示的是带符号对数值，不是原始 h。接近零的项对噪声敏感，Hu 距离不保证符合视觉相似性。</p>
             </div>
             <div class="hu-moments" id="huMomentsDisplay">
                 <div class="hu-value"><span class="hu-label">h1</span><span id="hu1">-</span></div>
@@ -463,11 +466,11 @@
             <h2>📊 投影特征</h2>
             <div class="grid-2">
                 <div>
-                    <h3>水平投影（每行前景像素数）</h3>
+                    <h3>水平投影（行计数 / 最大行计数）</h3>
                     <canvas id="hProjectionCanvas" width="300" height="140"></canvas>
                 </div>
                 <div>
-                    <h3>垂直投影（每列前景像素数）</h3>
+                    <h3>垂直投影（列计数 / 最大列计数）</h3>
                     <canvas id="vProjectionCanvas" width="300" height="140"></canvas>
                 </div>
             </div>
@@ -501,7 +504,7 @@
         <div class="card">
             <h2>🎯 HOG 特征（方向梯度直方图）</h2>
             <div class="info-box">
-                <p><strong>HOG（Histogram of Oriented Gradients）</strong>是一种强大的特征描述子。它将图像划分为多个 Cell，计算每个 Cell 的梯度方向直方图，然后进行 Block 归一化。</p>
+                <p><strong>HOG（Histogram of Oriented Gradients）</strong>使用中心差分计算梯度，每个方向按幅值投到一个区间，再做 2×2 Cell 的 L2 归一化。本教学版没有方向/空间插值和 L2-Hys。下图显示真实 Cell 投票量；线方向是梯度方向，垂直于边缘。</p>
             </div>
             <div class="grid-2">
                 <div>
@@ -509,7 +512,7 @@
                     <canvas id="gradientCanvas" width="140" height="140" style="border: 2px solid #ddd; border-radius: 5px;"></canvas>
                 </div>
                 <div>
-                    <h3>HOG 特征可视化</h3>
+                    <h3>Cell 方向直方图（归一化前）</h3>
                     <canvas id="hogCanvas" width="140" height="140" style="border: 2px solid #ddd; border-radius: 5px;"></canvas>
                     <div class="feature-dim" style="margin-top: 10px;">
                         HOG 特征维度：<span id="hogDim">-</span>
@@ -541,7 +544,14 @@
         </div>
     </div>
     
+    <script src="../shared/11-feature-extraction/index.js"></script>
     <script>
+        const {
+            extractStatisticalFeatures, statisticalFeaturesToVector, calculateHuMoments,
+            logTransformHuMoments, extractProjectionFeatures, extractZoneFeatures,
+            extractHOGFeatures, computeHOGCells, computeImageGradients,
+            cropAndCenter, euclideanDistance
+        } = OCRFeatures;
         // ==================== 全局变量 ====================
         const drawCanvas = document.getElementById('drawCanvas');
         const drawCtx = drawCanvas.getContext('2d');
@@ -570,6 +580,7 @@
             
             // 初始化模板
             initTemplates();
+            loadPreset('0');
         }
         
         function startDrawing(e) {
@@ -599,8 +610,9 @@
         
         function getMousePos(e) {
             const rect = drawCanvas.getBoundingClientRect();
-            const x = (e.clientX || e.touches[0].clientX) - rect.left;
-            const y = (e.clientY || e.touches[0].clientY) - rect.top;
+            const point = e.touches ? e.touches[0] : e;
+            const x = (point.clientX - rect.left) * drawCanvas.width / rect.width;
+            const y = (point.clientY - rect.top) * drawCanvas.height / rect.height;
             return [x, y];
         }
         
@@ -643,22 +655,22 @@
         function initTemplates() {
             const templateChars = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'O', 'X'];
             const tempCanvas = document.createElement('canvas');
-            tempCanvas.width = 28;
-            tempCanvas.height = 28;
+            tempCanvas.width = 140;
+            tempCanvas.height = 140;
             const tempCtx = tempCanvas.getContext('2d');
             
             templateChars.forEach(char => {
                 // 绘制字符
                 tempCtx.fillStyle = '#ffffff';
-                tempCtx.fillRect(0, 0, 28, 28);
+                tempCtx.fillRect(0, 0, 140, 140);
                 tempCtx.fillStyle = '#000';
-                tempCtx.font = 'bold 24px Arial';
+                tempCtx.font = 'bold 100px Arial';
                 tempCtx.textAlign = 'center';
                 tempCtx.textBaseline = 'middle';
-                tempCtx.fillText(char, 14, 15);
+                tempCtx.fillText(char, 70, 75);
                 
                 // 获取图像数据并提取特征
-                const imageData = tempCtx.getImageData(0, 0, 28, 28);
+                const imageData = cropAndCenter(tempCtx.getImageData(0, 0, 140, 140), 28);
                 const features = extractAllFeatures(imageData);
                 
                 templates[char] = {
@@ -711,7 +723,7 @@
             const imageData = drawCtx.getImageData(0, 0, drawCanvas.width, drawCanvas.height);
             
             // 归一化到 28×28
-            const normalized = resizeImage(imageData, 28, 28);
+            const normalized = cropAndCenter(imageData, 28);
             
             // 显示归一化后的图像
             const normCanvas = document.getElementById('normalizedCanvas');
@@ -738,7 +750,13 @@
             updateGradientDisplay(normalized);
             updateHOGDisplay(features.hog, normalized);
             updateCombinedDisplay(features);
-            updateTemplateMatching(features);
+            if (features.stats.foregroundCount === 0) {
+                document.getElementById('matchResult').textContent = '空白图像：没有前景字符，不进行匹配。';
+                document.querySelectorAll('.template-item').forEach(el => el.classList.remove('best-match'));
+                document.querySelectorAll('.match-score').forEach(el => { el.textContent = '-'; el.className = 'match-score'; });
+            } else {
+                updateTemplateMatching(features);
+            }
         }
         
         function extractAllFeatures(imageData) {
@@ -774,307 +792,6 @@
                 hog,
                 combined
             };
-        }
-        
-        // ==================== 特征提取函数 ====================
-        
-        function extractStatisticalFeatures(imageData) {
-            const { width, height, data } = imageData;
-            const totalPixels = width * height;
-            
-            let sum = 0;
-            let foregroundCount = 0;
-            let sumX = 0, sumY = 0;
-            
-            for (let y = 0; y < height; y++) {
-                for (let x = 0; x < width; x++) {
-                    const idx = (y * width + x) * 4;
-                    const gray = data[idx];
-                    sum += gray;
-                    
-                    if (gray < 128) {
-                        foregroundCount++;
-                        sumX += x;
-                        sumY += y;
-                    }
-                }
-            }
-            
-            const mean = sum / totalPixels;
-            const fillRatio = foregroundCount / totalPixels;
-            const centroidX = foregroundCount > 0 ? (sumX / foregroundCount) / width : 0.5;
-            const centroidY = foregroundCount > 0 ? (sumY / foregroundCount) / height : 0.5;
-            
-            let varianceSum = 0;
-            for (let y = 0; y < height; y++) {
-                for (let x = 0; x < width; x++) {
-                    const idx = (y * width + x) * 4;
-                    varianceSum += (data[idx] - mean) ** 2;
-                }
-            }
-            const stdDev = Math.sqrt(varianceSum / totalPixels);
-            
-            return {
-                mean: mean / 255,
-                stdDev: stdDev / 255,
-                fillRatio,
-                centroidX,
-                centroidY,
-                foregroundCount
-            };
-        }
-        
-        function statisticalFeaturesToVector(stats) {
-            return [stats.mean, stats.stdDev, stats.fillRatio, stats.centroidX, stats.centroidY];
-        }
-        
-        function calculateRawMoment(imageData, p, q) {
-            const { width, height, data } = imageData;
-            let moment = 0;
-            
-            for (let y = 0; y < height; y++) {
-                for (let x = 0; x < width; x++) {
-                    const idx = (y * width + x) * 4;
-                    const intensity = data[idx] < 128 ? 1 : 0;
-                    moment += Math.pow(x, p) * Math.pow(y, q) * intensity;
-                }
-            }
-            
-            return moment;
-        }
-        
-        function calculateHuMoments(imageData) {
-            const m00 = calculateRawMoment(imageData, 0, 0);
-            const m10 = calculateRawMoment(imageData, 1, 0);
-            const m01 = calculateRawMoment(imageData, 0, 1);
-            const m20 = calculateRawMoment(imageData, 2, 0);
-            const m02 = calculateRawMoment(imageData, 0, 2);
-            const m11 = calculateRawMoment(imageData, 1, 1);
-            const m30 = calculateRawMoment(imageData, 3, 0);
-            const m03 = calculateRawMoment(imageData, 0, 3);
-            const m21 = calculateRawMoment(imageData, 2, 1);
-            const m12 = calculateRawMoment(imageData, 1, 2);
-            
-            if (m00 === 0) return [0, 0, 0, 0, 0, 0, 0];
-            
-            const xBar = m10 / m00;
-            const yBar = m01 / m00;
-            
-            const mu20 = m20 - xBar * m10;
-            const mu02 = m02 - yBar * m01;
-            const mu11 = m11 - xBar * m01;
-            const mu30 = m30 - 3 * xBar * m20 + 2 * xBar * xBar * m10;
-            const mu03 = m03 - 3 * yBar * m02 + 2 * yBar * yBar * m01;
-            const mu21 = m21 - 2 * xBar * m11 - yBar * m20 + 2 * xBar * xBar * m01;
-            const mu12 = m12 - 2 * yBar * m11 - xBar * m02 + 2 * yBar * yBar * m10;
-            
-            const norm = (p, q) => Math.pow(m00, (p + q) / 2 + 1);
-            
-            const eta20 = mu20 / norm(2, 0);
-            const eta02 = mu02 / norm(0, 2);
-            const eta11 = mu11 / norm(1, 1);
-            const eta30 = mu30 / norm(3, 0);
-            const eta03 = mu03 / norm(0, 3);
-            const eta21 = mu21 / norm(2, 1);
-            const eta12 = mu12 / norm(1, 2);
-            
-            const h1 = eta20 + eta02;
-            const h2 = Math.pow(eta20 - eta02, 2) + 4 * Math.pow(eta11, 2);
-            const h3 = Math.pow(eta30 - 3 * eta12, 2) + Math.pow(3 * eta21 - eta03, 2);
-            const h4 = Math.pow(eta30 + eta12, 2) + Math.pow(eta21 + eta03, 2);
-            const h5 = (eta30 - 3 * eta12) * (eta30 + eta12) * 
-                       (Math.pow(eta30 + eta12, 2) - 3 * Math.pow(eta21 + eta03, 2)) +
-                       (3 * eta21 - eta03) * (eta21 + eta03) * 
-                       (3 * Math.pow(eta30 + eta12, 2) - Math.pow(eta21 + eta03, 2));
-            const h6 = (eta20 - eta02) * 
-                       (Math.pow(eta30 + eta12, 2) - Math.pow(eta21 + eta03, 2)) +
-                       4 * eta11 * (eta30 + eta12) * (eta21 + eta03);
-            const h7 = (3 * eta21 - eta03) * (eta30 + eta12) * 
-                       (Math.pow(eta30 + eta12, 2) - 3 * Math.pow(eta21 + eta03, 2)) -
-                       (eta30 - 3 * eta12) * (eta21 + eta03) * 
-                       (3 * Math.pow(eta30 + eta12, 2) - Math.pow(eta21 + eta03, 2));
-            
-            return [h1, h2, h3, h4, h5, h6, h7];
-        }
-        
-        function logTransformHuMoments(huMoments) {
-            return huMoments.map(h => {
-                if (h === 0) return 0;
-                return -Math.sign(h) * Math.log10(Math.abs(h) + 1e-10);
-            });
-        }
-        
-        function extractProjectionFeatures(imageData) {
-            const { width, height, data } = imageData;
-            
-            const horizontal = new Array(height).fill(0);
-            const vertical = new Array(width).fill(0);
-            
-            for (let y = 0; y < height; y++) {
-                for (let x = 0; x < width; x++) {
-                    const idx = (y * width + x) * 4;
-                    if (data[idx] < 128) {
-                        horizontal[y]++;
-                        vertical[x]++;
-                    }
-                }
-            }
-            
-            const maxH = Math.max(...horizontal, 1);
-            const maxV = Math.max(...vertical, 1);
-            
-            return {
-                horizontal: horizontal.map(v => v / maxH),
-                vertical: vertical.map(v => v / maxV),
-                combined: [...horizontal.map(v => v / maxH), ...vertical.map(v => v / maxV)]
-            };
-        }
-        
-        function extractZoneFeatures(imageData, gridSize) {
-            const { width, height, data } = imageData;
-            const cellWidth = width / gridSize;
-            const cellHeight = height / gridSize;
-            
-            const features = [];
-            
-            for (let gy = 0; gy < gridSize; gy++) {
-                for (let gx = 0; gx < gridSize; gx++) {
-                    let foregroundCount = 0;
-                    let totalCount = 0;
-                    
-                    const startX = Math.floor(gx * cellWidth);
-                    const startY = Math.floor(gy * cellHeight);
-                    const endX = Math.floor((gx + 1) * cellWidth);
-                    const endY = Math.floor((gy + 1) * cellHeight);
-                    
-                    for (let y = startY; y < endY && y < height; y++) {
-                        for (let x = startX; x < endX && x < width; x++) {
-                            const idx = (y * width + x) * 4;
-                            totalCount++;
-                            if (data[idx] < 128) foregroundCount++;
-                        }
-                    }
-                    
-                    features.push(totalCount > 0 ? foregroundCount / totalCount : 0);
-                }
-            }
-            
-            return features;
-        }
-        
-        function extractHOGFeatures(imageData) {
-            const { width, height, data } = imageData;
-            const cellSize = 7;
-            const blockSize = 2;
-            const numBins = 9;
-            
-            // 计算梯度
-            const magnitude = new Float32Array(width * height);
-            const direction = new Float32Array(width * height);
-            
-            for (let y = 1; y < height - 1; y++) {
-                for (let x = 1; x < width - 1; x++) {
-                    const idx = y * width + x;
-                    const left = data[((y) * width + (x - 1)) * 4];
-                    const right = data[((y) * width + (x + 1)) * 4];
-                    const up = data[((y - 1) * width + x) * 4];
-                    const down = data[((y + 1) * width + x) * 4];
-                    
-                    const gx = right - left;
-                    const gy = down - up;
-                    
-                    magnitude[idx] = Math.sqrt(gx * gx + gy * gy);
-                    direction[idx] = Math.atan2(gy, gx) * 180 / Math.PI;
-                }
-            }
-            
-            // 计算 Cell 直方图
-            const numCellsX = Math.floor(width / cellSize);
-            const numCellsY = Math.floor(height / cellSize);
-            const binWidth = 180 / numBins;
-            
-            const cellHistograms = [];
-            
-            for (let cy = 0; cy < numCellsY; cy++) {
-                for (let cx = 0; cx < numCellsX; cx++) {
-                    const histogram = new Array(numBins).fill(0);
-                    
-                    for (let y = cy * cellSize; y < (cy + 1) * cellSize && y < height; y++) {
-                        for (let x = cx * cellSize; x < (cx + 1) * cellSize && x < width; x++) {
-                            const idx = y * width + x;
-                            let dir = direction[idx];
-                            if (dir < 0) dir += 180;
-                            if (dir >= 180) dir -= 180;
-                            
-                            const bin = Math.floor(dir / binWidth) % numBins;
-                            histogram[bin] += magnitude[idx];
-                        }
-                    }
-                    
-                    cellHistograms.push(histogram);
-                }
-            }
-            
-            // Block 归一化
-            const numBlocksX = numCellsX - blockSize + 1;
-            const numBlocksY = numCellsY - blockSize + 1;
-            
-            if (numBlocksX <= 0 || numBlocksY <= 0) return [];
-            
-            const features = [];
-            
-            for (let by = 0; by < numBlocksY; by++) {
-                for (let bx = 0; bx < numBlocksX; bx++) {
-                    const blockFeatures = [];
-                    
-                    for (let dy = 0; dy < blockSize; dy++) {
-                        for (let dx = 0; dx < blockSize; dx++) {
-                            const cellIdx = (by + dy) * numCellsX + (bx + dx);
-                            blockFeatures.push(...cellHistograms[cellIdx]);
-                        }
-                    }
-                    
-                    const norm = Math.sqrt(blockFeatures.reduce((sum, val) => sum + val * val, 0) + 1e-6);
-                    features.push(...blockFeatures.map(v => v / norm));
-                }
-            }
-            
-            return features;
-        }
-        
-        function resizeImage(imageData, targetWidth, targetHeight) {
-            const { width: srcWidth, height: srcHeight, data: srcData } = imageData;
-            
-            const result = new ImageData(targetWidth, targetHeight);
-            const dstData = result.data;
-            
-            const scaleX = srcWidth / targetWidth;
-            const scaleY = srcHeight / targetHeight;
-            
-            for (let y = 0; y < targetHeight; y++) {
-                for (let x = 0; x < targetWidth; x++) {
-                    const srcX = Math.min(Math.floor(x * scaleX), srcWidth - 1);
-                    const srcY = Math.min(Math.floor(y * scaleY), srcHeight - 1);
-                    
-                    const srcIdx = (srcY * srcWidth + srcX) * 4;
-                    const dstIdx = (y * targetWidth + x) * 4;
-                    
-                    dstData[dstIdx] = srcData[srcIdx];
-                    dstData[dstIdx + 1] = srcData[srcIdx + 1];
-                    dstData[dstIdx + 2] = srcData[srcIdx + 2];
-                    dstData[dstIdx + 3] = srcData[srcIdx + 3];
-                }
-            }
-            
-            return result;
-        }
-        
-        function euclideanDistance(a, b) {
-            let sum = 0;
-            for (let i = 0; i < a.length; i++) {
-                sum += (a[i] - b[i]) ** 2;
-            }
-            return Math.sqrt(sum);
         }
         
         // ==================== 显示更新函数 ====================
@@ -1155,32 +872,16 @@
         }
         
         function updateGradientDisplay(imageData) {
-            const { width, height, data } = imageData;
+            const { width, height } = imageData;
             const canvas = document.getElementById('gradientCanvas');
             const ctx = canvas.getContext('2d');
-            
+            const { magnitude } = computeImageGradients(imageData);
             const gradientData = new ImageData(width, height);
-            
-            for (let y = 1; y < height - 1; y++) {
-                for (let x = 1; x < width - 1; x++) {
-                    const left = data[((y) * width + (x - 1)) * 4];
-                    const right = data[((y) * width + (x + 1)) * 4];
-                    const up = data[((y - 1) * width + x) * 4];
-                    const down = data[((y + 1) * width + x) * 4];
-                    
-                    const gx = right - left;
-                    const gy = down - up;
-                    const mag = Math.sqrt(gx * gx + gy * gy);
-                    const normalized = Math.min(255, mag);
-                    
-                    const idx = (y * width + x) * 4;
-                    gradientData.data[idx] = normalized;
-                    gradientData.data[idx + 1] = normalized;
-                    gradientData.data[idx + 2] = normalized;
-                    gradientData.data[idx + 3] = 255;
-                }
+            for (let i = 0; i < magnitude.length; i++) {
+                const value = Math.min(255, magnitude[i]);
+                gradientData.data[i * 4] = gradientData.data[i * 4 + 1] = gradientData.data[i * 4 + 2] = value;
+                gradientData.data[i * 4 + 3] = 255;
             }
-            
             const tempCanvas = document.createElement('canvas');
             tempCanvas.width = width;
             tempCanvas.height = height;
@@ -1195,77 +896,36 @@
         function updateHOGDisplay(hog, imageData) {
             const canvas = document.getElementById('hogCanvas');
             const ctx = canvas.getContext('2d');
-            ctx.clearRect(0, 0, 140, 140);
-            
-            // 显示 HOG 可视化（简化版）
-            const cellSize = 35; // 140 / 4
-            const numBins = 9;
-            const binAngle = 180 / numBins;
-            
-            // 从 HOG 特征重建 Cell 直方图
-            // 简化显示：每个 Cell 显示主方向
-            const numCellsX = 4;
-            const numCellsY = 4;
-            
-            for (let cy = 0; cy < numCellsY; cy++) {
-                for (let cx = 0; cx < numCellsX; cx++) {
-                    const centerX = cx * cellSize + cellSize / 2;
-                    const centerY = cy * cellSize + cellSize / 2;
-                    
-                    // 计算该 Cell 区域的主要梯度方向
-                    const { width, height, data } = imageData;
-                    let maxMag = 0;
-                    let mainDir = 0;
-                    
-                    const startX = Math.floor(cx * 7);
-                    const startY = Math.floor(cy * 7);
-                    
-                    for (let y = startY; y < startY + 7 && y < height - 1; y++) {
-                        for (let x = startX; x < startX + 7 && x < width - 1; x++) {
-                            const left = data[((y) * width + (x - 1)) * 4];
-                            const right = data[((y) * width + (x + 1)) * 4];
-                            const up = data[((y - 1) * width + x) * 4];
-                            const down = data[((y + 1) * width + x) * 4];
-                            
-                            const gx = right - left;
-                            const gy = down - up;
-                            const mag = Math.sqrt(gx * gx + gy * gy);
-                            
-                            if (mag > maxMag) {
-                                maxMag = mag;
-                                mainDir = Math.atan2(gy, gx);
-                            }
-                        }
-                    }
-                    
-                    // 绘制方向线
-                    if (maxMag > 10) {
-                        const lineLength = Math.min(15, maxMag / 10);
-                        ctx.beginPath();
-                        ctx.moveTo(
-                            centerX - Math.cos(mainDir) * lineLength,
-                            centerY - Math.sin(mainDir) * lineLength
-                        );
-                        ctx.lineTo(
-                            centerX + Math.cos(mainDir) * lineLength,
-                            centerY + Math.sin(mainDir) * lineLength
-                        );
-                        ctx.strokeStyle = `rgba(102, 126, 234, ${Math.min(1, maxMag / 200)})`;
-                        ctx.lineWidth = 2;
-                        ctx.stroke();
-                    }
-                }
-            }
-            
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            const cells = computeHOGCells(imageData);
+            const cellWidth = canvas.width / cells.numCellsX;
+            const cellHeight = canvas.height / cells.numCellsY;
+            const maxVote = Math.max(1, ...cells.histograms.flat());
+            cells.histograms.forEach((histogram, index) => {
+                const cx = (index % cells.numCellsX + 0.5) * cellWidth;
+                const cy = (Math.floor(index / cells.numCellsX) + 0.5) * cellHeight;
+                histogram.forEach((vote, bin) => {
+                    if (vote === 0) return;
+                    // 硬分箱 [bin*w, (bin+1)*w)，显示该区间中点。
+                    const angle = (bin + 0.5) * cells.binWidth * Math.PI / 180;
+                    const halfLength = 0.43 * Math.min(cellWidth, cellHeight) * vote / maxVote;
+                    ctx.beginPath();
+                    ctx.moveTo(cx - Math.cos(angle) * halfLength, cy - Math.sin(angle) * halfLength);
+                    ctx.lineTo(cx + Math.cos(angle) * halfLength, cy + Math.sin(angle) * halfLength);
+                    ctx.strokeStyle = '#667eea';
+                    ctx.lineWidth = 2;
+                    ctx.stroke();
+                });
+            });
             document.getElementById('hogDim').textContent = hog.length;
         }
-        
+
         function updateCombinedDisplay(features) {
             const combined = features.combined;
             const dim = combined.length;
             
             document.getElementById('combinedDim').textContent = 
-                `总维度：${dim}（统计: 5 + Hu矩: 7 + 投影: ${features.projection.combined.length} + 网格: 16）`;
+                `总维度：${dim}（统计: 6 + Hu矩: 7 + 投影: ${features.projection.combined.length} + 网格: 16）`;
             
             const display = document.getElementById('combinedFeatures');
             display.textContent = '[' + combined.map(v => v.toFixed(4)).join(', ') + ']';

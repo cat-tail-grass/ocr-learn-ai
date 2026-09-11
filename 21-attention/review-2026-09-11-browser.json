@@ -1,0 +1,51 @@
+{
+  "date": "2026-09-11",
+  "reviewer": "F",
+  "session": "ocr-review-F-20260911",
+  "url": "http://127.0.0.1:4186/21-attention/",
+  "checks": [
+    {
+      "data": "查询 0 的权重和 = 1.00000000；输出 = [8.02224,11.97776]。输出维度由 V 决定。",
+      "name": "default-hand-result",
+      "pass": true
+    },
+    {
+      "data": "01.00000.00000.0000",
+      "name": "causal-zero-weights",
+      "pass": true
+    },
+    {
+      "data": [
+        "010.00000.0000",
+        "13.302413.3952"
+      ],
+      "name": "future-V-invariance",
+      "pass": true
+    },
+    {
+      "data": "计算完成：Q 1×2，K 3×2，V 3×2，输出 1×2",
+      "name": "cross-shape",
+      "pass": true
+    },
+    {
+      "data": "输入有误：attention score overflow after scaling",
+      "name": "scaling-overflow-clears-results",
+      "pass": true
+    },
+    {
+      "data": "输入有误：Unexpected token 'b', \"bad json\" is not valid JSON",
+      "name": "bad-json-error",
+      "pass": true
+    },
+    {
+      "data": {
+        "loss": 0.0025581181202325104,
+        "prediction": 0.8284721296244253,
+        "step": 120
+      },
+      "name": "120-step-query-loss",
+      "pass": true
+    }
+  ],
+  "bundleSHA256": "e7ffa06a4b272c0ccfec035e5bd2d7001778a0685806bd8123a86e7941384af7"
+}

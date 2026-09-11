@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>17 · 自主 CNN WebGL 训练</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22%3E%3Crect width=%2264%22 height=%2264%22 rx=%2214%22 fill=%22%23126451%22/%3E%3Ctext x=%2232%22 y=%2246%22 text-anchor=%22middle%22 font-size=%2244%22 fill=%22white%22 font-family=%22sans-serif%22%3EO%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="../shared/course.css">
+</head>
+<body data-page="train">
+<nav class="course-nav" aria-label="课程导航"><a href="../../" data-course-catalog><strong>OCR / 学习实验室</strong></a><div class="links"><a href="../../17-cnn-classifier/" data-course-doc="17-cnn-classifier">返回本章讲义</a><a href="../../" data-course-catalog>课程目录</a><a href="../25-ocr-engine/index.html" data-course-lab="25-ocr-engine">照片识别</a><a href="../26-validation/index.html" data-course-lab="26-validation">评估记录</a></div></nav>
+<main>
+  <h1>自主 CNN · WebGL 真实训练</h1>
+  <p>先运行本章 train-webgl.js 数据桥。55,000 训练 / 5,000 验证，5 轮，初始化/划分/增强种子 1701。新训练的 Dropout 每次重新采样；已保存历史模型采用固定掩码，两种策略不能混称同一次训练。选取验证损失最低模型之后，才用原始测试集评价。数据及模型仅在本机传输。</p>
+  <section class="card">
+    <h2>连接本机数据桥</h2>
+    <p>先在项目目录运行 <code>node 17-cnn-classifier/train-webgl.js --config-only</code>，再检查连接。此模式只读取配置；实际训练时须重启数据桥并指定新的输出目录。</p>
+    <div class="actions">
+      <label for="bridge-url">数据桥地址</label>
+      <input id="bridge-url" type="url" value="http://127.0.0.1:4174" size="32" spellcheck="false">
+      <button type="button" id="check-bridge" class="secondary">检查连接（只读配置）</button>
+    </div>
+    <p id="bridge-origin" class="hint"></p>
+    <pre id="bridge-status" role="status" aria-live="polite">尚未检查连接。</pre>
+    <p class="hint">数据桥使用 OCR_TRAIN_ORIGINS 明确允许页面来源，使用 OCR_TRAIN_PORT 指定端口；默认页面来源为 http://127.0.0.1:4173。部署在 /ocr/ 时来源不含 /ocr/。完整步骤见<a href="../../17-cnn-classifier/" data-course-doc="17-cnn-classifier">本章讲义</a>。</p>
+  </section>
+  <button type="button" id="train">开始真实训练</button>
+  <pre id="training-log" role="status" aria-live="polite"></pre>
+</main>
+<script src="../shared/course.js"></script>
+<script src="bundle.js"></script>
+</body>
+</html>

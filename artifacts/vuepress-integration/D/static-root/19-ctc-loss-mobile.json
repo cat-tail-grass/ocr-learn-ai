@@ -1,0 +1,111 @@
+{
+  "details": true,
+  "localScroll": [
+    {
+      "overflow": "auto",
+      "scroll": 548,
+      "tag": "PRE",
+      "width": 302
+    },
+    {
+      "overflow": "auto",
+      "scroll": 481,
+      "tag": "PRE",
+      "width": 302
+    },
+    {
+      "overflow": "auto",
+      "scroll": 582,
+      "tag": "PRE",
+      "width": 302
+    },
+    {
+      "overflow": "auto",
+      "scroll": 539,
+      "tag": "TABLE",
+      "width": 350
+    },
+    {
+      "overflow": "auto",
+      "scroll": 426,
+      "tag": "SPAN",
+      "width": 350
+    },
+    {
+      "overflow": "auto",
+      "scroll": 477,
+      "tag": "SPAN",
+      "width": 350
+    },
+    {
+      "overflow": "auto",
+      "scroll": 646,
+      "tag": "TABLE",
+      "width": 350
+    },
+    {
+      "overflow": "auto",
+      "scroll": 426,
+      "tag": "SPAN",
+      "width": 350
+    },
+    {
+      "overflow": "auto",
+      "scroll": 416,
+      "tag": "SPAN",
+      "width": 350
+    },
+    {
+      "overflow": "auto",
+      "scroll": 539,
+      "tag": "TABLE",
+      "width": 350
+    },
+    {
+      "overflow": "auto",
+      "scroll": 591,
+      "tag": "PRE",
+      "width": 302
+    },
+    {
+      "overflow": "auto",
+      "scroll": 327,
+      "tag": "PRE",
+      "width": 302
+    },
+    {
+      "overflow": "auto",
+      "scroll": 338,
+      "tag": "PRE",
+      "width": 302
+    },
+    {
+      "overflow": "auto",
+      "scroll": 431,
+      "tag": "TABLE",
+      "width": 350
+    },
+    {
+      "overflow": "auto",
+      "scroll": 431,
+      "tag": "TABLE",
+      "width": 350
+    },
+    {
+      "overflow": "auto",
+      "scroll": 481,
+      "tag": "PRE",
+      "width": 302
+    },
+    {
+      "overflow": "auto",
+      "scroll": 708,
+      "tag": "PRE",
+      "width": 302
+    }
+  ],
+  "math": 13,
+  "menu": "<div class=\"vp-toggle-sidebar-button\" title=\"打开课程目录\" aria-expanded=\"false\" role=\"button\" tabindex=\"0\"><div class=\"icon\" aria-hidden=\"true\"><span></span><span></span><span></span></div></div>",
+  "scroll": 390,
+  "width": 390
+}

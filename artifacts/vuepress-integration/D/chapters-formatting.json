@@ -1,0 +1,54 @@
+{
+  "format": "Valid JSON array, one compact object per chapter; all values preserved.",
+  "files": [
+    {
+      "file": "dev-root/chapters.json",
+      "chapters": 26,
+      "lines": 28,
+      "canonicalSha256": "0d5a6af6ab4ea08c5a899bfd88685abc99d7dcded42543ced5a881ec96297d85",
+      "valuesUnchanged": true
+    },
+    {
+      "file": "dev-root-attempt1/chapters.json",
+      "chapters": 26,
+      "lines": 28,
+      "canonicalSha256": "7bbcf7398f77db4a153c8b810a3a68d5419d4cf936457e2c7a46dbd2330464ad",
+      "valuesUnchanged": true
+    },
+    {
+      "file": "dev-root-pass/chapters.json",
+      "chapters": 26,
+      "lines": 28,
+      "canonicalSha256": "0802ff16aac95748ae934668ae0aee048f7bf2e6d4760f6431d06776c3969b71",
+      "valuesUnchanged": true
+    },
+    {
+      "file": "dev-root-verified/chapters.json",
+      "chapters": 26,
+      "lines": 28,
+      "canonicalSha256": "d784367382ed5195cad6fe16608cc62f270ef1654178d03dc0c9aef0a9910cdf",
+      "valuesUnchanged": true
+    },
+    {
+      "file": "dev-subdir/chapters.json",
+      "chapters": 26,
+      "lines": 28,
+      "canonicalSha256": "2013f3a06b6c4bf09b206cfc689c7883e4d2530508191564e69dde8fc9e103e8",
+      "valuesUnchanged": true
+    },
+    {
+      "file": "static-ocr/chapters.json",
+      "chapters": 26,
+      "lines": 28,
+      "canonicalSha256": "d711d1c09a6eff746bf5e101cf0a7dc49e1289df537096e1aca864f8ebb0f256",
+      "valuesUnchanged": true
+    },
+    {
+      "file": "static-root/chapters.json",
+      "chapters": 26,
+      "lines": 28,
+      "canonicalSha256": "8079ebc37e95cae2e77da84a26be64f5d7cfccf800948b1cddff78bd431159ec",
+      "valuesUnchanged": true
+    }
+  ]
+}

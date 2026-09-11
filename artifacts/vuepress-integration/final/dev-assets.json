@@ -1,0 +1,474 @@
+{
+  "files": 78,
+  "failed": [],
+  "rows": [
+    {
+      "file": "01-image-fundamentals/index.html",
+      "status": 200,
+      "type": "text/html;charset=utf-8",
+      "bytes": 29439
+    },
+    {
+      "file": "02-js-image-basics/index.html",
+      "status": 200,
+      "type": "text/html;charset=utf-8",
+      "bytes": 39124
+    },
+    {
+      "file": "03-grayscale/index.html",
+      "status": 200,
+      "type": "text/html;charset=utf-8",
+      "bytes": 29181
+    },
+    {
+      "file": "04-binarization/index.html",
+      "status": 200,
+      "type": "text/html;charset=utf-8",
+      "bytes": 39098
+    },
+    {
+      "file": "05-denoising/index.html",
+      "status": 200,
+      "type": "text/html;charset=utf-8",
+      "bytes": 35439
+    },
+    {
+      "file": "06-morphology/index.html",
+      "status": 200,
+      "type": "text/html;charset=utf-8",
+      "bytes": 38154
+    },
+    {
+      "file": "07-deskewing/index.html",
+      "status": 200,
+      "type": "text/html;charset=utf-8",
+      "bytes": 36787
+    },
+    {
+      "file": "08-edge-detection/index.html",
+      "status": 200,
+      "type": "text/html;charset=utf-8",
+      "bytes": 26154
+    },
+    {
+      "file": "09-connected-components/index.html",
+      "status": 200,
+      "type": "text/html;charset=utf-8",
+      "bytes": 27627
+    },
+    {
+      "file": "10-text-localization/index.html",
+      "status": 200,
+      "type": "text/html;charset=utf-8",
+      "bytes": 31193
+    },
+    {
+      "file": "11-feature-extraction/index.html",
+      "status": 200,
+      "type": "text/html;charset=utf-8",
+      "bytes": 36343
+    },
+    {
+      "file": "12-template-matching/index.html",
+      "status": 200,
+      "type": "text/html;charset=utf-8",
+      "bytes": 29313
+    },
+    {
+      "file": "13-knn-classifier/index.html",
+      "status": 200,
+      "type": "text/html;charset=utf-8",
+      "bytes": 25129
+    },
+    {
+      "file": "14-neural-network-basics/index.html",
+      "status": 200,
+      "type": "text/html;charset=utf-8",
+      "bytes": 6639
+    },
+    {
+      "file": "15-cnn-basics/index.html",
+      "status": 200,
+      "type": "text/html;charset=utf-8",
+      "bytes": 6246
+    },
+    {
+      "file": "16-tensorflowjs-intro/index.html",
+      "status": 200,
+      "type": "text/html;charset=utf-8",
+      "bytes": 4074
+    },
+    {
+      "file": "17-cnn-classifier/index.html",
+      "status": 200,
+      "type": "text/html;charset=utf-8",
+      "bytes": 5701
+    },
+    {
+      "file": "18-rnn-basics/index.html",
+      "status": 200,
+      "type": "text/html;charset=utf-8",
+      "bytes": 3559
+    },
+    {
+      "file": "19-ctc-loss/index.html",
+      "status": 200,
+      "type": "text/html;charset=utf-8",
+      "bytes": 3773
+    },
+    {
+      "file": "20-crnn/index.html",
+      "status": 200,
+      "type": "text/html;charset=utf-8",
+      "bytes": 5343
+    },
+    {
+      "file": "21-attention/index.html",
+      "status": 200,
+      "type": "text/html;charset=utf-8",
+      "bytes": 5327
+    },
+    {
+      "file": "22-text-detection-networks/index.html",
+      "status": 200,
+      "type": "text/html;charset=utf-8",
+      "bytes": 7348
+    },
+    {
+      "file": "23-transformer-ocr/index.html",
+      "status": 200,
+      "type": "text/html;charset=utf-8",
+      "bytes": 6557
+    },
+    {
+      "file": "24-post-processing/index.html",
+      "status": 200,
+      "type": "text/html;charset=utf-8",
+      "bytes": 17721
+    },
+    {
+      "file": "25-ocr-engine/index.html",
+      "status": 200,
+      "type": "text/html;charset=utf-8",
+      "bytes": 9339
+    },
+    {
+      "file": "26-validation/index.html",
+      "status": 200,
+      "type": "text/html;charset=utf-8",
+      "bytes": 6197
+    },
+    {
+      "file": "02-js-image-basics/bundle.js",
+      "status": 200,
+      "type": "text/javascript",
+      "bytes": 3654
+    },
+    {
+      "file": "03-grayscale/bundle.js",
+      "status": 200,
+      "type": "text/javascript",
+      "bytes": 4959
+    },
+    {
+      "file": "04-binarization/bundle.js",
+      "status": 200,
+      "type": "text/javascript",
+      "bytes": 6937
+    },
+    {
+      "file": "05-denoising/bundle.js",
+      "status": 200,
+      "type": "text/javascript",
+      "bytes": 9296
+    },
+    {
+      "file": "06-morphology/bundle.js",
+      "status": 200,
+      "type": "text/javascript",
+      "bytes": 9701
+    },
+    {
+      "file": "07-deskewing/bundle.js",
+      "status": 200,
+      "type": "text/javascript",
+      "bytes": 11412
+    },
+    {
+      "file": "08-edge-detection/bundle.js",
+      "status": 200,
+      "type": "text/javascript",
+      "bytes": 14004
+    },
+    {
+      "file": "09-connected-components/bundle.js",
+      "status": 200,
+      "type": "text/javascript",
+      "bytes": 10129
+    },
+    {
+      "file": "10-text-localization/bundle.js",
+      "status": 200,
+      "type": "text/javascript",
+      "bytes": 18906
+    },
+    {
+      "file": "14-neural-network-basics/bundle.js",
+      "status": 200,
+      "type": "text/javascript",
+      "bytes": 13336
+    },
+    {
+      "file": "15-cnn-basics/bundle.js",
+      "status": 200,
+      "type": "text/javascript",
+      "bytes": 12620
+    },
+    {
+      "file": "16-tensorflowjs-intro/bundle.js",
+      "status": 200,
+      "type": "text/javascript",
+      "bytes": 1864577
+    },
+    {
+      "file": "17-cnn-classifier/bundle.js",
+      "status": 200,
+      "type": "text/javascript",
+      "bytes": 1882679
+    },
+    {
+      "file": "18-rnn-basics/bundle.js",
+      "status": 200,
+      "type": "text/javascript",
+      "bytes": 5945
+    },
+    {
+      "file": "19-ctc-loss/bundle.js",
+      "status": 200,
+      "type": "text/javascript",
+      "bytes": 9000
+    },
+    {
+      "file": "20-crnn/bundle.js",
+      "status": 200,
+      "type": "text/javascript",
+      "bytes": 1879879
+    },
+    {
+      "file": "21-attention/bundle.js",
+      "status": 200,
+      "type": "text/javascript",
+      "bytes": 7822
+    },
+    {
+      "file": "22-text-detection-networks/bundle.js",
+      "status": 200,
+      "type": "text/javascript",
+      "bytes": 8564
+    },
+    {
+      "file": "23-transformer-ocr/bundle.js",
+      "status": 200,
+      "type": "text/javascript",
+      "bytes": 15418
+    },
+    {
+      "file": "24-post-processing/bundle.js",
+      "status": 200,
+      "type": "text/javascript",
+      "bytes": 21919
+    },
+    {
+      "file": "25-ocr-engine/bundle.js",
+      "status": 200,
+      "type": "text/javascript",
+      "bytes": 1918157
+    },
+    {
+      "file": "26-validation/bundle.js",
+      "status": 200,
+      "type": "text/javascript",
+      "bytes": 15762
+    },
+    {
+      "file": "shared/course.css",
+      "status": 200,
+      "type": "text/css",
+      "bytes": 3988
+    },
+    {
+      "file": "shared/course.js",
+      "status": 200,
+      "type": "text/javascript",
+      "bytes": 2157
+    },
+    {
+      "file": "shared/11-feature-extraction/index.js",
+      "status": 200,
+      "type": "text/javascript",
+      "bytes": 31447
+    },
+    {
+      "file": "shared/12-template-matching/index.js",
+      "status": 200,
+      "type": "text/javascript",
+      "bytes": 19321
+    },
+    {
+      "file": "shared/13-knn-classifier/index.js",
+      "status": 200,
+      "type": "text/javascript",
+      "bytes": 25905
+    },
+    {
+      "file": "shared/13-knn-classifier/demoDataset.js",
+      "status": 200,
+      "type": "text/javascript",
+      "bytes": 10861
+    },
+    {
+      "file": "17-cnn-classifier/train.html",
+      "status": 200,
+      "type": "text/html;charset=utf-8",
+      "bytes": 2755
+    },
+    {
+      "file": "17-cnn-classifier/model/model.json",
+      "status": 200,
+      "type": "application/json",
+      "bytes": 6947
+    },
+    {
+      "file": "17-cnn-classifier/model/weights.bin",
+      "status": 200,
+      "type": "application/octet-stream",
+      "bytes": 58152
+    },
+    {
+      "file": "17-cnn-classifier/model/config.json",
+      "status": 200,
+      "type": "application/json",
+      "bytes": 2177
+    },
+    {
+      "file": "17-cnn-classifier/model/inference-verification.json",
+      "status": 200,
+      "type": "application/json",
+      "bytes": 24970
+    },
+    {
+      "file": "17-cnn-classifier/model/split.json",
+      "status": 200,
+      "type": "application/json",
+      "bytes": 349002
+    },
+    {
+      "file": "17-cnn-classifier/model/test-predictions.json",
+      "status": 200,
+      "type": "application/json",
+      "bytes": 40101
+    },
+    {
+      "file": "17-cnn-classifier/model/training-curve.json",
+      "status": 200,
+      "type": "application/json",
+      "bytes": 1080
+    },
+    {
+      "file": "17-cnn-classifier/model/training-report.json",
+      "status": 200,
+      "type": "application/json",
+      "bytes": 10179
+    },
+    {
+      "file": "17-cnn-classifier/validation-samples.json",
+      "status": 200,
+      "type": "application/json",
+      "bytes": 19043
+    },
+    {
+      "file": "20-crnn/model/weights.json",
+      "status": 200,
+      "type": "application/json",
+      "bytes": 34098
+    },
+    {
+      "file": "20-crnn/training-report.json",
+      "status": 200,
+      "type": "application/json",
+      "bytes": 10954
+    },
+    {
+      "file": "26-validation/fixtures/development-line.png",
+      "status": 200,
+      "type": "image/png",
+      "bytes": 17459
+    },
+    {
+      "file": "24-post-processing/browser-qa-results.json",
+      "status": 200,
+      "type": "application/json",
+      "bytes": 3815
+    },
+    {
+      "file": "24-post-processing/browser-qa-desktop.png",
+      "status": 200,
+      "type": "image/png",
+      "bytes": 104967
+    },
+    {
+      "file": "25-ocr-engine/index.js",
+      "status": 200,
+      "type": "text/javascript",
+      "bytes": 7768
+    },
+    {
+      "file": "26-validation/index.js",
+      "status": 200,
+      "type": "text/javascript",
+      "bytes": 7841
+    },
+    {
+      "file": "26-validation/development-report.json",
+      "status": 200,
+      "type": "application/json",
+      "bytes": 34469
+    },
+    {
+      "file": "26-validation/test-report.json",
+      "status": 200,
+      "type": "application/json",
+      "bytes": 35618
+    },
+    {
+      "file": "26-validation/test-freeze.json",
+      "status": 200,
+      "type": "application/json",
+      "bytes": 351
+    },
+    {
+      "file": "26-validation/test-manifest.json",
+      "status": 200,
+      "type": "application/json",
+      "bytes": 5342
+    },
+    {
+      "file": "shared/24-post-processing/index.js",
+      "status": 200,
+      "type": "text/javascript",
+      "bytes": 15745
+    },
+    {
+      "file": "shared/25-ocr-engine/index.js",
+      "status": 200,
+      "type": "text/javascript",
+      "bytes": 12559
+    },
+    {
+      "file": "shared/26-validation/index.js",
+      "status": 200,
+      "type": "text/javascript",
+      "bytes": 4111
+    }
+  ]
+}

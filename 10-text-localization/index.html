@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>10. 文本区域定位 - OCR 学习</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22%3E%3Crect width=%2264%22 height=%2264%22 rx=%2214%22 fill=%22%23126451%22/%3E%3Ctext x=%2232%22 y=%2246%22 text-anchor=%22middle%22 font-size=%2244%22 fill=%22white%22 font-family=%22sans-serif%22%3EO%3C/text%3E%3C/svg%3E">
     <style>
         * {
             box-sizing: border-box;
@@ -303,8 +304,11 @@
             color: #888;
         }
     </style>
+    <script src="../shared/course.js" defer></script>
 </head>
 <body>
+<nav class="course-nav" aria-label="课程导航"><a href="../../" data-course-catalog><strong>OCR / 学习实验室</strong></a><div class="links"><a href="../../10-text-localization/" data-course-doc="10-text-localization">返回本章讲义</a><a href="../../" data-course-catalog>课程目录</a><a href="../25-ocr-engine/index.html" data-course-lab="25-ocr-engine">照片识别</a><a href="../26-validation/index.html" data-course-lab="26-validation">评估记录</a></div></nav>
+    <p style="max-width:1400px;margin:12px auto;color:#aaa">主流程：黑前景连通域 → 候选像素掩码 → 水平投影分行 → 行内垂直投影分割 → 先分行再按x排序。RLSA是独立对照画布，用于观察连接作用，不送入字符分割；它可能合并字符和相邻行。</p>
     <div class="container">
         <header>
             <h1>📍 10. 文本区域定位</h1>
@@ -487,7 +491,10 @@
         </div>
     </div>
     
+    <script src="bundle.js"></script>
     <script>
+        const { cloneImageData, getPixel, setPixel, horizontalRLSA, verticalRLSA, labelConnectedComponents, extractRegionProperties, colorizeLabels, calculateHorizontalProjection, calculateVerticalProjection, detectTextLines, segmentCharacters, sortCharacters, maskCandidateRegions, filterCandidateCharacters } = LessonAlgorithms;
+
         // ==================== 全局变量 ====================
         let originalImageData = null;
         let binaryImageData = null;
@@ -508,429 +515,39 @@
             contexts[key] = canvas.getContext('2d');
         }
         
-        // ==================== 辅助函数 ====================
         
-        function cloneImageData(imageData) {
-            const newData = new ImageData(imageData.width, imageData.height);
-            newData.data.set(imageData.data);
-            return newData;
-        }
         
-        function getPixel(imageData, x, y) {
-            if (x < 0 || x >= imageData.width || y < 0 || y >= imageData.height) {
-                return { r: 255, g: 255, b: 255, a: 255 };
-            }
-            const idx = (y * imageData.width + x) * 4;
-            return {
-                r: imageData.data[idx],
-                g: imageData.data[idx + 1],
-                b: imageData.data[idx + 2],
-                a: imageData.data[idx + 3]
-            };
-        }
         
-        function setPixel(imageData, x, y, r, g, b, a = 255) {
-            if (x < 0 || x >= imageData.width || y < 0 || y >= imageData.height) return;
-            const idx = (y * imageData.width + x) * 4;
-            imageData.data[idx] = r;
-            imageData.data[idx + 1] = g;
-            imageData.data[idx + 2] = b;
-            imageData.data[idx + 3] = a;
-        }
+
+
         
         // ==================== 图像处理算法 ====================
         
-        // 灰度化
-        function grayscale(imageData) {
-            const result = cloneImageData(imageData);
-            for (let i = 0; i < result.data.length; i += 4) {
-                const gray = result.data[i] * 0.299 + result.data[i + 1] * 0.587 + result.data[i + 2] * 0.114;
-                result.data[i] = result.data[i + 1] = result.data[i + 2] = gray;
-            }
-            return result;
-        }
         
-        // Otsu 二值化
-        function otsuBinarize(imageData) {
-            const gray = grayscale(imageData);
-            const histogram = new Array(256).fill(0);
-            
-            for (let i = 0; i < gray.data.length; i += 4) {
-                histogram[gray.data[i]]++;
-            }
-            
-            const total = gray.width * gray.height;
-            let sum = 0;
-            for (let i = 0; i < 256; i++) sum += i * histogram[i];
-            
-            let sumB = 0, wB = 0, maxVariance = 0, threshold = 0;
-            
-            for (let t = 0; t < 256; t++) {
-                wB += histogram[t];
-                if (wB === 0) continue;
-                const wF = total - wB;
-                if (wF === 0) break;
-                
-                sumB += t * histogram[t];
-                const mB = sumB / wB;
-                const mF = (sum - sumB) / wF;
-                const variance = wB * wF * (mB - mF) * (mB - mF);
-                
-                if (variance > maxVariance) {
-                    maxVariance = variance;
-                    threshold = t;
-                }
-            }
-            
-            const result = cloneImageData(gray);
-            for (let i = 0; i < result.data.length; i += 4) {
-                const val = result.data[i] < threshold ? 0 : 255;
-                result.data[i] = result.data[i + 1] = result.data[i + 2] = val;
-            }
-            
-            return result;
-        }
         
-        // 水平 RLSA
-        function horizontalRLSA(imageData, threshold) {
-            const result = cloneImageData(imageData);
-            const { width, height } = result;
-            
-            for (let y = 0; y < height; y++) {
-                let lastForegroundX = -threshold - 1;
-                
-                for (let x = 0; x < width; x++) {
-                    const pixel = getPixel(result, x, y);
-                    
-                    if (pixel.r < 128) {
-                        const gap = x - lastForegroundX - 1;
-                        if (gap > 0 && gap <= threshold) {
-                            for (let i = lastForegroundX + 1; i < x; i++) {
-                                setPixel(result, i, y, 0, 0, 0);
-                            }
-                        }
-                        lastForegroundX = x;
-                    }
-                }
-            }
-            
-            return result;
-        }
         
-        // 垂直 RLSA
-        function verticalRLSA(imageData, threshold) {
-            const result = cloneImageData(imageData);
-            const { width, height } = result;
-            
-            for (let x = 0; x < width; x++) {
-                let lastForegroundY = -threshold - 1;
-                
-                for (let y = 0; y < height; y++) {
-                    const pixel = getPixel(result, x, y);
-                    
-                    if (pixel.r < 128) {
-                        const gap = y - lastForegroundY - 1;
-                        if (gap > 0 && gap <= threshold) {
-                            for (let i = lastForegroundY + 1; i < y; i++) {
-                                setPixel(result, x, i, 0, 0, 0);
-                            }
-                        }
-                        lastForegroundY = y;
-                    }
-                }
-            }
-            
-            return result;
-        }
         
-        // 连通域标记 (Two-Pass)
-        function labelConnectedComponents(imageData, connectivity = 8) {
-            const { width, height } = imageData;
-            const labels = new Int32Array(width * height);
-            const parent = [];
-            let nextLabel = 1;
-            
-            function find(x) {
-                while (parent[x] !== x) {
-                    parent[x] = parent[parent[x]];
-                    x = parent[x];
-                }
-                return x;
-            }
-            
-            function union(x, y) {
-                const rootX = find(x);
-                const rootY = find(y);
-                if (rootX !== rootY) {
-                    parent[Math.max(rootX, rootY)] = Math.min(rootX, rootY);
-                }
-            }
-            
-            parent[0] = 0;
-            
-            // Pass 1
-            for (let y = 0; y < height; y++) {
-                for (let x = 0; x < width; x++) {
-                    const idx = y * width + x;
-                    const pixel = getPixel(imageData, x, y);
-                    
-                    if (pixel.r >= 128) {
-                        labels[idx] = 0;
-                        continue;
-                    }
-                    
-                    const neighbors = [];
-                    
-                    if (x > 0 && labels[idx - 1] > 0) neighbors.push(labels[idx - 1]);
-                    if (y > 0 && labels[idx - width] > 0) neighbors.push(labels[idx - width]);
-                    
-                    if (connectivity === 8) {
-                        if (x > 0 && y > 0 && labels[idx - width - 1] > 0) neighbors.push(labels[idx - width - 1]);
-                        if (x < width - 1 && y > 0 && labels[idx - width + 1] > 0) neighbors.push(labels[idx - width + 1]);
-                    }
-                    
-                    if (neighbors.length === 0) {
-                        parent[nextLabel] = nextLabel;
-                        labels[idx] = nextLabel++;
-                    } else {
-                        const minLabel = Math.min(...neighbors);
-                        labels[idx] = minLabel;
-                        for (const n of neighbors) {
-                            if (n !== minLabel) union(minLabel, n);
-                        }
-                    }
-                }
-            }
-            
-            // Pass 2
-            const labelMap = new Map();
-            let finalCount = 0;
-            
-            for (let i = 0; i < labels.length; i++) {
-                if (labels[i] > 0) {
-                    const root = find(labels[i]);
-                    if (!labelMap.has(root)) {
-                        labelMap.set(root, ++finalCount);
-                    }
-                    labels[i] = labelMap.get(root);
-                }
-            }
-            
-            return { labels, numLabels: finalCount, width, height };
-        }
         
-        // 提取区域属性
-        function extractRegionProperties(labels, numLabels, width, height) {
-            const regions = [];
-            for (let i = 0; i <= numLabels; i++) {
-                regions.push({
-                    label: i, area: 0, minX: Infinity, maxX: -Infinity,
-                    minY: Infinity, maxY: -Infinity, sumX: 0, sumY: 0
-                });
-            }
-            
-            for (let y = 0; y < height; y++) {
-                for (let x = 0; x < width; x++) {
-                    const label = labels[y * width + x];
-                    if (label > 0) {
-                        const r = regions[label];
-                        r.area++;
-                        r.minX = Math.min(r.minX, x);
-                        r.maxX = Math.max(r.maxX, x);
-                        r.minY = Math.min(r.minY, y);
-                        r.maxY = Math.max(r.maxY, y);
-                        r.sumX += x;
-                        r.sumY += y;
-                    }
-                }
-            }
-            
-            return regions.slice(1).filter(r => r.area > 0).map(r => ({
-                label: r.label,
-                area: r.area,
-                boundingBox: {
-                    x: r.minX, y: r.minY,
-                    width: r.maxX - r.minX + 1,
-                    height: r.maxY - r.minY + 1
-                },
-                centroid: { x: r.sumX / r.area, y: r.sumY / r.area },
-                aspectRatio: (r.maxX - r.minX + 1) / (r.maxY - r.minY + 1),
-                fillRatio: r.area / ((r.maxX - r.minX + 1) * (r.maxY - r.minY + 1))
-            }));
-        }
         
-        // 连通域着色
-        function colorizeLabels(labels, numLabels, width, height) {
-            const result = new ImageData(width, height);
-            const colors = [];
-            
-            for (let i = 0; i < numLabels; i++) {
-                const hue = (i * 137.508) % 360;
-                colors.push(hsvToRgb(hue, 0.7, 0.9));
-            }
-            
-            for (let y = 0; y < height; y++) {
-                for (let x = 0; x < width; x++) {
-                    const idx = (y * width + x) * 4;
-                    const label = labels[y * width + x];
-                    
-                    if (label > 0 && label <= numLabels) {
-                        const color = colors[label - 1];
-                        result.data[idx] = color.r;
-                        result.data[idx + 1] = color.g;
-                        result.data[idx + 2] = color.b;
-                    } else {
-                        result.data[idx] = result.data[idx + 1] = result.data[idx + 2] = 255;
-                    }
-                    result.data[idx + 3] = 255;
-                }
-            }
-            
-            return result;
-        }
         
-        function hsvToRgb(h, s, v) {
-            const i = Math.floor(h / 60) % 6;
-            const f = h / 60 - Math.floor(h / 60);
-            const p = v * (1 - s);
-            const q = v * (1 - f * s);
-            const t = v * (1 - (1 - f) * s);
-            
-            let r, g, b;
-            switch (i) {
-                case 0: r = v; g = t; b = p; break;
-                case 1: r = q; g = v; b = p; break;
-                case 2: r = p; g = v; b = t; break;
-                case 3: r = p; g = q; b = v; break;
-                case 4: r = t; g = p; b = v; break;
-                case 5: r = v; g = p; b = q; break;
-            }
-            
-            return { r: Math.round(r * 255), g: Math.round(g * 255), b: Math.round(b * 255) };
-        }
         
-        // 计算水平投影
-        function calculateHorizontalProjection(imageData) {
-            const { width, height } = imageData;
-            const projection = new Array(height).fill(0);
-            
-            for (let y = 0; y < height; y++) {
-                for (let x = 0; x < width; x++) {
-                    if (getPixel(imageData, x, y).r < 128) {
-                        projection[y]++;
-                    }
-                }
-            }
-            
-            return projection;
-        }
         
-        // 计算垂直投影
-        function calculateVerticalProjection(imageData) {
-            const { width, height } = imageData;
-            const projection = new Array(width).fill(0);
-            
-            for (let x = 0; x < width; x++) {
-                for (let y = 0; y < height; y++) {
-                    if (getPixel(imageData, x, y).r < 128) {
-                        projection[x]++;
-                    }
-                }
-            }
-            
-            return projection;
-        }
         
-        // 检测文字行
-        function detectTextLines(imageData, options = {}) {
-            const { minLineHeight = 8, projectionThreshold = 0.05 } = options;
-            const { width, height } = imageData;
-            
-            const projection = calculateHorizontalProjection(imageData);
-            const maxProjection = Math.max(...projection);
-            const threshold = maxProjection * projectionThreshold;
-            
-            const lines = [];
-            let inLine = false;
-            let lineStart = 0;
-            
-            for (let y = 0; y < height; y++) {
-                if (!inLine && projection[y] > threshold) {
-                    inLine = true;
-                    lineStart = y;
-                } else if (inLine && (projection[y] <= threshold || y === height - 1)) {
-                    inLine = false;
-                    const lineEnd = y === height - 1 && projection[y] > threshold ? y + 1 : y;
-                    const lineHeight = lineEnd - lineStart;
-                    
-                    if (lineHeight >= minLineHeight) {
-                        lines.push({ x: 0, y: lineStart, width: width, height: lineHeight });
-                    }
-                }
-            }
-            
-            return lines;
-        }
         
-        // 分割字符
-        function segmentCharacters(imageData, lineRegion, options = {}) {
-            const { minCharWidth = 3 } = options;
-            const { x: lineX, y: lineY, width: lineWidth, height: lineHeight } = lineRegion;
-            
-            const projection = new Array(lineWidth).fill(0);
-            
-            for (let dx = 0; dx < lineWidth; dx++) {
-                for (let dy = 0; dy < lineHeight; dy++) {
-                    if (getPixel(imageData, lineX + dx, lineY + dy).r < 128) {
-                        projection[dx]++;
-                    }
-                }
-            }
-            
-            const characters = [];
-            let inChar = false;
-            let charStart = 0;
-            
-            for (let x = 0; x < lineWidth; x++) {
-                if (!inChar && projection[x] > 0) {
-                    inChar = true;
-                    charStart = x;
-                } else if (inChar && (projection[x] === 0 || x === lineWidth - 1)) {
-                    inChar = false;
-                    const charEnd = x === lineWidth - 1 && projection[x] > 0 ? x + 1 : x;
-                    const charWidth = charEnd - charStart;
-                    
-                    if (charWidth >= minCharWidth) {
-                        characters.push({
-                            x: lineX + charStart,
-                            y: lineY,
-                            width: charWidth,
-                            height: lineHeight
-                        });
-                    }
-                }
-            }
-            
-            return characters;
-        }
         
-        // 排序字符
-        function sortCharacters(characters) {
-            if (characters.length === 0) return [];
-            
-            const avgHeight = characters.reduce((sum, c) => sum + c.height, 0) / characters.length;
-            const lineThreshold = avgHeight * 0.5;
-            
-            return [...characters].sort((a, b) => {
-                const centerA = a.y + a.height / 2;
-                const centerB = b.y + b.height / 2;
-                
-                if (Math.abs(centerA - centerB) <= lineThreshold) {
-                    return a.x - b.x;
-                }
-                return centerA - centerB;
-            });
-        }
+
+
+
+
+
+
+
+
+
+
+
+
+
         
         // ==================== 可视化函数 ====================
         
@@ -1041,17 +658,16 @@
             const allRegions = extractRegionProperties(labels, numLabels, width, height);
             
             // 区域筛选
-            const candidateRegions = allRegions.filter(r => 
-                r.area >= minArea && r.aspectRatio <= maxAspect && r.aspectRatio >= 0.1
-            );
+            const candidateRegions = filterCandidateCharacters(allRegions, { minArea, maxArea: Infinity, maxAspectRatio: maxAspect, minFillRatio: 0 });
+            const filtered = maskCandidateRegions(binaryImageData, candidateRegions);
             
             // Step 4: 检测文字行
-            const lines = detectTextLines(binaryImageData, { projectionThreshold: lineThreshold });
+            const lines = detectTextLines(filtered, { projectionThreshold: lineThreshold });
             
             // Step 5: 分割字符
             let allCharacters = [];
             for (const line of lines) {
-                const chars = segmentCharacters(binaryImageData, line, { minCharWidth: 3 });
+                const chars = segmentCharacters(filtered, line, { minCharWidth: 3 });
                 allCharacters = allCharacters.concat(chars);
             }
             
@@ -1098,8 +714,8 @@
             
             // 绘制投影
             if (showProjection) {
-                const hProjection = calculateHorizontalProjection(binaryImageData);
-                const vProjection = calculateVerticalProjection(binaryImageData);
+                const hProjection = calculateHorizontalProjection(filtered);
+                const vProjection = calculateVerticalProjection(filtered);
                 
                 drawProjection(canvases.hProjection, contexts.hProjection, hProjection, 'horizontal');
                 drawProjection(canvases.vProjection, contexts.vProjection, vProjection, 'vertical');
@@ -1191,6 +807,8 @@
         
         // 初始化：生成测试文字
         generateTestText();
-    </script>
+
+        function otsuBinarize(image) { return LessonAlgorithms.binarizeOtsu(LessonAlgorithms.grayscaleWeighted(image)).imageData; }
+</script>
 </body>
 </html>

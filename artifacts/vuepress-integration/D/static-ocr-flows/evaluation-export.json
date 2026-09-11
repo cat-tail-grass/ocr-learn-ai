@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "exportedAt": "2026-09-11T12:57:23.413Z",
+  "records": [
+    {
+      "id": "e2a83db8-d63d-49a2-acb0-105d548251af",
+      "imageId": "c95cc2fcaa6044548643845aadf003ca4d5e1b21b31c5f0b19bd69a113a94438",
+      "filename": "development-line.png",
+      "sampleKind": "synthetic-mnist",
+      "modelId": "ocr-mnist-cnn-v1-9c7b0b8e8224",
+      "pipelineId": "4cdf19a96839",
+      "prediction": "001208",
+      "truth": "001208",
+      "status": "ok",
+      "config": {
+        "pipelineVersion": "ocr-photo-v2-2026-09-11",
+        "thresholdMethod": "otsu",
+        "correctionAngle": 0,
+        "autoDeskew": true,
+        "denoise": false,
+        "preprocessingId": "dark-rgba-bbox20-centroid-v1"
+      },
+      "warnings": [
+        "有区域明显偏宽，可能存在数字粘连，请检查分割框。"
+      ],
+      "createdAt": "2026-09-11T12:57:19.043Z",
+      "elapsedMs": 610,
+      "experimentId": "D-static-ocr-flows-synthetic-1789131438109"
+    }
+  ]
+}

@@ -1,0 +1,836 @@
+npm warn Unknown user config "always-auth" (//r.npm.zaihui.com.cn/:always-auth). This will stop working in the next major version of npm.
+FAIL shared/__tests__/review06-10-correctness.test.js
+  06 集合形态学与亮度残差
+    ✕ 黑前景腐蚀/膨胀须操作文字，不操作白背景 (2 ms)
+    ✕ 非对称B中心+右邻居，膨胀向右；开运算不能向左平移 (2 ms)
+    ✕ 矩形核1×3须使用独立高宽与锚点
+    ✕ 闭运算中间扩边，贴边前景不能消失 (1 ms)
+    ✕ 3×3圆盘与十字一致；二值帽输出白残差 (1 ms)
+  07 角度/坐标/边界
+    ✕ 零角nearest逐像素恒等，覆盖所有边界和1×1
+    ✕ 零角bilinear逐像素恒等，覆盖所有边界和1×1
+    ✕ 正90°视觉逆时针，绕像素网格中心 (1 ms)
+    ✕ 双线性边界逐tap使用指定背景
+    ✕ 模拟7°后直接用检测角校正且方差增加 (250 ms)
+    ✕ 模拟-7°后直接用检测角校正且方差增加 (215 ms)
+    ✕ 细化不越过搜索界限；空白不凭空转向 (44 ms)
+    ✕ 霍夫角度总票数恒定，峰值能区分方向
+  08 梯度方向与滞后连通
+    ✕ NMS按y向下的45°比较对角邻居
+    ✕ NMS按y向下的135°比较对角邻居 (1 ms)
+    ✕ NMS按y向下的-45°比较对角邻居
+    ✕ NMS按y向下的-135°比较对角邻居
+    ✓ Sobel手算270/70、方向14.53°，不是错的外积分解
+    ✕ 边界强点可带动多跳弱边缘，孤立弱点舍弃
+    ✕ 低阈值0不把平坦背景接成满幅边缘 (2 ms)
+  09 连通性独立穷举和讲义算例
+    ✓ 3×3的全部512种二值图，4/8连通分区均等于独立BFS (58 ms)
+    ✓ 斜桥Two-Pass例子为8连通1域/4连通3域，几何量可手算 (1 ms)
+    ✕ 拒绝无效连通性，不能静默当成4连通 (1 ms)
+  10 投影边界、筛选与阅读顺序
+    ✕ 末行/末列单像素区域正确闭合
+    ✕ 带非零x/y偏移的字符分割返回全图坐标 (1 ms)
+    ✕ 候选筛选必须影响最终字符且保留洞
+    ✓ RLSA仅填两端包夹且≤阈值的间隙，水平/垂直一致 (1 ms)
+    ✕ 先分行再排序，所有输入排列给出同一顺序
+
+  ● 06 集合形态学与亮度残差 › 黑前景腐蚀/膨胀须操作文字，不操作白背景
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 0
+    Received: 25
+
+      21 |  test('黑前景腐蚀/膨胀须操作文字，不操作白背景',()=>{
+      22 |     const a=image(['00000','00000','00100','00000','00000']);
+    > 23 |     expect(count(m.erode(a,se,{foreground:'black'}))).toBe(0);
+         |                                                       ^
+      24 |     expect(count(m.dilate(a,se,{foreground:'black'}))).toBe(9);
+      25 |     expect(count(m.dilate(createImageData(3,3),se,{foreground:'black'}))).toBe(0);
+      26 |  });
+
+      at Object.toBe (shared/__tests__/review06-10-correctness.test.js:23:55)
+
+  ● 06 集合形态学与亮度残差 › 非对称B中心+右邻居，膨胀向右；开运算不能向左平移
+
+    expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 1
+    + Received  + 1
+
+      Array [
+        0,
+        0,
+    -   0,
+        255,
+        255,
+    +   0,
+        0,
+        0,
+      ]
+
+      28 |     const b=[[0,0,0],[0,1,1],[0,0,0]];
+      29 |     const a=image(['0000000','0001000','0000000'],255);
+    > 30 |     expect(pixels(m.dilate(a,b)).slice(7,14)).toEqual([0,0,0,255,255,0,0]);
+         |                                               ^
+      31 |     const pair=image(['0000000','0001100','0000000'],255);
+      32 |     expect(pixels(m.morphOpen(pair,b))).toEqual(pixels(pair));
+      33 |  });
+
+      at Object.toEqual (shared/__tests__/review06-10-correctness.test.js:30:47)
+
+  ● 06 集合形态学与亮度残差 › 矩形核1×3须使用独立高宽与锚点
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 3
+    Received: 1
+
+      34 |  test('矩形核1×3须使用独立高宽与锚点',()=>{
+      35 |     const a=image(['00000','00100','00000'],255);
+    > 36 |     expect(count(m.dilate(a,[[1,1,1]]),255)).toBe(3);
+         |                                              ^
+      37 |  });
+      38 |  test('闭运算中间扩边，贴边前景不能消失',()=>{
+      39 |     const a=image(['100','000','000'],255);
+
+      at Object.toBe (shared/__tests__/review06-10-correctness.test.js:36:46)
+
+  ● 06 集合形态学与亮度残差 › 闭运算中间扩边，贴边前景不能消失
+
+    expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 1
+    + Received  + 1
+
+    @@ -1,7 +1,7 @@
+      Array [
+    -   255,
+    +   0,
+        0,
+        0,
+        0,
+        0,
+        0,
+
+      38 |  test('闭运算中间扩边，贴边前景不能消失',()=>{
+      39 |     const a=image(['100','000','000'],255);
+    > 40 |     expect(pixels(m.morphClose(a,se))).toEqual(pixels(a));
+         |                                        ^
+      41 |     const black=image(['100','000','000']);
+      42 |     expect(pixels(m.morphClose(black,se,{foreground:'black'}))).toEqual(pixels(black));
+      43 |  });
+
+      at Object.toEqual (shared/__tests__/review06-10-correctness.test.js:40:40)
+
+  ● 06 集合形态学与亮度残差 › 3×3圆盘与十字一致；二值帽输出白残差
+
+    expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 4
+    + Received  + 4
+
+      Array [
+        Array [
+    -     0,
+          1,
+    -     0,
+    +     1,
+    +     1,
+        ],
+        Array [
+          1,
+          1,
+          1,
+        ],
+        Array [
+    -     0,
+    +     1,
+          1,
+    -     0,
+    +     1,
+        ],
+      ]
+
+      43 |  });
+      44 |  test('3×3圆盘与十字一致；二值帽输出白残差',()=>{
+    > 45 |     expect(m.createStructuringElement('ellipse',3)).toEqual([[0,1,0],[1,1,1],[0,1,0]]);
+         |                                                     ^
+      46 |     const dark=image(['00000','00000','00100','00000','00000']);
+      47 |     const bright=image(['00000','00000','00100','00000','00000'],255);
+      48 |     expect(count(m.blackHat(dark,se),255)).toBe(1);
+
+      at Object.toEqual (shared/__tests__/review06-10-correctness.test.js:45:53)
+
+  ● 07 角度/坐标/边界 › 零角nearest逐像素恒等，覆盖所有边界和1×1
+
+    expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 1
+    + Received  + 1
+
+      Array [
+    -   0,
+    +   255,
+      ]
+
+      61 |        const a=createImageData(w,h,0,0,0);
+      62 |        for(let y=0;y<h;y++)for(let x=0;x<w;x++)setPixel(a,x,y,(y*w+x)*7,(y*w+x)*7,(y*w+x)*7);
+    > 63 |        expect(pixels(d.rotateImage(a,0,kind))).toEqual(pixels(a));
+         |                                                ^
+      64 |     }
+      65 |  });
+      66 |  test('正90°视觉逆时针，绕像素网格中心',()=>{
+
+      at toEqual (shared/__tests__/review06-10-correctness.test.js:63:48)
+
+  ● 07 角度/坐标/边界 › 零角bilinear逐像素恒等，覆盖所有边界和1×1
+
+    expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 1
+    + Received  + 1
+
+      Array [
+    -   0,
+    +   255,
+      ]
+
+      61 |        const a=createImageData(w,h,0,0,0);
+      62 |        for(let y=0;y<h;y++)for(let x=0;x<w;x++)setPixel(a,x,y,(y*w+x)*7,(y*w+x)*7,(y*w+x)*7);
+    > 63 |        expect(pixels(d.rotateImage(a,0,kind))).toEqual(pixels(a));
+         |                                                ^
+      64 |     }
+      65 |  });
+      66 |  test('正90°视觉逆时针，绕像素网格中心',()=>{
+
+      at toEqual (shared/__tests__/review06-10-correctness.test.js:63:48)
+
+  ● 07 角度/坐标/边界 › 正90°视觉逆时针，绕像素网格中心
+
+    expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 1
+    + Received  + 1
+
+    @@ -1,9 +1,9 @@
+      Array [
+        255,
+        255,
+    -   0,
+    +   255,
+        255,
+        255,
+        255,
+        255,
+        255,
+
+      66 |  test('正90°视觉逆时针，绕像素网格中心',()=>{
+      67 |     const a=image(['00000','00000','00001','00000','00000']);
+    > 68 |     expect(pixels(d.rotateImage(a,90,'nearest'))).toEqual(pixels(image(['00100','00000','00000','00000','00000'])));
+         |                                                   ^
+      69 |  });
+      70 |  test('双线性边界逐tap使用指定背景',()=>{
+      71 |     const a=createImageData(1,1,100,100,100);
+
+      at Object.toEqual (shared/__tests__/review06-10-correctness.test.js:68:51)
+
+  ● 07 角度/坐标/边界 › 双线性边界逐tap使用指定背景
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 150
+    Received: 50
+
+      71 |     const a=createImageData(1,1,100,100,100);
+      72 |     expect(d.bilinearInterpolate(a,0,0,255)).toBe(100);
+    > 73 |     expect(d.bilinearInterpolate(a,-0.5,0,200)).toBe(150);
+         |                                                 ^
+      74 |  });
+      75 |  test.each([7,-7])('模拟%d°后直接用检测角校正且方差增加',angle=>{
+      76 |     const a=createImageData(100,70);
+
+      at Object.toBe (shared/__tests__/review06-10-correctness.test.js:73:49)
+
+  ● 07 角度/坐标/边界 › 模拟7°后直接用检测角校正且方差增加
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: -6.900000000000004
+    Received: 6.900000000000004
+
+      80 |     const result=d.deskew(skew,{interpolation:'nearest'});
+      81 |     expect(Math.abs(detected.angle+angle)).toBeLessThan(0.5);
+    > 82 |     expect(result.correctionAngle).toBe(detected.angle);
+         |                                    ^
+      83 |     expect(result.skewAngle).toBe(-detected.angle);
+      84 |     expect(variance(result.imageData)).toBeGreaterThan(variance(skew)*3);
+      85 |  });
+
+      at toBe (shared/__tests__/review06-10-correctness.test.js:82:36)
+
+  ● 07 角度/坐标/边界 › 模拟-7°后直接用检测角校正且方差增加
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 6.899999999999997
+    Received: -6.899999999999997
+
+      80 |     const result=d.deskew(skew,{interpolation:'nearest'});
+      81 |     expect(Math.abs(detected.angle+angle)).toBeLessThan(0.5);
+    > 82 |     expect(result.correctionAngle).toBe(detected.angle);
+         |                                    ^
+      83 |     expect(result.skewAngle).toBe(-detected.angle);
+      84 |     expect(variance(result.imageData)).toBeGreaterThan(variance(skew)*3);
+      85 |  });
+
+      at toBe (shared/__tests__/review06-10-correctness.test.js:82:36)
+
+  ● 07 角度/坐标/边界 › 细化不越过搜索界限；空白不凭空转向
+
+    expect(received).toBeGreaterThanOrEqual(expected)
+
+    Expected: >= -4
+    Received:    -6
+
+      88 |     const skew=d.rotateImage(a,10,'nearest');
+      89 |     const r=d.detectSkewAngle(skew,{minAngle:-4,maxAngle:4,step:2});
+    > 90 |     expect(r.angle).toBeGreaterThanOrEqual(-4);
+         |                     ^
+      91 |     expect(r.angle).toBeLessThanOrEqual(4);
+      92 |     expect(d.detectSkewAngle(createImageData(4,4)).angle).toBe(0);
+      93 |  });
+
+      at Object.toBeGreaterThanOrEqual (shared/__tests__/review06-10-correctness.test.js:90:21)
+
+  ● 07 角度/坐标/边界 › 霍夫角度总票数恒定，峰值能区分方向
+
+    TypeError: d.houghTransform is not a function
+
+      94 |  test('霍夫角度总票数恒定，峰值能区分方向',()=>{
+      95 |     const a=createImageData(100,60);for(let x=10;x<90;x++)setPixel(a,x,30,0,0,0);
+    > 96 |     const h=d.houghTransform(a);
+         |               ^
+      97 |     expect(new Set(h.accumulator.map(row=>row.reduce((a,b)=>a+b,0)))).toEqual(new Set([80]));
+      98 |     expect(d.detectSkewAngleByHough(a).angle).toBe(0);
+      99 |     const skew=d.rotateImage(a,7,'nearest');
+
+      at Object.houghTransform (shared/__tests__/review06-10-correctness.test.js:96:15)
+
+  ● 08 梯度方向与滞后连通 › NMS按y向下的45°比较对角邻居
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 0
+    Received: 5
+
+      107 |     const rising=angle===45||angle===-135;
+      108 |     mag[rising?0:2]=9;mag[rising?8:6]=9;
+    > 109 |     expect(e.nonMaxSuppression(mag,new Float32Array(9).fill(angle),3,3)[4]).toBe(0);
+          |                                                                             ^
+      110 |  });
+      111 |  test('Sobel手算270/70、方向14.53°，不是错的外积分解',()=>{
+      112 |     const a=createImageData(3,3);[[50,50,100],[50,60,120],[50,70,130]].forEach((row,y)=>row.forEach((v,x)=>setPixel(a,x,y,v,v,v)));
+
+      at toBe (shared/__tests__/review06-10-correctness.test.js:109:77)
+
+  ● 08 梯度方向与滞后连通 › NMS按y向下的135°比较对角邻居
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 0
+    Received: 5
+
+      107 |     const rising=angle===45||angle===-135;
+      108 |     mag[rising?0:2]=9;mag[rising?8:6]=9;
+    > 109 |     expect(e.nonMaxSuppression(mag,new Float32Array(9).fill(angle),3,3)[4]).toBe(0);
+          |                                                                             ^
+      110 |  });
+      111 |  test('Sobel手算270/70、方向14.53°，不是错的外积分解',()=>{
+      112 |     const a=createImageData(3,3);[[50,50,100],[50,60,120],[50,70,130]].forEach((row,y)=>row.forEach((v,x)=>setPixel(a,x,y,v,v,v)));
+
+      at toBe (shared/__tests__/review06-10-correctness.test.js:109:77)
+
+  ● 08 梯度方向与滞后连通 › NMS按y向下的-45°比较对角邻居
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 0
+    Received: 5
+
+      107 |     const rising=angle===45||angle===-135;
+      108 |     mag[rising?0:2]=9;mag[rising?8:6]=9;
+    > 109 |     expect(e.nonMaxSuppression(mag,new Float32Array(9).fill(angle),3,3)[4]).toBe(0);
+          |                                                                             ^
+      110 |  });
+      111 |  test('Sobel手算270/70、方向14.53°，不是错的外积分解',()=>{
+      112 |     const a=createImageData(3,3);[[50,50,100],[50,60,120],[50,70,130]].forEach((row,y)=>row.forEach((v,x)=>setPixel(a,x,y,v,v,v)));
+
+      at toBe (shared/__tests__/review06-10-correctness.test.js:109:77)
+
+  ● 08 梯度方向与滞后连通 › NMS按y向下的-135°比较对角邻居
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 0
+    Received: 5
+
+      107 |     const rising=angle===45||angle===-135;
+      108 |     mag[rising?0:2]=9;mag[rising?8:6]=9;
+    > 109 |     expect(e.nonMaxSuppression(mag,new Float32Array(9).fill(angle),3,3)[4]).toBe(0);
+          |                                                                             ^
+      110 |  });
+      111 |  test('Sobel手算270/70、方向14.53°，不是错的外积分解',()=>{
+      112 |     const a=createImageData(3,3);[[50,50,100],[50,60,120],[50,70,130]].forEach((row,y)=>row.forEach((v,x)=>setPixel(a,x,y,v,v,v)));
+
+      at toBe (shared/__tests__/review06-10-correctness.test.js:109:77)
+
+  ● 08 梯度方向与滞后连通 › 边界强点可带动多跳弱边缘，孤立弱点舍弃
+
+    expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 2
+    + Received  + 2
+
+      Array [
+        1,
+    -   1,
+    -   1,
+    +   0,
+    +   0,
+        0,
+      ]
+
+      117 |     const strong=new Uint8Array(25),weak=new Uint8Array(25);strong[0]=1;weak[6]=1;weak[12]=1;weak[24]=1;
+      118 |     const out=e.hysteresisTracking(strong,weak,5,5);
+    > 119 |     expect([out[0],out[6],out[12],out[24]]).toEqual([1,1,1,0]);
+          |                                             ^
+      120 |  });
+      121 |  test('低阈值0不把平坦背景接成满幅边缘',()=>{
+      122 |     const a=createImageData(8,8,100,100,100);
+
+      at Object.toEqual (shared/__tests__/review06-10-correctness.test.js:119:45)
+
+  ● 08 梯度方向与滞后连通 › 低阈值0不把平坦背景接成满幅边缘
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 0
+    Received: 64
+
+      121 |  test('低阈值0不把平坦背景接成满幅边缘',()=>{
+      122 |     const a=createImageData(8,8,100,100,100);
+    > 123 |     expect(e.cannyEdgeDetection(a,{lowThreshold:0,highThreshold:0}).edgeCount).toBe(0);
+          |                                                                                ^
+      124 |  });
+      125 | });
+      126 |
+
+      at Object.toBe (shared/__tests__/review06-10-correctness.test.js:123:80)
+
+  ● 09 连通性独立穷举和讲义算例 › 拒绝无效连通性，不能静默当成4连通
+
+    expect(received).toThrow()
+
+    Received function did not throw
+
+      157 |     expect(c.extractRegionProperties(r.labels,r.numLabels,5,4)[0]).toMatchObject({area:14,boundingBox:{x:0,y:0,width:5,height:4},centroid:{x:2,y:1.5},fillRatio:.7});
+      158 |  });
+    > 159 |  test('拒绝无效连通性，不能静默当成4连通',()=>expect(()=>c.labelConnectedComponents(image(['1']),6)).toThrow());
+          |                                                                                      ^
+      160 | });
+      161 |
+      162 | describe('10 投影边界、筛选与阅读顺序',()=>{
+
+      at Object.toThrow (shared/__tests__/review06-10-correctness.test.js:159:86)
+
+  ● 10 投影边界、筛选与阅读顺序 › 末行/末列单像素区域正确闭合
+
+    expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 8
+    + Received  + 1
+
+    - Array [
+    -   Object {
+    -     "height": 1,
+    -     "width": 1,
+    -     "x": 2,
+    -     "y": 2,
+    -   },
+    - ]
+    + Array []
+
+      163 |  test('末行/末列单像素区域正确闭合',()=>{
+      164 |     const a=image(['000','000','001']);
+    > 165 |     expect(t.detectTextLines(a,{minLineHeight:1})).toEqual([{x:2,y:2,width:1,height:1}]);
+          |                                                    ^
+      166 |     expect(t.segmentCharacters(a,{x:0,y:0,width:3,height:3},{minCharWidth:1})).toEqual([{x:2,y:0,width:1,height:3}]);
+      167 |  });
+      168 |  test('带非零x/y偏移的字符分割返回全图坐标',()=>{
+
+      at Object.toEqual (shared/__tests__/review06-10-correctness.test.js:165:52)
+
+  ● 10 投影边界、筛选与阅读顺序 › 带非零x/y偏移的字符分割返回全图坐标
+
+    expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 6
+    + Received  + 0
+
+    @@ -3,12 +3,6 @@
+          "height": 2,
+          "width": 1,
+          "x": 2,
+          "y": 1,
+        },
+    -   Object {
+    -     "height": 2,
+    -     "width": 1,
+    -     "x": 5,
+    -     "y": 1,
+    -   },
+      ]
+
+      168 |  test('带非零x/y偏移的字符分割返回全图坐标',()=>{
+      169 |     const a=image(['000000','001001','001001','000000']);
+    > 170 |     expect(t.segmentCharacters(a,{x:2,y:1,width:4,height:2},{minCharWidth:1,gapThreshold:0})).toEqual([{x:2,y:1,width:1,height:2},{x:5,y:1,width:1,height:2}]);
+          |                                                                                               ^
+      171 |  });
+      172 |  test('候选筛选必须影响最终字符且保留洞',()=>{
+      173 |     const a=image(['000000000','011100100','010100100','011100000','000000000']);
+
+      at Object.toEqual (shared/__tests__/review06-10-correctness.test.js:170:95)
+
+  ● 10 投影边界、筛选与阅读顺序 › 候选筛选必须影响最终字符且保留洞
+
+    TypeError: Cannot read properties of undefined (reading 'data')
+
+      13 |     return out;
+      14 | }
+    > 15 | const pixels = im => Array.from(im.data).filter((_,i)=>i%4===0);
+         |                                    ^
+      16 | const count = (im,foreground=0) => pixels(im).filter(v=>v===foreground).length;
+      17 | const variance = im => d.calculateProjectionVariance(d.calculateHorizontalProjection(im));
+      18 | const se = [[1,1,1],[1,1,1],[1,1,1]];
+
+      at data (shared/__tests__/review06-10-correctness.test.js:15:36)
+      at Object.pixels (shared/__tests__/review06-10-correctness.test.js:176:12)
+
+  ● 10 投影边界、筛选与阅读顺序 › 先分行再排序，所有输入排列给出同一顺序
+
+    expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 6
+    + Received  + 6
+
+      Array [
+        Object {
+          "height": 10,
+          "width": 2,
+    -     "x": 10,
+    -     "y": 4,
+    +     "x": 0,
+    +     "y": 8,
+        },
+        Object {
+          "height": 10,
+          "width": 2,
+    -     "x": 20,
+    -     "y": 0,
+    +     "x": 10,
+    +     "y": 4,
+        },
+        Object {
+          "height": 10,
+          "width": 2,
+    -     "x": 0,
+    -     "y": 8,
+    +     "x": 20,
+    +     "y": 0,
+        },
+      ]
+
+      185 |     const a={x:20,y:0,width:2,height:10},b={x:10,y:4,width:2,height:10},cc={x:0,y:8,width:2,height:10};
+      186 |     for(const order of [[a,b,cc],[a,cc,b],[b,a,cc],[b,cc,a],[cc,a,b],[cc,b,a]]){
+    > 187 |       expect(t.sortCharacters(order,{lineThreshold:5})).toEqual([b,a,cc]);
+          |                                                         ^
+      188 |     }
+      189 |  });
+      190 | });
+
+      at Object.toEqual (shared/__tests__/review06-10-correctness.test.js:187:57)
+
+FAIL shared/__tests__/correctness01-05.test.js
+  01–03 pixel and grayscale definitions
+    ✕ fractional coordinates must not read/write another channel (1 ms)
+    ✓ gray example is 159 and alpha is not a brightness channel
+    ✕ even sample median averages the two central observations (1 ms)
+    ✕ unknown channel cannot silently leave a color image unchanged
+  04 Otsu and local threshold counterexamples
+    ✓ class boundary includes t, including t=0 (1 ms)
+    ✕ between-class variance is probability weighted and scale invariant
+    ✓ adaptive equality is white and edge neighborhoods are cropped
+    ✕ local threshold preserves alpha just as fixed threshold does
+    ✕ invalid local neighborhoods must not silently change size (1 ms)
+  05 filters, noise and measurement
+    ✕ asymmetric kernel distinguishes convolution from correlation
+    ✓ mean rounds 1085/9 to 121 and median is 105
+    ✕ linear smoothers preserve a constant with replicate boundaries and alpha (1 ms)
+    ✕ zero Gaussian noise is identity even on RGB and the RNG endpoint zero (1 ms)
+    ✕ density one visits every pixel even when the RNG repeats
+    ✕ zero sigma kernel cannot produce a silently black image
+
+  ● 01–03 pixel and grayscale definitions › fractional coordinates must not read/write another channel
+
+    expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 4
+    + Received  + 4
+
+      Object {
+    -   "a": 0,
+    -   "b": 0,
+    -   "g": 0,
+    -   "r": 0,
+    +   "a": 20,
+    +   "b": 255,
+    +   "g": 10,
+    +   "r": 10,
+      }
+
+      20 |         const img = image([10, 20]);
+      21 |         const before = Array.from(img.data);
+    > 22 |         expect(core.getPixel(img, 0.25, 0)).toEqual({ r: 0, g: 0, b: 0, a: 0 });
+         |                                             ^
+      23 |         core.setPixel(img, 0.25, 0, 100, 100, 100);
+      24 |         expect(Array.from(img.data)).toEqual(before);
+      25 |     });
+
+      at Object.toEqual (shared/__tests__/correctness01-05.test.js:22:45)
+
+  ● 01–03 pixel and grayscale definitions › even sample median averages the two central observations
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 127.5
+    Received: 0
+
+      31 |         const histogram = gray.calculateHistogram(image([0, 255]));
+      32 |         const stats = gray.calculateHistogramStats(histogram, 2);
+    > 33 |         expect(stats.median).toBe(127.5);
+         |                              ^
+      34 |         expect(stats.mean).toBe(127.5);
+      35 |         expect(stats.std).toBe(127.5);
+      36 |     });
+
+      at Object.toBe (shared/__tests__/correctness01-05.test.js:33:30)
+
+  ● 01–03 pixel and grayscale definitions › unknown channel cannot silently leave a color image unchanged
+
+    expect(received).toThrow()
+
+    Received function did not throw
+
+      36 |     });
+      37 |     test('unknown channel cannot silently leave a color image unchanged', () => {
+    > 38 |         expect(() => gray.grayscaleSingleChannel(image([20]), 'alpha')).toThrow();
+         |                                                                         ^
+      39 |     });
+      40 | });
+      41 |
+
+      at Object.toThrow (shared/__tests__/correctness01-05.test.js:38:73)
+
+  ● 04 Otsu and local threshold counterexamples › between-class variance is probability weighted and scale invariant
+
+    expect(received).toBeCloseTo(expected, precision)
+
+    Expected: 5625
+    Received: 202500
+
+    Expected precision:    10
+    Expected difference: < 0.00000000005
+    Received difference:   196875
+
+      48 |     test('between-class variance is probability weighted and scale invariant', () => {
+      49 |         const h = gray.calculateHistogram(image([30, 40, 50, 180, 190, 200]));
+    > 50 |         expect(binary.calculateOtsuThreshold(h).variance).toBeCloseTo(5625, 10);
+         |                                                           ^
+      51 |         expect(binary.calculateOtsuThreshold(h.map(v => v * 100)).variance).toBeCloseTo(5625, 10);
+      52 |         expect(binary.calculateOtsuThreshold(h).threshold).toBe(50);
+      53 |     });
+
+      at Object.toBeCloseTo (shared/__tests__/correctness01-05.test.js:50:59)
+
+  ● 04 Otsu and local threshold counterexamples › local threshold preserves alpha just as fixed threshold does
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: 64
+    Received: 255
+
+      58 |     test('local threshold preserves alpha just as fixed threshold does', () => {
+      59 |         const img = image([80], 1, 64);
+    > 60 |         expect(binary.binarizeAdaptive(img, 3, 0).data[3]).toBe(64);
+         |                                                            ^
+      61 |     });
+      62 |     test('invalid local neighborhoods must not silently change size', () => {
+      63 |         for (const size of [0, -3, 2, 2.5, NaN]) {
+
+      at Object.toBe (shared/__tests__/correctness01-05.test.js:60:60)
+
+  ● 04 Otsu and local threshold counterexamples › invalid local neighborhoods must not silently change size
+
+    expect(received).toThrow()
+
+    Received function did not throw
+
+      62 |     test('invalid local neighborhoods must not silently change size', () => {
+      63 |         for (const size of [0, -3, 2, 2.5, NaN]) {
+    > 64 |             expect(() => binary.binarizeAdaptive(image([80]), size)).toThrow();
+         |                                                                      ^
+      65 |         }
+      66 |     });
+      67 | });
+
+      at Object.toThrow (shared/__tests__/correctness01-05.test.js:64:70)
+
+  ● 05 filters, noise and measurement › asymmetric kernel distinguishes convolution from correlation
+
+    expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 2
+    + Received  + 2
+
+      Array [
+    +   10,
+    +   10,
+        20,
+    -   40,
+    -   40,
+      ]
+
+      71 |         const img = image([10, 20, 40]);
+      72 |         const kernel = [[0, 0, 0], [1, 0, 0], [0, 0, 0]];
+    > 73 |         expect(reds(denoise.convolve(img, kernel))).toEqual([20, 40, 40]);
+         |                                                     ^
+      74 |     });
+      75 |     test('mean rounds 1085/9 to 121 and median is 105', () => {
+      76 |         const img = image([100, 120, 110, 90, 255, 130, 80, 95, 105], 3);
+
+      at Object.toEqual (shared/__tests__/correctness01-05.test.js:73:53)
+
+  ● 05 filters, noise and measurement › linear smoothers preserve a constant with replicate boundaries and alpha
+
+    expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 1
+    + Received  + 1
+
+      Array [
+        80,
+        80,
+        80,
+    -   64,
+    +   255,
+      ]
+
+      81 |         const img = image([80], 1, 64);
+      82 |         for (const fn of [denoise.meanFilter, denoise.gaussianFilter, denoise.medianFilter]) {
+    > 83 |             expect(Array.from(fn(img, 3).data)).toEqual([80, 80, 80, 64]);
+         |                                                 ^
+      84 |         }
+      85 |     });
+      86 |     test('zero Gaussian noise is identity even on RGB and the RNG endpoint zero', () => {
+
+      at Object.toEqual (shared/__tests__/correctness01-05.test.js:83:49)
+
+  ● 05 filters, noise and measurement › zero Gaussian noise is identity even on RGB and the RNG endpoint zero
+
+    expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 3
+    + Received  + 3
+
+      Array [
+    -   30,
+    -   100,
+    -   200,
+    +   0,
+    +   0,
+    +   0,
+        64,
+      ]
+
+      88 |         try {
+      89 |             const img = core.createImageData(1, 1, 30, 100, 200, 64);
+    > 90 |             expect(Array.from(denoise.addGaussianNoise(img, 0).data)).toEqual(Array.from(img.data));
+         |                                                                       ^
+      91 |         } finally { spy.mockRestore(); }
+      92 |     });
+      93 |     test('density one visits every pixel even when the RNG repeats', () => {
+
+      at Object.toEqual (shared/__tests__/correctness01-05.test.js:90:71)
+
+  ● 05 filters, noise and measurement › density one visits every pixel even when the RNG repeats
+
+    expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 9
+    + Received  + 9
+
+      Array [
+    -   255,
+    -   255,
+    -   255,
+    -   255,
+    -   255,
+    -   255,
+    -   255,
+    -   255,
+    -   255,
+    +   128,
+    +   128,
+    +   128,
+    +   128,
+    +   128,
+    +   128,
+    +   128,
+        255,
+    +   128,
+    +   128,
+      ]
+
+       95 |         try {
+       96 |             expect(reds(denoise.addSaltPepperNoise(image(Array(10).fill(128)), 1)))
+    >  97 |                 .toEqual(Array(10).fill(255));
+          |                  ^
+       98 |         } finally { spy.mockRestore(); }
+       99 |     });
+      100 |     test('zero sigma kernel cannot produce a silently black image', () => {
+
+      at Object.toEqual (shared/__tests__/correctness01-05.test.js:97:18)
+
+  ● 05 filters, noise and measurement › zero sigma kernel cannot produce a silently black image
+
+    expect(received).toThrow()
+
+    Received function did not throw
+
+       99 |     });
+      100 |     test('zero sigma kernel cannot produce a silently black image', () => {
+    > 101 |         expect(() => denoise.createGaussianKernel(3, 0)).toThrow();
+          |                                                          ^
+      102 |     });
+      103 | });
+      104 |
+
+      at Object.toThrow (shared/__tests__/correctness01-05.test.js:101:58)
+
+Test Suites: 2 failed, 2 total
+Tests:       35 failed, 8 passed, 43 total
+Snapshots:   0 total
+Time:        0.938 s, estimated 4 s
+Ran all test suites matching shared/__tests__/correctness01-05.test.js|shared/__tests__/review06-10-correctness.test.js.
+Test results written to: artifacts/review-2026-09-11/baseline-counterexamples.json

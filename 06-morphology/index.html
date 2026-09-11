@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>06. 形态学操作 (Morphological Operations)</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22%3E%3Crect width=%2264%22 height=%2264%22 rx=%2214%22 fill=%22%23126451%22/%3E%3Ctext x=%2232%22 y=%2246%22 text-anchor=%22middle%22 font-size=%2244%22 fill=%22white%22 font-family=%22sans-serif%22%3EO%3C/text%3E%3C/svg%3E">
     <style>
         * {
             margin: 0;
@@ -416,8 +417,10 @@
             margin-top: 5px;
         }
     </style>
+    <script src="../shared/course.js" defer></script>
 </head>
 <body>
+<nav class="course-nav" aria-label="课程导航"><a href="../../" data-course-catalog><strong>OCR / 学习实验室</strong></a><div class="links"><a href="../../06-morphology/" data-course-doc="06-morphology">返回本章讲义</a><a href="../../" data-course-catalog>课程目录</a><a href="../25-ocr-engine/index.html" data-course-lab="25-ocr-engine">照片识别</a><a href="../26-validation/index.html" data-course-lab="26-validation">评估记录</a></div></nav>
     <div class="container">
         <h1>06. 形态学操作 (Morphological Operations)</h1>
         <p class="subtitle">学习结构元素、腐蚀、膨胀、开运算、闭运算</p>
@@ -446,7 +449,7 @@
                         <select id="seShape" onchange="updateSEDisplay()">
                             <option value="rect">矩形 (Rectangle)</option>
                             <option value="cross">十字形 (Cross)</option>
-                            <option value="ellipse">椭圆形 (Ellipse)</option>
+                            <option value="ellipse">圆盘像素中心采样 (Ellipse)</option><option value="right">非对称：中心+右邻居 (3×3)</option>
                         </select>
                     </div>
                     <div class="control-group">
@@ -463,6 +466,8 @@
                 
                 <div class="panel-section">
                     <h3>形态学操作</h3>
+                    <label>前景极性（操作对象）</label>
+                    <select id="foreground" onchange="resetImage(); updateStats()"><option value="white">白色前景（几何样例）</option><option value="black">黑色前景（OCR文字）</option></select>
                     <button class="btn btn-erode" onclick="applyErode()">
                         腐蚀 (Erosion)
                     </button>
@@ -475,6 +480,8 @@
                     <button class="btn btn-close" onclick="applyClose()">
                         闭运算 (Closing)
                     </button>
+                    <button class="btn btn-primary" onclick="applyHat('topHat')">白顶帽：亮细节</button>
+                    <button class="btn btn-primary" onclick="applyHat('blackHat')">黑帽：暗细节</button>
                     <button class="btn btn-gradient" onclick="applyGradient()">
                         形态学梯度 (Gradient)
                     </button>
@@ -513,7 +520,7 @@
                     </div>
                     <div class="stat-card">
                         <div class="stat-value" id="resultPixels">-</div>
-                        <div class="stat-label">结果前景像素</div>
+                        <div class="stat-label" id="resultPixelLabel">结果前景像素</div>
                     </div>
                     <div class="stat-card">
                         <div class="stat-value" id="pixelChange">-</div>
@@ -553,7 +560,7 @@
                 </div>
                 
                 <div class="explanation">
-                    <h4>形态学操作原理</h4>
+                    <h4>形态学操作原理</h4><p>腐蚀检查 z+b，膨胀检查 z−b；非对称核必须反射。图外视为背景，闭运算先扩边后裁剪。帽变换是二值亮度残差，不能直接作为灰度光照校正。</p>
                     <p>
                         <strong>形态学操作</strong>是基于形状的图像处理技术，使用<strong>结构元素</strong>作为"探针"
                         在图像上滑动，根据结构元素与图像的匹配关系决定输出。常用于二值图像的噪声去除、
@@ -567,12 +574,12 @@
                         </div>
                         <div class="operation-card dilate">
                             <h5>膨胀 (Dilation)</h5>
-                            <p>只要结构元素有任意部分与前景重叠，中心像素就变为前景。效果：扩大区域，填补空洞。</p>
+                            <p>只要反射后的结构元素与前景重叠，中心像素就变为前景。效果：扩大区域，填补空洞。</p>
                             <div class="formula">A ⊕ B = {z | B̂<sub>z</sub> ∩ A ≠ ∅}</div>
                         </div>
                         <div class="operation-card open">
                             <h5>开运算 (Opening)</h5>
-                            <p>先腐蚀后膨胀。效果：去除小噪点，同时保持主体形状不变。</p>
+                            <p>先腐蚀后膨胀。效果：去除小噪点，同时恢复能容纳结构元素的部分，细笔画可能消失。</p>
                             <div class="formula">A ∘ B = (A ⊖ B) ⊕ B</div>
                         </div>
                         <div class="operation-card close">
@@ -586,9 +593,13 @@
         </div>
     </div>
 
+    <script src="bundle.js"></script>
     <script>
+        const { createStructuringElement, cloneImageData } = LessonAlgorithms;
+
         // ==================== 全局变量 ====================
         let originalImageData = null;  // 原始二值图像
+        let resultIsResidual = false;
         let resultImageData = null;    // 处理结果
         
         // ==================== 初始化 ====================
@@ -604,55 +615,16 @@
         
         // ==================== 结构元素 ====================
         
-        /**
-         * 创建结构元素
-         * 
-         * 原理说明：
-         * - 结构元素是形态学操作的"模板"
-         * - 1表示有效区域，0表示忽略
-         */
-        function createStructuringElement(shape, size) {
-            if (size % 2 === 0) size = size + 1;
-            
-            const element = [];
-            const center = Math.floor(size / 2);
-            
-            for (let y = 0; y < size; y++) {
-                const row = [];
-                for (let x = 0; x < size; x++) {
-                    let value = 0;
-                    
-                    if (shape === 'rect') {
-                        value = 1;
-                    } else if (shape === 'cross') {
-                        if (x === center || y === center) {
-                            value = 1;
-                        }
-                    } else if (shape === 'ellipse') {
-                        const dx = x - center;
-                        const dy = y - center;
-                        const radius = center + 0.5;
-                        if (dx * dx + dy * dy <= radius * radius) {
-                            value = 1;
-                        }
-                    }
-                    
-                    row.push(value);
-                }
-                element.push(row);
-            }
-            
-            return element;
-        }
+
         
         /**
          * 更新结构元素显示
          */
         function updateSEDisplay() {
             const shape = document.getElementById('seShape').value;
-            const size = parseInt(document.getElementById('seSize').value);
-            
-            const se = createStructuringElement(shape, size);
+            let size = parseInt(document.getElementById('seSize').value);
+            if (shape === 'right') size = 3;
+            const se = getCurrentSE();
             
             const grid = document.getElementById('seGrid');
             grid.innerHTML = '';
@@ -692,6 +664,7 @@
          * 加载示例图片（带噪点和空洞的几何图形）
          */
         function loadSampleImage() {
+            document.getElementById('foreground').value = 'white';
             const canvas = document.createElement('canvas');
             canvas.width = 200;
             canvas.height = 200;
@@ -730,6 +703,7 @@
          * 加载文字图片
          */
         function loadTextImage() {
+            document.getElementById('foreground').value = 'black';
             const canvas = document.createElement('canvas');
             canvas.width = 200;
             canvas.height = 200;
@@ -808,59 +782,8 @@
          * 二值化图像（使用 Otsu 方法）
          */
         function binarizeImage(imageData) {
-            const data = imageData.data;
-            
-            // 先转灰度
-            for (let i = 0; i < data.length; i += 4) {
-                const gray = Math.round(0.299 * data[i] + 0.587 * data[i + 1] + 0.114 * data[i + 2]);
-                data[i] = gray;
-                data[i + 1] = gray;
-                data[i + 2] = gray;
-            }
-            
-            // 计算直方图
-            const histogram = new Array(256).fill(0);
-            for (let i = 0; i < data.length; i += 4) {
-                histogram[data[i]]++;
-            }
-            
-            // Otsu 阈值
-            const total = imageData.width * imageData.height;
-            let sum = 0;
-            for (let i = 0; i < 256; i++) sum += i * histogram[i];
-            
-            let sumB = 0, wB = 0;
-            let maxVariance = 0, threshold = 128;
-            
-            for (let t = 0; t < 256; t++) {
-                wB += histogram[t];
-                if (wB === 0) continue;
-                
-                const wF = total - wB;
-                if (wF === 0) break;
-                
-                sumB += t * histogram[t];
-                const mB = sumB / wB;
-                const mF = (sum - sumB) / wF;
-                
-                const variance = wB * wF * (mB - mF) * (mB - mF);
-                
-                if (variance > maxVariance) {
-                    maxVariance = variance;
-                    threshold = t;
-                }
-            }
-            
-            // 应用阈值
-            for (let i = 0; i < data.length; i += 4) {
-                const value = data[i] >= threshold ? 255 : 0;
-                data[i] = value;
-                data[i + 1] = value;
-                data[i + 2] = value;
-            }
-            
-            return imageData;
-        }
+    return LessonAlgorithms.binarizeOtsu(LessonAlgorithms.grayscaleWeighted(imageData)).imageData;
+}
         
         /**
          * 调整画布大小
@@ -883,150 +806,22 @@
         
         // ==================== 形态学操作 ====================
         
-        /**
-         * 腐蚀操作
-         */
-        function erode(imageData, se) {
-            const { width, height } = imageData;
-            const result = cloneImageData(imageData);
-            const resultData = result.data;
-            
-            const seSize = se.length;
-            const seCenter = Math.floor(seSize / 2);
-            
-            // 先将结果全部设为黑色
-            for (let i = 0; i < resultData.length; i += 4) {
-                resultData[i] = 0;
-                resultData[i + 1] = 0;
-                resultData[i + 2] = 0;
-            }
-            
-            for (let y = 0; y < height; y++) {
-                for (let x = 0; x < width; x++) {
-                    let fits = true;
-                    
-                    for (let sy = 0; sy < seSize && fits; sy++) {
-                        for (let sx = 0; sx < seSize && fits; sx++) {
-                            if (se[sy][sx] === 1) {
-                                const imgX = x + sx - seCenter;
-                                const imgY = y + sy - seCenter;
-                                
-                                if (imgX < 0 || imgX >= width || imgY < 0 || imgY >= height) {
-                                    fits = false;
-                                } else {
-                                    const index = (imgY * width + imgX) * 4;
-                                    if (imageData.data[index] < 128) {
-                                        fits = false;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    
-                    if (fits) {
-                        const index = (y * width + x) * 4;
-                        resultData[index] = 255;
-                        resultData[index + 1] = 255;
-                        resultData[index + 2] = 255;
-                    }
-                }
-            }
-            
-            return result;
-        }
         
-        /**
-         * 膨胀操作
-         */
-        function dilate(imageData, se) {
-            const { width, height } = imageData;
-            const result = cloneImageData(imageData);
-            const resultData = result.data;
-            
-            const seSize = se.length;
-            const seCenter = Math.floor(seSize / 2);
-            
-            // 先将结果全部设为黑色
-            for (let i = 0; i < resultData.length; i += 4) {
-                resultData[i] = 0;
-                resultData[i + 1] = 0;
-                resultData[i + 2] = 0;
-            }
-            
-            for (let y = 0; y < height; y++) {
-                for (let x = 0; x < width; x++) {
-                    let hits = false;
-                    
-                    for (let sy = 0; sy < seSize && !hits; sy++) {
-                        for (let sx = 0; sx < seSize && !hits; sx++) {
-                            if (se[sy][sx] === 1) {
-                                const imgX = x + sx - seCenter;
-                                const imgY = y + sy - seCenter;
-                                
-                                if (imgX >= 0 && imgX < width && imgY >= 0 && imgY < height) {
-                                    const index = (imgY * width + imgX) * 4;
-                                    if (imageData.data[index] >= 128) {
-                                        hits = true;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    
-                    if (hits) {
-                        const index = (y * width + x) * 4;
-                        resultData[index] = 255;
-                        resultData[index + 1] = 255;
-                        resultData[index + 2] = 255;
-                    }
-                }
-            }
-            
-            return result;
-        }
         
-        /**
-         * 开运算（先腐蚀后膨胀）
-         */
-        function morphOpen(imageData, se) {
-            const eroded = erode(imageData, se);
-            return dilate(eroded, se);
-        }
         
-        /**
-         * 闭运算（先膨胀后腐蚀）
-         */
-        function morphClose(imageData, se) {
-            const dilated = dilate(imageData, se);
-            return erode(dilated, se);
-        }
         
-        /**
-         * 形态学梯度（膨胀 - 腐蚀）
-         */
-        function morphGradient(imageData, se) {
-            const dilated = dilate(imageData, se);
-            const eroded = erode(imageData, se);
-            
-            const result = cloneImageData(imageData);
-            const { width, height } = imageData;
-            
-            for (let i = 0; i < result.data.length; i += 4) {
-                const value = Math.max(0, dilated.data[i] - eroded.data[i]);
-                result.data[i] = value;
-                result.data[i + 1] = value;
-                result.data[i + 2] = value;
-            }
-            
-            return result;
-        }
+
+
+
+
+
         
         // ==================== 操作按钮 ====================
         
         function getCurrentSE() {
             const shape = document.getElementById('seShape').value;
             const size = parseInt(document.getElementById('seSize').value);
-            return createStructuringElement(shape, size);
+            return shape === 'right' ? [[0,0,0],[0,1,1],[0,0,0]] : createStructuringElement(shape, size);
         }
         
         function applyErode() {
@@ -1096,10 +891,12 @@
             resultImageData = morphGradient(originalImageData, se);
             const endTime = performance.now();
             
-            displayResult(`形态学梯度 - ${(endTime - startTime).toFixed(1)}ms`);
+            displayResult(`形态学梯度：白色残差 - ${(endTime - startTime).toFixed(1)}ms`, true);
         }
         
-        function displayResult(info) {
+        function displayResult(info, residual = false) {
+            resultIsResidual = residual;
+            document.getElementById('resultPixelLabel').textContent = residual ? '白色残差像素' : '结果前景像素';
             const canvas = document.getElementById('resultCanvas');
             const ctx = canvas.getContext('2d');
             ctx.putImageData(resultImageData, 0, 0);
@@ -1109,25 +906,15 @@
         
         // ==================== 工具函数 ====================
         
-        /**
-         * 克隆 ImageData
-         */
-        function cloneImageData(imageData) {
-            const canvas = document.createElement('canvas');
-            canvas.width = imageData.width;
-            canvas.height = imageData.height;
-            const ctx = canvas.getContext('2d');
-            ctx.putImageData(imageData, 0, 0);
-            return ctx.getImageData(0, 0, imageData.width, imageData.height);
-        }
+
         
         /**
          * 统计前景像素数
          */
-        function countForegroundPixels(imageData) {
+        function countForegroundPixels(imageData, foreground = document.getElementById('foreground').value) {
             let count = 0;
             for (let i = 0; i < imageData.data.length; i += 4) {
-                if (imageData.data[i] >= 128) count++;
+                if (foreground === 'black' ? imageData.data[i] < 128 : imageData.data[i] >= 128) count++;
             }
             return count;
         }
@@ -1147,12 +934,12 @@
             document.getElementById('originalPixels').textContent = originalCount.toLocaleString();
             
             if (resultImageData) {
-                const resultCount = countForegroundPixels(resultImageData);
+                const resultCount = countForegroundPixels(resultImageData, resultIsResidual ? 'white' : document.getElementById('foreground').value);
                 document.getElementById('resultPixels').textContent = resultCount.toLocaleString();
                 
                 const change = resultCount - originalCount;
                 const changeText = (change >= 0 ? '+' : '') + change.toLocaleString();
-                document.getElementById('pixelChange').textContent = changeText;
+                document.getElementById('pixelChange').textContent = resultIsResidual ? '—' : changeText;
                 document.getElementById('pixelChange').style.color = 
                     change > 0 ? '#4caf50' : (change < 0 ? '#f44336' : '#888');
             } else {
@@ -1220,6 +1007,18 @@
             document.getElementById('compOpenPixels').textContent = `${countForegroundPixels(openResult)} 像素`;
             document.getElementById('compClosePixels').textContent = `${countForegroundPixels(closeResult)} 像素`;
         }
-    </script>
+
+        // 极性只控制前景集合操作；帽变换始终按亮度定义。
+        function erode(image, se) { return LessonAlgorithms.erode(image, se, { foreground: document.getElementById('foreground').value }); }
+        function dilate(image, se) { return LessonAlgorithms.dilate(image, se, { foreground: document.getElementById('foreground').value }); }
+        function morphOpen(image, se) { return LessonAlgorithms.morphOpen(image, se, { foreground: document.getElementById('foreground').value }); }
+        function morphClose(image, se) { return LessonAlgorithms.morphClose(image, se, { foreground: document.getElementById('foreground').value }); }
+        function morphGradient(image, se) { return LessonAlgorithms.morphGradient(image, se, { foreground: document.getElementById('foreground').value }); }
+        function applyHat(kind) {
+            if (!originalImageData) return;
+            resultImageData = LessonAlgorithms[kind](originalImageData, getCurrentSE());
+            displayResult(kind === 'topHat' ? '白顶帽：I−亮度开运算，白色为亮细节' : '黑帽：亮度闭运算−I，白色为暗细节', true);
+        }
+</script>
 </body>
 </html>

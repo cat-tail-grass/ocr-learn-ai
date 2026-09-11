@@ -1,0 +1,97 @@
+{
+  "createdAt": "2026-09-08T12:22:31.691Z",
+  "results": [
+    {
+      "chapter": "14-neural-network-basics",
+      "missing": [],
+      "node": "passed",
+      "manualReview": "see docs/COURSE_REVIEW.md",
+      "exitCode": 0
+    },
+    {
+      "chapter": "15-cnn-basics",
+      "missing": [],
+      "node": "passed",
+      "manualReview": "see docs/COURSE_REVIEW.md",
+      "exitCode": 0
+    },
+    {
+      "chapter": "16-tensorflowjs-intro",
+      "missing": [],
+      "node": "passed",
+      "manualReview": "see docs/COURSE_REVIEW.md",
+      "exitCode": 0
+    },
+    {
+      "chapter": "17-cnn-classifier",
+      "missing": [],
+      "node": "passed",
+      "manualReview": "see docs/COURSE_REVIEW.md",
+      "exitCode": 0
+    },
+    {
+      "chapter": "18-rnn-basics",
+      "missing": [],
+      "node": "passed",
+      "manualReview": "see docs/COURSE_REVIEW.md",
+      "exitCode": 0
+    },
+    {
+      "chapter": "19-ctc-loss",
+      "missing": [],
+      "node": "passed",
+      "manualReview": "see docs/COURSE_REVIEW.md",
+      "exitCode": 0
+    },
+    {
+      "chapter": "20-crnn",
+      "missing": [],
+      "node": "passed",
+      "manualReview": "see docs/COURSE_REVIEW.md",
+      "exitCode": 0
+    },
+    {
+      "chapter": "21-attention",
+      "missing": [],
+      "node": "passed",
+      "manualReview": "see docs/COURSE_REVIEW.md",
+      "exitCode": 0
+    },
+    {
+      "chapter": "22-text-detection-networks",
+      "missing": [],
+      "node": "passed",
+      "manualReview": "see docs/COURSE_REVIEW.md",
+      "exitCode": 0
+    },
+    {
+      "chapter": "23-transformer-ocr",
+      "missing": [],
+      "node": "passed",
+      "manualReview": "see docs/COURSE_REVIEW.md",
+      "exitCode": 0
+    },
+    {
+      "chapter": "24-post-processing",
+      "missing": [],
+      "node": "passed",
+      "manualReview": "see docs/COURSE_REVIEW.md",
+      "exitCode": 0
+    },
+    {
+      "chapter": "25-ocr-engine",
+      "missing": [],
+      "node": "passed",
+      "manualReview": "see docs/COURSE_REVIEW.md",
+      "exitCode": 0
+    },
+    {
+      "chapter": "26-validation",
+      "missing": [],
+      "node": "passed",
+      "manualReview": "see docs/COURSE_REVIEW.md",
+      "exitCode": 0
+    }
+  ],
+  "failures": 0
+}

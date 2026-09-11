@@ -1,0 +1,28 @@
+{
+  "checkedAt": "2026-09-11T12:50:42.216Z",
+  "base": "http://127.0.0.1:4173/",
+  "checks": [
+    {
+      "name": "original README updates the open reading page",
+      "pass": true
+    },
+    {
+      "name": "browser source rebuilds, copies and runs in the experiment",
+      "pass": true
+    },
+    {
+      "name": "restored source rebuilds clean experiment output",
+      "pass": true
+    },
+    {
+      "name": "04-binarization/README.md original bytes restored",
+      "pass": true,
+      "sha256": "2b0c7228c55a891b27c45a6ea4ef09ca199904cc07e01fe7f6f252609c2d9f91"
+    },
+    {
+      "name": "04-binarization/browser.js original bytes restored",
+      "pass": true,
+      "sha256": "56ed6c3486a85ab3c25fec59cd58c6664b48cbfe0cb14da3f34ce9cfbf064465"
+    }
+  ]
+}

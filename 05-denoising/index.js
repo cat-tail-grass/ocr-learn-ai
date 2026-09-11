@@ -18,107 +18,11 @@
  * - 复用 shared/imageUtils.js 中的工具函数
  */
 
-const {
-    MockImageData,
-    getPixel,
-    setPixel,
-    cloneImageData,
-    createImageData,
-    grayscaleWeighted,
-    clamp
-} = require('../shared/imageUtils');
-
-// ==================== 卷积核生成 ====================
-
-/**
- * 函数名称：createMeanKernel
- * 功能说明：生成均值滤波核（Box Filter Kernel）
- * 
- * 原理解释：
- * - 均值核的所有元素都相等
- * - 每个元素的值为 1/(size × size)
- * - 保证卷积后像素值在合理范围内
- * 
- * @param {number} size - 核的大小（必须是奇数，如3、5、7）
- * @returns {number[][]} 二维数组表示的滤波核
- */
-function createMeanKernel(size) {
-    // Step 1: 确保 size 是奇数
-    if (size % 2 === 0) {
-        size = size + 1;
-        console.warn(`均值核大小必须是奇数，已自动调整为 ${size}`);
-    }
-    
-    // Step 2: 计算每个元素的权重
-    const weight = 1 / (size * size);
-    
-    // Step 3: 创建并填充核
-    const kernel = [];
-    for (let y = 0; y < size; y++) {
-        const row = [];
-        for (let x = 0; x < size; x++) {
-            row.push(weight);
-        }
-        kernel.push(row);
-    }
-    
-    return kernel;
-}
-
-/**
- * 函数名称：createGaussianKernel
- * 功能说明：生成高斯滤波核
- * 
- * 原理解释：
- * - 高斯核的权重服从二维高斯分布
- * - 公式：G(x,y) = (1 / 2πσ²) × e^(-(x² + y²) / 2σ²)
- * - 中心权重最大，向边缘递减
- * - σ（sigma）控制分布的"宽度"，即模糊程度
- * 
- * @param {number} size - 核的大小（必须是奇数）
- * @param {number} sigma - 高斯分布的标准差（默认1.0）
- * @returns {number[][]} 二维数组表示的高斯核
- */
-function createGaussianKernel(size, sigma = 1.0) {
-    // Step 1: 确保 size 是奇数
-    if (size % 2 === 0) {
-        size = size + 1;
-        console.warn(`高斯核大小必须是奇数，已自动调整为 ${size}`);
-    }
-    
-    const kernel = [];
-    const center = Math.floor(size / 2);
-    let sum = 0;
-    
-    // Step 2: 计算每个位置的高斯权重
-    // 使用二维高斯公式：G(x,y) = e^(-(x² + y²) / 2σ²)
-    for (let y = 0; y < size; y++) {
-        const row = [];
-        for (let x = 0; x < size; x++) {
-            // 计算相对于中心的偏移
-            const dx = x - center;
-            const dy = y - center;
-            
-            // 高斯公式（省略前面的系数，后面会归一化）
-            const exponent = -(dx * dx + dy * dy) / (2 * sigma * sigma);
-            const value = Math.exp(exponent);
-            
-            row.push(value);
-            sum += value;
-        }
-        kernel.push(row);
-    }
-    
-    // Step 3: 归一化（使所有权重之和为1）
-    // 这确保卷积后的像素值不会超出范围
-    for (let y = 0; y < size; y++) {
-        for (let x = 0; x < size; x++) {
-            kernel[y][x] /= sum;
-        }
-    }
-    
-    return kernel;
-}
+// 同一共享算法用于 Node 和 HTML；本文件保留逐步数字实验。
+const { getPixel, setPixel, createImageData, createSeededRandom } = require('../shared/core');
+const { createMeanKernel, createGaussianKernel, convolve, correlate,
+    meanFilter, gaussianFilter, medianFilter, addGaussianNoise,
+    addSaltPepperNoise, calculatePSNR } = require('../shared/05-denoising');
 
 /**
  * 函数名称：printKernel
@@ -144,265 +48,6 @@ function printKernel(kernel, name = 'Kernel') {
     // 验证权重和
     const sum = kernel.flat().reduce((a, b) => a + b, 0);
     console.log(`权重总和: ${sum.toFixed(6)}`);
-}
-
-// ==================== 卷积操作 ====================
-
-/**
- * 函数名称：convolve
- * 功能说明：对灰度图像执行卷积操作
- * 
- * 原理解释：
- * - 卷积是图像处理的基础操作
- * - 滤波核在图像上滑动，对每个位置计算加权和
- * - 使用边缘复制策略处理边界
- * 
- * 卷积计算过程：
- * 1. 将核的中心对准当前像素
- * 2. 将核的每个元素与对应像素相乘
- * 3. 求和得到新的像素值
- * 
- * @param {ImageData|MockImageData} imageData - 灰度图像数据
- * @param {number[][]} kernel - 滤波核（二维数组）
- * @returns {MockImageData} 卷积后的图像数据
- */
-function convolve(imageData, kernel) {
-    const { width, height } = imageData;
-    const result = cloneImageData(imageData);
-    
-    const kernelSize = kernel.length;
-    const halfKernel = Math.floor(kernelSize / 2);
-    
-    // 遍历每个像素（跳过边界由 getPixelSafe 处理）
-    for (let y = 0; y < height; y++) {
-        for (let x = 0; x < width; x++) {
-            let sum = 0;
-            
-            // 对核的每个位置进行计算
-            for (let ky = 0; ky < kernelSize; ky++) {
-                for (let kx = 0; kx < kernelSize; kx++) {
-                    // 计算对应的图像坐标
-                    let imgX = x + kx - halfKernel;
-                    let imgY = y + ky - halfKernel;
-                    
-                    // 边界处理：边缘复制策略
-                    imgX = clamp(imgX, 0, width - 1);
-                    imgY = clamp(imgY, 0, height - 1);
-                    
-                    // 获取像素灰度值
-                    const pixel = getPixel(imageData, imgX, imgY);
-                    const gray = pixel.r; // 假设是灰度图
-                    
-                    // 累加加权值
-                    sum += gray * kernel[ky][kx];
-                }
-            }
-            
-            // 确保结果在有效范围内
-            const newValue = clamp(Math.round(sum), 0, 255);
-            setPixel(result, x, y, newValue, newValue, newValue);
-        }
-    }
-    
-    return result;
-}
-
-// ==================== 滤波器实现 ====================
-
-/**
- * 函数名称：meanFilter
- * 功能说明：均值滤波（Box Filter）
- * 
- * 原理解释：
- * - 用邻域内所有像素的平均值替代中心像素
- * - 效果：平滑图像，减少噪声
- * - 缺点：会模糊边缘
- * 
- * @param {ImageData|MockImageData} imageData - 灰度图像数据
- * @param {number} size - 滤波器大小（默认3）
- * @returns {MockImageData} 滤波后的图像数据
- */
-function meanFilter(imageData, size = 3) {
-    const kernel = createMeanKernel(size);
-    return convolve(imageData, kernel);
-}
-
-/**
- * 函数名称：gaussianFilter
- * 功能说明：高斯滤波
- * 
- * 原理解释：
- * - 用邻域内像素的加权平均值替代中心像素
- * - 权重服从高斯分布，中心权重最大
- * - 效果：平滑图像，比均值滤波更好地保留边缘
- * 
- * @param {ImageData|MockImageData} imageData - 灰度图像数据
- * @param {number} size - 滤波器大小（默认3）
- * @param {number} sigma - 高斯标准差（默认1.0）
- * @returns {MockImageData} 滤波后的图像数据
- */
-function gaussianFilter(imageData, size = 3, sigma = 1.0) {
-    const kernel = createGaussianKernel(size, sigma);
-    return convolve(imageData, kernel);
-}
-
-/**
- * 函数名称：medianFilter
- * 功能说明：中值滤波
- * 
- * 原理解释：
- * - 用邻域内所有像素的中值替代中心像素
- * - 中值不受极值影响，所以对椒盐噪声效果极佳
- * - 注意：这不是卷积操作，因为使用的是排序而非加权求和
- * 
- * 为什么中值滤波对椒盐噪声有效？
- * - 椒盐噪声是极值（0或255）
- * - 排序后，极值会被推到两端
- * - 中间的中值是正常像素值
- * - 因此极值被"过滤"掉了
- * 
- * @param {ImageData|MockImageData} imageData - 灰度图像数据
- * @param {number} size - 滤波器大小（默认3）
- * @returns {MockImageData} 滤波后的图像数据
- */
-function medianFilter(imageData, size = 3) {
-    const { width, height } = imageData;
-    const result = cloneImageData(imageData);
-    
-    const halfSize = Math.floor(size / 2);
-    
-    for (let y = 0; y < height; y++) {
-        for (let x = 0; x < width; x++) {
-            const values = [];
-            
-            // 收集邻域内所有像素值
-            for (let dy = -halfSize; dy <= halfSize; dy++) {
-                for (let dx = -halfSize; dx <= halfSize; dx++) {
-                    let imgX = x + dx;
-                    let imgY = y + dy;
-                    
-                    // 边界处理：边缘复制
-                    imgX = clamp(imgX, 0, width - 1);
-                    imgY = clamp(imgY, 0, height - 1);
-                    
-                    const pixel = getPixel(imageData, imgX, imgY);
-                    values.push(pixel.r); // 假设是灰度图
-                }
-            }
-            
-            // 排序并取中值
-            values.sort((a, b) => a - b);
-            const medianValue = values[Math.floor(values.length / 2)];
-            
-            setPixel(result, x, y, medianValue, medianValue, medianValue);
-        }
-    }
-    
-    return result;
-}
-
-// ==================== 噪声生成（用于测试） ====================
-
-/**
- * 函数名称：addGaussianNoise
- * 功能说明：向图像添加高斯噪声（用于测试去噪效果）
- * 
- * 原理解释：
- * - 使用 Box-Muller 变换生成正态分布的随机数
- * - 将噪声叠加到每个像素上
- * - sigma 控制噪声强度
- * 
- * @param {ImageData|MockImageData} imageData - 原始图像数据
- * @param {number} sigma - 噪声标准差（默认25）
- * @returns {MockImageData} 添加噪声后的图像数据
- */
-function addGaussianNoise(imageData, sigma = 25) {
-    const result = cloneImageData(imageData);
-    const data = result.data;
-    
-    for (let i = 0; i < data.length; i += 4) {
-        // Box-Muller 变换生成高斯随机数
-        const u1 = Math.random();
-        const u2 = Math.random();
-        const z = Math.sqrt(-2 * Math.log(u1)) * Math.cos(2 * Math.PI * u2);
-        const noise = z * sigma;
-        
-        // 添加噪声到每个通道
-        data[i] = clamp(Math.round(data[i] + noise), 0, 255);
-        data[i + 1] = clamp(Math.round(data[i + 1] + noise), 0, 255);
-        data[i + 2] = clamp(Math.round(data[i + 2] + noise), 0, 255);
-    }
-    
-    return result;
-}
-
-/**
- * 函数名称：addSaltPepperNoise
- * 功能说明：向图像添加椒盐噪声（用于测试去噪效果）
- * 
- * 原理解释：
- * - 随机选择一定比例的像素
- * - 将它们设为纯黑（0）或纯白（255）
- * - density 控制噪声密度
- * 
- * @param {ImageData|MockImageData} imageData - 原始图像数据
- * @param {number} density - 噪声密度（0-1，默认0.05即5%）
- * @returns {MockImageData} 添加噪声后的图像数据
- */
-function addSaltPepperNoise(imageData, density = 0.05) {
-    const result = cloneImageData(imageData);
-    const { width, height } = result;
-    
-    // 计算需要添加噪声的像素数量
-    const totalPixels = width * height;
-    const noisePixels = Math.floor(totalPixels * density);
-    
-    // 随机添加椒盐噪声
-    for (let i = 0; i < noisePixels; i++) {
-        const x = Math.floor(Math.random() * width);
-        const y = Math.floor(Math.random() * height);
-        
-        // 随机选择椒（黑）或盐（白）
-        const value = Math.random() < 0.5 ? 0 : 255;
-        setPixel(result, x, y, value, value, value);
-    }
-    
-    return result;
-}
-
-// ==================== 演示和测试 ====================
-
-/**
- * 计算两张图像的 PSNR（峰值信噪比）
- * 
- * 原理说明：
- * - PSNR 用于衡量图像质量
- * - 值越大表示质量越好
- * - 通常 > 30dB 认为是可接受的质量
- * 
- * @param {ImageData|MockImageData} original - 原始图像
- * @param {ImageData|MockImageData} processed - 处理后的图像
- * @returns {number} PSNR 值（单位：dB）
- */
-function calculatePSNR(original, processed) {
-    const { width, height } = original;
-    let mse = 0;
-    
-    for (let y = 0; y < height; y++) {
-        for (let x = 0; x < width; x++) {
-            const orig = getPixel(original, x, y);
-            const proc = getPixel(processed, x, y);
-            const diff = orig.r - proc.r;
-            mse += diff * diff;
-        }
-    }
-    
-    mse /= (width * height);
-    
-    if (mse === 0) return Infinity;
-    
-    const psnr = 10 * Math.log10((255 * 255) / mse);
-    return psnr;
 }
 
 /**
@@ -450,7 +95,7 @@ function main() {
     // ========== 3. 高斯噪声测试 ==========
     console.log('\n【3. 高斯噪声去噪测试】\n');
     
-    const gaussNoisyImage = addGaussianNoise(testImage, 30);
+    const gaussNoisyImage = addGaussianNoise(testImage, 30, createSeededRandom(20260911));
     console.log('添加高斯噪声后:');
     printImage(gaussNoisyImage);
     
@@ -459,7 +104,7 @@ function main() {
     console.log('\n均值滤波后:');
     printImage(meanFiltered);
     const meanPSNR = calculatePSNR(testImage, meanFiltered);
-    console.log(`PSNR: ${meanPSNR.toFixed(2)} dB`);
+    console.log(`PSNR: ${meanPSNR.toFixed(2)} dB（含噪基线 ${calculatePSNR(testImage, gaussNoisyImage).toFixed(2)} dB）`);
     
     // 高斯滤波
     const gaussFiltered = gaussianFilter(gaussNoisyImage, 3, 1.0);
@@ -478,8 +123,8 @@ function main() {
     // ========== 4. 椒盐噪声测试 ==========
     console.log('\n【4. 椒盐噪声去噪测试】\n');
     
-    const spNoisyImage = addSaltPepperNoise(testImage, 0.1);
-    console.log('添加椒盐噪声后 (10%密度):');
+    const spNoisyImage = addSaltPepperNoise(testImage, 0.1, createSeededRandom(20260911));
+    console.log('添加椒盐噪声后 (逐像素10%概率，固定种子20260911):');
     printImage(spNoisyImage);
     
     // 均值滤波
@@ -507,13 +152,14 @@ function main() {
     console.log('└─────────────────┴────────────────────┴────────────────────┘');
     
     console.log('\n结论：');
-    console.log('1. 高斯噪声：高斯滤波通常效果最好');
-    console.log('2. 椒盐噪声：中值滤波效果远超均值滤波');
+    console.log('1. 以上PSNR只描述这个固定样例，不保证某滤波器始终最佳。');
+    console.log('2. 中值通常对稀疏椒盐有效，也可能抹去细笔画；须比较原始含噪PSNR和识别结果。');
     console.log('3. 混合噪声：可以先中值再高斯滤波');
     
     // ========== 6. 卷积操作详解 ==========
     console.log('\n【6. 卷积操作详解】\n');
     demonstrateConvolution();
+    demonstrateCounterexamples();
     
     console.log('\n' + '='.repeat(60));
     console.log('演示完成！');
@@ -589,11 +235,26 @@ function demonstrateConvolution() {
     console.log('排序后: [80, 90, 95, 100, 105, 110, 120, 130, 255]');
     console.log('中值: 105（第5个位置）');
     console.log('');
-    console.log('结果：噪点 255 → 105（被完全去除）');
+    console.log('结果：255 → 105（取邻域中值，不等于已知真实像素）');
+}
+
+function demonstrateCounterexamples() {
+    console.log('\n【7. 相关方向、细线损失与PSNR边界】');
+    const row = createImageData(3, 1);
+    [10, 20, 40].forEach((v, x) => setPixel(row, x, 0, v, v, v));
+    const kernel = [[0, 0, 0], [1, 0, 0], [0, 0, 0]];
+    console.log(`非对称核中心：相关=${getPixel(correlate(row, kernel), 1, 0).r}，卷积=${getPixel(convolve(row, kernel), 1, 0).r}`);
+    const line = createImageData(3, 3);
+    for (let y = 0; y < 3; y++) setPixel(line, 1, y, 0, 0, 0);
+    console.log(`一像素宽黑线经3×3中值后中心=${getPixel(medianFilter(line, 3), 1, 1).r}（黑线消失）`);
+    const reference = createImageData(2, 1, 0, 0, 0);
+    setPixel(reference, 1, 0, 255, 255, 255);
+    console.log(`PSNR([0,255],[0,0])=${calculatePSNR(reference, createImageData(2, 1, 0, 0, 0)).toFixed(4)}dB；同图=${calculatePSNR(reference, reference)}`);
+    console.log('PSNR需要同尺寸、对齐的灰度参考；不等于OCR准确率。');
 }
 
 // 运行演示
-main();
+if (require.main === module) main();
 
 // ==================== 导出模块 ====================
 
@@ -601,6 +262,7 @@ module.exports = {
     createMeanKernel,
     createGaussianKernel,
     convolve,
+    correlate,
     meanFilter,
     gaussianFilter,
     medianFilter,

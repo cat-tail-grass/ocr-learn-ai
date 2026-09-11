@@ -81,7 +81,8 @@ function createPrewittKernelY() {
  * 计算图像梯度
  * 
  * 原理说明：
- * - 使用指定的卷积核计算 X 和 Y 方向的梯度
+ * - 按原核方向做互相关（常被称为卷积），不反转Sobel核
+ * - x向右、y向下；方向为atan2(Gy,Gx)的度数，梯度指向亮度增大方向
  * - 梯度幅值：|G| = √(Gx² + Gy²)
  * - 梯度方向：θ = atan2(Gy, Gx)
  * - 梯度幅值表示边缘强度，梯度方向垂直于边缘方向
@@ -245,7 +246,7 @@ function prewittEdgeDetection(imageData, normalize = true) {
  * - Canny 算法的第三步
  * - 沿着梯度方向，只保留局部最大值
  * - 将边缘细化为单像素宽度
- * - 使用8方向量化简化计算
+ * - 将无向梯度量化到4个方向；平台用>=保留，未承诺严格单像素宽
  * 
  * @param {Float32Array} magnitude - 梯度幅值
  * @param {Float32Array} direction - 梯度方向（度数）
@@ -273,17 +274,17 @@ function nonMaxSuppression(magnitude, direction, width, height) {
                 neighbor1 = magnitude[idx - 1];
                 neighbor2 = magnitude[idx + 1];
             } else if (angle >= 22.5 && angle < 67.5) {
-                // 45度方向
-                neighbor1 = magnitude[(y - 1) * width + (x + 1)];
-                neighbor2 = magnitude[(y + 1) * width + (x - 1)];
+                // y向下，+45°为左上↔右下。
+                neighbor1 = magnitude[(y - 1) * width + (x - 1)];
+                neighbor2 = magnitude[(y + 1) * width + (x + 1)];
             } else if (angle >= 67.5 && angle < 112.5) {
                 // 垂直方向
                 neighbor1 = magnitude[(y - 1) * width + x];
                 neighbor2 = magnitude[(y + 1) * width + x];
             } else {
-                // 135度方向
-                neighbor1 = magnitude[(y - 1) * width + (x - 1)];
-                neighbor2 = magnitude[(y + 1) * width + (x + 1)];
+                // +135°为右上↔左下。
+                neighbor1 = magnitude[(y - 1) * width + (x + 1)];
+                neighbor2 = magnitude[(y + 1) * width + (x - 1)];
             }
             
             // 只保留局部最大值
@@ -314,11 +315,15 @@ function nonMaxSuppression(magnitude, direction, width, height) {
  * @returns {{strong: Uint8Array, weak: Uint8Array}} 强边缘和弱边缘标记
  */
 function doubleThreshold(magnitude, lowThreshold, highThreshold, width, height) {
+    if (![lowThreshold, highThreshold].every(Number.isFinite) || lowThreshold < 0 || highThreshold < lowThreshold) {
+        throw new RangeError('阈值须满足0≤lowThreshold≤highThreshold');
+    }
     const size = width * height;
     const strong = new Uint8Array(size);
     const weak = new Uint8Array(size);
     
     for (let i = 0; i < size; i++) {
+        if (magnitude[i] <= 0) continue; // 零梯度永远不是边缘，包括阈值为0时。
         if (magnitude[i] >= highThreshold) {
             strong[i] = 1;
         } else if (magnitude[i] >= lowThreshold) {
@@ -360,9 +365,9 @@ function hysteresisTracking(strong, weak, width, height) {
     const dy = [-1, -1, -1, 0, 0, 1, 1, 1];
     const queue = [];
     
-    // 将所有强边缘加入队列
-    for (let y = 1; y < height - 1; y++) {
-        for (let x = 1; x < width - 1; x++) {
+    // 所有强边缘都是种子，包含边界像素。
+    for (let y = 0; y < height; y++) {
+        for (let x = 0; x < width; x++) {
             const idx = y * width + x;
             if (strong[idx]) {
                 queue.push({ x, y });
@@ -372,8 +377,8 @@ function hysteresisTracking(strong, weak, width, height) {
     }
     
     // BFS 连接弱边缘
-    while (queue.length > 0) {
-        const current = queue.shift();
+    for (let head = 0; head < queue.length; head++) {
+        const current = queue[head];
         
         // 检查8邻域
         for (let i = 0; i < 8; i++) {
@@ -449,7 +454,7 @@ function cannyEdgeDetection(imageData, options = {}) {
     for (let y = 0; y < height; y++) {
         for (let x = 0; x < width; x++) {
             const idx = y * width + x;
-            const value = Math.round(gradient.magnitude[idx] / maxMag * 255);
+            const value = maxMag > 0 ? Math.round(gradient.magnitude[idx] / maxMag * 255) : 0;
             setPixel(magnitudeImage, x, y, value, value, value);
         }
     }
@@ -467,7 +472,7 @@ function cannyEdgeDetection(imageData, options = {}) {
     for (let y = 0; y < height; y++) {
         for (let x = 0; x < width; x++) {
             const idx = y * width + x;
-            const value = clamp(Math.round(suppressed[idx] / maxMag * 255), 0, 255);
+            const value = maxMag > 0 ? clamp(Math.round(suppressed[idx] / maxMag * 255), 0, 255) : 0;
             setPixel(nmsImage, x, y, value, value, value);
         }
     }

@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>22 · 文本检测输出与后处理</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22%3E%3Crect width=%2264%22 height=%2264%22 rx=%2214%22 fill=%22%23126451%22/%3E%3Ctext x=%2232%22 y=%2246%22 text-anchor=%22middle%22 font-size=%2244%22 fill=%22white%22 font-family=%22sans-serif%22%3EO%3C/text%3E%3C/svg%3E">
+    <link rel="stylesheet" href="../shared/course.css" />
+    <script src="../shared/course.js" defer></script>
+    <script src="bundle.js" defer></script>
+  </head>
+  <body>
+<nav class="course-nav" aria-label="课程导航"><a href="../../" data-course-catalog><strong>OCR / 学习实验室</strong></a><div class="links"><a href="../../22-text-detection-networks/" data-course-doc="22-text-detection-networks">返回本章讲义</a><a href="../../" data-course-catalog>课程目录</a><a href="../25-ocr-engine/index.html" data-course-lab="25-ocr-engine">照片识别</a><a href="../26-validation/index.html" data-course-lab="26-validation">评估记录</a></div></nav>
+    <main>
+      <p class="eyebrow">Chapter 22 / Text detection</p>
+      <h1>从预测图到文字区域</h1>
+      <p class="lead">
+        检查可微二值化的数值、边界梯度与区域框；旋转角度可独立改变 EAST
+        几何解码。
+      </p>
+      <p class="note">
+        这些 P/T 图由公式合成，未运行 DBNet 或 EAST 网络。DB
+        运算公式真实执行；四邻域连通域、轴对齐框扩张和 NMS
+        是后处理教学简化，不能代表完整模型的检测精度。
+      </p>
+      <section class="card">
+        <h2>二值化与框筛选</h2>
+        <div class="controls">
+          <label
+            >输入预测场
+            <select id="preset">
+              <option value="regions">两个合成区域</option>
+              <option value="blank">空预测场 P=0</option>
+            </select></label
+          ><label
+            >DB 陡峭度 k
+            <input
+              id="k"
+              type="range"
+              min="1"
+              max="100"
+              step="1"
+              value="50"
+            /><output id="k-value">50</output></label
+          ><label
+            >P 推理阈值
+            <input
+              id="threshold"
+              type="range"
+              min="0.1"
+              max="0.9"
+              step="0.05"
+              value="0.3"
+            /><output id="threshold-value">0.30</output></label
+          ><label
+            >矩形扩张比例
+            <input
+              id="expand"
+              type="range"
+              min="0"
+              max="3"
+              step="0.1"
+              value="1"
+            /><output id="expand-value">1.0</output></label
+          ><button id="reset" class="secondary">恢复默认</button>
+        </div>
+        <p id="status" class="status" role="status" aria-live="polite">
+          正在初始化…
+        </p>
+      </section>
+      <div class="grid">
+        <section class="card">
+          <h2>概率图 P</h2>
+          <canvas
+            id="probability"
+            width="576"
+            height="288"
+            role="img"
+            aria-label="合成文本概率图，深色代表数值高"
+          ></canvas>
+          <p class="hint">深色高、浅色低；P∈[0,1]。</p>
+        </section>
+        <section class="card">
+          <h2>阈值图 T</h2>
+          <canvas
+            id="threshold-map"
+            width="576"
+            height="288"
+            role="img"
+            aria-label="合成阈值图"
+          ></canvas>
+          <p class="hint">本例从左向右缓慢增大；实际网络通过监督学习预测 T。</p>
+        </section>
+        <section class="card">
+          <h2>软二值图 B̂ = σ(k(P−T))</h2>
+          <canvas
+            id="binary"
+            width="576"
+            height="288"
+            role="img"
+            aria-label="DB 可微二值化的连续输出"
+          ></canvas>
+          <p class="hint">仍是连续值；阈值 0.5 对应 P&gt;T，与 k 大小无关。</p>
+        </section>
+        <section class="card">
+          <h2>∂B̂ / ∂P 的分布</h2>
+          <canvas
+            id="gradient"
+            width="576"
+            height="288"
+            role="img"
+            aria-label="边界附近的梯度热图"
+          ></canvas>
+          <p class="hint">
+            颜色按理论最大值 k/4 归一化。数值峰值随 k 增大，显著梯度区域会变窄。
+          </p>
+        </section>
+      </div>
+      <section class="card">
+        <h2>读取一个像素的实际数值</h2>
+        <div class="controls">
+          <label
+            >x
+            <input
+              id="sample-x"
+              type="number"
+              min="0"
+              max="47"
+              value="3" /></label
+          ><label
+            >y <input id="sample-y" type="number" min="0" max="23" value="8"
+          /></label>
+        </div>
+        <pre id="sample" aria-live="polite"></pre>
+      </section>
+      <div class="grid">
+        <section class="card">
+          <h2>P 固定阈值 → 框</h2>
+          <canvas
+            id="boxes"
+            width="576"
+            height="288"
+            role="img"
+            aria-label="P 支路筛选的轴对齐区域框，坐标见下方表格"
+          ></canvas>
+          <p class="hint">
+            与官方可直接使用 P 的推理思路对应；这里省略真实轮廓与多边形处理。
+          </p>
+        </section>
+        <section class="card">
+          <h2>B̂ &gt; 0.5 → 对照框</h2>
+          <canvas
+            id="db-boxes"
+            width="576"
+            height="288"
+            role="img"
+            aria-label="软二值图支路的教学对照框"
+          ></canvas>
+          <p class="hint">
+            改变 k 影响软输出，但在精确算术下不改变 B̂&gt;0.5 的前景集合。
+          </p>
+        </section>
+      </div>
+      <section class="card">
+        <h2>区域记录</h2>
+        <pre id="box-data"></pre>
+      </section>
+      <section class="card">
+        <h2>EAST：锚点 + 四条距离 + 角度</h2>
+        <label
+          >图像坐标顺时针角度（度）
+          <input id="angle" type="range" min="-60" max="60" value="30" /><output
+            id="angle-value"
+            >30</output
+          ></label
+        >
+        <div class="grid">
+          <canvas
+            id="east"
+            width="420"
+            height="300"
+            role="img"
+            aria-label="旋转矩形的四个顶点、锚点与外接框"
+          ></canvas>
+          <pre id="east-data"></pre>
+        </div>
+        <p class="hint">
+          绿色实线为旋转四边形，橙色虚线为轴对齐外接框。对斜长文字，外接框 IoU
+          可能夸大重叠。
+        </p>
+      </section>
+      <p>
+        <a href="../../22-text-detection-networks/" data-course-doc="22-text-detection-networks">阅读 EAST / DBNet 原理、生产模型接入边界与自测</a> ·
+        <a href="../23-transformer-ocr/index.html">下一章：Transformer OCR</a>
+      </p>
+    </main>
+  </body>
+</html>

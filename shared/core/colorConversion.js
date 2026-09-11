@@ -59,9 +59,9 @@ function hexToRgb(hex) {
  * RGB 转灰度值
  * 
  * 原理说明：
- * - 使用标准加权公式（ITU-R BT.601）
+ * - 借用 BT.601 的 luma 系数，对编码 RGB 作快速灰度近似
  * - Gray = 0.299R + 0.587G + 0.114B
- * - 权重基于人眼对不同颜色的敏感度
+ * - 系数与色彩原色/亮度定义有关；直接用于 sRGB 不是线性光亮度
  * - 绿色权重最大，因为人眼对绿色最敏感
  * 
  * @param {number} r - 红色值 (0-255)
@@ -113,7 +113,7 @@ function rgbToHsv(r, g, b) {
     if (h < 0) h += 360;
     
     return {
-        h: Math.round(h),
+        h: Math.round(h) % 360,
         s: Math.round(s * 100),
         v: Math.round(v * 100)
     };

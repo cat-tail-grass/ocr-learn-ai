@@ -1,0 +1,523 @@
+{
+  "pages": 43,
+  "chapters": 26,
+  "failures": [],
+  "rows": [
+    {
+      "source": "01-image-fundamentals/README.md",
+      "path": "/01-image-fundamentals/",
+      "id": "01",
+      "headers": 8,
+      "firstHeader": {
+        "level": 2,
+        "title": "学习目标",
+        "slug": "学习目标",
+        "link": "#学习目标",
+        "children": []
+      },
+      "prev": null,
+      "next": "02",
+      "bodyLength": 4893,
+      "math": false,
+      "links": []
+    },
+    {
+      "source": "02-js-image-basics/README.md",
+      "path": "/02-js-image-basics/",
+      "id": "02",
+      "headers": 10,
+      "firstHeader": {
+        "level": 2,
+        "title": "学习目标",
+        "slug": "学习目标",
+        "link": "#学习目标",
+        "children": []
+      },
+      "prev": "01",
+      "next": "03",
+      "bodyLength": 5812,
+      "math": false,
+      "links": []
+    },
+    {
+      "source": "03-grayscale/README.md",
+      "path": "/03-grayscale/",
+      "id": "03",
+      "headers": 10,
+      "firstHeader": {
+        "level": 2,
+        "title": "学习目标",
+        "slug": "学习目标",
+        "link": "#学习目标",
+        "children": []
+      },
+      "prev": "02",
+      "next": "04",
+      "bodyLength": 4828,
+      "math": false,
+      "links": []
+    },
+    {
+      "source": "04-binarization/README.md",
+      "path": "/04-binarization/",
+      "id": "04",
+      "headers": 13,
+      "firstHeader": {
+        "level": 2,
+        "title": "学习目标",
+        "slug": "学习目标",
+        "link": "#学习目标",
+        "children": []
+      },
+      "prev": "03",
+      "next": "05",
+      "bodyLength": 13313,
+      "math": false,
+      "links": []
+    },
+    {
+      "source": "05-denoising/README.md",
+      "path": "/05-denoising/",
+      "id": "05",
+      "headers": 12,
+      "firstHeader": {
+        "level": 2,
+        "title": "学习目标",
+        "slug": "学习目标",
+        "link": "#学习目标",
+        "children": []
+      },
+      "prev": "04",
+      "next": "06",
+      "bodyLength": 7857,
+      "math": false,
+      "links": []
+    },
+    {
+      "source": "06-morphology/README.md",
+      "path": "/06-morphology/",
+      "id": "06",
+      "headers": 8,
+      "firstHeader": {
+        "level": 2,
+        "title": "学习目标",
+        "slug": "学习目标",
+        "link": "#学习目标",
+        "children": []
+      },
+      "prev": "05",
+      "next": "07",
+      "bodyLength": 6309,
+      "math": false,
+      "links": []
+    },
+    {
+      "source": "07-deskewing/README.md",
+      "path": "/07-deskewing/",
+      "id": "07",
+      "headers": 10,
+      "firstHeader": {
+        "level": 2,
+        "title": "学习目标",
+        "slug": "学习目标",
+        "link": "#学习目标",
+        "children": []
+      },
+      "prev": "06",
+      "next": "08",
+      "bodyLength": 8016,
+      "math": false,
+      "links": []
+    },
+    {
+      "source": "08-edge-detection/README.md",
+      "path": "/08-edge-detection/",
+      "id": "08",
+      "headers": 9,
+      "firstHeader": {
+        "level": 2,
+        "title": "学习目标",
+        "slug": "学习目标",
+        "link": "#学习目标",
+        "children": []
+      },
+      "prev": "07",
+      "next": "09",
+      "bodyLength": 10668,
+      "math": false,
+      "links": []
+    },
+    {
+      "source": "09-connected-components/README.md",
+      "path": "/09-connected-components/",
+      "id": "09",
+      "headers": 10,
+      "firstHeader": {
+        "level": 2,
+        "title": "学习目标",
+        "slug": "学习目标",
+        "link": "#学习目标",
+        "children": []
+      },
+      "prev": "08",
+      "next": "10",
+      "bodyLength": 10562,
+      "math": false,
+      "links": []
+    },
+    {
+      "source": "10-text-localization/README.md",
+      "path": "/10-text-localization/",
+      "id": "10",
+      "headers": 12,
+      "firstHeader": {
+        "level": 2,
+        "title": "学习目标",
+        "slug": "学习目标",
+        "link": "#学习目标",
+        "children": []
+      },
+      "prev": "09",
+      "next": "11",
+      "bodyLength": 18461,
+      "math": false,
+      "links": []
+    },
+    {
+      "source": "11-feature-extraction/README.md",
+      "path": "/11-feature-extraction/",
+      "id": "11",
+      "headers": 14,
+      "firstHeader": {
+        "level": 2,
+        "title": "学习目标",
+        "slug": "学习目标",
+        "link": "#学习目标",
+        "children": []
+      },
+      "prev": "10",
+      "next": "12",
+      "bodyLength": 43854,
+      "math": false,
+      "links": []
+    },
+    {
+      "source": "12-template-matching/README.md",
+      "path": "/12-template-matching/",
+      "id": "12",
+      "headers": 11,
+      "firstHeader": {
+        "level": 2,
+        "title": "学习目标",
+        "slug": "学习目标",
+        "link": "#学习目标",
+        "children": []
+      },
+      "prev": "11",
+      "next": "13",
+      "bodyLength": 27958,
+      "math": false,
+      "links": []
+    },
+    {
+      "source": "13-knn-classifier/README.md",
+      "path": "/13-knn-classifier/",
+      "id": "13",
+      "headers": 9,
+      "firstHeader": {
+        "level": 2,
+        "title": "学习目标",
+        "slug": "学习目标",
+        "link": "#学习目标",
+        "children": []
+      },
+      "prev": "12",
+      "next": "14",
+      "bodyLength": 3464,
+      "math": false,
+      "links": []
+    },
+    {
+      "source": "14-neural-network-basics/README.md",
+      "path": "/14-neural-network-basics/",
+      "id": "14",
+      "headers": 15,
+      "firstHeader": {
+        "level": 2,
+        "title": "学习目标与 OCR 中的位置",
+        "slug": "学习目标与-ocr-中的位置",
+        "link": "#学习目标与-ocr-中的位置",
+        "children": []
+      },
+      "prev": "13",
+      "next": "15",
+      "bodyLength": 15280,
+      "math": false,
+      "links": []
+    },
+    {
+      "source": "15-cnn-basics/README.md",
+      "path": "/15-cnn-basics/",
+      "id": "15",
+      "headers": 17,
+      "firstHeader": {
+        "level": 2,
+        "title": "学习目标、前置知识与 OCR 位置",
+        "slug": "学习目标、前置知识与-ocr-位置",
+        "link": "#学习目标、前置知识与-ocr-位置",
+        "children": []
+      },
+      "prev": "14",
+      "next": "16",
+      "bodyLength": 17431,
+      "math": false,
+      "links": []
+    },
+    {
+      "source": "16-tensorflowjs-intro/README.md",
+      "path": "/16-tensorflowjs-intro/",
+      "id": "16",
+      "headers": 12,
+      "firstHeader": {
+        "level": 2,
+        "title": "学习目标与前置知识",
+        "slug": "学习目标与前置知识",
+        "link": "#学习目标与前置知识",
+        "children": []
+      },
+      "prev": "15",
+      "next": "17",
+      "bodyLength": 11481,
+      "math": true,
+      "links": []
+    },
+    {
+      "source": "17-cnn-classifier/README.md",
+      "path": "/17-cnn-classifier/",
+      "id": "17",
+      "headers": 13,
+      "firstHeader": {
+        "level": 2,
+        "title": "学习目标与本章交付",
+        "slug": "学习目标与本章交付",
+        "link": "#学习目标与本章交付",
+        "children": [
+          {
+            "level": 3,
+            "title": "实际交付模型",
+            "slug": "实际交付模型",
+            "link": "#实际交付模型",
+            "children": []
+          }
+        ]
+      },
+      "prev": "16",
+      "next": "18",
+      "bodyLength": 20915,
+      "math": true,
+      "links": []
+    },
+    {
+      "source": "18-rnn-basics/README.md",
+      "path": "/18-rnn-basics/",
+      "id": "18",
+      "headers": 11,
+      "firstHeader": {
+        "level": 2,
+        "title": "学习目标与前置知识",
+        "slug": "学习目标与前置知识",
+        "link": "#学习目标与前置知识",
+        "children": []
+      },
+      "prev": "17",
+      "next": "19",
+      "bodyLength": 10099,
+      "math": true,
+      "links": []
+    },
+    {
+      "source": "19-ctc-loss/README.md",
+      "path": "/19-ctc-loss/",
+      "id": "19",
+      "headers": 11,
+      "firstHeader": {
+        "level": 2,
+        "title": "学习目标与 OCR 中的位置",
+        "slug": "学习目标与-ocr-中的位置",
+        "link": "#学习目标与-ocr-中的位置",
+        "children": []
+      },
+      "prev": "18",
+      "next": "20",
+      "bodyLength": 13436,
+      "math": true,
+      "links": []
+    },
+    {
+      "source": "20-crnn/README.md",
+      "path": "/20-crnn/",
+      "id": "20",
+      "headers": 13,
+      "firstHeader": {
+        "level": 2,
+        "title": "学习目标、前置知识与实验范围",
+        "slug": "学习目标、前置知识与实验范围",
+        "link": "#学习目标、前置知识与实验范围",
+        "children": []
+      },
+      "prev": "19",
+      "next": "21",
+      "bodyLength": 15359,
+      "math": true,
+      "links": []
+    },
+    {
+      "source": "21-attention/README.md",
+      "path": "/21-attention/",
+      "id": "21",
+      "headers": 14,
+      "firstHeader": {
+        "level": 2,
+        "title": "学习目标与前置知识",
+        "slug": "学习目标与前置知识",
+        "link": "#学习目标与前置知识",
+        "children": []
+      },
+      "prev": "20",
+      "next": "22",
+      "bodyLength": 11768,
+      "math": true,
+      "links": [
+        {
+          "raw": "/22-text-detection-networks/",
+          "relative": "22-text-detection-networks",
+          "absolute": "/22-text-detection-networks/"
+        }
+      ]
+    },
+    {
+      "source": "22-text-detection-networks/README.md",
+      "path": "/22-text-detection-networks/",
+      "id": "22",
+      "headers": 14,
+      "firstHeader": {
+        "level": 2,
+        "title": "学习目标、前置知识与 OCR 位置",
+        "slug": "学习目标、前置知识与-ocr-位置",
+        "link": "#学习目标、前置知识与-ocr-位置",
+        "children": []
+      },
+      "prev": "21",
+      "next": "23",
+      "bodyLength": 13643,
+      "math": true,
+      "links": [
+        {
+          "raw": "/23-transformer-ocr/",
+          "relative": "23-transformer-ocr",
+          "absolute": "/23-transformer-ocr/"
+        }
+      ]
+    },
+    {
+      "source": "23-transformer-ocr/README.md",
+      "path": "/23-transformer-ocr/",
+      "id": "23",
+      "headers": 16,
+      "firstHeader": {
+        "level": 2,
+        "title": "学习目标与前置知识",
+        "slug": "学习目标与前置知识",
+        "link": "#学习目标与前置知识",
+        "children": []
+      },
+      "prev": "22",
+      "next": "24",
+      "bodyLength": 16317,
+      "math": true,
+      "links": [
+        {
+          "raw": "/24-post-processing/",
+          "relative": "24-post-processing",
+          "absolute": "/24-post-processing/"
+        }
+      ]
+    },
+    {
+      "source": "24-post-processing/README.md",
+      "path": "/24-post-processing/",
+      "id": "24",
+      "headers": 16,
+      "firstHeader": {
+        "level": 2,
+        "title": "1. 学习目标与前置知识",
+        "slug": "_1-学习目标与前置知识",
+        "link": "#_1-学习目标与前置知识",
+        "children": []
+      },
+      "prev": "23",
+      "next": "25",
+      "bodyLength": 27966,
+      "math": true,
+      "links": []
+    },
+    {
+      "source": "25-ocr-engine/README.md",
+      "path": "/25-ocr-engine/",
+      "id": "25",
+      "headers": 16,
+      "firstHeader": {
+        "level": 2,
+        "title": "学习目标与前置知识",
+        "slug": "学习目标与前置知识",
+        "link": "#学习目标与前置知识",
+        "children": []
+      },
+      "prev": "24",
+      "next": "26",
+      "bodyLength": 21880,
+      "math": false,
+      "links": [
+        {
+          "raw": "/17-cnn-classifier/",
+          "relative": "17-cnn-classifier",
+          "absolute": "/17-cnn-classifier/"
+        },
+        {
+          "raw": "/docs/SHARING_GUIDE.html",
+          "relative": "docs/SHARING_GUIDE.html",
+          "absolute": "/docs/SHARING_GUIDE.html"
+        },
+        {
+          "raw": "/26-validation/",
+          "relative": "26-validation",
+          "absolute": "/26-validation/"
+        }
+      ]
+    },
+    {
+      "source": "26-validation/README.md",
+      "path": "/26-validation/",
+      "id": "26",
+      "headers": 15,
+      "firstHeader": {
+        "level": 2,
+        "title": "当前证据与学习目标",
+        "slug": "当前证据与学习目标",
+        "link": "#当前证据与学习目标",
+        "children": []
+      },
+      "prev": "25",
+      "next": null,
+      "bodyLength": 24000,
+      "math": false,
+      "links": [
+        {
+          "raw": "/docs/SHARING_GUIDE.html",
+          "relative": "docs/SHARING_GUIDE.html",
+          "absolute": "/docs/SHARING_GUIDE.html"
+        }
+      ]
+    }
+  ]
+}

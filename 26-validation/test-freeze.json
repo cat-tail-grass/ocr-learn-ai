@@ -1,0 +1,12 @@
+{
+  "startedAt": "2026-09-08T12:12:14.762Z",
+  "modelId": "ocr-mnist-cnn-v1-9c7b0b8e8224",
+  "pipelineId": "9ee08e3a5e4f3e9fe267d4c0c79adbf199caf1db02625b0bb7b578cd43e625cb",
+  "config": {
+    "thresholdMethod": "otsu",
+    "autoDeskew": true,
+    "correctionAngle": 0,
+    "denoise": false,
+    "preprocessingId": "dark-rgba-bbox20-centroid-v1"
+  }
+}

@@ -1,0 +1,727 @@
+[
+  {
+    "url": "http://127.0.0.1:4173/",
+    "status": 200,
+    "contentType": "text/html; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/01-image-fundamentals/",
+    "status": 200,
+    "contentType": "text/html; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/02-js-image-basics/",
+    "status": 200,
+    "contentType": "text/html; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/03-grayscale/",
+    "status": 200,
+    "contentType": "text/html; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/04-binarization/",
+    "status": 200,
+    "contentType": "text/html; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/05-denoising/",
+    "status": 200,
+    "contentType": "text/html; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/06-morphology/",
+    "status": 200,
+    "contentType": "text/html; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/07-deskewing/",
+    "status": 200,
+    "contentType": "text/html; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/08-edge-detection/",
+    "status": 200,
+    "contentType": "text/html; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/09-connected-components/",
+    "status": 200,
+    "contentType": "text/html; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/10-text-localization/",
+    "status": 200,
+    "contentType": "text/html; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/11-feature-extraction/",
+    "status": 200,
+    "contentType": "text/html; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/12-template-matching/",
+    "status": 200,
+    "contentType": "text/html; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/13-knn-classifier/",
+    "status": 200,
+    "contentType": "text/html; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/14-neural-network-basics/",
+    "status": 200,
+    "contentType": "text/html; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/15-cnn-basics/",
+    "status": 200,
+    "contentType": "text/html; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/16-tensorflowjs-intro/",
+    "status": 200,
+    "contentType": "text/html; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/17-cnn-classifier/",
+    "status": 200,
+    "contentType": "text/html; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/18-rnn-basics/",
+    "status": 200,
+    "contentType": "text/html; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/19-ctc-loss/",
+    "status": 200,
+    "contentType": "text/html; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/20-crnn/",
+    "status": 200,
+    "contentType": "text/html; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/21-attention/",
+    "status": 200,
+    "contentType": "text/html; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/22-text-detection-networks/",
+    "status": 200,
+    "contentType": "text/html; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/23-transformer-ocr/",
+    "status": 200,
+    "contentType": "text/html; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/24-post-processing/",
+    "status": 200,
+    "contentType": "text/html; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/25-ocr-engine/",
+    "status": 200,
+    "contentType": "text/html; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/26-validation/",
+    "status": 200,
+    "contentType": "text/html; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/assets/app-B4xavHb0.js",
+    "status": 200,
+    "contentType": "text/javascript; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/assets/KaTeX_AMS-Regular-BQhdFMY1.woff2",
+    "status": 200,
+    "contentType": "font/woff2"
+  },
+  {
+    "url": "http://127.0.0.1:4173/assets/KaTeX_Caligraphic-Regular-Di6jR-x-.woff2",
+    "status": 200,
+    "contentType": "font/woff2"
+  },
+  {
+    "url": "http://127.0.0.1:4173/assets/KaTeX_Main-Bold-Cx986IdX.woff2",
+    "status": 200,
+    "contentType": "font/woff2"
+  },
+  {
+    "url": "http://127.0.0.1:4173/assets/KaTeX_Main-Regular-B22Nviop.woff2",
+    "status": 200,
+    "contentType": "font/woff2"
+  },
+  {
+    "url": "http://127.0.0.1:4173/assets/KaTeX_Math-Italic-t53AETM-.woff2",
+    "status": 200,
+    "contentType": "font/woff2"
+  },
+  {
+    "url": "http://127.0.0.1:4173/assets/KaTeX_Size1-Regular-mCD8mA8B.woff2",
+    "status": 200,
+    "contentType": "font/woff2"
+  },
+  {
+    "url": "http://127.0.0.1:4173/assets/KaTeX_Size2-Regular-Dy4dx90m.woff2",
+    "status": 200,
+    "contentType": "font/woff2"
+  },
+  {
+    "url": "http://127.0.0.1:4173/assets/KaTeX_Size4-Regular-Dl5lxZxV.woff2",
+    "status": 200,
+    "contentType": "font/woff2"
+  },
+  {
+    "url": "http://127.0.0.1:4173/assets/README-7f6rrE_3.js",
+    "status": 200,
+    "contentType": "text/javascript; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/assets/README-B0h1I0T0.js",
+    "status": 200,
+    "contentType": "text/javascript; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/assets/README-B34g6dYO.js",
+    "status": 200,
+    "contentType": "text/javascript; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/assets/README-BQPqYei3.js",
+    "status": 200,
+    "contentType": "text/javascript; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/assets/README-BWMMOIW-.js",
+    "status": 200,
+    "contentType": "text/javascript; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/assets/README-C7hjhD62.js",
+    "status": 200,
+    "contentType": "text/javascript; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/assets/README-CB1uN8gZ.js",
+    "status": 200,
+    "contentType": "text/javascript; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/assets/README-CcaMvzyP.js",
+    "status": 200,
+    "contentType": "text/javascript; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/assets/README-CDBmsyS2.js",
+    "status": 200,
+    "contentType": "text/javascript; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/assets/README-COkRVSzF.js",
+    "status": 200,
+    "contentType": "text/javascript; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/assets/README-CSeQU0Ak.js",
+    "status": 200,
+    "contentType": "text/javascript; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/assets/README-CVo97jRA.js",
+    "status": 200,
+    "contentType": "text/javascript; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/assets/README-CW3B-Ody.js",
+    "status": 200,
+    "contentType": "text/javascript; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/assets/README-CXAoWisJ.js",
+    "status": 200,
+    "contentType": "text/javascript; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/assets/README-CXz0NZhm.js",
+    "status": 200,
+    "contentType": "text/javascript; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/assets/README-D0RyHP64.js",
+    "status": 200,
+    "contentType": "text/javascript; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/assets/README-D1r_9a9P.js",
+    "status": 200,
+    "contentType": "text/javascript; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/assets/README-DBh9J81k.js",
+    "status": 200,
+    "contentType": "text/javascript; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/assets/README-DP10382P.js",
+    "status": 200,
+    "contentType": "text/javascript; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/assets/README-DPE5uG5d.js",
+    "status": 200,
+    "contentType": "text/javascript; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/assets/README-DQkunAv3.js",
+    "status": 200,
+    "contentType": "text/javascript; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/assets/README-DQwlp5Fa.js",
+    "status": 200,
+    "contentType": "text/javascript; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/assets/README-DzfpCnGK.js",
+    "status": 200,
+    "contentType": "text/javascript; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/assets/README-npkDalgA.js",
+    "status": 200,
+    "contentType": "text/javascript; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/assets/README-OZYj4wIe.js",
+    "status": 200,
+    "contentType": "text/javascript; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/assets/README-x059f7De.js",
+    "status": 200,
+    "contentType": "text/javascript; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/assets/SHARING_GUIDE-d5Dt3mEP.js",
+    "status": 200,
+    "contentType": "text/javascript; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/assets/style-BGdyOZW6.css",
+    "status": 200,
+    "contentType": "text/css; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/docs/reviews/2026-09-11/",
+    "status": 200,
+    "contentType": "text/html; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/docs/SHARING_GUIDE.html",
+    "status": 200,
+    "contentType": "text/html; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/01-image-fundamentals/index.html",
+    "status": 200,
+    "contentType": "text/html; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/02-js-image-basics/bundle.js",
+    "status": 200,
+    "contentType": "text/javascript; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/02-js-image-basics/index.html",
+    "status": 200,
+    "contentType": "text/html; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/03-grayscale/bundle.js",
+    "status": 200,
+    "contentType": "text/javascript; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/03-grayscale/index.html",
+    "status": 200,
+    "contentType": "text/html; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/04-binarization/bundle.js",
+    "status": 200,
+    "contentType": "text/javascript; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/04-binarization/index.html",
+    "status": 200,
+    "contentType": "text/html; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/05-denoising/bundle.js",
+    "status": 200,
+    "contentType": "text/javascript; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/05-denoising/index.html",
+    "status": 200,
+    "contentType": "text/html; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/06-morphology/bundle.js",
+    "status": 200,
+    "contentType": "text/javascript; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/06-morphology/index.html",
+    "status": 200,
+    "contentType": "text/html; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/07-deskewing/bundle.js",
+    "status": 200,
+    "contentType": "text/javascript; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/07-deskewing/index.html",
+    "status": 200,
+    "contentType": "text/html; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/08-edge-detection/bundle.js",
+    "status": 200,
+    "contentType": "text/javascript; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/08-edge-detection/index.html",
+    "status": 200,
+    "contentType": "text/html; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/09-connected-components/bundle.js",
+    "status": 200,
+    "contentType": "text/javascript; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/09-connected-components/index.html",
+    "status": 200,
+    "contentType": "text/html; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/10-text-localization/bundle.js",
+    "status": 200,
+    "contentType": "text/javascript; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/10-text-localization/index.html",
+    "status": 200,
+    "contentType": "text/html; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/11-feature-extraction/index.html",
+    "status": 200,
+    "contentType": "text/html; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/12-template-matching/index.html",
+    "status": 200,
+    "contentType": "text/html; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/13-knn-classifier/index.html",
+    "status": 200,
+    "contentType": "text/html; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/14-neural-network-basics/bundle.js",
+    "status": 200,
+    "contentType": "text/javascript; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/14-neural-network-basics/index.html",
+    "status": 200,
+    "contentType": "text/html; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/15-cnn-basics/bundle.js",
+    "status": 200,
+    "contentType": "text/javascript; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/15-cnn-basics/index.html",
+    "status": 200,
+    "contentType": "text/html; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/16-tensorflowjs-intro/bundle.js",
+    "status": 200,
+    "contentType": "text/javascript; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/16-tensorflowjs-intro/index.html",
+    "status": 200,
+    "contentType": "text/html; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/17-cnn-classifier/bundle.js",
+    "status": 200,
+    "contentType": "text/javascript; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/17-cnn-classifier/index.html",
+    "status": 200,
+    "contentType": "text/html; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/17-cnn-classifier/model/config.json",
+    "status": 200,
+    "contentType": "application/json; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/17-cnn-classifier/model/inference-verification.json",
+    "status": 200,
+    "contentType": "application/json; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/17-cnn-classifier/model/model.json",
+    "status": 200,
+    "contentType": "application/json; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/17-cnn-classifier/model/split.json",
+    "status": 200,
+    "contentType": "application/json; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/17-cnn-classifier/model/test-predictions.json",
+    "status": 200,
+    "contentType": "application/json; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/17-cnn-classifier/model/training-curve.json",
+    "status": 200,
+    "contentType": "application/json; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/17-cnn-classifier/model/training-report.json",
+    "status": 200,
+    "contentType": "application/json; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/17-cnn-classifier/model/weights.bin",
+    "status": 200,
+    "contentType": "application/octet-stream"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/17-cnn-classifier/train.html",
+    "status": 200,
+    "contentType": "text/html; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/17-cnn-classifier/validation-samples.json",
+    "status": 200,
+    "contentType": "application/json; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/18-rnn-basics/bundle.js",
+    "status": 200,
+    "contentType": "text/javascript; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/18-rnn-basics/index.html",
+    "status": 200,
+    "contentType": "text/html; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/19-ctc-loss/bundle.js",
+    "status": 200,
+    "contentType": "text/javascript; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/19-ctc-loss/index.html",
+    "status": 200,
+    "contentType": "text/html; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/20-crnn/bundle.js",
+    "status": 200,
+    "contentType": "text/javascript; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/20-crnn/index.html",
+    "status": 200,
+    "contentType": "text/html; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/20-crnn/model/weights.json",
+    "status": 200,
+    "contentType": "application/json; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/20-crnn/training-report.json",
+    "status": 200,
+    "contentType": "application/json; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/21-attention/bundle.js",
+    "status": 200,
+    "contentType": "text/javascript; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/21-attention/index.html",
+    "status": 200,
+    "contentType": "text/html; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/22-text-detection-networks/bundle.js",
+    "status": 200,
+    "contentType": "text/javascript; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/22-text-detection-networks/index.html",
+    "status": 200,
+    "contentType": "text/html; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/23-transformer-ocr/bundle.js",
+    "status": 200,
+    "contentType": "text/javascript; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/23-transformer-ocr/index.html",
+    "status": 200,
+    "contentType": "text/html; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/24-post-processing/browser-qa-desktop.png",
+    "status": 200,
+    "contentType": "image/png"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/24-post-processing/browser-qa-results.json",
+    "status": 200,
+    "contentType": "application/json; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/24-post-processing/bundle.js",
+    "status": 200,
+    "contentType": "text/javascript; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/24-post-processing/index.html",
+    "status": 200,
+    "contentType": "text/html; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/25-ocr-engine/bundle.js",
+    "status": 200,
+    "contentType": "text/javascript; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/25-ocr-engine/index.html",
+    "status": 200,
+    "contentType": "text/html; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/25-ocr-engine/index.js",
+    "status": 200,
+    "contentType": "text/javascript; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/26-validation/bundle.js",
+    "status": 200,
+    "contentType": "text/javascript; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/26-validation/development-report.json",
+    "status": 200,
+    "contentType": "application/json; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/26-validation/fixtures/development-line.png",
+    "status": 200,
+    "contentType": "image/png"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/26-validation/index.html",
+    "status": 200,
+    "contentType": "text/html; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/26-validation/index.js",
+    "status": 200,
+    "contentType": "text/javascript; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/26-validation/test-freeze.json",
+    "status": 200,
+    "contentType": "application/json; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/26-validation/test-manifest.json",
+    "status": 200,
+    "contentType": "application/json; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/26-validation/test-report.json",
+    "status": 200,
+    "contentType": "application/json; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/shared/11-feature-extraction/index.js",
+    "status": 200,
+    "contentType": "text/javascript; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/shared/12-template-matching/index.js",
+    "status": 200,
+    "contentType": "text/javascript; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/shared/13-knn-classifier/demoDataset.js",
+    "status": 200,
+    "contentType": "text/javascript; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/shared/13-knn-classifier/index.js",
+    "status": 200,
+    "contentType": "text/javascript; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/shared/24-post-processing/index.js",
+    "status": 200,
+    "contentType": "text/javascript; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/shared/25-ocr-engine/index.js",
+    "status": 200,
+    "contentType": "text/javascript; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/shared/26-validation/index.js",
+    "status": 200,
+    "contentType": "text/javascript; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/shared/course.css",
+    "status": 200,
+    "contentType": "text/css; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/shared/course.js",
+    "status": 200,
+    "contentType": "text/javascript; charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/slimsearch.worker.js",
+    "status": 200,
+    "contentType": "text/javascript; charset=utf-8"
+  }
+]

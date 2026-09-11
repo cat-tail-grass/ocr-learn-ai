@@ -1,0 +1,203 @@
+{
+  "checkedAt": "2026-09-08T12:24:10.739Z",
+  "results": [
+    {
+      "chapter": "14-neural-network-basics",
+      "state": {
+        "title": "14 · 神经网络基础 — 看见参数如何学习",
+        "heading": "让 17 个参数学会 XOR",
+        "controls": 14,
+        "canvases": 2,
+        "status": [
+          "结构 2 → 4 → 1 · 隐藏激活 tanh · 更新 0 次 · 平均损失 0.901819 · 四点拟合率 25%"
+        ],
+        "overflow": false
+      },
+      "errors": "",
+      "passed": true
+    },
+    {
+      "chapter": "15-cnn-basics",
+      "state": {
+        "title": "15 · CNN 基础 — 卷积、通道与参数共享",
+        "heading": "从滑动窗口到 CNN",
+        "controls": 10,
+        "canvases": 0,
+        "status": [
+          "已计算线条预设：输入 1 通道，输出 2 通道 · 步幅 1 · 零填充 0"
+        ],
+        "overflow": false
+      },
+      "errors": "",
+      "passed": true
+    },
+    {
+      "chapter": "16-tensorflowjs-intro",
+      "state": {
+        "title": "16 · TensorFlow.js 入门",
+        "heading": "看见张量的计算与生命周期",
+        "controls": 4,
+        "canvases": 2,
+        "status": [
+          "点击运行查看训练结果、权重维度和 100 次推理前后张量数量。"
+        ],
+        "overflow": false
+      },
+      "errors": "",
+      "passed": true
+    },
+    {
+      "chapter": "17-cnn-classifier",
+      "state": {
+        "title": "17 · CNN 手写数字分类器",
+        "heading": "一个数字，十个类别",
+        "controls": 5,
+        "canvases": 3,
+        "status": [
+          "画一个数字或使用独立验证样本。",
+          "ocr-mnist-cnn-v1-9c7b0b8e8224；冻结测试 9769/10000 = 97.69%；照片未测量。"
+        ],
+        "overflow": false
+      },
+      "errors": "",
+      "passed": true
+    },
+    {
+      "chapter": "18-rnn-basics",
+      "state": {
+        "title": "18 · RNN 与 LSTM",
+        "heading": "18 · 让状态沿时间传递",
+        "controls": 5,
+        "canvases": 1,
+        "status": [
+          "已计算 4 步。蓝色 RNN，橙色 LSTM；表格保留门和 cell 数值。"
+        ],
+        "overflow": false
+      },
+      "errors": "",
+      "passed": true
+    },
+    {
+      "chapter": "19-ctc-loss",
+      "state": {
+        "title": "19 · CTC 损失与解码",
+        "heading": "19 · 不切字符，也能计算整串损失",
+        "controls": 6,
+        "canvases": 0,
+        "status": [
+          "已计算。修改目标标签时，解码结果应保持不变。"
+        ],
+        "overflow": false
+      },
+      "errors": "",
+      "passed": true
+    },
+    {
+      "chapter": "20-crnn",
+      "state": {
+        "title": "20 · 可训练的小型 CRNN",
+        "heading": "20 · 从整行像素训练到字符串",
+        "controls": 11,
+        "canvases": 3,
+        "status": [
+          "已仅根据整行像素预测。手工改图后可再次识别；训练字形范围外可能失败。"
+        ],
+        "overflow": false
+      },
+      "errors": "",
+      "passed": true
+    },
+    {
+      "chapter": "21-attention",
+      "state": {
+        "title": "21 · Attention 权重实验",
+        "heading": "一次查询，怎样分配注意力",
+        "controls": 10,
+        "canvases": 1,
+        "status": [
+          "计算完成：Q 3×2，K 3×2，V 3×2，输出 3×2"
+        ],
+        "overflow": false
+      },
+      "errors": "",
+      "passed": true
+    },
+    {
+      "chapter": "22-text-detection-networks",
+      "state": {
+        "title": "22 · 文本检测输出与后处理",
+        "heading": "从预测图到文字区域",
+        "controls": 8,
+        "canvases": 7,
+        "status": [
+          "48×24 合成预测图；P 支路 2 个框，DB 对照 2 个框；理论梯度峰值 k/4 = 12.50"
+        ],
+        "overflow": false
+      },
+      "errors": "",
+      "passed": true
+    },
+    {
+      "chapter": "23-transformer-ocr",
+      "state": {
+        "title": "23 · Transformer OCR 运算实验",
+        "heading": "图像块怎样成为序列",
+        "controls": 10,
+        "canvases": 3,
+        "status": [
+          "图像 4×8×1 → 8×4 patches → 8×4 tokens；2 头，每头 2 维；cross attention = 3×8"
+        ],
+        "overflow": false
+      },
+      "errors": "",
+      "passed": true
+    },
+    {
+      "chapter": "24-post-processing",
+      "state": {
+        "title": "24 · 后处理与独立评估 — OCR 学习实验室",
+        "heading": "错在哪里，要先对齐",
+        "controls": 26,
+        "canvases": 0,
+        "status": [
+          "正在载入实验。若持续显示，请由项目根目录统一构建浏览器入口，再刷新页面。"
+        ],
+        "overflow": false
+      },
+      "errors": "",
+      "passed": true
+    },
+    {
+      "chapter": "25-ocr-engine",
+      "state": {
+        "title": "25 · 照片中的手写数字串",
+        "heading": "识别照片里的手写数字串",
+        "controls": 12,
+        "canvases": 3,
+        "status": [
+          "模型已就绪 · ocr-mnist-cnn-v1-9c7b0b8e8224 · webgl · 本项目自行训练",
+          "\n            导入照片后开始识别。\n          "
+        ],
+        "overflow": false
+      },
+      "errors": "",
+      "passed": true
+    },
+    {
+      "chapter": "26-validation",
+      "state": {
+        "title": "26 · 手写数字串实战评估",
+        "heading": "每一张照片，都留在结果里。",
+        "controls": 3,
+        "canvases": 0,
+        "status": [
+          "已读取 0 条本机记录。"
+        ],
+        "overflow": false
+      },
+      "errors": "",
+      "passed": true
+    }
+  ],
+  "note": "status字段采集所有role=status节点的文字（包含隐藏节点）；第24章加载提示由初始化代码隐藏，实际交互验收另见该章browser-qa-results.json。"
+}

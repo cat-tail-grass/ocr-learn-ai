@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>24 · 后处理与独立评估 — OCR 学习实验室</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22%3E%3Crect width=%2264%22 height=%2264%22 rx=%2214%22 fill=%22%23126451%22/%3E%3Ctext x=%2232%22 y=%2246%22 text-anchor=%22middle%22 font-size=%2244%22 fill=%22white%22 font-family=%22sans-serif%22%3EO%3C/text%3E%3C/svg%3E">
+    <link rel="stylesheet" href="../shared/course.css">
+    <style>
+        .alignment-layout{display:flex;gap:10px;overflow-x:auto;padding:10px 0}.alignment-labels{min-width:56px;display:grid;grid-template-rows:34px 34px 30px;font-size:.86rem}.alignment-columns{display:flex;gap:5px}.alignment-column{min-width:70px;display:grid;grid-template-rows:34px 34px 30px;text-align:center;border:1px solid var(--line);border-top:4px solid #78908a;border-radius:7px;opacity:.46}.alignment-column span{font:600 1.25rem ui-monospace,monospace;line-height:34px}.alignment-column small{font-size:.72rem;white-space:nowrap}.alignment-column.column-active{opacity:1;background:#f2f6f3}.op-S{border-top-color:#b16922}.op-D{border-top-color:#b13c45}.op-I{border-top-color:#456bab}.op-M{border-top-color:var(--accent)}.dp-table{width:auto;min-width:280px}.dp-table th,.dp-table td{text-align:center;min-width:37px;padding:7px;border:1px solid var(--line)}.dp-table .path-active{background:#bce3cb;color:#123f2c;font-weight:700}.dp-table caption,caption{text-align:left;font-size:.85rem;color:var(--muted);padding-bottom:10px}.input-field{display:flex;flex-direction:column;gap:6px;flex:1;min-width:180px}.input-field input{margin:0;width:100%}.records-editor{width:100%;font:13px/1.55 ui-monospace,monospace;tab-size:2}.alignment-columns:empty{display:none}.formula{font-family:ui-monospace,monospace;background:#f1f5f2;padding:12px;border-radius:6px;overflow:auto}.quiz-answer{margin:10px 0;padding:12px;background:var(--soft)}.chapter-links{display:flex;gap:20px;flex-wrap:wrap}.error:empty{display:none}.section-intro{max-width:820px}
+    </style>
+    <script defer src="../shared/course.js"></script>
+    <script defer src="bundle.js"></script>
+</head>
+<body>
+<nav class="course-nav" aria-label="课程导航"><a href="../../" data-course-catalog><strong>OCR / 学习实验室</strong></a><div class="links"><a href="../../24-post-processing/" data-course-doc="24-post-processing">返回本章讲义</a><a href="../../" data-course-catalog>课程目录</a><a href="../25-ocr-engine/index.html" data-course-lab="25-ocr-engine">照片识别</a><a href="../26-validation/index.html" data-course-lab="26-validation">评估记录</a></div></nav>
+<main>
+    <header>
+        <p class="eyebrow">Chapter 24 / Post-processing</p>
+        <h1>错在哪里，要先对齐</h1>
+        <p class="lead">用编辑距离区分替换、删除和插入，再用固定分母评估数字串。亲手观察：语言先验如何改变建议，拒识又如何改变成绩。</p>
+        <p class="note">本页输入和得分均为可复核的教学样例；它没有运行照片识别模型，页面上的百分比不代表真实手写照片成绩。</p>
+        <p id="loading-note" class="status" role="status">正在载入实验。若持续显示，请由项目根目录统一构建浏览器入口，再刷新页面。</p>
+        <noscript><p class="error">交互实验需要启用 JavaScript；完整原理和运行方法见本章 README。</p></noscript>
+    </header>
+
+    <section class="card" aria-labelledby="alignment-title">
+        <h2 id="alignment-title">01 / 从真值到预测：完整对齐</h2>
+        <p class="section-intro">真值是原本应该存在的字符。删除 D 表示漏识别，插入 I 表示多识别。M 匹配成本为0，S / D / I 各为1。空格会参与比较，前导零和重复字符始终保留。</p>
+        <form id="alignment-form">
+            <div class="controls">
+                <label class="input-field" for="truth">真值（此处支持一般文本）<input id="truth" type="text" value="1203" maxlength="120" autocomplete="off" spellcheck="false"></label>
+                <label class="input-field" for="prediction">原始预测（允许空串）<input id="prediction" type="text" value="123" maxlength="120" autocomplete="off" spellcheck="false"></label>
+                <button type="submit">计算并对齐</button>
+            </div>
+        </form>
+        <div class="controls" aria-label="选择教学样例">
+            <button type="button" class="secondary" data-preset="deletion">漏掉一个0</button>
+            <button type="button" class="secondary" data-preset="substitution">平局：12 → 21</button>
+            <button type="button" class="secondary" data-preset="repeated">前导零与重复</button>
+            <button type="button" class="secondary" data-preset="insertion">CER 300%</button>
+            <button type="button" class="secondary" data-preset="failure">失败空预测</button>
+            <button type="button" class="secondary" data-preset="empty">两串皆空</button>
+        </div>
+        <p id="alignment-error" class="error" role="alert"></p>
+        <p id="alignment-summary" class="status" aria-live="polite"></p>
+        <div class="alignment-layout" tabindex="0" aria-label="可横向滚动的字符对齐">
+            <div class="alignment-labels" aria-hidden="true"><span>真值</span><span>预测</span><span>操作</span></div>
+            <div id="alignment-columns" class="alignment-columns"></div>
+        </div>
+        <p class="hint">∅ 表示缺口，␠ 表示实际空格。字面连字符 “-” 仍是普通字符。颜色之外，每列也显示操作字母与名称。</p>
+        <div class="controls"><label for="alignment-step">播放对齐列 <input id="alignment-step" type="range" min="0" max="4" value="4" step="1"></label><output id="step-value" for="alignment-step"></output></div>
+        <p id="step-description" aria-live="polite"></p>
+        <div id="step-costs" class="table-wrap" tabindex="0" aria-label="当前格的前驱候选成本"></div>
+        <div id="distance-table" class="table-wrap" tabindex="0" aria-label="可横向滚动的编辑距离矩阵"></div>
+        <details>
+            <summary>矩阵与平局规则是怎样对应到代码的？</summary>
+            <p><code>d[i,j]</code> 表示真值前 i 个字符变成预测前 j 个字符的最少编辑数。第一行是插入次数，第一列是删除次数。每格比较左上角 + 匹配/替换成本、上方 +1、左方 +1。</p>
+            <p class="formula">d[i,j] = min(d[i−1,j−1] + [truth[i−1] ≠ prediction[j−1]], d[i−1,j]+1, d[i,j−1]+1)</p>
+            <p>右下角给出距离。回溯从右下角走向左上角，平局按 M → S → D → I。<code>12 → 21</code> 有不止一种最短路径，本模块固定选择两次替换。这保证可复现，却不能证明照片里究竟发生了哪种物理错误。</p>
+            <p>核心算法与矩阵均来自 <code>shared/24-post-processing</code>。码点不是字素簇：组合重音可能包含多个码点，数字0–9没有这种歧义。</p>
+        </details>
+    </section>
+
+    <section class="card" aria-labelledby="evaluation-title">
+        <h2 id="evaluation-title">02 / 独立评估：把分子与分母都摆出来</h2>
+        <p class="section-intro">编辑下方 JSON 后计算。非空真值必须是0–9字符串；无真值为待标注，有明确排除理由才排除。有标签且有效的失败照片，仍进入分母。这个面板不会改写预测。</p>
+        <label for="records-input">教学记录（字符串必须保留引号；不要把 "00110" 写成数值）</label>
+        <textarea id="records-input" class="records-editor" rows="15" maxlength="100000" spellcheck="false" aria-describedby="records-help"></textarea>
+        <p id="records-help" class="hint">本页最多200条，每条最多200个码点。prediction是最终交付文本；整串拒识写空prediction，并用originalPrediction保留候选。failed可带确实交付的部分文本；状态失败数不等于文本错误数。缺失预测按空串计分。所有数据仅留在页面，刷新前可下载报告。</p>
+        <div class="controls">
+            <button type="button" id="evaluate-button">计算独立指标</button>
+            <button type="button" id="reset-records" class="secondary">恢复教学记录</button>
+            <button type="button" id="empty-records" class="secondary">试试无分母</button>
+            <button type="button" id="download-report" class="secondary" disabled>下载 JSON 报告</button>
+        </div>
+        <p id="evaluation-error" class="error" role="alert"></p>
+        <div class="grid" aria-live="polite">
+            <div class="metric"><span>聚合字符错误率 microCER</span><strong id="micro-cer">—</strong><small id="cer-fraction"></small></div>
+            <div class="metric"><span>整串完全正确率</span><strong id="exact-accuracy">—</strong><small id="exact-fraction"></small></div>
+        </div>
+        <p id="sample-counts" class="note" aria-live="polite"></p>
+        <div id="record-results" class="table-wrap" tabindex="0" aria-label="逐条评估结果"></div>
+        <details><summary>查看完整稳定字段和逐字符对齐 JSON</summary><pre id="report-json"></pre></details>
+        <h3>换一个计数单位：字符还是词</h3>
+        <form id="word-unit-form">
+            <div class="controls">
+                <label class="input-field" for="word-truth">词级实验真值<input id="word-truth" type="text" value="read the book" maxlength="200" spellcheck="false"></label>
+                <label class="input-field" for="word-prediction">词级实验预测<input id="word-prediction" type="text" value="read book" maxlength="200" spellcheck="false"></label>
+                <button type="submit">对比CER与WER</button>
+            </div>
+        </form>
+        <div class="controls"><button id="word-digit-example" type="button" class="secondary">数字串计数对照</button><button id="word-text-example" type="button" class="secondary">恢复英文例子</button></div>
+        <p id="word-unit-summary" class="status" aria-live="polite"></p>
+        <div id="word-alignment" class="table-wrap" tabindex="0" aria-label="词级对齐的中间结果"></div>
+        <details>
+            <summary>CER、整串正确率与 WER 有什么区别？</summary>
+            <p><code>microCER = Σ(S+D+I) / Σ真实字符数</code>。两图分别为 <code>12 → 12</code> 和 <code>1203 → 123</code> 时，microCER为1/6，整串正确率为1/2。每图CER直接平均得到1/8，是另一种加权方式。</p>
+            <p>WER先约定切词，再用相同的编辑对齐：<code>read the book → read book</code> 漏1个词，WER = <span id="word-rate"></span>。本章按空白分词；中文切词需要额外规则。不带空格的一整串数字会被当成一个词，WER难以解释漏了几个数字。</p>
+            <p><code>1 → 1111</code> 多3个字符，CER为300%；不能截成100%，也不能把1−CER当作通用准确率。无有效样本时显示“无分母”，不会显示0%错误。</p>
+        </details>
+    </section>
+
+    <section class="card" aria-labelledby="language-title">
+        <h2 id="language-title">03 / 词典与 Bigram：什么情况下可以提建议</h2>
+        <p>词典只有 <code>back、book</code>，训练语料为 <code>read the book</code> 两次、<code>read the back</code> 一次、<code>read a book</code> 一次。它是演示候选排序的玩具模型。</p>
+        <form id="correction-form">
+            <div class="controls">
+                <label class="input-field" for="previous-word">左侧词<input id="previous-word" type="text" value="the" maxlength="60" spellcheck="false"></label>
+                <label class="input-field" for="word-input">待检查单词或数字串<input id="word-input" type="text" value="bock" maxlength="60" spellcheck="false"></label>
+                <button type="submit">查看候选</button>
+            </div>
+        </form>
+        <div class="controls"><label for="language-weight">语言权重 λ <input id="language-weight" type="range" min="0" max="3" value="1" step="0.1"></label><output id="language-weight-value" for="language-weight">1</output></div>
+        <div class="controls"><label for="smoothing-alpha">平滑系数 α <input id="smoothing-alpha" type="range" min="0.1" max="3" value="1" step="0.1"></label><output id="alpha-value" for="smoothing-alpha">1.0</output></div>
+        <p class="formula">score(w) = −distance(w, observed) + λ · ln P(w | previous)</p>
+        <p id="correction-summary" class="status" aria-live="polite"></p>
+        <div id="candidate-results" class="table-wrap" tabindex="0" aria-label="词典候选排序"></div>
+        <h3>从真实计数到归一化概率</h3>
+        <div id="bigram-counts" class="table-wrap" tabindex="0" aria-label="Bigram计数和平滑过程"></div>
+        <p class="hint">调整α会同时改变分子与分母。α较大时各词概率趋近1/V；降低零频率风险的同时，也削弱已见计数差异。历史未见时落入未知词桶。</p>
+        <p class="note">试将 λ 设为0：两个距离都为1的候选按字典序选择back；λ为1时book优先。再输入00110：数字保持原样。有限词典也可能把本来正确、但未收录的词改错。</p>
+        <details><summary>N-gram、平滑与限制</summary>
+            <p>Bigram只保留前一个词作为历史。Add-one概率为 <code>(C(h,w)+1)/(C(h)+V)</code>。本例V=7（五个普通词、结束符、未知词），the后book计数2、back计数1，总计3，因此概率分别为3/10和2/10。</p>
+            <p>这个实验没有图像证据、真实OCR混淆矩阵、右侧上下文、Beam Search或完整句子解码。分数只是排序值。任意数字没有可依赖的自然语言词频先验；不能去掉前导零、合并重复数字或根据答案补字。</p>
+        </details>
+    </section>
+
+    <section class="card" aria-labelledby="confidence-title">
+        <h2 id="confidence-title">04 / 拒识之后，失败还算不算</h2>
+        <p>以下两条固定样例用“最低字符模型得分”决定是否整串拒识。任何一位低于阈值，输出空串并保留原始预测。得分不是实测准确率。</p>
+        <div class="controls"><label for="confidence-threshold">拒识阈值 τ <input id="confidence-threshold" type="range" min="0" max="1" step="0.01" value="0.8"></label><output id="threshold-value" for="confidence-threshold">0.80</output></div>
+        <p id="confidence-summary" class="status" aria-live="polite"></p>
+        <div id="confidence-results" class="table-wrap" tabindex="0" aria-label="拒识前后结果"></div>
+        <p class="note">阈值0.8时，只看接受结果可以声称100%正确，但仅覆盖1/2。完整照片集CER从20%变成60%，整串正确率仍为50%。拒识应服务于复核流程；阈值需在验证集调，最终测试集只测冻结配置。</p>
+    </section>
+
+    <section class="card" aria-labelledby="share-title">
+        <h2 id="share-title">分享时讲清这四件事</h2>
+        <ol>
+            <li>用1203 → 123解释删除，逐格走完5×4矩阵；强调方向是真值到预测。</li>
+            <li>用12 → 21说明同距离可以有不同对齐；固定平局规则才能稳定归因统计。</li>
+            <li>把待标注、排除、失败分开；同时展示microCER和整串正确率的分子分母。</li>
+            <li>演示词典建议、00110保护和阈值滑块；语言常见程度与识别正确性是两个判断。</li>
+        </ol>
+        <details><summary>自测1：00110 → 0110的CER与整串正确率？</summary><p class="quiz-answer">删除一次，CER=1/5=20%；整串不完全一致，该图正确率为0。重复0的具体缺口位置由回溯平局规则决定。</p></details>
+        <details><summary>自测2：为什么失败空预测不能从分母删除？</summary><p class="quiz-answer">它是对有效输入的识别失败。305 → 空串应计3次删除；剔除会选择性隐去困难样本，改变端到端口径。</p></details>
+        <details><summary>自测3：置信度0.99，是否说明99%的现场照片能识别正确？</summary><p class="quiz-answer">不能。单次模型得分没有替代真实标签评估，模型还可能未校准或遇到分布变化。准确率需要独立有标签照片和明确分母。</p></details>
+        <details><summary>自测4：没有任何标签时CER应显示什么？</summary><p class="quiz-answer">null / 无分母。它既不代表0%错误，也不代表100%正确；仍显示总数、待标注数和排除数。</p></details>
+    </section>
+    <nav class="chapter-links" aria-label="章节阅读"><a href="../23-transformer-ocr/index.html">← 第23章 Transformer OCR</a><a href="../../24-post-processing/" data-course-doc="24-post-processing">完整原理、API与全部自测答案</a><a href="../25-ocr-engine/index.html">第25章 引擎整合 →</a></nav>
+</main>
+<footer>参考：<a href="https://nlp.stanford.edu/IR-book/html/htmledition/edit-distance-1.html">Stanford 编辑距离</a> · <a href="https://web.stanford.edu/~jurafsky/slp3/3.pdf">Jurafsky &amp; Martin N-gram</a> · <a href="https://tsapps.nist.gov/publication/get_pdf.cfm?pub_id=934557">NIST CER/WER定义</a> · <a href="https://proceedings.mlr.press/v70/guo17a.html">Guo等：置信度校准</a></footer>
+</body>
+</html>

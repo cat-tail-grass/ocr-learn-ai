@@ -1,0 +1,15 @@
+{
+  "mode": "review-invalid",
+  "rows": [
+    {
+      "id": "duplicate",
+      "path": "a.png",
+      "truth": "0"
+    },
+    {
+      "id": "duplicate",
+      "path": "b.png",
+      "truth": "1"
+    }
+  ]
+}

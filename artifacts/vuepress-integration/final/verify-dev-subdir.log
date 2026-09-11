@@ -1,0 +1,29 @@
+Read 04-binarization: 45 headings, 27 code blocks, 0 formulae
+Read 11-feature-extraction: 41 headings, 19 code blocks, 0 formulae
+Read 17-cnn-classifier: 44 headings, 12 code blocks, 11 formulae
+Read 25-ocr-engine: 41 headings, 18 code blocks, 0 formulae
+Read 01-image-fundamentals: 23 headings, 8 code blocks, 0 formulae
+Read 02-js-image-basics: 20 headings, 10 code blocks, 0 formulae
+Read 03-grayscale: 24 headings, 11 code blocks, 0 formulae
+Read 05-denoising: 31 headings, 16 code blocks, 0 formulae
+Read 06-morphology: 21 headings, 15 code blocks, 0 formulae
+Read 07-deskewing: 30 headings, 19 code blocks, 0 formulae
+Read 08-edge-detection: 23 headings, 18 code blocks, 0 formulae
+Read 09-connected-components: 26 headings, 17 code blocks, 0 formulae
+Read 10-text-localization: 35 headings, 17 code blocks, 0 formulae
+Read 12-template-matching: 34 headings, 15 code blocks, 0 formulae
+Read 13-knn-classifier: 23 headings, 6 code blocks, 0 formulae
+Read 14-neural-network-basics: 35 headings, 21 code blocks, 0 formulae
+Read 15-cnn-basics: 47 headings, 31 code blocks, 0 formulae
+Read 16-tensorflowjs-intro: 37 headings, 14 code blocks, 5 formulae
+Read 18-rnn-basics: 19 headings, 6 code blocks, 7 formulae
+Read 19-ctc-loss: 30 headings, 10 code blocks, 13 formulae
+Read 20-crnn: 37 headings, 10 code blocks, 9 formulae
+Read 21-attention: 31 headings, 8 code blocks, 11 formulae
+Read 22-text-detection-networks: 37 headings, 12 code blocks, 9 formulae
+Read 23-transformer-ocr: 44 headings, 8 code blocks, 11 formulae
+Read 24-post-processing: 46 headings, 18 code blocks, 16 formulae
+Read 26-validation: 47 headings, 21 code blocks, 0 formulae
+FAIL all same-origin observed links and resources return HTTP success: [{"url":"http://127.0.0.1:4176/favicon.ico","status":404,"contentType":"text/plain"}]
+FAIL same-origin resources keep deployment prefix: [{"url":"http://127.0.0.1:4176/favicon.ico","status":404,"contentType":"text/plain"}]
+{"url":"http://127.0.0.1:4176/ocr/","passed":270,"failed":2,"output":"/Users/wuxiuran/project/ocr-learn-ai/artifacts/vuepress-integration/D/dev-subdir"}

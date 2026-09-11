@@ -1,0 +1,13 @@
+{
+  "annotations": [
+    "a_t=x_tW_x+h_{t-1}W_h+b_h,\\qquad h_t=\\tanh(a_t) ",
+    "z_t=h_tW_y+b_y,\\qquad p_{t,k}=\\frac{e^{z_{t,k}}}{\\sum_j e^{z_{t,j}}} ",
+    "J_t=\\frac{\\partial h_t}{\\partial h_{t-1}} =\\operatorname{diag}(1-h_t^2)W_h^\\top ",
+    "\\frac{\\partial h_t}{\\partial h_s}=J_tJ_{t-1}\\cdots J_{s+1},\\quad -1\\le s<t<T ",
+    "\\frac{\\partial h_{T-1}}{\\partial h_{\\mathrm{init}}} =\\prod_{t=0}^{T-1} W_h(1-h_t^2),\\quad h_{\\mathrm{init}}=h_{-1} ",
+    "\\begin{aligned} i_t&=\\sigma(x_tW_{xi}+h_{t-1}W_{hi}+b_i)\\\\ f_t&=\\sigma(x_tW_{xf}+h_{t-1}W_{hf}+b_f)\\\\ g_t&=\\tanh(x_tW_{xg}+h_{t-1}W_{hg}+b_g)\\\\ o_t&=\\sigma(x_tW_{xo}+h_{t-1}W_{ho}+b_o)\\\\ c_t&=f_t\\odot c_{t-1}+i_t\\odot g_t\\\\ h_t&=o_t\\odot\\tanh(c_t) \\end{aligned} ",
+    "\\overrightarrow h_t=F(x_t,\\overrightarrow h_{t-1}),\\quad \\overleftarrow h_t=G(x_t,\\overleftarrow h_{t+1}),\\quad u_t=[\\overrightarrow h_t;\\overleftarrow h_t] "
+  ],
+  "display": 7,
+  "matrices": 1
+}

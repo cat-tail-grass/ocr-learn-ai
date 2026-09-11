@@ -1,0 +1,46 @@
+{
+  "output": {
+    "backend": "webgl",
+    "blank": false,
+    "blankReason": null,
+    "confidence": 0.9999924898147584,
+    "modelId": "ocr-mnist-cnn-v1-9c7b0b8e8224",
+    "note": "非数字或错误分割也可能高分；本页只接受单字符。",
+    "prediction": "0",
+    "preprocessingId": "dark-rgba-bbox20-centroid-v1",
+    "tensorsAfter25Predictions": 8,
+    "tensorsBefore25Predictions": 8
+  },
+  "report": "ocr-mnist-cnn-v1-9c7b0b8e8224；冻结测试 9769/10000 = 97.69%；照片未测量。",
+  "resources": [
+    {
+      "name": "http://127.0.0.1:4173/labs/shared/course.css",
+      "status": 200
+    },
+    {
+      "name": "http://127.0.0.1:4173/labs/shared/course.js",
+      "status": 200
+    },
+    {
+      "name": "http://127.0.0.1:4173/labs/17-cnn-classifier/bundle.js",
+      "status": 200
+    },
+    {
+      "name": "http://127.0.0.1:4173/labs/17-cnn-classifier/model/training-report.json",
+      "status": 200
+    },
+    {
+      "name": "http://127.0.0.1:4173/labs/17-cnn-classifier/validation-samples.json",
+      "status": 200
+    },
+    {
+      "name": "http://127.0.0.1:4173/labs/17-cnn-classifier/model/model.json",
+      "status": 200
+    },
+    {
+      "name": "http://127.0.0.1:4173/labs/17-cnn-classifier/model/weights.bin",
+      "status": 200
+    }
+  ],
+  "url": "http://127.0.0.1:4173/labs/17-cnn-classifier/index.html"
+}

@@ -1,17 +1,51 @@
 {
   "name": "ocr-learning",
   "version": "1.0.0",
-  "description": "OCR 学习项目 - 自主开发 OCR 工具库",
-  "main": "index.js",
+  "description": "OCR 原理学习与自主训练的手写数字串识别演示",
+  "main": "shared/index.js",
   "scripts": {
     "test": "jest",
     "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage"
+    "test:coverage": "jest --coverage",
+    "build": "node scripts/build-site.mjs",
+    "start": "npm run preview",
+    "dev": "node scripts/dev-site.mjs",
+    "verify:lessons": "node scripts/verify-lessons.js",
+    "build:labs": "node scripts/build.js",
+    "prepare:labs": "node scripts/prepare-labs.mjs",
+    "preview": "node scripts/preview-site.mjs",
+    "start:labs": "node scripts/serve.js",
+    "test:site:content": "node scripts/test-course-content.mjs",
+    "test:site:labs": "node scripts/test-labs.mjs",
+    "verify:protection": "node scripts/verify-course-protection.mjs",
+    "verify:site": "npm exec --yes --package=agent-browser@0.37.1 -- node scripts/verify-course-site.mjs",
+    "verify:flows": "npm exec --yes --package=agent-browser@0.37.1 -- node scripts/verify-course-flows.mjs"
   },
-  "keywords": ["ocr", "image-processing", "javascript"],
+  "keywords": [
+    "ocr",
+    "image-processing",
+    "javascript"
+  ],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "jest": "^30.2.0"
+    "@vuepress/bundler-vite": "2.0.0-rc.31",
+    "@vuepress/plugin-markdown-math": "2.0.0-rc.134",
+    "@vuepress/plugin-slimsearch": "2.0.0-rc.134",
+    "@vuepress/theme-default": "2.0.0-rc.134",
+    "entities": "4.5.0",
+    "esbuild": "^0.28.2",
+    "jest": "^30.2.0",
+    "katex": "0.16.38",
+    "sass": "1.104.0",
+    "vue": "3.5.42",
+    "vuepress": "2.0.0-rc.31"
+  },
+  "dependencies": {
+    "@tensorflow/tfjs": "^4.22.0",
+    "sharp": "^0.35.4"
+  },
+  "engines": {
+    "node": ">=22.18.0"
   }
 }

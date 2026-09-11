@@ -1,0 +1,123 @@
+{
+  "details": true,
+  "localScroll": [
+    {
+      "overflow": "auto",
+      "scroll": 675,
+      "tag": "PRE",
+      "width": 302
+    },
+    {
+      "overflow": "auto",
+      "scroll": 675,
+      "tag": "PRE",
+      "width": 302
+    },
+    {
+      "overflow": "auto",
+      "scroll": 677,
+      "tag": "PRE",
+      "width": 302
+    },
+    {
+      "overflow": "auto",
+      "scroll": 675,
+      "tag": "PRE",
+      "width": 302
+    },
+    {
+      "overflow": "auto",
+      "scroll": 677,
+      "tag": "PRE",
+      "width": 302
+    },
+    {
+      "overflow": "auto",
+      "scroll": 680,
+      "tag": "PRE",
+      "width": 302
+    },
+    {
+      "overflow": "auto",
+      "scroll": 675,
+      "tag": "PRE",
+      "width": 302
+    },
+    {
+      "overflow": "auto",
+      "scroll": 680,
+      "tag": "PRE",
+      "width": 302
+    },
+    {
+      "overflow": "auto",
+      "scroll": 675,
+      "tag": "PRE",
+      "width": 302
+    },
+    {
+      "overflow": "auto",
+      "scroll": 675,
+      "tag": "PRE",
+      "width": 302
+    },
+    {
+      "overflow": "auto",
+      "scroll": 532,
+      "tag": "PRE",
+      "width": 302
+    },
+    {
+      "overflow": "auto",
+      "scroll": 742,
+      "tag": "PRE",
+      "width": 302
+    },
+    {
+      "overflow": "auto",
+      "scroll": 700,
+      "tag": "PRE",
+      "width": 302
+    },
+    {
+      "overflow": "auto",
+      "scroll": 661,
+      "tag": "PRE",
+      "width": 302
+    },
+    {
+      "overflow": "auto",
+      "scroll": 683,
+      "tag": "PRE",
+      "width": 302
+    },
+    {
+      "overflow": "auto",
+      "scroll": 994,
+      "tag": "PRE",
+      "width": 302
+    },
+    {
+      "overflow": "auto",
+      "scroll": 700,
+      "tag": "PRE",
+      "width": 302
+    },
+    {
+      "overflow": "auto",
+      "scroll": 539,
+      "tag": "TABLE",
+      "width": 350
+    },
+    {
+      "overflow": "auto",
+      "scroll": 522,
+      "tag": "TABLE",
+      "width": 350
+    }
+  ],
+  "math": 0,
+  "menu": "<div class=\"vp-toggle-sidebar-button\" title=\"打开课程目录\" aria-expanded=\"false\" role=\"button\" tabindex=\"0\"><div class=\"icon\" aria-hidden=\"true\"><span></span><span></span><span></span></div></div>",
+  "scroll": 390,
+  "width": 390
+}

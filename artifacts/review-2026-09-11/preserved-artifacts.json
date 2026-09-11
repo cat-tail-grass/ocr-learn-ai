@@ -1,0 +1,55 @@
+{
+  "createdAt": "2026-09-11T11:28:30.021Z",
+  "files": [
+    {
+      "file": "17-cnn-classifier/model/weights.bin",
+      "sha256": "9c7b0b8e8224d188ddc38bcaf680dd032753441d6b3413870e7722a457fed90c",
+      "unchanged": true
+    },
+    {
+      "file": "17-cnn-classifier/model/model.json",
+      "sha256": "91221372a1f64637684099c7e9402e27791b498f47e5b1de72fb2031f6ef12f6",
+      "unchanged": true
+    },
+    {
+      "file": "17-cnn-classifier/model/training-report.json",
+      "sha256": "0bcdd6a98fa80ca3a451884a161161e8e01569262453785bc23f64e3e227faca",
+      "unchanged": true
+    },
+    {
+      "file": "20-crnn/model/weights.json",
+      "sha256": "fd9a194f7b5e43c5dc0cbeec79cca5da706b8f4d74d33c9eca390af7ce99234e",
+      "unchanged": true
+    },
+    {
+      "file": "20-crnn/training-report.json",
+      "sha256": "5c3448e44658ed795b73103464782921037d29e1d6f7ac80b8a76c69266ff3b5",
+      "unchanged": true
+    },
+    {
+      "file": "26-validation/development-manifest.json",
+      "sha256": "d358cb9e97bd77554498f3725941e8cd81e0a0c99dc37f19aa42ea13f6f672f9",
+      "unchanged": true
+    },
+    {
+      "file": "26-validation/development-report.json",
+      "sha256": "72b543adcbaa637ecec491971b919db90e9590baa30553e1ccf5f5cd2244703e",
+      "unchanged": true
+    },
+    {
+      "file": "26-validation/test-freeze.json",
+      "sha256": "8ef8c1cd1b4aacb2f53e09c5afd6be56bda9e823154c3f25dad3234b6c43f6fc",
+      "unchanged": true
+    },
+    {
+      "file": "26-validation/test-manifest.json",
+      "sha256": "006b4f949ca2a3263075322225efb33b1cb76e5ce59d86884c49ba96b2977888",
+      "unchanged": true
+    },
+    {
+      "file": "26-validation/test-report.json",
+      "sha256": "dc136557bcb6812ca8bf4084ef23ca1781cfe4d7bed9a706827893351b5aedf6",
+      "unchanged": true
+    }
+  ]
+}

@@ -1,0 +1,773 @@
+npm warn Unknown user config "always-auth" (//r.npm.zaihui.com.cn/:always-auth). This will stop working in the next major version of npm.
+
+> ocr-learning@1.0.0 dev
+> node scripts/dev-site.mjs
+
+已构建 02-js-image-basics/browser.js
+已构建 03-grayscale/browser.js
+已构建 04-binarization/browser.js
+已构建 05-denoising/browser.js
+已构建 06-morphology/browser.js
+已构建 07-deskewing/browser.js
+已构建 08-edge-detection/browser.js
+已构建 09-connected-components/browser.js
+已构建 10-text-localization/browser.js
+已构建 14-neural-network-basics/browser.js
+已构建 15-cnn-basics/browser.js
+已构建 16-tensorflowjs-intro/browser.js
+已构建 17-cnn-classifier/browser.js
+已构建 18-rnn-basics/browser.js
+已构建 19-ctc-loss/browser.js
+已构建 20-crnn/browser.js
+已构建 21-attention/browser.js
+已构建 22-text-detection-networks/browser.js
+已构建 23-transformer-ocr/browser.js
+已构建 24-post-processing/browser.js
+已构建 25-ocr-engine/browser.js
+已构建 26-validation/browser.js
+浏览器入口就绪：22 个。npm run dev 启动课程站；npm run build 生成完整静态站点。
+实验资源已装配：78 个文件 → .vuepress/public/labs
+- Initializing and preparing data
+✔ Initializing and preparing data - done in 1.61s
+
+  vite v8.3.0 dev server running at:
+
+  ➜  Local:   http://127.0.0.1:4173/
+8:22:33 PM [vite] (client) page reload artifacts/vuepress-integration/C/compatibility-fixture.html
+info config dependency .vuepress/plugins/markdown-links.mjs is modified
+- Initializing and preparing data
+✔ Initializing and preparing data - done in 1.42s
+
+  vite v8.3.0 dev server running at:
+
+  ➜  Local:   http://127.0.0.1:4173/
+tip dev server has restarted, please refresh your browser
+8:24:06 PM [vite] (client) page reload artifacts/vuepress-integration/C/compatibility-fixture.html
+已构建 02-js-image-basics/browser.js
+已构建 03-grayscale/browser.js
+已构建 04-binarization/browser.js
+已构建 05-denoising/browser.js
+已构建 06-morphology/browser.js
+已构建 07-deskewing/browser.js
+已构建 08-edge-detection/browser.js
+已构建 09-connected-components/browser.js
+已构建 10-text-localization/browser.js
+已构建 14-neural-network-basics/browser.js
+已构建 15-cnn-basics/browser.js
+已构建 16-tensorflowjs-intro/browser.js
+已构建 17-cnn-classifier/browser.js
+已构建 18-rnn-basics/browser.js
+已构建 19-ctc-loss/browser.js
+已构建 20-crnn/browser.js
+已构建 21-attention/browser.js
+已构建 22-text-detection-networks/browser.js
+已构建 23-transformer-ocr/browser.js
+已构建 24-post-processing/browser.js
+已构建 25-ocr-engine/browser.js
+已构建 26-validation/browser.js
+浏览器入口就绪：22 个。npm run dev 启动课程站；npm run build 生成完整静态站点。
+实验资源已装配：78 个文件 → .vuepress/public/labs
+实验更新已同步：17-cnn-classifier/webgl-training.js, 17-cnn-classifier/train-webgl.js。浏览器会重新加载实验；也可刷新当前页。
+8:24:58 PM [vite] (client) page reload .vuepress/public/labs.stage-92c8f8ff-027a-436e-81ab-a41e270d72fe/01-image-fundamentals/index.html
+8:24:58 PM [vite] (client) page reload .vuepress/public/labs.stage-92c8f8ff-027a-436e-81ab-a41e270d72fe/02-js-image-basics/index.html
+8:24:58 PM [vite] (client) page reload .vuepress/public/labs.stage-92c8f8ff-027a-436e-81ab-a41e270d72fe/03-grayscale/index.html
+8:24:58 PM [vite] (client) page reload .vuepress/public/labs.stage-92c8f8ff-027a-436e-81ab-a41e270d72fe/04-binarization/index.html
+8:24:58 PM [vite] (client) page reload .vuepress/public/labs.stage-92c8f8ff-027a-436e-81ab-a41e270d72fe/05-denoising/index.html
+8:24:58 PM [vite] (client) page reload .vuepress/public/labs.stage-92c8f8ff-027a-436e-81ab-a41e270d72fe/06-morphology/index.html
+8:24:58 PM [vite] (client) page reload .vuepress/public/labs.stage-92c8f8ff-027a-436e-81ab-a41e270d72fe/07-deskewing/index.html
+8:24:58 PM [vite] (client) page reload .vuepress/public/labs.stage-92c8f8ff-027a-436e-81ab-a41e270d72fe/08-edge-detection/index.html
+8:24:58 PM [vite] (client) page reload .vuepress/public/labs.stage-92c8f8ff-027a-436e-81ab-a41e270d72fe/09-connected-components/index.html
+8:24:58 PM [vite] (client) page reload .vuepress/public/labs.stage-92c8f8ff-027a-436e-81ab-a41e270d72fe/10-text-localization/index.html
+8:24:58 PM [vite] (client) page reload .vuepress/public/labs.stage-92c8f8ff-027a-436e-81ab-a41e270d72fe/11-feature-extraction/index.html
+8:24:58 PM [vite] (client) page reload .vuepress/public/labs.stage-92c8f8ff-027a-436e-81ab-a41e270d72fe/12-template-matching/index.html
+8:24:58 PM [vite] (client) page reload .vuepress/public/labs.stage-92c8f8ff-027a-436e-81ab-a41e270d72fe/13-knn-classifier/index.html
+8:24:58 PM [vite] (client) page reload .vuepress/public/labs.stage-92c8f8ff-027a-436e-81ab-a41e270d72fe/14-neural-network-basics/index.html
+8:24:58 PM [vite] (client) page reload .vuepress/public/labs.stage-92c8f8ff-027a-436e-81ab-a41e270d72fe/15-cnn-basics/index.html
+8:24:58 PM [vite] (client) page reload .vuepress/public/labs.stage-92c8f8ff-027a-436e-81ab-a41e270d72fe/16-tensorflowjs-intro/index.html
+8:24:58 PM [vite] (client) page reload .vuepress/public/labs.stage-92c8f8ff-027a-436e-81ab-a41e270d72fe/17-cnn-classifier/index.html
+8:24:58 PM [vite] (client) page reload .vuepress/public/labs.stage-92c8f8ff-027a-436e-81ab-a41e270d72fe/18-rnn-basics/index.html
+8:24:58 PM [vite] (client) page reload .vuepress/public/labs.stage-92c8f8ff-027a-436e-81ab-a41e270d72fe/19-ctc-loss/index.html
+8:24:58 PM [vite] (client) page reload .vuepress/public/labs.stage-92c8f8ff-027a-436e-81ab-a41e270d72fe/20-crnn/index.html
+8:24:58 PM [vite] (client) page reload .vuepress/public/labs.stage-92c8f8ff-027a-436e-81ab-a41e270d72fe/21-attention/index.html
+8:24:58 PM [vite] (client) page reload .vuepress/public/labs.stage-92c8f8ff-027a-436e-81ab-a41e270d72fe/22-text-detection-networks/index.html
+8:24:58 PM [vite] (client) page reload .vuepress/public/labs.stage-92c8f8ff-027a-436e-81ab-a41e270d72fe/23-transformer-ocr/index.html
+8:24:58 PM [vite] (client) page reload .vuepress/public/labs.stage-92c8f8ff-027a-436e-81ab-a41e270d72fe/24-post-processing/index.html
+8:24:58 PM [vite] (client) page reload .vuepress/public/labs.stage-92c8f8ff-027a-436e-81ab-a41e270d72fe/25-ocr-engine/index.html
+8:24:58 PM [vite] (client) page reload .vuepress/public/labs.stage-92c8f8ff-027a-436e-81ab-a41e270d72fe/26-validation/index.html
+8:24:58 PM [vite] (client) page reload .vuepress/public/labs.stage-92c8f8ff-027a-436e-81ab-a41e270d72fe/17-cnn-classifier/train.html
+8:24:58 PM [vite] (client) page reload .vuepress/public/labs.stage-92c8f8ff-027a-436e-81ab-a41e270d72fe/01-image-fundamentals/index.html
+8:24:58 PM [vite] (client) page reload .vuepress/public/labs.stage-92c8f8ff-027a-436e-81ab-a41e270d72fe/02-js-image-basics/index.html
+8:24:58 PM [vite] (client) page reload .vuepress/public/labs.stage-92c8f8ff-027a-436e-81ab-a41e270d72fe/03-grayscale/index.html
+8:24:58 PM [vite] (client) page reload .vuepress/public/labs.stage-92c8f8ff-027a-436e-81ab-a41e270d72fe/04-binarization/index.html
+8:24:58 PM [vite] (client) page reload .vuepress/public/labs.stage-92c8f8ff-027a-436e-81ab-a41e270d72fe/05-denoising/index.html
+8:24:58 PM [vite] (client) page reload .vuepress/public/labs.stage-92c8f8ff-027a-436e-81ab-a41e270d72fe/06-morphology/index.html
+8:24:58 PM [vite] (client) page reload .vuepress/public/labs.stage-92c8f8ff-027a-436e-81ab-a41e270d72fe/07-deskewing/index.html
+8:24:58 PM [vite] (client) page reload .vuepress/public/labs.stage-92c8f8ff-027a-436e-81ab-a41e270d72fe/08-edge-detection/index.html
+8:24:58 PM [vite] (client) page reload .vuepress/public/labs.stage-92c8f8ff-027a-436e-81ab-a41e270d72fe/09-connected-components/index.html
+8:24:58 PM [vite] (client) page reload .vuepress/public/labs.stage-92c8f8ff-027a-436e-81ab-a41e270d72fe/10-text-localization/index.html
+8:24:58 PM [vite] (client) page reload .vuepress/public/labs.stage-92c8f8ff-027a-436e-81ab-a41e270d72fe/11-feature-extraction/index.html
+8:24:58 PM [vite] (client) page reload .vuepress/public/labs.stage-92c8f8ff-027a-436e-81ab-a41e270d72fe/12-template-matching/index.html
+8:24:58 PM [vite] (client) page reload .vuepress/public/labs.stage-92c8f8ff-027a-436e-81ab-a41e270d72fe/13-knn-classifier/index.html
+8:24:58 PM [vite] (client) page reload .vuepress/public/labs.stage-92c8f8ff-027a-436e-81ab-a41e270d72fe/14-neural-network-basics/index.html
+8:24:58 PM [vite] (client) page reload .vuepress/public/labs.stage-92c8f8ff-027a-436e-81ab-a41e270d72fe/15-cnn-basics/index.html
+8:24:58 PM [vite] (client) page reload .vuepress/public/labs.stage-92c8f8ff-027a-436e-81ab-a41e270d72fe/16-tensorflowjs-intro/index.html
+8:24:58 PM [vite] (client) page reload .vuepress/public/labs.stage-92c8f8ff-027a-436e-81ab-a41e270d72fe/17-cnn-classifier/index.html
+8:24:58 PM [vite] (client) page reload .vuepress/public/labs.stage-92c8f8ff-027a-436e-81ab-a41e270d72fe/17-cnn-classifier/train.html
+8:24:58 PM [vite] (client) page reload .vuepress/public/labs.stage-92c8f8ff-027a-436e-81ab-a41e270d72fe/18-rnn-basics/index.html
+8:24:58 PM [vite] (client) page reload .vuepress/public/labs.stage-92c8f8ff-027a-436e-81ab-a41e270d72fe/19-ctc-loss/index.html
+8:24:58 PM [vite] (client) page reload .vuepress/public/labs.stage-92c8f8ff-027a-436e-81ab-a41e270d72fe/20-crnn/index.html
+8:24:58 PM [vite] (client) page reload .vuepress/public/labs.stage-92c8f8ff-027a-436e-81ab-a41e270d72fe/21-attention/index.html
+8:24:58 PM [vite] (client) page reload .vuepress/public/labs.stage-92c8f8ff-027a-436e-81ab-a41e270d72fe/22-text-detection-networks/index.html
+8:24:58 PM [vite] (client) page reload .vuepress/public/labs.stage-92c8f8ff-027a-436e-81ab-a41e270d72fe/23-transformer-ocr/index.html
+8:24:58 PM [vite] (client) page reload .vuepress/public/labs.stage-92c8f8ff-027a-436e-81ab-a41e270d72fe/24-post-processing/index.html
+8:24:58 PM [vite] (client) page reload .vuepress/public/labs.stage-92c8f8ff-027a-436e-81ab-a41e270d72fe/25-ocr-engine/index.html
+8:24:58 PM [vite] (client) page reload .vuepress/public/labs.stage-92c8f8ff-027a-436e-81ab-a41e270d72fe/26-validation/index.html
+8:24:58 PM [vite] (client) page reload .vuepress/public/labs.stage-92c8f8ff-027a-436e-81ab-a41e270d72fe/01-image-fundamentals/index.html
+8:24:58 PM [vite] (client) page reload .vuepress/public/labs.stage-92c8f8ff-027a-436e-81ab-a41e270d72fe/02-js-image-basics/index.html
+8:24:58 PM [vite] (client) page reload .vuepress/public/labs.stage-92c8f8ff-027a-436e-81ab-a41e270d72fe/03-grayscale/index.html
+8:24:58 PM [vite] (client) page reload .vuepress/public/labs.stage-92c8f8ff-027a-436e-81ab-a41e270d72fe/04-binarization/index.html
+8:24:58 PM [vite] (client) page reload .vuepress/public/labs.stage-92c8f8ff-027a-436e-81ab-a41e270d72fe/05-denoising/index.html
+8:24:58 PM [vite] (client) page reload .vuepress/public/labs.stage-92c8f8ff-027a-436e-81ab-a41e270d72fe/06-morphology/index.html
+8:24:58 PM [vite] (client) page reload .vuepress/public/labs.stage-92c8f8ff-027a-436e-81ab-a41e270d72fe/07-deskewing/index.html
+8:24:58 PM [vite] (client) page reload .vuepress/public/labs.stage-92c8f8ff-027a-436e-81ab-a41e270d72fe/08-edge-detection/index.html
+8:24:58 PM [vite] (client) page reload .vuepress/public/labs.stage-92c8f8ff-027a-436e-81ab-a41e270d72fe/09-connected-components/index.html
+8:24:58 PM [vite] (client) page reload .vuepress/public/labs.stage-92c8f8ff-027a-436e-81ab-a41e270d72fe/10-text-localization/index.html
+8:24:58 PM [vite] (client) page reload .vuepress/public/labs.stage-92c8f8ff-027a-436e-81ab-a41e270d72fe/11-feature-extraction/index.html
+8:24:58 PM [vite] (client) page reload .vuepress/public/labs.stage-92c8f8ff-027a-436e-81ab-a41e270d72fe/12-template-matching/index.html
+8:24:58 PM [vite] (client) page reload .vuepress/public/labs.stage-92c8f8ff-027a-436e-81ab-a41e270d72fe/13-knn-classifier/index.html
+8:24:58 PM [vite] (client) page reload .vuepress/public/labs.stage-92c8f8ff-027a-436e-81ab-a41e270d72fe/14-neural-network-basics/index.html
+8:24:58 PM [vite] (client) page reload .vuepress/public/labs.stage-92c8f8ff-027a-436e-81ab-a41e270d72fe/15-cnn-basics/index.html
+8:24:58 PM [vite] (client) page reload .vuepress/public/labs.stage-92c8f8ff-027a-436e-81ab-a41e270d72fe/16-tensorflowjs-intro/index.html
+8:24:58 PM [vite] (client) page reload .vuepress/public/labs.stage-92c8f8ff-027a-436e-81ab-a41e270d72fe/17-cnn-classifier/index.html
+8:24:58 PM [vite] (client) page reload .vuepress/public/labs.stage-92c8f8ff-027a-436e-81ab-a41e270d72fe/18-rnn-basics/index.html
+8:24:58 PM [vite] (client) page reload .vuepress/public/labs.stage-92c8f8ff-027a-436e-81ab-a41e270d72fe/19-ctc-loss/index.html
+8:24:58 PM [vite] (client) page reload .vuepress/public/labs.stage-92c8f8ff-027a-436e-81ab-a41e270d72fe/20-crnn/index.html
+8:24:58 PM [vite] (client) page reload .vuepress/public/labs.stage-92c8f8ff-027a-436e-81ab-a41e270d72fe/21-attention/index.html
+8:24:58 PM [vite] (client) page reload .vuepress/public/labs.stage-92c8f8ff-027a-436e-81ab-a41e270d72fe/22-text-detection-networks/index.html
+8:24:58 PM [vite] (client) page reload .vuepress/public/labs.stage-92c8f8ff-027a-436e-81ab-a41e270d72fe/23-transformer-ocr/index.html
+8:24:58 PM [vite] (client) page reload .vuepress/public/labs.stage-92c8f8ff-027a-436e-81ab-a41e270d72fe/24-post-processing/index.html
+8:24:58 PM [vite] (client) page reload .vuepress/public/labs.stage-92c8f8ff-027a-436e-81ab-a41e270d72fe/25-ocr-engine/index.html
+8:24:58 PM [vite] (client) page reload .vuepress/public/labs.stage-92c8f8ff-027a-436e-81ab-a41e270d72fe/26-validation/index.html
+8:24:58 PM [vite] (client) page reload .vuepress/public/labs.stage-92c8f8ff-027a-436e-81ab-a41e270d72fe/17-cnn-classifier/train.html
+info config dependency .vuepress/plugins/markdown-links.mjs is modified
+- Initializing and preparing data
+✔ Initializing and preparing data - done in 1.56s
+
+  vite v8.3.0 dev server running at:
+
+  ➜  Local:   http://127.0.0.1:4173/
+tip dev server has restarted, please refresh your browser
+8:25:58 PM [vite] (client) page reload artifacts/vuepress-integration/C/compatibility-fixture.html
+8:27:30 PM [vite] (client) page reload 01-image-fundamentals/index.html
+8:27:30 PM [vite] (client) page reload 02-js-image-basics/index.html
+8:27:30 PM [vite] (client) page reload 03-grayscale/index.html
+8:27:30 PM [vite] (client) page reload 04-binarization/index.html
+8:27:30 PM [vite] (client) page reload 05-denoising/index.html
+8:27:30 PM [vite] (client) page reload 06-morphology/index.html
+8:27:30 PM [vite] (client) page reload 07-deskewing/index.html
+8:27:30 PM [vite] (client) page reload 08-edge-detection/index.html
+8:27:30 PM [vite] (client) page reload 09-connected-components/index.html
+8:27:30 PM [vite] (client) page reload 10-text-localization/index.html
+8:27:30 PM [vite] (client) page reload 11-feature-extraction/index.html
+8:27:30 PM [vite] (client) page reload 12-template-matching/index.html
+8:27:30 PM [vite] (client) page reload 13-knn-classifier/index.html
+8:27:30 PM [vite] (client) page reload 14-neural-network-basics/index.html
+8:27:30 PM [vite] (client) page reload 15-cnn-basics/index.html
+8:27:30 PM [vite] (client) page reload 16-tensorflowjs-intro/index.html
+8:27:30 PM [vite] (client) page reload 17-cnn-classifier/index.html
+8:27:30 PM [vite] (client) page reload 18-rnn-basics/index.html
+8:27:30 PM [vite] (client) page reload 19-ctc-loss/index.html
+8:27:30 PM [vite] (client) page reload 20-crnn/index.html
+8:27:30 PM [vite] (client) page reload 21-attention/index.html
+8:27:30 PM [vite] (client) page reload 22-text-detection-networks/index.html
+8:27:30 PM [vite] (client) page reload 23-transformer-ocr/index.html
+8:27:30 PM [vite] (client) page reload 24-post-processing/index.html
+8:27:30 PM [vite] (client) page reload 25-ocr-engine/index.html
+8:27:30 PM [vite] (client) page reload 26-validation/index.html
+8:27:30 PM [vite] (client) page reload 17-cnn-classifier/train.html
+8:27:30 PM [vite] (client) page reload .vuepress/public/labs.stage-2d79c11a-ff1b-40f1-b611-8cbda17f562d/01-image-fundamentals/index.html
+8:27:30 PM [vite] (client) page reload .vuepress/public/labs.stage-2d79c11a-ff1b-40f1-b611-8cbda17f562d/02-js-image-basics/index.html
+8:27:30 PM [vite] (client) page reload .vuepress/public/labs.stage-2d79c11a-ff1b-40f1-b611-8cbda17f562d/03-grayscale/index.html
+8:27:30 PM [vite] (client) page reload .vuepress/public/labs.stage-2d79c11a-ff1b-40f1-b611-8cbda17f562d/04-binarization/index.html
+8:27:30 PM [vite] (client) page reload .vuepress/public/labs.stage-2d79c11a-ff1b-40f1-b611-8cbda17f562d/05-denoising/index.html
+8:27:30 PM [vite] (client) page reload .vuepress/public/labs.stage-2d79c11a-ff1b-40f1-b611-8cbda17f562d/06-morphology/index.html
+8:27:30 PM [vite] (client) page reload .vuepress/public/labs.stage-2d79c11a-ff1b-40f1-b611-8cbda17f562d/07-deskewing/index.html
+8:27:30 PM [vite] (client) page reload .vuepress/public/labs.stage-2d79c11a-ff1b-40f1-b611-8cbda17f562d/08-edge-detection/index.html
+8:27:30 PM [vite] (client) page reload .vuepress/public/labs.stage-2d79c11a-ff1b-40f1-b611-8cbda17f562d/09-connected-components/index.html
+8:27:30 PM [vite] (client) page reload .vuepress/public/labs.stage-2d79c11a-ff1b-40f1-b611-8cbda17f562d/10-text-localization/index.html
+8:27:30 PM [vite] (client) page reload .vuepress/public/labs.stage-2d79c11a-ff1b-40f1-b611-8cbda17f562d/11-feature-extraction/index.html
+8:27:30 PM [vite] (client) page reload .vuepress/public/labs.stage-2d79c11a-ff1b-40f1-b611-8cbda17f562d/12-template-matching/index.html
+8:27:30 PM [vite] (client) page reload .vuepress/public/labs.stage-2d79c11a-ff1b-40f1-b611-8cbda17f562d/13-knn-classifier/index.html
+8:27:30 PM [vite] (client) page reload .vuepress/public/labs.stage-2d79c11a-ff1b-40f1-b611-8cbda17f562d/14-neural-network-basics/index.html
+8:27:30 PM [vite] (client) page reload .vuepress/public/labs.stage-2d79c11a-ff1b-40f1-b611-8cbda17f562d/15-cnn-basics/index.html
+8:27:30 PM [vite] (client) page reload .vuepress/public/labs.stage-2d79c11a-ff1b-40f1-b611-8cbda17f562d/16-tensorflowjs-intro/index.html
+8:27:30 PM [vite] (client) page reload .vuepress/public/labs.stage-2d79c11a-ff1b-40f1-b611-8cbda17f562d/17-cnn-classifier/index.html
+8:27:30 PM [vite] (client) page reload .vuepress/public/labs.stage-2d79c11a-ff1b-40f1-b611-8cbda17f562d/18-rnn-basics/index.html
+8:27:30 PM [vite] (client) page reload .vuepress/public/labs.stage-2d79c11a-ff1b-40f1-b611-8cbda17f562d/19-ctc-loss/index.html
+8:27:30 PM [vite] (client) page reload .vuepress/public/labs.stage-2d79c11a-ff1b-40f1-b611-8cbda17f562d/20-crnn/index.html
+8:27:30 PM [vite] (client) page reload .vuepress/public/labs.stage-2d79c11a-ff1b-40f1-b611-8cbda17f562d/21-attention/index.html
+8:27:30 PM [vite] (client) page reload .vuepress/public/labs.stage-2d79c11a-ff1b-40f1-b611-8cbda17f562d/22-text-detection-networks/index.html
+8:27:30 PM [vite] (client) page reload .vuepress/public/labs.stage-2d79c11a-ff1b-40f1-b611-8cbda17f562d/23-transformer-ocr/index.html
+8:27:30 PM [vite] (client) page reload .vuepress/public/labs.stage-2d79c11a-ff1b-40f1-b611-8cbda17f562d/24-post-processing/index.html
+8:27:30 PM [vite] (client) page reload .vuepress/public/labs.stage-2d79c11a-ff1b-40f1-b611-8cbda17f562d/25-ocr-engine/index.html
+8:27:30 PM [vite] (client) page reload .vuepress/public/labs.stage-2d79c11a-ff1b-40f1-b611-8cbda17f562d/26-validation/index.html
+8:27:30 PM [vite] (client) page reload .vuepress/public/labs.stage-2d79c11a-ff1b-40f1-b611-8cbda17f562d/01-image-fundamentals/index.html
+8:27:30 PM [vite] (client) page reload .vuepress/public/labs.stage-2d79c11a-ff1b-40f1-b611-8cbda17f562d/02-js-image-basics/index.html
+8:27:30 PM [vite] (client) page reload .vuepress/public/labs.stage-2d79c11a-ff1b-40f1-b611-8cbda17f562d/03-grayscale/index.html
+8:27:30 PM [vite] (client) page reload .vuepress/public/labs.stage-2d79c11a-ff1b-40f1-b611-8cbda17f562d/04-binarization/index.html
+8:27:30 PM [vite] (client) page reload .vuepress/public/labs.stage-2d79c11a-ff1b-40f1-b611-8cbda17f562d/05-denoising/index.html
+8:27:30 PM [vite] (client) page reload .vuepress/public/labs.stage-2d79c11a-ff1b-40f1-b611-8cbda17f562d/06-morphology/index.html
+8:27:30 PM [vite] (client) page reload .vuepress/public/labs.stage-2d79c11a-ff1b-40f1-b611-8cbda17f562d/07-deskewing/index.html
+8:27:30 PM [vite] (client) page reload .vuepress/public/labs.stage-2d79c11a-ff1b-40f1-b611-8cbda17f562d/08-edge-detection/index.html
+8:27:30 PM [vite] (client) page reload .vuepress/public/labs.stage-2d79c11a-ff1b-40f1-b611-8cbda17f562d/09-connected-components/index.html
+8:27:30 PM [vite] (client) page reload .vuepress/public/labs.stage-2d79c11a-ff1b-40f1-b611-8cbda17f562d/10-text-localization/index.html
+8:27:30 PM [vite] (client) page reload .vuepress/public/labs.stage-2d79c11a-ff1b-40f1-b611-8cbda17f562d/11-feature-extraction/index.html
+8:27:30 PM [vite] (client) page reload .vuepress/public/labs.stage-2d79c11a-ff1b-40f1-b611-8cbda17f562d/12-template-matching/index.html
+8:27:30 PM [vite] (client) page reload .vuepress/public/labs.stage-2d79c11a-ff1b-40f1-b611-8cbda17f562d/13-knn-classifier/index.html
+8:27:30 PM [vite] (client) page reload .vuepress/public/labs.stage-2d79c11a-ff1b-40f1-b611-8cbda17f562d/14-neural-network-basics/index.html
+8:27:30 PM [vite] (client) page reload .vuepress/public/labs.stage-2d79c11a-ff1b-40f1-b611-8cbda17f562d/15-cnn-basics/index.html
+8:27:30 PM [vite] (client) page reload .vuepress/public/labs.stage-2d79c11a-ff1b-40f1-b611-8cbda17f562d/16-tensorflowjs-intro/index.html
+8:27:30 PM [vite] (client) page reload .vuepress/public/labs.stage-2d79c11a-ff1b-40f1-b611-8cbda17f562d/17-cnn-classifier/index.html
+8:27:30 PM [vite] (client) page reload .vuepress/public/labs.stage-2d79c11a-ff1b-40f1-b611-8cbda17f562d/18-rnn-basics/index.html
+8:27:30 PM [vite] (client) page reload .vuepress/public/labs.stage-2d79c11a-ff1b-40f1-b611-8cbda17f562d/19-ctc-loss/index.html
+8:27:30 PM [vite] (client) page reload .vuepress/public/labs.stage-2d79c11a-ff1b-40f1-b611-8cbda17f562d/20-crnn/index.html
+8:27:30 PM [vite] (client) page reload .vuepress/public/labs.stage-2d79c11a-ff1b-40f1-b611-8cbda17f562d/21-attention/index.html
+8:27:30 PM [vite] (client) page reload .vuepress/public/labs.stage-2d79c11a-ff1b-40f1-b611-8cbda17f562d/22-text-detection-networks/index.html
+8:27:30 PM [vite] (client) page reload .vuepress/public/labs.stage-2d79c11a-ff1b-40f1-b611-8cbda17f562d/23-transformer-ocr/index.html
+8:27:30 PM [vite] (client) page reload .vuepress/public/labs.stage-2d79c11a-ff1b-40f1-b611-8cbda17f562d/24-post-processing/index.html
+8:27:30 PM [vite] (client) page reload .vuepress/public/labs.stage-2d79c11a-ff1b-40f1-b611-8cbda17f562d/25-ocr-engine/index.html
+8:27:30 PM [vite] (client) page reload .vuepress/public/labs.stage-2d79c11a-ff1b-40f1-b611-8cbda17f562d/26-validation/index.html
+8:27:30 PM [vite] (client) page reload .vuepress/public/labs.stage-2d79c11a-ff1b-40f1-b611-8cbda17f562d/17-cnn-classifier/train.html
+8:27:30 PM [vite] (client) page reload .vuepress/public/labs.stage-2d79c11a-ff1b-40f1-b611-8cbda17f562d/17-cnn-classifier/train.html
+实验资源已装配：78 个文件 → .vuepress/public/labs
+实验更新已同步：01-image-fundamentals/index.html, 02-js-image-basics/index.html, 03-grayscale/index.html, 04-binarization/index.html, 05-denoising/index.html, 06-morphology/index.html, 07-deskewing/index.html, 08-edge-detection/index.html, 09-connected-components/index.html, 10-text-localization/index.html, 11-feature-extraction/index.html, 12-template-matching/index.html, 13-knn-classifier/index.html, 14-neural-network-basics/index.html, 15-cnn-basics/index.html, 16-tensorflowjs-intro/index.html, 17-cnn-classifier/index.html, 17-cnn-classifier/train.html, 18-rnn-basics/index.html, 19-ctc-loss/index.html, 20-crnn/index.html, 21-attention/index.html, 22-text-detection-networks/index.html, 23-transformer-ocr/index.html, 24-post-processing/index.html, 25-ocr-engine/index.html, 26-validation/index.html。浏览器会重新加载实验；也可刷新当前页。
+8:27:30 PM [vite] (client) page reload .vuepress/public/labs.stage-2d79c11a-ff1b-40f1-b611-8cbda17f562d/01-image-fundamentals/index.html
+8:27:30 PM [vite] (client) page reload .vuepress/public/labs.stage-2d79c11a-ff1b-40f1-b611-8cbda17f562d/02-js-image-basics/index.html
+8:27:30 PM [vite] (client) page reload .vuepress/public/labs.stage-2d79c11a-ff1b-40f1-b611-8cbda17f562d/03-grayscale/index.html
+8:27:30 PM [vite] (client) page reload .vuepress/public/labs.stage-2d79c11a-ff1b-40f1-b611-8cbda17f562d/04-binarization/index.html
+8:27:30 PM [vite] (client) page reload .vuepress/public/labs.stage-2d79c11a-ff1b-40f1-b611-8cbda17f562d/05-denoising/index.html
+8:27:30 PM [vite] (client) page reload .vuepress/public/labs.stage-2d79c11a-ff1b-40f1-b611-8cbda17f562d/06-morphology/index.html
+8:27:30 PM [vite] (client) page reload .vuepress/public/labs.stage-2d79c11a-ff1b-40f1-b611-8cbda17f562d/07-deskewing/index.html
+8:27:30 PM [vite] (client) page reload .vuepress/public/labs.stage-2d79c11a-ff1b-40f1-b611-8cbda17f562d/08-edge-detection/index.html
+8:27:30 PM [vite] (client) page reload .vuepress/public/labs.stage-2d79c11a-ff1b-40f1-b611-8cbda17f562d/09-connected-components/index.html
+8:27:30 PM [vite] (client) page reload .vuepress/public/labs.stage-2d79c11a-ff1b-40f1-b611-8cbda17f562d/10-text-localization/index.html
+8:27:30 PM [vite] (client) page reload .vuepress/public/labs.stage-2d79c11a-ff1b-40f1-b611-8cbda17f562d/11-feature-extraction/index.html
+8:27:30 PM [vite] (client) page reload .vuepress/public/labs.stage-2d79c11a-ff1b-40f1-b611-8cbda17f562d/12-template-matching/index.html
+8:27:30 PM [vite] (client) page reload .vuepress/public/labs.stage-2d79c11a-ff1b-40f1-b611-8cbda17f562d/13-knn-classifier/index.html
+8:27:30 PM [vite] (client) page reload .vuepress/public/labs.stage-2d79c11a-ff1b-40f1-b611-8cbda17f562d/14-neural-network-basics/index.html
+8:27:30 PM [vite] (client) page reload .vuepress/public/labs.stage-2d79c11a-ff1b-40f1-b611-8cbda17f562d/15-cnn-basics/index.html
+8:27:30 PM [vite] (client) page reload .vuepress/public/labs.stage-2d79c11a-ff1b-40f1-b611-8cbda17f562d/16-tensorflowjs-intro/index.html
+8:27:30 PM [vite] (client) page reload .vuepress/public/labs.stage-2d79c11a-ff1b-40f1-b611-8cbda17f562d/17-cnn-classifier/index.html
+8:27:30 PM [vite] (client) page reload .vuepress/public/labs.stage-2d79c11a-ff1b-40f1-b611-8cbda17f562d/17-cnn-classifier/train.html
+8:27:30 PM [vite] (client) page reload .vuepress/public/labs.stage-2d79c11a-ff1b-40f1-b611-8cbda17f562d/18-rnn-basics/index.html
+8:27:30 PM [vite] (client) page reload .vuepress/public/labs.stage-2d79c11a-ff1b-40f1-b611-8cbda17f562d/19-ctc-loss/index.html
+8:27:30 PM [vite] (client) page reload .vuepress/public/labs.stage-2d79c11a-ff1b-40f1-b611-8cbda17f562d/20-crnn/index.html
+8:27:30 PM [vite] (client) page reload .vuepress/public/labs.stage-2d79c11a-ff1b-40f1-b611-8cbda17f562d/21-attention/index.html
+8:27:30 PM [vite] (client) page reload .vuepress/public/labs.stage-2d79c11a-ff1b-40f1-b611-8cbda17f562d/22-text-detection-networks/index.html
+8:27:30 PM [vite] (client) page reload .vuepress/public/labs.stage-2d79c11a-ff1b-40f1-b611-8cbda17f562d/23-transformer-ocr/index.html
+8:27:30 PM [vite] (client) page reload .vuepress/public/labs.stage-2d79c11a-ff1b-40f1-b611-8cbda17f562d/24-post-processing/index.html
+8:27:30 PM [vite] (client) page reload .vuepress/public/labs.stage-2d79c11a-ff1b-40f1-b611-8cbda17f562d/25-ocr-engine/index.html
+8:27:30 PM [vite] (client) page reload .vuepress/public/labs.stage-2d79c11a-ff1b-40f1-b611-8cbda17f562d/26-validation/index.html
+8:29:53 PM [vite] (client) page reload 21-attention/index.html
+8:29:53 PM [vite] (client) page reload 16-tensorflowjs-intro/index.html
+8:29:53 PM [vite] (client) page reload 18-rnn-basics/index.html
+8:29:53 PM [vite] (client) page reload 22-text-detection-networks/index.html
+8:29:53 PM [vite] (client) page reload 23-transformer-ocr/index.html
+8:29:53 PM [vite] (client) page reload 19-ctc-loss/index.html
+8:29:53 PM [vite] (client) page reload 20-crnn/index.html
+8:29:53 PM [vite] (client) page reload 26-validation/index.html
+8:29:53 PM [vite] (client) page reload 24-post-processing/index.html
+8:29:53 PM [vite] (client) page reload 25-ocr-engine/index.html
+8:29:53 PM [vite] (client) page reload .vuepress/public/labs.stage-0b20ea62-4518-4781-bcfc-be84f5ebd7f9/01-image-fundamentals/index.html
+8:29:53 PM [vite] (client) page reload .vuepress/public/labs.stage-0b20ea62-4518-4781-bcfc-be84f5ebd7f9/02-js-image-basics/index.html
+8:29:53 PM [vite] (client) page reload .vuepress/public/labs.stage-0b20ea62-4518-4781-bcfc-be84f5ebd7f9/03-grayscale/index.html
+8:29:53 PM [vite] (client) page reload .vuepress/public/labs.stage-0b20ea62-4518-4781-bcfc-be84f5ebd7f9/04-binarization/index.html
+8:29:53 PM [vite] (client) page reload .vuepress/public/labs.stage-0b20ea62-4518-4781-bcfc-be84f5ebd7f9/05-denoising/index.html
+8:29:53 PM [vite] (client) page reload .vuepress/public/labs.stage-0b20ea62-4518-4781-bcfc-be84f5ebd7f9/06-morphology/index.html
+8:29:53 PM [vite] (client) page reload .vuepress/public/labs.stage-0b20ea62-4518-4781-bcfc-be84f5ebd7f9/01-image-fundamentals/index.html
+8:29:53 PM [vite] (client) page reload .vuepress/public/labs.stage-0b20ea62-4518-4781-bcfc-be84f5ebd7f9/02-js-image-basics/index.html
+8:29:53 PM [vite] (client) page reload .vuepress/public/labs.stage-0b20ea62-4518-4781-bcfc-be84f5ebd7f9/03-grayscale/index.html
+8:29:53 PM [vite] (client) page reload .vuepress/public/labs.stage-0b20ea62-4518-4781-bcfc-be84f5ebd7f9/04-binarization/index.html
+8:29:53 PM [vite] (client) page reload .vuepress/public/labs.stage-0b20ea62-4518-4781-bcfc-be84f5ebd7f9/05-denoising/index.html
+8:29:53 PM [vite] (client) page reload .vuepress/public/labs.stage-0b20ea62-4518-4781-bcfc-be84f5ebd7f9/06-morphology/index.html
+实验资源已装配：78 个文件 → .vuepress/public/labs
+实验更新已同步：16-tensorflowjs-intro/index.html, 18-rnn-basics/index.html, 19-ctc-loss/index.html, 20-crnn/index.html, 21-attention/index.html, 22-text-detection-networks/index.html, 23-transformer-ocr/index.html, 24-post-processing/index.html, 25-ocr-engine/index.html, 26-validation/index.html。浏览器会重新加载实验；也可刷新当前页。
+8:29:54 PM [vite] (client) page reload .vuepress/public/labs.stage-0b20ea62-4518-4781-bcfc-be84f5ebd7f9/07-deskewing/index.html
+8:29:54 PM [vite] (client) page reload .vuepress/public/labs.stage-0b20ea62-4518-4781-bcfc-be84f5ebd7f9/08-edge-detection/index.html
+8:29:54 PM [vite] (client) page reload .vuepress/public/labs.stage-0b20ea62-4518-4781-bcfc-be84f5ebd7f9/09-connected-components/index.html
+8:29:54 PM [vite] (client) page reload .vuepress/public/labs.stage-0b20ea62-4518-4781-bcfc-be84f5ebd7f9/10-text-localization/index.html
+8:29:54 PM [vite] (client) page reload .vuepress/public/labs.stage-0b20ea62-4518-4781-bcfc-be84f5ebd7f9/11-feature-extraction/index.html
+8:29:54 PM [vite] (client) page reload .vuepress/public/labs.stage-0b20ea62-4518-4781-bcfc-be84f5ebd7f9/12-template-matching/index.html
+8:29:54 PM [vite] (client) page reload .vuepress/public/labs.stage-0b20ea62-4518-4781-bcfc-be84f5ebd7f9/13-knn-classifier/index.html
+8:29:54 PM [vite] (client) page reload .vuepress/public/labs.stage-0b20ea62-4518-4781-bcfc-be84f5ebd7f9/14-neural-network-basics/index.html
+8:29:54 PM [vite] (client) page reload .vuepress/public/labs.stage-0b20ea62-4518-4781-bcfc-be84f5ebd7f9/15-cnn-basics/index.html
+8:29:54 PM [vite] (client) page reload .vuepress/public/labs.stage-0b20ea62-4518-4781-bcfc-be84f5ebd7f9/16-tensorflowjs-intro/index.html
+8:29:54 PM [vite] (client) page reload .vuepress/public/labs.stage-0b20ea62-4518-4781-bcfc-be84f5ebd7f9/17-cnn-classifier/index.html
+8:29:54 PM [vite] (client) page reload .vuepress/public/labs.stage-0b20ea62-4518-4781-bcfc-be84f5ebd7f9/18-rnn-basics/index.html
+8:29:54 PM [vite] (client) page reload .vuepress/public/labs.stage-0b20ea62-4518-4781-bcfc-be84f5ebd7f9/19-ctc-loss/index.html
+8:29:54 PM [vite] (client) page reload .vuepress/public/labs.stage-0b20ea62-4518-4781-bcfc-be84f5ebd7f9/20-crnn/index.html
+8:29:54 PM [vite] (client) page reload .vuepress/public/labs.stage-0b20ea62-4518-4781-bcfc-be84f5ebd7f9/21-attention/index.html
+8:29:54 PM [vite] (client) page reload .vuepress/public/labs.stage-0b20ea62-4518-4781-bcfc-be84f5ebd7f9/22-text-detection-networks/index.html
+8:29:54 PM [vite] (client) page reload .vuepress/public/labs.stage-0b20ea62-4518-4781-bcfc-be84f5ebd7f9/23-transformer-ocr/index.html
+8:29:54 PM [vite] (client) page reload .vuepress/public/labs.stage-0b20ea62-4518-4781-bcfc-be84f5ebd7f9/24-post-processing/index.html
+8:29:54 PM [vite] (client) page reload .vuepress/public/labs.stage-0b20ea62-4518-4781-bcfc-be84f5ebd7f9/25-ocr-engine/index.html
+8:29:54 PM [vite] (client) page reload .vuepress/public/labs.stage-0b20ea62-4518-4781-bcfc-be84f5ebd7f9/26-validation/index.html
+8:29:54 PM [vite] (client) page reload .vuepress/public/labs.stage-0b20ea62-4518-4781-bcfc-be84f5ebd7f9/17-cnn-classifier/train.html
+8:29:54 PM [vite] (client) page reload .vuepress/public/labs.stage-0b20ea62-4518-4781-bcfc-be84f5ebd7f9/07-deskewing/index.html
+8:29:54 PM [vite] (client) page reload .vuepress/public/labs.stage-0b20ea62-4518-4781-bcfc-be84f5ebd7f9/08-edge-detection/index.html
+8:29:54 PM [vite] (client) page reload .vuepress/public/labs.stage-0b20ea62-4518-4781-bcfc-be84f5ebd7f9/10-text-localization/index.html
+8:29:54 PM [vite] (client) page reload .vuepress/public/labs.stage-0b20ea62-4518-4781-bcfc-be84f5ebd7f9/11-feature-extraction/index.html
+8:29:54 PM [vite] (client) page reload .vuepress/public/labs.stage-0b20ea62-4518-4781-bcfc-be84f5ebd7f9/12-template-matching/index.html
+8:29:54 PM [vite] (client) page reload .vuepress/public/labs.stage-0b20ea62-4518-4781-bcfc-be84f5ebd7f9/14-neural-network-basics/index.html
+8:29:54 PM [vite] (client) page reload .vuepress/public/labs.stage-0b20ea62-4518-4781-bcfc-be84f5ebd7f9/15-cnn-basics/index.html
+8:29:54 PM [vite] (client) page reload .vuepress/public/labs.stage-0b20ea62-4518-4781-bcfc-be84f5ebd7f9/16-tensorflowjs-intro/index.html
+8:29:54 PM [vite] (client) page reload .vuepress/public/labs.stage-0b20ea62-4518-4781-bcfc-be84f5ebd7f9/17-cnn-classifier/index.html
+8:29:54 PM [vite] (client) page reload .vuepress/public/labs.stage-0b20ea62-4518-4781-bcfc-be84f5ebd7f9/18-rnn-basics/index.html
+8:29:54 PM [vite] (client) page reload .vuepress/public/labs.stage-0b20ea62-4518-4781-bcfc-be84f5ebd7f9/19-ctc-loss/index.html
+8:29:54 PM [vite] (client) page reload .vuepress/public/labs.stage-0b20ea62-4518-4781-bcfc-be84f5ebd7f9/20-crnn/index.html
+8:29:54 PM [vite] (client) page reload .vuepress/public/labs.stage-0b20ea62-4518-4781-bcfc-be84f5ebd7f9/22-text-detection-networks/index.html
+8:29:54 PM [vite] (client) page reload .vuepress/public/labs.stage-0b20ea62-4518-4781-bcfc-be84f5ebd7f9/23-transformer-ocr/index.html
+8:29:54 PM [vite] (client) page reload .vuepress/public/labs.stage-0b20ea62-4518-4781-bcfc-be84f5ebd7f9/24-post-processing/index.html
+8:29:54 PM [vite] (client) page reload .vuepress/public/labs.stage-0b20ea62-4518-4781-bcfc-be84f5ebd7f9/25-ocr-engine/index.html
+8:29:54 PM [vite] (client) page reload .vuepress/public/labs.stage-0b20ea62-4518-4781-bcfc-be84f5ebd7f9/26-validation/index.html
+8:29:54 PM [vite] (client) page reload .vuepress/public/labs.stage-0b20ea62-4518-4781-bcfc-be84f5ebd7f9/17-cnn-classifier/train.html
+8:29:54 PM [vite] (client) page reload .vuepress/public/labs.stage-0b20ea62-4518-4781-bcfc-be84f5ebd7f9/09-connected-components/index.html
+8:29:54 PM [vite] (client) page reload .vuepress/public/labs.stage-0b20ea62-4518-4781-bcfc-be84f5ebd7f9/13-knn-classifier/index.html
+8:29:54 PM [vite] (client) page reload .vuepress/public/labs.stage-0b20ea62-4518-4781-bcfc-be84f5ebd7f9/21-attention/index.html
+8:29:54 PM [vite] (client) page reload .vuepress/public/labs.stage-0b20ea62-4518-4781-bcfc-be84f5ebd7f9/01-image-fundamentals/index.html
+8:29:54 PM [vite] (client) page reload .vuepress/public/labs.stage-0b20ea62-4518-4781-bcfc-be84f5ebd7f9/02-js-image-basics/index.html
+8:29:54 PM [vite] (client) page reload .vuepress/public/labs.stage-0b20ea62-4518-4781-bcfc-be84f5ebd7f9/03-grayscale/index.html
+8:29:54 PM [vite] (client) page reload .vuepress/public/labs.stage-0b20ea62-4518-4781-bcfc-be84f5ebd7f9/04-binarization/index.html
+8:29:54 PM [vite] (client) page reload .vuepress/public/labs.stage-0b20ea62-4518-4781-bcfc-be84f5ebd7f9/05-denoising/index.html
+8:29:54 PM [vite] (client) page reload .vuepress/public/labs.stage-0b20ea62-4518-4781-bcfc-be84f5ebd7f9/06-morphology/index.html
+8:29:54 PM [vite] (client) page reload .vuepress/public/labs.stage-0b20ea62-4518-4781-bcfc-be84f5ebd7f9/07-deskewing/index.html
+8:29:54 PM [vite] (client) page reload .vuepress/public/labs.stage-0b20ea62-4518-4781-bcfc-be84f5ebd7f9/08-edge-detection/index.html
+8:29:54 PM [vite] (client) page reload .vuepress/public/labs.stage-0b20ea62-4518-4781-bcfc-be84f5ebd7f9/09-connected-components/index.html
+8:29:54 PM [vite] (client) page reload .vuepress/public/labs.stage-0b20ea62-4518-4781-bcfc-be84f5ebd7f9/10-text-localization/index.html
+8:29:54 PM [vite] (client) page reload .vuepress/public/labs.stage-0b20ea62-4518-4781-bcfc-be84f5ebd7f9/11-feature-extraction/index.html
+8:29:54 PM [vite] (client) page reload .vuepress/public/labs.stage-0b20ea62-4518-4781-bcfc-be84f5ebd7f9/12-template-matching/index.html
+8:29:54 PM [vite] (client) page reload .vuepress/public/labs.stage-0b20ea62-4518-4781-bcfc-be84f5ebd7f9/13-knn-classifier/index.html
+8:29:54 PM [vite] (client) page reload .vuepress/public/labs.stage-0b20ea62-4518-4781-bcfc-be84f5ebd7f9/14-neural-network-basics/index.html
+8:29:54 PM [vite] (client) page reload .vuepress/public/labs.stage-0b20ea62-4518-4781-bcfc-be84f5ebd7f9/15-cnn-basics/index.html
+8:29:54 PM [vite] (client) page reload .vuepress/public/labs.stage-0b20ea62-4518-4781-bcfc-be84f5ebd7f9/16-tensorflowjs-intro/index.html
+8:29:54 PM [vite] (client) page reload .vuepress/public/labs.stage-0b20ea62-4518-4781-bcfc-be84f5ebd7f9/17-cnn-classifier/index.html
+8:29:54 PM [vite] (client) page reload .vuepress/public/labs.stage-0b20ea62-4518-4781-bcfc-be84f5ebd7f9/17-cnn-classifier/train.html
+8:29:54 PM [vite] (client) page reload .vuepress/public/labs.stage-0b20ea62-4518-4781-bcfc-be84f5ebd7f9/18-rnn-basics/index.html
+8:29:54 PM [vite] (client) page reload .vuepress/public/labs.stage-0b20ea62-4518-4781-bcfc-be84f5ebd7f9/19-ctc-loss/index.html
+8:29:54 PM [vite] (client) page reload .vuepress/public/labs.stage-0b20ea62-4518-4781-bcfc-be84f5ebd7f9/20-crnn/index.html
+8:29:54 PM [vite] (client) page reload .vuepress/public/labs.stage-0b20ea62-4518-4781-bcfc-be84f5ebd7f9/21-attention/index.html
+8:29:54 PM [vite] (client) page reload .vuepress/public/labs.stage-0b20ea62-4518-4781-bcfc-be84f5ebd7f9/22-text-detection-networks/index.html
+8:29:54 PM [vite] (client) page reload .vuepress/public/labs.stage-0b20ea62-4518-4781-bcfc-be84f5ebd7f9/23-transformer-ocr/index.html
+8:29:54 PM [vite] (client) page reload .vuepress/public/labs.stage-0b20ea62-4518-4781-bcfc-be84f5ebd7f9/24-post-processing/index.html
+8:29:54 PM [vite] (client) page reload .vuepress/public/labs.stage-0b20ea62-4518-4781-bcfc-be84f5ebd7f9/25-ocr-engine/index.html
+8:29:54 PM [vite] (client) page reload .vuepress/public/labs.stage-0b20ea62-4518-4781-bcfc-be84f5ebd7f9/26-validation/index.html
+8:31:38 PM [vite] (client) page reload artifacts/vuepress-integration/B/.test-q5GTLI/labs.stage-c0f0174b-9962-4d0b-b2ac-cb59f7071add/01-image-fundamentals/index.html
+8:31:38 PM [vite] (client) page reload artifacts/vuepress-integration/B/.test-q5GTLI/labs.stage-c0f0174b-9962-4d0b-b2ac-cb59f7071add/02-js-image-basics/index.html
+8:31:38 PM [vite] (client) page reload artifacts/vuepress-integration/B/.test-q5GTLI/labs.stage-c0f0174b-9962-4d0b-b2ac-cb59f7071add/03-grayscale/index.html
+8:31:38 PM [vite] (client) page reload artifacts/vuepress-integration/B/.test-q5GTLI/labs.stage-c0f0174b-9962-4d0b-b2ac-cb59f7071add/04-binarization/index.html
+8:31:38 PM [vite] (client) page reload artifacts/vuepress-integration/B/.test-q5GTLI/labs.stage-c0f0174b-9962-4d0b-b2ac-cb59f7071add/05-denoising/index.html
+8:31:38 PM [vite] (client) page reload artifacts/vuepress-integration/B/.test-q5GTLI/labs.stage-c0f0174b-9962-4d0b-b2ac-cb59f7071add/06-morphology/index.html
+8:31:38 PM [vite] (client) page reload artifacts/vuepress-integration/B/.test-q5GTLI/labs.stage-c0f0174b-9962-4d0b-b2ac-cb59f7071add/07-deskewing/index.html
+8:31:38 PM [vite] (client) page reload artifacts/vuepress-integration/B/.test-q5GTLI/labs.stage-c0f0174b-9962-4d0b-b2ac-cb59f7071add/08-edge-detection/index.html
+8:31:38 PM [vite] (client) page reload artifacts/vuepress-integration/B/.test-q5GTLI/labs.stage-c0f0174b-9962-4d0b-b2ac-cb59f7071add/26-validation/index.html
+8:31:38 PM [vite] (client) page reload artifacts/vuepress-integration/B/.test-q5GTLI/labs.stage-c0f0174b-9962-4d0b-b2ac-cb59f7071add/25-ocr-engine/index.html
+8:31:38 PM [vite] (client) page reload artifacts/vuepress-integration/B/.test-q5GTLI/labs.stage-c0f0174b-9962-4d0b-b2ac-cb59f7071add/24-post-processing/index.html
+8:31:38 PM [vite] (client) page reload artifacts/vuepress-integration/B/.test-q5GTLI/labs.stage-c0f0174b-9962-4d0b-b2ac-cb59f7071add/23-transformer-ocr/index.html
+8:31:38 PM [vite] (client) page reload artifacts/vuepress-integration/B/.test-q5GTLI/labs.stage-c0f0174b-9962-4d0b-b2ac-cb59f7071add/22-text-detection-networks/index.html
+8:31:38 PM [vite] (client) page reload artifacts/vuepress-integration/B/.test-q5GTLI/labs.stage-c0f0174b-9962-4d0b-b2ac-cb59f7071add/21-attention/index.html
+8:31:38 PM [vite] (client) page reload artifacts/vuepress-integration/B/.test-q5GTLI/labs.stage-c0f0174b-9962-4d0b-b2ac-cb59f7071add/20-crnn/index.html
+8:31:38 PM [vite] (client) page reload artifacts/vuepress-integration/B/.test-q5GTLI/labs.stage-c0f0174b-9962-4d0b-b2ac-cb59f7071add/19-ctc-loss/index.html
+8:31:38 PM [vite] (client) page reload artifacts/vuepress-integration/B/.test-q5GTLI/labs.stage-c0f0174b-9962-4d0b-b2ac-cb59f7071add/18-rnn-basics/index.html
+8:31:38 PM [vite] (client) page reload artifacts/vuepress-integration/B/.test-q5GTLI/labs.stage-c0f0174b-9962-4d0b-b2ac-cb59f7071add/17-cnn-classifier/index.html
+8:31:38 PM [vite] (client) page reload artifacts/vuepress-integration/B/.test-q5GTLI/labs.stage-c0f0174b-9962-4d0b-b2ac-cb59f7071add/16-tensorflowjs-intro/index.html
+8:31:38 PM [vite] (client) page reload artifacts/vuepress-integration/B/.test-q5GTLI/labs.stage-c0f0174b-9962-4d0b-b2ac-cb59f7071add/15-cnn-basics/index.html
+8:31:38 PM [vite] (client) page reload artifacts/vuepress-integration/B/.test-q5GTLI/labs.stage-c0f0174b-9962-4d0b-b2ac-cb59f7071add/14-neural-network-basics/index.html
+8:31:38 PM [vite] (client) page reload artifacts/vuepress-integration/B/.test-q5GTLI/labs.stage-c0f0174b-9962-4d0b-b2ac-cb59f7071add/13-knn-classifier/index.html
+8:31:38 PM [vite] (client) page reload artifacts/vuepress-integration/B/.test-q5GTLI/labs.stage-c0f0174b-9962-4d0b-b2ac-cb59f7071add/12-template-matching/index.html
+8:31:38 PM [vite] (client) page reload artifacts/vuepress-integration/B/.test-q5GTLI/labs.stage-c0f0174b-9962-4d0b-b2ac-cb59f7071add/11-feature-extraction/index.html
+8:31:38 PM [vite] (client) page reload artifacts/vuepress-integration/B/.test-q5GTLI/labs.stage-c0f0174b-9962-4d0b-b2ac-cb59f7071add/10-text-localization/index.html
+8:31:38 PM [vite] (client) page reload artifacts/vuepress-integration/B/.test-q5GTLI/labs.stage-c0f0174b-9962-4d0b-b2ac-cb59f7071add/09-connected-components/index.html
+8:31:38 PM [vite] (client) page reload artifacts/vuepress-integration/B/.test-q5GTLI/labs.stage-c0f0174b-9962-4d0b-b2ac-cb59f7071add/08-edge-detection/index.html
+8:31:38 PM [vite] (client) page reload artifacts/vuepress-integration/B/.test-q5GTLI/labs.stage-c0f0174b-9962-4d0b-b2ac-cb59f7071add/09-connected-components/index.html
+8:31:38 PM [vite] (client) page reload artifacts/vuepress-integration/B/.test-q5GTLI/labs.stage-c0f0174b-9962-4d0b-b2ac-cb59f7071add/10-text-localization/index.html
+8:31:38 PM [vite] (client) page reload artifacts/vuepress-integration/B/.test-q5GTLI/labs.stage-c0f0174b-9962-4d0b-b2ac-cb59f7071add/11-feature-extraction/index.html
+8:31:38 PM [vite] (client) page reload artifacts/vuepress-integration/B/.test-q5GTLI/labs.stage-c0f0174b-9962-4d0b-b2ac-cb59f7071add/12-template-matching/index.html
+8:31:38 PM [vite] (client) page reload artifacts/vuepress-integration/B/.test-q5GTLI/labs.stage-c0f0174b-9962-4d0b-b2ac-cb59f7071add/13-knn-classifier/index.html
+8:31:38 PM [vite] (client) page reload artifacts/vuepress-integration/B/.test-q5GTLI/labs.stage-c0f0174b-9962-4d0b-b2ac-cb59f7071add/14-neural-network-basics/index.html
+8:31:38 PM [vite] (client) page reload artifacts/vuepress-integration/B/.test-q5GTLI/labs.stage-c0f0174b-9962-4d0b-b2ac-cb59f7071add/15-cnn-basics/index.html
+8:31:38 PM [vite] (client) page reload artifacts/vuepress-integration/B/.test-q5GTLI/labs.stage-c0f0174b-9962-4d0b-b2ac-cb59f7071add/16-tensorflowjs-intro/index.html
+8:31:38 PM [vite] (client) page reload artifacts/vuepress-integration/B/.test-q5GTLI/labs.stage-c0f0174b-9962-4d0b-b2ac-cb59f7071add/17-cnn-classifier/index.html
+8:31:38 PM [vite] (client) page reload artifacts/vuepress-integration/B/.test-q5GTLI/labs.stage-c0f0174b-9962-4d0b-b2ac-cb59f7071add/18-rnn-basics/index.html
+8:31:38 PM [vite] (client) page reload artifacts/vuepress-integration/B/.test-q5GTLI/labs.stage-c0f0174b-9962-4d0b-b2ac-cb59f7071add/19-ctc-loss/index.html
+8:31:38 PM [vite] (client) page reload artifacts/vuepress-integration/B/.test-q5GTLI/labs.stage-c0f0174b-9962-4d0b-b2ac-cb59f7071add/20-crnn/index.html
+8:31:38 PM [vite] (client) page reload artifacts/vuepress-integration/B/.test-q5GTLI/labs.stage-c0f0174b-9962-4d0b-b2ac-cb59f7071add/21-attention/index.html
+8:31:38 PM [vite] (client) page reload artifacts/vuepress-integration/B/.test-q5GTLI/labs.stage-c0f0174b-9962-4d0b-b2ac-cb59f7071add/22-text-detection-networks/index.html
+8:31:38 PM [vite] (client) page reload artifacts/vuepress-integration/B/.test-q5GTLI/labs.stage-c0f0174b-9962-4d0b-b2ac-cb59f7071add/23-transformer-ocr/index.html
+8:31:38 PM [vite] (client) page reload artifacts/vuepress-integration/B/.test-q5GTLI/labs.stage-c0f0174b-9962-4d0b-b2ac-cb59f7071add/24-post-processing/index.html
+8:31:38 PM [vite] (client) page reload artifacts/vuepress-integration/B/.test-q5GTLI/labs.stage-c0f0174b-9962-4d0b-b2ac-cb59f7071add/25-ocr-engine/index.html
+8:31:38 PM [vite] (client) page reload artifacts/vuepress-integration/B/.test-q5GTLI/labs.stage-c0f0174b-9962-4d0b-b2ac-cb59f7071add/26-validation/index.html
+8:31:38 PM [vite] (client) page reload artifacts/vuepress-integration/B/.test-q5GTLI/labs.stage-c0f0174b-9962-4d0b-b2ac-cb59f7071add/17-cnn-classifier/train.html
+8:31:38 PM [vite] (client) page reload artifacts/vuepress-integration/B/.test-q5GTLI/labs.stage-c0f0174b-9962-4d0b-b2ac-cb59f7071add/01-image-fundamentals/index.html
+8:31:38 PM [vite] (client) page reload artifacts/vuepress-integration/B/.test-q5GTLI/labs.stage-c0f0174b-9962-4d0b-b2ac-cb59f7071add/02-js-image-basics/index.html
+8:31:38 PM [vite] (client) page reload artifacts/vuepress-integration/B/.test-q5GTLI/labs.stage-c0f0174b-9962-4d0b-b2ac-cb59f7071add/03-grayscale/index.html
+8:31:38 PM [vite] (client) page reload artifacts/vuepress-integration/B/.test-q5GTLI/labs.stage-c0f0174b-9962-4d0b-b2ac-cb59f7071add/04-binarization/index.html
+8:31:38 PM [vite] (client) page reload artifacts/vuepress-integration/B/.test-q5GTLI/labs.stage-c0f0174b-9962-4d0b-b2ac-cb59f7071add/05-denoising/index.html
+8:31:38 PM [vite] (client) page reload artifacts/vuepress-integration/B/.test-q5GTLI/labs.stage-c0f0174b-9962-4d0b-b2ac-cb59f7071add/06-morphology/index.html
+8:31:38 PM [vite] (client) page reload artifacts/vuepress-integration/B/.test-q5GTLI/labs.stage-c0f0174b-9962-4d0b-b2ac-cb59f7071add/07-deskewing/index.html
+8:31:38 PM [vite] (client) page reload artifacts/vuepress-integration/B/.test-q5GTLI/labs.stage-c0f0174b-9962-4d0b-b2ac-cb59f7071add/08-edge-detection/index.html
+8:31:38 PM [vite] (client) page reload artifacts/vuepress-integration/B/.test-q5GTLI/labs.stage-c0f0174b-9962-4d0b-b2ac-cb59f7071add/09-connected-components/index.html
+8:31:38 PM [vite] (client) page reload artifacts/vuepress-integration/B/.test-q5GTLI/labs.stage-c0f0174b-9962-4d0b-b2ac-cb59f7071add/10-text-localization/index.html
+8:31:38 PM [vite] (client) page reload artifacts/vuepress-integration/B/.test-q5GTLI/labs.stage-c0f0174b-9962-4d0b-b2ac-cb59f7071add/11-feature-extraction/index.html
+8:31:38 PM [vite] (client) page reload artifacts/vuepress-integration/B/.test-q5GTLI/labs.stage-c0f0174b-9962-4d0b-b2ac-cb59f7071add/12-template-matching/index.html
+8:31:38 PM [vite] (client) page reload artifacts/vuepress-integration/B/.test-q5GTLI/labs.stage-c0f0174b-9962-4d0b-b2ac-cb59f7071add/13-knn-classifier/index.html
+8:31:38 PM [vite] (client) page reload artifacts/vuepress-integration/B/.test-q5GTLI/labs.stage-c0f0174b-9962-4d0b-b2ac-cb59f7071add/14-neural-network-basics/index.html
+8:31:38 PM [vite] (client) page reload artifacts/vuepress-integration/B/.test-q5GTLI/labs.stage-c0f0174b-9962-4d0b-b2ac-cb59f7071add/15-cnn-basics/index.html
+8:31:38 PM [vite] (client) page reload artifacts/vuepress-integration/B/.test-q5GTLI/labs.stage-c0f0174b-9962-4d0b-b2ac-cb59f7071add/16-tensorflowjs-intro/index.html
+8:31:38 PM [vite] (client) page reload artifacts/vuepress-integration/B/.test-q5GTLI/labs.stage-c0f0174b-9962-4d0b-b2ac-cb59f7071add/17-cnn-classifier/index.html
+8:31:38 PM [vite] (client) page reload artifacts/vuepress-integration/B/.test-q5GTLI/labs.stage-c0f0174b-9962-4d0b-b2ac-cb59f7071add/17-cnn-classifier/train.html
+8:31:38 PM [vite] (client) page reload artifacts/vuepress-integration/B/.test-q5GTLI/labs.stage-c0f0174b-9962-4d0b-b2ac-cb59f7071add/18-rnn-basics/index.html
+8:31:38 PM [vite] (client) page reload artifacts/vuepress-integration/B/.test-q5GTLI/labs.stage-c0f0174b-9962-4d0b-b2ac-cb59f7071add/19-ctc-loss/index.html
+8:31:38 PM [vite] (client) page reload artifacts/vuepress-integration/B/.test-q5GTLI/labs.stage-c0f0174b-9962-4d0b-b2ac-cb59f7071add/20-crnn/index.html
+8:31:38 PM [vite] (client) page reload artifacts/vuepress-integration/B/.test-q5GTLI/labs.stage-c0f0174b-9962-4d0b-b2ac-cb59f7071add/21-attention/index.html
+8:31:38 PM [vite] (client) page reload artifacts/vuepress-integration/B/.test-q5GTLI/labs.stage-c0f0174b-9962-4d0b-b2ac-cb59f7071add/22-text-detection-networks/index.html
+8:31:38 PM [vite] (client) page reload artifacts/vuepress-integration/B/.test-q5GTLI/labs.stage-c0f0174b-9962-4d0b-b2ac-cb59f7071add/23-transformer-ocr/index.html
+8:31:38 PM [vite] (client) page reload artifacts/vuepress-integration/B/.test-q5GTLI/labs.stage-c0f0174b-9962-4d0b-b2ac-cb59f7071add/24-post-processing/index.html
+8:31:38 PM [vite] (client) page reload artifacts/vuepress-integration/B/.test-q5GTLI/labs.stage-c0f0174b-9962-4d0b-b2ac-cb59f7071add/25-ocr-engine/index.html
+8:31:38 PM [vite] (client) page reload artifacts/vuepress-integration/B/.test-q5GTLI/labs.stage-c0f0174b-9962-4d0b-b2ac-cb59f7071add/26-validation/index.html
+info config dependency .vuepress/search/options.mjs is modified
+- Initializing and preparing data
+✔ Initializing and preparing data - done in 2.33s
+
+  vite v8.3.0 dev server running at:
+
+  ➜  Local:   http://127.0.0.1:4173/
+tip dev server has restarted, please refresh your browser
+8:32:54 PM [vite] (client) page reload artifacts/vuepress-integration/C/compatibility-fixture.html
+8:32:56 PM [vite] (client) hmr update /.vuepress/styles/course.css
+info page 04-binarization/README.md is modified
+8:50:34 PM [vite] (client) hmr update /04-binarization/README.md
+8:50:34 PM [vite] (client) hmr update /04-binarization/README.md
+info page 04-binarization/README.md is modified
+8:50:35 PM [vite] (client) page reload .vuepress/.temp/slimsearch/root.js
+已构建 02-js-image-basics/browser.js
+已构建 03-grayscale/browser.js
+已构建 04-binarization/browser.js
+已构建 05-denoising/browser.js
+已构建 06-morphology/browser.js
+已构建 07-deskewing/browser.js
+已构建 08-edge-detection/browser.js
+已构建 09-connected-components/browser.js
+已构建 10-text-localization/browser.js
+已构建 14-neural-network-basics/browser.js
+已构建 15-cnn-basics/browser.js
+已构建 16-tensorflowjs-intro/browser.js
+已构建 17-cnn-classifier/browser.js
+已构建 18-rnn-basics/browser.js
+已构建 19-ctc-loss/browser.js
+已构建 20-crnn/browser.js
+已构建 21-attention/browser.js
+已构建 22-text-detection-networks/browser.js
+已构建 23-transformer-ocr/browser.js
+已构建 24-post-processing/browser.js
+已构建 25-ocr-engine/browser.js
+已构建 26-validation/browser.js
+浏览器入口就绪：22 个。npm run dev 启动课程站；npm run build 生成完整静态站点。
+实验资源已装配：78 个文件 → .vuepress/public/labs
+实验更新已同步：04-binarization/browser.js。浏览器会重新加载实验；也可刷新当前页。
+8:50:39 PM [vite] (client) page reload .vuepress/public/labs.stage-a268106c-7e28-4ba7-ac69-44e0826b17be/01-image-fundamentals/index.html
+8:50:39 PM [vite] (client) page reload .vuepress/public/labs.stage-a268106c-7e28-4ba7-ac69-44e0826b17be/02-js-image-basics/index.html
+8:50:39 PM [vite] (client) page reload .vuepress/public/labs.stage-a268106c-7e28-4ba7-ac69-44e0826b17be/03-grayscale/index.html
+8:50:39 PM [vite] (client) page reload .vuepress/public/labs.stage-a268106c-7e28-4ba7-ac69-44e0826b17be/04-binarization/index.html
+8:50:39 PM [vite] (client) page reload .vuepress/public/labs.stage-a268106c-7e28-4ba7-ac69-44e0826b17be/05-denoising/index.html
+8:50:39 PM [vite] (client) page reload .vuepress/public/labs.stage-a268106c-7e28-4ba7-ac69-44e0826b17be/06-morphology/index.html
+8:50:39 PM [vite] (client) page reload .vuepress/public/labs.stage-a268106c-7e28-4ba7-ac69-44e0826b17be/07-deskewing/index.html
+8:50:39 PM [vite] (client) page reload .vuepress/public/labs.stage-a268106c-7e28-4ba7-ac69-44e0826b17be/08-edge-detection/index.html
+8:50:39 PM [vite] (client) page reload .vuepress/public/labs.stage-a268106c-7e28-4ba7-ac69-44e0826b17be/09-connected-components/index.html
+8:50:39 PM [vite] (client) page reload .vuepress/public/labs.stage-a268106c-7e28-4ba7-ac69-44e0826b17be/10-text-localization/index.html
+8:50:39 PM [vite] (client) page reload .vuepress/public/labs.stage-a268106c-7e28-4ba7-ac69-44e0826b17be/11-feature-extraction/index.html
+8:50:39 PM [vite] (client) page reload .vuepress/public/labs.stage-a268106c-7e28-4ba7-ac69-44e0826b17be/12-template-matching/index.html
+8:50:39 PM [vite] (client) page reload .vuepress/public/labs.stage-a268106c-7e28-4ba7-ac69-44e0826b17be/13-knn-classifier/index.html
+8:50:39 PM [vite] (client) page reload .vuepress/public/labs.stage-a268106c-7e28-4ba7-ac69-44e0826b17be/14-neural-network-basics/index.html
+8:50:39 PM [vite] (client) page reload .vuepress/public/labs.stage-a268106c-7e28-4ba7-ac69-44e0826b17be/15-cnn-basics/index.html
+8:50:39 PM [vite] (client) page reload .vuepress/public/labs.stage-a268106c-7e28-4ba7-ac69-44e0826b17be/16-tensorflowjs-intro/index.html
+8:50:39 PM [vite] (client) page reload .vuepress/public/labs.stage-a268106c-7e28-4ba7-ac69-44e0826b17be/17-cnn-classifier/index.html
+8:50:39 PM [vite] (client) page reload .vuepress/public/labs.stage-a268106c-7e28-4ba7-ac69-44e0826b17be/18-rnn-basics/index.html
+8:50:39 PM [vite] (client) page reload .vuepress/public/labs.stage-a268106c-7e28-4ba7-ac69-44e0826b17be/19-ctc-loss/index.html
+8:50:39 PM [vite] (client) page reload .vuepress/public/labs.stage-a268106c-7e28-4ba7-ac69-44e0826b17be/20-crnn/index.html
+8:50:39 PM [vite] (client) page reload .vuepress/public/labs.stage-a268106c-7e28-4ba7-ac69-44e0826b17be/21-attention/index.html
+8:50:39 PM [vite] (client) page reload .vuepress/public/labs.stage-a268106c-7e28-4ba7-ac69-44e0826b17be/22-text-detection-networks/index.html
+8:50:39 PM [vite] (client) page reload .vuepress/public/labs.stage-a268106c-7e28-4ba7-ac69-44e0826b17be/23-transformer-ocr/index.html
+8:50:39 PM [vite] (client) page reload .vuepress/public/labs.stage-a268106c-7e28-4ba7-ac69-44e0826b17be/24-post-processing/index.html
+8:50:39 PM [vite] (client) page reload .vuepress/public/labs.stage-a268106c-7e28-4ba7-ac69-44e0826b17be/25-ocr-engine/index.html
+8:50:39 PM [vite] (client) page reload .vuepress/public/labs.stage-a268106c-7e28-4ba7-ac69-44e0826b17be/26-validation/index.html
+8:50:39 PM [vite] (client) page reload .vuepress/public/labs.stage-a268106c-7e28-4ba7-ac69-44e0826b17be/17-cnn-classifier/train.html
+8:50:39 PM [vite] (client) page reload .vuepress/.temp/slimsearch/root.js
+8:50:39 PM [vite] (client) page reload .vuepress/public/labs.stage-a268106c-7e28-4ba7-ac69-44e0826b17be/01-image-fundamentals/index.html
+8:50:39 PM [vite] (client) page reload .vuepress/public/labs.stage-a268106c-7e28-4ba7-ac69-44e0826b17be/02-js-image-basics/index.html
+8:50:39 PM [vite] (client) page reload .vuepress/public/labs.stage-a268106c-7e28-4ba7-ac69-44e0826b17be/03-grayscale/index.html
+8:50:39 PM [vite] (client) page reload .vuepress/public/labs.stage-a268106c-7e28-4ba7-ac69-44e0826b17be/04-binarization/index.html
+8:50:39 PM [vite] (client) page reload .vuepress/public/labs.stage-a268106c-7e28-4ba7-ac69-44e0826b17be/05-denoising/index.html
+8:50:39 PM [vite] (client) page reload .vuepress/public/labs.stage-a268106c-7e28-4ba7-ac69-44e0826b17be/06-morphology/index.html
+8:50:39 PM [vite] (client) page reload .vuepress/public/labs.stage-a268106c-7e28-4ba7-ac69-44e0826b17be/07-deskewing/index.html
+8:50:39 PM [vite] (client) page reload .vuepress/public/labs.stage-a268106c-7e28-4ba7-ac69-44e0826b17be/08-edge-detection/index.html
+8:50:39 PM [vite] (client) page reload .vuepress/public/labs.stage-a268106c-7e28-4ba7-ac69-44e0826b17be/09-connected-components/index.html
+8:50:39 PM [vite] (client) page reload .vuepress/public/labs.stage-a268106c-7e28-4ba7-ac69-44e0826b17be/10-text-localization/index.html
+8:50:39 PM [vite] (client) page reload .vuepress/public/labs.stage-a268106c-7e28-4ba7-ac69-44e0826b17be/11-feature-extraction/index.html
+8:50:39 PM [vite] (client) page reload .vuepress/public/labs.stage-a268106c-7e28-4ba7-ac69-44e0826b17be/12-template-matching/index.html
+8:50:39 PM [vite] (client) page reload .vuepress/public/labs.stage-a268106c-7e28-4ba7-ac69-44e0826b17be/13-knn-classifier/index.html
+8:50:39 PM [vite] (client) page reload .vuepress/public/labs.stage-a268106c-7e28-4ba7-ac69-44e0826b17be/14-neural-network-basics/index.html
+8:50:39 PM [vite] (client) page reload .vuepress/public/labs.stage-a268106c-7e28-4ba7-ac69-44e0826b17be/15-cnn-basics/index.html
+8:50:39 PM [vite] (client) page reload .vuepress/public/labs.stage-a268106c-7e28-4ba7-ac69-44e0826b17be/16-tensorflowjs-intro/index.html
+8:50:39 PM [vite] (client) page reload .vuepress/public/labs.stage-a268106c-7e28-4ba7-ac69-44e0826b17be/17-cnn-classifier/index.html
+8:50:39 PM [vite] (client) page reload .vuepress/public/labs.stage-a268106c-7e28-4ba7-ac69-44e0826b17be/17-cnn-classifier/train.html
+8:50:39 PM [vite] (client) page reload .vuepress/public/labs.stage-a268106c-7e28-4ba7-ac69-44e0826b17be/18-rnn-basics/index.html
+8:50:39 PM [vite] (client) page reload .vuepress/public/labs.stage-a268106c-7e28-4ba7-ac69-44e0826b17be/19-ctc-loss/index.html
+8:50:39 PM [vite] (client) page reload .vuepress/public/labs.stage-a268106c-7e28-4ba7-ac69-44e0826b17be/20-crnn/index.html
+8:50:39 PM [vite] (client) page reload .vuepress/public/labs.stage-a268106c-7e28-4ba7-ac69-44e0826b17be/21-attention/index.html
+8:50:39 PM [vite] (client) page reload .vuepress/public/labs.stage-a268106c-7e28-4ba7-ac69-44e0826b17be/22-text-detection-networks/index.html
+8:50:39 PM [vite] (client) page reload .vuepress/public/labs.stage-a268106c-7e28-4ba7-ac69-44e0826b17be/23-transformer-ocr/index.html
+8:50:39 PM [vite] (client) page reload .vuepress/public/labs.stage-a268106c-7e28-4ba7-ac69-44e0826b17be/24-post-processing/index.html
+8:50:39 PM [vite] (client) page reload .vuepress/public/labs.stage-a268106c-7e28-4ba7-ac69-44e0826b17be/25-ocr-engine/index.html
+8:50:39 PM [vite] (client) page reload .vuepress/public/labs.stage-a268106c-7e28-4ba7-ac69-44e0826b17be/26-validation/index.html
+8:50:39 PM [vite] (client) page reload .vuepress/.temp/slimsearch/root.js
+8:50:39 PM [vite] (client) page reload .vuepress/public/labs.stage-a268106c-7e28-4ba7-ac69-44e0826b17be/01-image-fundamentals/index.html
+8:50:39 PM [vite] (client) page reload .vuepress/public/labs.stage-a268106c-7e28-4ba7-ac69-44e0826b17be/02-js-image-basics/index.html
+8:50:39 PM [vite] (client) page reload .vuepress/public/labs.stage-a268106c-7e28-4ba7-ac69-44e0826b17be/03-grayscale/index.html
+8:50:39 PM [vite] (client) page reload .vuepress/public/labs.stage-a268106c-7e28-4ba7-ac69-44e0826b17be/04-binarization/index.html
+8:50:39 PM [vite] (client) page reload .vuepress/public/labs.stage-a268106c-7e28-4ba7-ac69-44e0826b17be/05-denoising/index.html
+8:50:39 PM [vite] (client) page reload .vuepress/public/labs.stage-a268106c-7e28-4ba7-ac69-44e0826b17be/06-morphology/index.html
+8:50:39 PM [vite] (client) page reload .vuepress/public/labs.stage-a268106c-7e28-4ba7-ac69-44e0826b17be/07-deskewing/index.html
+8:50:39 PM [vite] (client) page reload .vuepress/public/labs.stage-a268106c-7e28-4ba7-ac69-44e0826b17be/08-edge-detection/index.html
+8:50:39 PM [vite] (client) page reload .vuepress/public/labs.stage-a268106c-7e28-4ba7-ac69-44e0826b17be/09-connected-components/index.html
+8:50:39 PM [vite] (client) page reload .vuepress/public/labs.stage-a268106c-7e28-4ba7-ac69-44e0826b17be/10-text-localization/index.html
+8:50:39 PM [vite] (client) page reload .vuepress/public/labs.stage-a268106c-7e28-4ba7-ac69-44e0826b17be/11-feature-extraction/index.html
+8:50:39 PM [vite] (client) page reload .vuepress/public/labs.stage-a268106c-7e28-4ba7-ac69-44e0826b17be/12-template-matching/index.html
+8:50:39 PM [vite] (client) page reload .vuepress/public/labs.stage-a268106c-7e28-4ba7-ac69-44e0826b17be/13-knn-classifier/index.html
+8:50:39 PM [vite] (client) page reload .vuepress/public/labs.stage-a268106c-7e28-4ba7-ac69-44e0826b17be/14-neural-network-basics/index.html
+8:50:39 PM [vite] (client) page reload .vuepress/public/labs.stage-a268106c-7e28-4ba7-ac69-44e0826b17be/15-cnn-basics/index.html
+8:50:39 PM [vite] (client) page reload .vuepress/public/labs.stage-a268106c-7e28-4ba7-ac69-44e0826b17be/16-tensorflowjs-intro/index.html
+8:50:39 PM [vite] (client) page reload .vuepress/public/labs.stage-a268106c-7e28-4ba7-ac69-44e0826b17be/17-cnn-classifier/index.html
+8:50:39 PM [vite] (client) page reload .vuepress/public/labs.stage-a268106c-7e28-4ba7-ac69-44e0826b17be/18-rnn-basics/index.html
+8:50:39 PM [vite] (client) page reload .vuepress/public/labs.stage-a268106c-7e28-4ba7-ac69-44e0826b17be/19-ctc-loss/index.html
+8:50:39 PM [vite] (client) page reload .vuepress/public/labs.stage-a268106c-7e28-4ba7-ac69-44e0826b17be/20-crnn/index.html
+8:50:39 PM [vite] (client) page reload .vuepress/public/labs.stage-a268106c-7e28-4ba7-ac69-44e0826b17be/21-attention/index.html
+8:50:39 PM [vite] (client) page reload .vuepress/public/labs.stage-a268106c-7e28-4ba7-ac69-44e0826b17be/22-text-detection-networks/index.html
+8:50:39 PM [vite] (client) page reload .vuepress/public/labs.stage-a268106c-7e28-4ba7-ac69-44e0826b17be/23-transformer-ocr/index.html
+8:50:39 PM [vite] (client) page reload .vuepress/public/labs.stage-a268106c-7e28-4ba7-ac69-44e0826b17be/24-post-processing/index.html
+8:50:39 PM [vite] (client) page reload .vuepress/public/labs.stage-a268106c-7e28-4ba7-ac69-44e0826b17be/25-ocr-engine/index.html
+8:50:39 PM [vite] (client) page reload .vuepress/public/labs.stage-a268106c-7e28-4ba7-ac69-44e0826b17be/26-validation/index.html
+8:50:39 PM [vite] (client) page reload .vuepress/public/labs.stage-a268106c-7e28-4ba7-ac69-44e0826b17be/17-cnn-classifier/train.html
+已构建 02-js-image-basics/browser.js
+已构建 03-grayscale/browser.js
+已构建 04-binarization/browser.js
+已构建 05-denoising/browser.js
+已构建 06-morphology/browser.js
+已构建 07-deskewing/browser.js
+已构建 08-edge-detection/browser.js
+已构建 09-connected-components/browser.js
+已构建 10-text-localization/browser.js
+已构建 14-neural-network-basics/browser.js
+已构建 15-cnn-basics/browser.js
+已构建 16-tensorflowjs-intro/browser.js
+已构建 17-cnn-classifier/browser.js
+已构建 18-rnn-basics/browser.js
+已构建 19-ctc-loss/browser.js
+已构建 20-crnn/browser.js
+已构建 21-attention/browser.js
+已构建 22-text-detection-networks/browser.js
+已构建 23-transformer-ocr/browser.js
+已构建 24-post-processing/browser.js
+已构建 25-ocr-engine/browser.js
+已构建 26-validation/browser.js
+浏览器入口就绪：22 个。npm run dev 启动课程站；npm run build 生成完整静态站点。
+8:50:41 PM [vite] (client) page reload .vuepress/public/labs.stage-d2d74199-2802-4de2-a919-a89f65a328f5/01-image-fundamentals/index.html
+8:50:42 PM [vite] (client) page reload .vuepress/public/labs.stage-d2d74199-2802-4de2-a919-a89f65a328f5/02-js-image-basics/index.html
+8:50:42 PM [vite] (client) page reload .vuepress/public/labs.stage-d2d74199-2802-4de2-a919-a89f65a328f5/03-grayscale/index.html
+8:50:42 PM [vite] (client) page reload .vuepress/public/labs.stage-d2d74199-2802-4de2-a919-a89f65a328f5/04-binarization/index.html
+8:50:42 PM [vite] (client) page reload .vuepress/public/labs.stage-d2d74199-2802-4de2-a919-a89f65a328f5/05-denoising/index.html
+实验资源已装配：78 个文件 → .vuepress/public/labs
+实验更新已同步：04-binarization/browser.js。浏览器会重新加载实验；也可刷新当前页。
+8:50:42 PM [vite] (client) page reload .vuepress/public/labs.stage-d2d74199-2802-4de2-a919-a89f65a328f5/06-morphology/index.html
+8:50:42 PM [vite] (client) page reload .vuepress/public/labs.stage-d2d74199-2802-4de2-a919-a89f65a328f5/07-deskewing/index.html
+8:50:42 PM [vite] (client) page reload .vuepress/public/labs.stage-d2d74199-2802-4de2-a919-a89f65a328f5/08-edge-detection/index.html
+8:50:42 PM [vite] (client) page reload .vuepress/public/labs.stage-d2d74199-2802-4de2-a919-a89f65a328f5/09-connected-components/index.html
+8:50:42 PM [vite] (client) page reload .vuepress/public/labs.stage-d2d74199-2802-4de2-a919-a89f65a328f5/10-text-localization/index.html
+8:50:42 PM [vite] (client) page reload .vuepress/public/labs.stage-d2d74199-2802-4de2-a919-a89f65a328f5/11-feature-extraction/index.html
+8:50:42 PM [vite] (client) page reload .vuepress/public/labs.stage-d2d74199-2802-4de2-a919-a89f65a328f5/12-template-matching/index.html
+8:50:42 PM [vite] (client) page reload .vuepress/public/labs.stage-d2d74199-2802-4de2-a919-a89f65a328f5/13-knn-classifier/index.html
+8:50:42 PM [vite] (client) page reload .vuepress/public/labs.stage-d2d74199-2802-4de2-a919-a89f65a328f5/14-neural-network-basics/index.html
+8:50:42 PM [vite] (client) page reload .vuepress/public/labs.stage-d2d74199-2802-4de2-a919-a89f65a328f5/15-cnn-basics/index.html
+8:50:42 PM [vite] (client) page reload .vuepress/public/labs.stage-d2d74199-2802-4de2-a919-a89f65a328f5/16-tensorflowjs-intro/index.html
+8:50:42 PM [vite] (client) page reload .vuepress/public/labs.stage-d2d74199-2802-4de2-a919-a89f65a328f5/17-cnn-classifier/index.html
+8:50:42 PM [vite] (client) page reload .vuepress/public/labs.stage-d2d74199-2802-4de2-a919-a89f65a328f5/18-rnn-basics/index.html
+8:50:42 PM [vite] (client) page reload .vuepress/public/labs.stage-d2d74199-2802-4de2-a919-a89f65a328f5/19-ctc-loss/index.html
+8:50:42 PM [vite] (client) page reload .vuepress/public/labs.stage-d2d74199-2802-4de2-a919-a89f65a328f5/20-crnn/index.html
+8:50:42 PM [vite] (client) page reload .vuepress/public/labs.stage-d2d74199-2802-4de2-a919-a89f65a328f5/21-attention/index.html
+8:50:42 PM [vite] (client) page reload .vuepress/public/labs.stage-d2d74199-2802-4de2-a919-a89f65a328f5/22-text-detection-networks/index.html
+8:50:42 PM [vite] (client) page reload .vuepress/public/labs.stage-d2d74199-2802-4de2-a919-a89f65a328f5/23-transformer-ocr/index.html
+8:50:42 PM [vite] (client) page reload .vuepress/public/labs.stage-d2d74199-2802-4de2-a919-a89f65a328f5/24-post-processing/index.html
+8:50:42 PM [vite] (client) page reload .vuepress/public/labs.stage-d2d74199-2802-4de2-a919-a89f65a328f5/25-ocr-engine/index.html
+8:50:42 PM [vite] (client) page reload .vuepress/public/labs.stage-d2d74199-2802-4de2-a919-a89f65a328f5/26-validation/index.html
+8:50:42 PM [vite] (client) page reload .vuepress/public/labs.stage-d2d74199-2802-4de2-a919-a89f65a328f5/17-cnn-classifier/train.html
+8:50:42 PM [vite] (client) page reload .vuepress/public/labs.stage-d2d74199-2802-4de2-a919-a89f65a328f5/02-js-image-basics/index.html
+8:50:42 PM [vite] (client) page reload .vuepress/public/labs.stage-d2d74199-2802-4de2-a919-a89f65a328f5/04-binarization/index.html
+8:50:42 PM [vite] (client) page reload .vuepress/public/labs.stage-d2d74199-2802-4de2-a919-a89f65a328f5/05-denoising/index.html
+8:50:42 PM [vite] (client) page reload .vuepress/public/labs.stage-d2d74199-2802-4de2-a919-a89f65a328f5/06-morphology/index.html
+8:50:42 PM [vite] (client) page reload .vuepress/public/labs.stage-d2d74199-2802-4de2-a919-a89f65a328f5/07-deskewing/index.html
+8:50:42 PM [vite] (client) page reload .vuepress/public/labs.stage-d2d74199-2802-4de2-a919-a89f65a328f5/08-edge-detection/index.html
+8:50:42 PM [vite] (client) page reload .vuepress/public/labs.stage-d2d74199-2802-4de2-a919-a89f65a328f5/09-connected-components/index.html
+8:50:42 PM [vite] (client) page reload .vuepress/public/labs.stage-d2d74199-2802-4de2-a919-a89f65a328f5/10-text-localization/index.html
+8:50:42 PM [vite] (client) page reload .vuepress/public/labs.stage-d2d74199-2802-4de2-a919-a89f65a328f5/11-feature-extraction/index.html
+8:50:42 PM [vite] (client) page reload .vuepress/public/labs.stage-d2d74199-2802-4de2-a919-a89f65a328f5/13-knn-classifier/index.html
+8:50:42 PM [vite] (client) page reload .vuepress/public/labs.stage-d2d74199-2802-4de2-a919-a89f65a328f5/14-neural-network-basics/index.html
+8:50:42 PM [vite] (client) page reload .vuepress/public/labs.stage-d2d74199-2802-4de2-a919-a89f65a328f5/15-cnn-basics/index.html
+8:50:42 PM [vite] (client) page reload .vuepress/public/labs.stage-d2d74199-2802-4de2-a919-a89f65a328f5/16-tensorflowjs-intro/index.html
+8:50:42 PM [vite] (client) page reload .vuepress/public/labs.stage-d2d74199-2802-4de2-a919-a89f65a328f5/17-cnn-classifier/index.html
+8:50:42 PM [vite] (client) page reload .vuepress/public/labs.stage-d2d74199-2802-4de2-a919-a89f65a328f5/18-rnn-basics/index.html
+8:50:42 PM [vite] (client) page reload .vuepress/public/labs.stage-d2d74199-2802-4de2-a919-a89f65a328f5/19-ctc-loss/index.html
+8:50:42 PM [vite] (client) page reload .vuepress/public/labs.stage-d2d74199-2802-4de2-a919-a89f65a328f5/20-crnn/index.html
+8:50:42 PM [vite] (client) page reload .vuepress/public/labs.stage-d2d74199-2802-4de2-a919-a89f65a328f5/21-attention/index.html
+8:50:42 PM [vite] (client) page reload .vuepress/public/labs.stage-d2d74199-2802-4de2-a919-a89f65a328f5/22-text-detection-networks/index.html
+8:50:42 PM [vite] (client) page reload .vuepress/public/labs.stage-d2d74199-2802-4de2-a919-a89f65a328f5/23-transformer-ocr/index.html
+8:50:42 PM [vite] (client) page reload .vuepress/public/labs.stage-d2d74199-2802-4de2-a919-a89f65a328f5/24-post-processing/index.html
+8:50:42 PM [vite] (client) page reload .vuepress/public/labs.stage-d2d74199-2802-4de2-a919-a89f65a328f5/25-ocr-engine/index.html
+8:50:42 PM [vite] (client) page reload .vuepress/public/labs.stage-d2d74199-2802-4de2-a919-a89f65a328f5/26-validation/index.html
+8:50:42 PM [vite] (client) page reload .vuepress/public/labs.stage-d2d74199-2802-4de2-a919-a89f65a328f5/17-cnn-classifier/train.html
+8:50:42 PM [vite] (client) page reload .vuepress/public/labs.stage-d2d74199-2802-4de2-a919-a89f65a328f5/01-image-fundamentals/index.html
+8:50:42 PM [vite] (client) page reload .vuepress/public/labs.stage-d2d74199-2802-4de2-a919-a89f65a328f5/03-grayscale/index.html
+8:50:42 PM [vite] (client) page reload .vuepress/public/labs.stage-d2d74199-2802-4de2-a919-a89f65a328f5/12-template-matching/index.html
+8:50:42 PM [vite] (client) page reload .vuepress/public/labs.stage-d2d74199-2802-4de2-a919-a89f65a328f5/01-image-fundamentals/index.html
+8:50:42 PM [vite] (client) page reload .vuepress/public/labs.stage-d2d74199-2802-4de2-a919-a89f65a328f5/02-js-image-basics/index.html
+8:50:42 PM [vite] (client) page reload .vuepress/public/labs.stage-d2d74199-2802-4de2-a919-a89f65a328f5/03-grayscale/index.html
+8:50:42 PM [vite] (client) page reload .vuepress/public/labs.stage-d2d74199-2802-4de2-a919-a89f65a328f5/04-binarization/index.html
+8:50:42 PM [vite] (client) page reload .vuepress/public/labs.stage-d2d74199-2802-4de2-a919-a89f65a328f5/05-denoising/index.html
+8:50:42 PM [vite] (client) page reload .vuepress/public/labs.stage-d2d74199-2802-4de2-a919-a89f65a328f5/06-morphology/index.html
+8:50:42 PM [vite] (client) page reload .vuepress/public/labs.stage-d2d74199-2802-4de2-a919-a89f65a328f5/07-deskewing/index.html
+8:50:42 PM [vite] (client) page reload .vuepress/public/labs.stage-d2d74199-2802-4de2-a919-a89f65a328f5/08-edge-detection/index.html
+8:50:42 PM [vite] (client) page reload .vuepress/public/labs.stage-d2d74199-2802-4de2-a919-a89f65a328f5/09-connected-components/index.html
+8:50:42 PM [vite] (client) page reload .vuepress/public/labs.stage-d2d74199-2802-4de2-a919-a89f65a328f5/10-text-localization/index.html
+8:50:42 PM [vite] (client) page reload .vuepress/public/labs.stage-d2d74199-2802-4de2-a919-a89f65a328f5/11-feature-extraction/index.html
+8:50:42 PM [vite] (client) page reload .vuepress/public/labs.stage-d2d74199-2802-4de2-a919-a89f65a328f5/12-template-matching/index.html
+8:50:42 PM [vite] (client) page reload .vuepress/public/labs.stage-d2d74199-2802-4de2-a919-a89f65a328f5/13-knn-classifier/index.html
+8:50:42 PM [vite] (client) page reload .vuepress/public/labs.stage-d2d74199-2802-4de2-a919-a89f65a328f5/14-neural-network-basics/index.html
+8:50:42 PM [vite] (client) page reload .vuepress/public/labs.stage-d2d74199-2802-4de2-a919-a89f65a328f5/15-cnn-basics/index.html
+8:50:42 PM [vite] (client) page reload .vuepress/public/labs.stage-d2d74199-2802-4de2-a919-a89f65a328f5/16-tensorflowjs-intro/index.html
+8:50:42 PM [vite] (client) page reload .vuepress/public/labs.stage-d2d74199-2802-4de2-a919-a89f65a328f5/17-cnn-classifier/index.html
+8:50:42 PM [vite] (client) page reload .vuepress/public/labs.stage-d2d74199-2802-4de2-a919-a89f65a328f5/17-cnn-classifier/train.html
+8:50:42 PM [vite] (client) page reload .vuepress/public/labs.stage-d2d74199-2802-4de2-a919-a89f65a328f5/18-rnn-basics/index.html
+8:50:42 PM [vite] (client) page reload .vuepress/public/labs.stage-d2d74199-2802-4de2-a919-a89f65a328f5/19-ctc-loss/index.html
+8:50:42 PM [vite] (client) page reload .vuepress/public/labs.stage-d2d74199-2802-4de2-a919-a89f65a328f5/20-crnn/index.html
+8:50:42 PM [vite] (client) page reload .vuepress/public/labs.stage-d2d74199-2802-4de2-a919-a89f65a328f5/21-attention/index.html
+8:50:42 PM [vite] (client) page reload .vuepress/public/labs.stage-d2d74199-2802-4de2-a919-a89f65a328f5/22-text-detection-networks/index.html
+8:50:42 PM [vite] (client) page reload .vuepress/public/labs.stage-d2d74199-2802-4de2-a919-a89f65a328f5/23-transformer-ocr/index.html
+8:50:42 PM [vite] (client) page reload .vuepress/public/labs.stage-d2d74199-2802-4de2-a919-a89f65a328f5/24-post-processing/index.html
+8:50:42 PM [vite] (client) page reload .vuepress/public/labs.stage-d2d74199-2802-4de2-a919-a89f65a328f5/25-ocr-engine/index.html
+8:50:42 PM [vite] (client) page reload .vuepress/public/labs.stage-d2d74199-2802-4de2-a919-a89f65a328f5/26-validation/index.html
+info page 04-binarization/README.md is modified
+已构建 02-js-image-basics/browser.js
+已构建 03-grayscale/browser.js
+已构建 04-binarization/browser.js
+已构建 05-denoising/browser.js
+已构建 06-morphology/browser.js
+已构建 07-deskewing/browser.js
+已构建 08-edge-detection/browser.js
+已构建 09-connected-components/browser.js
+已构建 10-text-localization/browser.js
+已构建 14-neural-network-basics/browser.js
+已构建 15-cnn-basics/browser.js
+已构建 16-tensorflowjs-intro/browser.js
+已构建 17-cnn-classifier/browser.js
+已构建 18-rnn-basics/browser.js
+已构建 19-ctc-loss/browser.js
+已构建 20-crnn/browser.js
+已构建 21-attention/browser.js
+已构建 22-text-detection-networks/browser.js
+已构建 23-transformer-ocr/browser.js
+已构建 24-post-processing/browser.js
+已构建 25-ocr-engine/browser.js
+已构建 26-validation/browser.js
+浏览器入口就绪：22 个。npm run dev 启动课程站；npm run build 生成完整静态站点。
+实验资源已装配：78 个文件 → .vuepress/public/labs
+实验更新已同步：04-binarization/browser.js。浏览器会重新加载实验；也可刷新当前页。
+8:50:43 PM [vite] (client) page reload .vuepress/public/labs.stage-2ff4a3a9-ca67-45ca-a06c-f192947df4d8/01-image-fundamentals/index.html
+8:50:43 PM [vite] (client) page reload .vuepress/public/labs.stage-2ff4a3a9-ca67-45ca-a06c-f192947df4d8/02-js-image-basics/index.html
+8:50:43 PM [vite] (client) page reload .vuepress/public/labs.stage-2ff4a3a9-ca67-45ca-a06c-f192947df4d8/03-grayscale/index.html
+8:50:43 PM [vite] (client) page reload .vuepress/public/labs.stage-2ff4a3a9-ca67-45ca-a06c-f192947df4d8/04-binarization/index.html
+8:50:43 PM [vite] (client) page reload .vuepress/public/labs.stage-2ff4a3a9-ca67-45ca-a06c-f192947df4d8/05-denoising/index.html
+8:50:43 PM [vite] (client) page reload .vuepress/public/labs.stage-2ff4a3a9-ca67-45ca-a06c-f192947df4d8/06-morphology/index.html
+8:50:43 PM [vite] (client) page reload .vuepress/public/labs.stage-2ff4a3a9-ca67-45ca-a06c-f192947df4d8/07-deskewing/index.html
+8:50:43 PM [vite] (client) page reload .vuepress/public/labs.stage-2ff4a3a9-ca67-45ca-a06c-f192947df4d8/08-edge-detection/index.html
+8:50:43 PM [vite] (client) page reload .vuepress/public/labs.stage-2ff4a3a9-ca67-45ca-a06c-f192947df4d8/09-connected-components/index.html
+8:50:43 PM [vite] (client) page reload .vuepress/public/labs.stage-2ff4a3a9-ca67-45ca-a06c-f192947df4d8/10-text-localization/index.html
+8:50:43 PM [vite] (client) page reload .vuepress/public/labs.stage-2ff4a3a9-ca67-45ca-a06c-f192947df4d8/11-feature-extraction/index.html
+8:50:43 PM [vite] (client) page reload .vuepress/public/labs.stage-2ff4a3a9-ca67-45ca-a06c-f192947df4d8/12-template-matching/index.html
+8:50:43 PM [vite] (client) page reload .vuepress/public/labs.stage-2ff4a3a9-ca67-45ca-a06c-f192947df4d8/13-knn-classifier/index.html
+8:50:43 PM [vite] (client) page reload .vuepress/public/labs.stage-2ff4a3a9-ca67-45ca-a06c-f192947df4d8/14-neural-network-basics/index.html
+8:50:43 PM [vite] (client) page reload .vuepress/public/labs.stage-2ff4a3a9-ca67-45ca-a06c-f192947df4d8/15-cnn-basics/index.html
+8:50:43 PM [vite] (client) page reload .vuepress/public/labs.stage-2ff4a3a9-ca67-45ca-a06c-f192947df4d8/16-tensorflowjs-intro/index.html
+8:50:43 PM [vite] (client) page reload .vuepress/public/labs.stage-2ff4a3a9-ca67-45ca-a06c-f192947df4d8/17-cnn-classifier/index.html
+8:50:43 PM [vite] (client) page reload .vuepress/public/labs.stage-2ff4a3a9-ca67-45ca-a06c-f192947df4d8/18-rnn-basics/index.html
+8:50:43 PM [vite] (client) page reload .vuepress/public/labs.stage-2ff4a3a9-ca67-45ca-a06c-f192947df4d8/19-ctc-loss/index.html
+8:50:43 PM [vite] (client) page reload .vuepress/public/labs.stage-2ff4a3a9-ca67-45ca-a06c-f192947df4d8/20-crnn/index.html
+8:50:43 PM [vite] (client) page reload .vuepress/public/labs.stage-2ff4a3a9-ca67-45ca-a06c-f192947df4d8/21-attention/index.html
+8:50:43 PM [vite] (client) page reload .vuepress/public/labs.stage-2ff4a3a9-ca67-45ca-a06c-f192947df4d8/22-text-detection-networks/index.html
+8:50:43 PM [vite] (client) page reload .vuepress/public/labs.stage-2ff4a3a9-ca67-45ca-a06c-f192947df4d8/23-transformer-ocr/index.html
+8:50:43 PM [vite] (client) page reload .vuepress/public/labs.stage-2ff4a3a9-ca67-45ca-a06c-f192947df4d8/24-post-processing/index.html
+8:50:43 PM [vite] (client) page reload .vuepress/public/labs.stage-2ff4a3a9-ca67-45ca-a06c-f192947df4d8/25-ocr-engine/index.html
+8:50:43 PM [vite] (client) page reload .vuepress/public/labs.stage-2ff4a3a9-ca67-45ca-a06c-f192947df4d8/26-validation/index.html
+8:50:43 PM [vite] (client) page reload .vuepress/public/labs.stage-2ff4a3a9-ca67-45ca-a06c-f192947df4d8/17-cnn-classifier/train.html
+8:50:43 PM [vite] (client) page reload .vuepress/public/labs.stage-2ff4a3a9-ca67-45ca-a06c-f192947df4d8/01-image-fundamentals/index.html
+8:50:43 PM [vite] (client) page reload .vuepress/public/labs.stage-2ff4a3a9-ca67-45ca-a06c-f192947df4d8/02-js-image-basics/index.html
+8:50:43 PM [vite] (client) page reload .vuepress/public/labs.stage-2ff4a3a9-ca67-45ca-a06c-f192947df4d8/03-grayscale/index.html
+8:50:43 PM [vite] (client) page reload .vuepress/public/labs.stage-2ff4a3a9-ca67-45ca-a06c-f192947df4d8/04-binarization/index.html
+8:50:43 PM [vite] (client) page reload .vuepress/public/labs.stage-2ff4a3a9-ca67-45ca-a06c-f192947df4d8/05-denoising/index.html
+8:50:43 PM [vite] (client) page reload .vuepress/public/labs.stage-2ff4a3a9-ca67-45ca-a06c-f192947df4d8/06-morphology/index.html
+8:50:43 PM [vite] (client) page reload .vuepress/public/labs.stage-2ff4a3a9-ca67-45ca-a06c-f192947df4d8/07-deskewing/index.html
+8:50:43 PM [vite] (client) page reload .vuepress/public/labs.stage-2ff4a3a9-ca67-45ca-a06c-f192947df4d8/08-edge-detection/index.html
+8:50:43 PM [vite] (client) page reload .vuepress/public/labs.stage-2ff4a3a9-ca67-45ca-a06c-f192947df4d8/09-connected-components/index.html
+8:50:43 PM [vite] (client) page reload .vuepress/public/labs.stage-2ff4a3a9-ca67-45ca-a06c-f192947df4d8/10-text-localization/index.html
+8:50:43 PM [vite] (client) page reload .vuepress/public/labs.stage-2ff4a3a9-ca67-45ca-a06c-f192947df4d8/11-feature-extraction/index.html
+8:50:43 PM [vite] (client) page reload .vuepress/public/labs.stage-2ff4a3a9-ca67-45ca-a06c-f192947df4d8/12-template-matching/index.html
+8:50:43 PM [vite] (client) page reload .vuepress/public/labs.stage-2ff4a3a9-ca67-45ca-a06c-f192947df4d8/13-knn-classifier/index.html
+8:50:43 PM [vite] (client) page reload .vuepress/public/labs.stage-2ff4a3a9-ca67-45ca-a06c-f192947df4d8/14-neural-network-basics/index.html
+8:50:43 PM [vite] (client) page reload .vuepress/public/labs.stage-2ff4a3a9-ca67-45ca-a06c-f192947df4d8/15-cnn-basics/index.html
+8:50:43 PM [vite] (client) page reload .vuepress/public/labs.stage-2ff4a3a9-ca67-45ca-a06c-f192947df4d8/16-tensorflowjs-intro/index.html
+8:50:43 PM [vite] (client) page reload .vuepress/public/labs.stage-2ff4a3a9-ca67-45ca-a06c-f192947df4d8/17-cnn-classifier/index.html
+8:50:43 PM [vite] (client) page reload .vuepress/public/labs.stage-2ff4a3a9-ca67-45ca-a06c-f192947df4d8/17-cnn-classifier/train.html
+8:50:43 PM [vite] (client) page reload .vuepress/public/labs.stage-2ff4a3a9-ca67-45ca-a06c-f192947df4d8/18-rnn-basics/index.html
+8:50:43 PM [vite] (client) page reload .vuepress/public/labs.stage-2ff4a3a9-ca67-45ca-a06c-f192947df4d8/19-ctc-loss/index.html
+8:50:43 PM [vite] (client) page reload .vuepress/public/labs.stage-2ff4a3a9-ca67-45ca-a06c-f192947df4d8/20-crnn/index.html
+8:50:43 PM [vite] (client) page reload .vuepress/public/labs.stage-2ff4a3a9-ca67-45ca-a06c-f192947df4d8/21-attention/index.html
+8:50:43 PM [vite] (client) page reload .vuepress/public/labs.stage-2ff4a3a9-ca67-45ca-a06c-f192947df4d8/22-text-detection-networks/index.html
+8:50:43 PM [vite] (client) page reload .vuepress/public/labs.stage-2ff4a3a9-ca67-45ca-a06c-f192947df4d8/23-transformer-ocr/index.html
+8:50:43 PM [vite] (client) page reload .vuepress/public/labs.stage-2ff4a3a9-ca67-45ca-a06c-f192947df4d8/24-post-processing/index.html
+8:50:43 PM [vite] (client) page reload .vuepress/public/labs.stage-2ff4a3a9-ca67-45ca-a06c-f192947df4d8/25-ocr-engine/index.html
+8:50:43 PM [vite] (client) page reload .vuepress/public/labs.stage-2ff4a3a9-ca67-45ca-a06c-f192947df4d8/26-validation/index.html
+8:50:43 PM [vite] (client) page reload .vuepress/public/labs.stage-2ff4a3a9-ca67-45ca-a06c-f192947df4d8/01-image-fundamentals/index.html
+8:50:43 PM [vite] (client) page reload .vuepress/public/labs.stage-2ff4a3a9-ca67-45ca-a06c-f192947df4d8/02-js-image-basics/index.html
+8:50:43 PM [vite] (client) page reload .vuepress/public/labs.stage-2ff4a3a9-ca67-45ca-a06c-f192947df4d8/03-grayscale/index.html
+8:50:43 PM [vite] (client) page reload .vuepress/public/labs.stage-2ff4a3a9-ca67-45ca-a06c-f192947df4d8/04-binarization/index.html
+8:50:43 PM [vite] (client) page reload .vuepress/public/labs.stage-2ff4a3a9-ca67-45ca-a06c-f192947df4d8/05-denoising/index.html
+8:50:43 PM [vite] (client) page reload .vuepress/public/labs.stage-2ff4a3a9-ca67-45ca-a06c-f192947df4d8/06-morphology/index.html
+8:50:43 PM [vite] (client) page reload .vuepress/public/labs.stage-2ff4a3a9-ca67-45ca-a06c-f192947df4d8/07-deskewing/index.html
+8:50:43 PM [vite] (client) page reload .vuepress/public/labs.stage-2ff4a3a9-ca67-45ca-a06c-f192947df4d8/08-edge-detection/index.html
+8:50:43 PM [vite] (client) page reload .vuepress/public/labs.stage-2ff4a3a9-ca67-45ca-a06c-f192947df4d8/09-connected-components/index.html
+8:50:43 PM [vite] (client) page reload .vuepress/public/labs.stage-2ff4a3a9-ca67-45ca-a06c-f192947df4d8/10-text-localization/index.html
+8:50:43 PM [vite] (client) page reload .vuepress/public/labs.stage-2ff4a3a9-ca67-45ca-a06c-f192947df4d8/11-feature-extraction/index.html
+8:50:43 PM [vite] (client) page reload .vuepress/public/labs.stage-2ff4a3a9-ca67-45ca-a06c-f192947df4d8/12-template-matching/index.html
+8:50:43 PM [vite] (client) page reload .vuepress/public/labs.stage-2ff4a3a9-ca67-45ca-a06c-f192947df4d8/13-knn-classifier/index.html
+8:50:43 PM [vite] (client) page reload .vuepress/public/labs.stage-2ff4a3a9-ca67-45ca-a06c-f192947df4d8/14-neural-network-basics/index.html
+8:50:43 PM [vite] (client) page reload .vuepress/public/labs.stage-2ff4a3a9-ca67-45ca-a06c-f192947df4d8/15-cnn-basics/index.html
+8:50:43 PM [vite] (client) page reload .vuepress/public/labs.stage-2ff4a3a9-ca67-45ca-a06c-f192947df4d8/16-tensorflowjs-intro/index.html
+8:50:43 PM [vite] (client) page reload .vuepress/public/labs.stage-2ff4a3a9-ca67-45ca-a06c-f192947df4d8/17-cnn-classifier/index.html
+8:50:43 PM [vite] (client) page reload .vuepress/public/labs.stage-2ff4a3a9-ca67-45ca-a06c-f192947df4d8/18-rnn-basics/index.html
+8:50:43 PM [vite] (client) page reload .vuepress/public/labs.stage-2ff4a3a9-ca67-45ca-a06c-f192947df4d8/19-ctc-loss/index.html
+8:50:43 PM [vite] (client) page reload .vuepress/public/labs.stage-2ff4a3a9-ca67-45ca-a06c-f192947df4d8/20-crnn/index.html
+8:50:43 PM [vite] (client) page reload .vuepress/public/labs.stage-2ff4a3a9-ca67-45ca-a06c-f192947df4d8/21-attention/index.html
+8:50:43 PM [vite] (client) page reload .vuepress/public/labs.stage-2ff4a3a9-ca67-45ca-a06c-f192947df4d8/22-text-detection-networks/index.html
+8:50:43 PM [vite] (client) page reload .vuepress/public/labs.stage-2ff4a3a9-ca67-45ca-a06c-f192947df4d8/23-transformer-ocr/index.html
+8:50:43 PM [vite] (client) page reload .vuepress/public/labs.stage-2ff4a3a9-ca67-45ca-a06c-f192947df4d8/24-post-processing/index.html
+8:50:43 PM [vite] (client) page reload .vuepress/public/labs.stage-2ff4a3a9-ca67-45ca-a06c-f192947df4d8/25-ocr-engine/index.html
+8:50:43 PM [vite] (client) page reload .vuepress/public/labs.stage-2ff4a3a9-ca67-45ca-a06c-f192947df4d8/26-validation/index.html
+8:50:43 PM [vite] (client) page reload .vuepress/public/labs.stage-2ff4a3a9-ca67-45ca-a06c-f192947df4d8/17-cnn-classifier/train.html
+VuePress 开发服务退出：143

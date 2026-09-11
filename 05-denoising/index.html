@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>05. 图像去噪 (Image Denoising)</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22%3E%3Crect width=%2264%22 height=%2264%22 rx=%2214%22 fill=%22%23126451%22/%3E%3Ctext x=%2232%22 y=%2246%22 text-anchor=%22middle%22 font-size=%2244%22 fill=%22white%22 font-family=%22sans-serif%22%3EO%3C/text%3E%3C/svg%3E">
     <style>
         * {
             margin: 0;
@@ -358,8 +359,10 @@
             color: #aaa;
         }
     </style>
+    <script src="../shared/course.js" defer></script>
 </head>
 <body>
+<nav class="course-nav" aria-label="课程导航"><a href="../../" data-course-catalog><strong>OCR / 学习实验室</strong></a><div class="links"><a href="../../05-denoising/" data-course-doc="05-denoising">返回本章讲义</a><a href="../../" data-course-catalog>课程目录</a><a href="../25-ocr-engine/index.html" data-course-lab="25-ocr-engine">照片识别</a><a href="../26-validation/index.html" data-course-lab="26-validation">评估记录</a></div></nav>
     <div class="container">
         <h1>05. 图像去噪 (Image Denoising)</h1>
         <p class="subtitle">学习卷积操作、均值滤波、高斯滤波、中值滤波</p>
@@ -503,8 +506,9 @@
                 
                 <div class="explanation">
                     <h4>卷积操作原理</h4>
+                    <p id="convolutionCheck"></p>
                     <p>
-                        <strong>卷积</strong>是图像处理的核心操作。将一个小矩阵（滤波核/Kernel）在图像上滑动，
+                        <strong>卷积</strong>是图像处理的核心操作。数学卷积先翻转核，再将滤波核滑动，
                         对每个位置计算核与对应像素的加权和，得到新的像素值。
                     </p>
                     <div class="noise-types">
@@ -514,7 +518,7 @@
                         </div>
                         <div class="noise-type-card">
                             <h5>椒盐噪声</h5>
-                            <p>随机的黑点（椒）和白点（盐）。中值滤波效果极佳。</p>
+                            <p>每个像素独立按所设密度抽样，再以相同概率替换为黑或白；本页固定种子5005便于对照。中值滤波也可能删除细笔画。</p>
                         </div>
                     </div>
                 </div>
@@ -522,7 +526,17 @@
         </div>
     </div>
 
+    <script src="bundle.js"></script>
     <script>
+        // 与 Node 入口共用 shared 算法，避免卷积翻核、噪声密度和边界规则分叉。
+        const { grayscaleImage, addGaussianNoise, addSaltPepperNoise, meanFilter, gaussianFilter, medianFilter, convolve, createMeanKernel, createGaussianKernel, clamp, cloneImageData, calculatePSNR, createSeededRandom } = window.OCRLesson05;
+
+        // 固定的非对称核算例由两种共享算法实际计算，帮助区分“翻核”和“不翻核”。
+        const checkImage = new ImageData(new Uint8ClampedArray([10,10,10,255,20,20,20,255,40,40,40,255]),3,1);
+        const leftKernel = [[0,0,0],[1,0,0],[0,0,0]];
+        const grayValues = image => Array.from(image.data).filter((_, i) => i % 4 === 0).join(', ');
+        document.getElementById('convolutionCheck').textContent =
+            `输入 [10, 20, 40]、仅左邻居权重为1、复制边界：互相关 [${grayValues(OCRLesson05.correlate(checkImage, leftKernel))}]；数学卷积 [${grayValues(convolve(checkImage, leftKernel))}]。对称均值/高斯核翻转后相同。`;
         // ==================== 全局变量 ====================
         let originalImageData = null;  // 原始图像
         let noisyImageData = null;     // 含噪声图像
@@ -675,16 +689,7 @@
         /**
          * 将图像转换为灰度图
          */
-        function grayscaleImage(imageData) {
-            const data = imageData.data;
-            for (let i = 0; i < data.length; i += 4) {
-                const gray = Math.round(0.299 * data[i] + 0.587 * data[i + 1] + 0.114 * data[i + 2]);
-                data[i] = gray;
-                data[i + 1] = gray;
-                data[i + 2] = gray;
-            }
-            return imageData;
-        }
+
         
         // ==================== 噪声添加 ====================
         
@@ -704,11 +709,11 @@
             noisyImageData = cloneImageData(originalImageData);
             
             if (noiseType === 'gaussian') {
-                addGaussianNoise(noisyImageData, intensity);
+                noisyImageData = addGaussianNoise(noisyImageData, intensity, createSeededRandom(5005));
                 document.getElementById('noiseInfo').textContent = 
                     `高斯噪声 (σ=${intensity})`;
             } else {
-                addSaltPepperNoise(noisyImageData, intensity / 100);
+                noisyImageData = addSaltPepperNoise(noisyImageData, intensity / 100, createSeededRandom(5005));
                 document.getElementById('noiseInfo').textContent = 
                     `椒盐噪声 (密度=${intensity}%)`;
             }
@@ -729,41 +734,12 @@
         /**
          * 添加高斯噪声
          */
-        function addGaussianNoise(imageData, sigma) {
-            const data = imageData.data;
-            for (let i = 0; i < data.length; i += 4) {
-                // Box-Muller 变换生成高斯随机数
-                const u1 = Math.random();
-                const u2 = Math.random();
-                const z = Math.sqrt(-2 * Math.log(u1)) * Math.cos(2 * Math.PI * u2);
-                const noise = z * sigma;
-                
-                const newValue = clamp(Math.round(data[i] + noise), 0, 255);
-                data[i] = newValue;
-                data[i + 1] = newValue;
-                data[i + 2] = newValue;
-            }
-        }
+
         
         /**
          * 添加椒盐噪声
          */
-        function addSaltPepperNoise(imageData, density) {
-            const { width, height, data } = imageData;
-            const totalPixels = width * height;
-            const noisePixels = Math.floor(totalPixels * density);
-            
-            for (let i = 0; i < noisePixels; i++) {
-                const x = Math.floor(Math.random() * width);
-                const y = Math.floor(Math.random() * height);
-                const index = (y * width + x) * 4;
-                
-                const value = Math.random() < 0.5 ? 0 : 255;
-                data[index] = value;
-                data[index + 1] = value;
-                data[index + 2] = value;
-            }
-        }
+
         
         // ==================== 滤波器 ====================
         
@@ -811,135 +787,34 @@
         /**
          * 均值滤波
          */
-        function meanFilter(imageData, size) {
-            const kernel = createMeanKernel(size);
-            return convolve(imageData, kernel);
-        }
+
         
         /**
          * 高斯滤波
          */
-        function gaussianFilter(imageData, size, sigma) {
-            const kernel = createGaussianKernel(size, sigma);
-            return convolve(imageData, kernel);
-        }
+
         
         /**
          * 中值滤波
          */
-        function medianFilter(imageData, size) {
-            const { width, height } = imageData;
-            const result = cloneImageData(imageData);
-            const halfSize = Math.floor(size / 2);
-            
-            for (let y = 0; y < height; y++) {
-                for (let x = 0; x < width; x++) {
-                    const values = [];
-                    
-                    for (let dy = -halfSize; dy <= halfSize; dy++) {
-                        for (let dx = -halfSize; dx <= halfSize; dx++) {
-                            const imgX = clamp(x + dx, 0, width - 1);
-                            const imgY = clamp(y + dy, 0, height - 1);
-                            const index = (imgY * width + imgX) * 4;
-                            values.push(imageData.data[index]);
-                        }
-                    }
-                    
-                    values.sort((a, b) => a - b);
-                    const median = values[Math.floor(values.length / 2)];
-                    
-                    const index = (y * width + x) * 4;
-                    result.data[index] = median;
-                    result.data[index + 1] = median;
-                    result.data[index + 2] = median;
-                }
-            }
-            
-            return result;
-        }
+
         
         /**
          * 卷积操作
          */
-        function convolve(imageData, kernel) {
-            const { width, height } = imageData;
-            const result = cloneImageData(imageData);
-            
-            const kernelSize = kernel.length;
-            const halfKernel = Math.floor(kernelSize / 2);
-            
-            for (let y = 0; y < height; y++) {
-                for (let x = 0; x < width; x++) {
-                    let sum = 0;
-                    
-                    for (let ky = 0; ky < kernelSize; ky++) {
-                        for (let kx = 0; kx < kernelSize; kx++) {
-                            const imgX = clamp(x + kx - halfKernel, 0, width - 1);
-                            const imgY = clamp(y + ky - halfKernel, 0, height - 1);
-                            
-                            const index = (imgY * width + imgX) * 4;
-                            sum += imageData.data[index] * kernel[ky][kx];
-                        }
-                    }
-                    
-                    const newValue = clamp(Math.round(sum), 0, 255);
-                    const index = (y * width + x) * 4;
-                    result.data[index] = newValue;
-                    result.data[index + 1] = newValue;
-                    result.data[index + 2] = newValue;
-                }
-            }
-            
-            return result;
-        }
+
         
         // ==================== 滤波核 ====================
         
         /**
          * 创建均值核
          */
-        function createMeanKernel(size) {
-            const weight = 1 / (size * size);
-            const kernel = [];
-            for (let y = 0; y < size; y++) {
-                const row = [];
-                for (let x = 0; x < size; x++) {
-                    row.push(weight);
-                }
-                kernel.push(row);
-            }
-            return kernel;
-        }
+
         
         /**
          * 创建高斯核
          */
-        function createGaussianKernel(size, sigma) {
-            const kernel = [];
-            const center = Math.floor(size / 2);
-            let sum = 0;
-            
-            for (let y = 0; y < size; y++) {
-                const row = [];
-                for (let x = 0; x < size; x++) {
-                    const dx = x - center;
-                    const dy = y - center;
-                    const value = Math.exp(-(dx * dx + dy * dy) / (2 * sigma * sigma));
-                    row.push(value);
-                    sum += value;
-                }
-                kernel.push(row);
-            }
-            
-            // 归一化
-            for (let y = 0; y < size; y++) {
-                for (let x = 0; x < size; x++) {
-                    kernel[y][x] /= sum;
-                }
-            }
-            
-            return kernel;
-        }
+
         
         /**
          * 更新滤波核显示
@@ -981,40 +856,17 @@
         /**
          * 限制值在范围内
          */
-        function clamp(value, min, max) {
-            return Math.max(min, Math.min(max, value));
-        }
+
         
         /**
          * 克隆 ImageData
          */
-        function cloneImageData(imageData) {
-            const canvas = document.createElement('canvas');
-            canvas.width = imageData.width;
-            canvas.height = imageData.height;
-            const ctx = canvas.getContext('2d');
-            ctx.putImageData(imageData, 0, 0);
-            return ctx.getImageData(0, 0, imageData.width, imageData.height);
-        }
+
         
         /**
          * 计算 PSNR
          */
-        function calculatePSNR(original, processed) {
-            const { width, height } = original;
-            let mse = 0;
-            
-            for (let i = 0; i < original.data.length; i += 4) {
-                const diff = original.data[i] - processed.data[i];
-                mse += diff * diff;
-            }
-            
-            mse /= (width * height);
-            
-            if (mse === 0) return Infinity;
-            
-            return 10 * Math.log10((255 * 255) / mse);
-        }
+
         
         /**
          * 更新统计信息

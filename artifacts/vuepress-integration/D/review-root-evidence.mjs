@@ -1,0 +1,52 @@
+// Re-check the saved browser captures from the completed root-dev reading phase.
+// This is evidence review, not a claim that the interrupted full process exited 0.
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+import MarkdownIt from 'markdown-it';
+const evidence = fileURLToPath(new URL('./', import.meta.url));
+const root = path.resolve(evidence, '../../..');
+const read = name => JSON.parse(fs.readFileSync(path.join(evidence, name), 'utf8'));
+const commands = fs.readFileSync(path.join(evidence, 'dev-root-verified/site-commands.jsonl'), 'utf8').trim().split('\n').map(JSON.parse);
+const captures = commands.map(x => x.result?.data?.result).filter(x => x?.headings && x.codes && x.command);
+const slugs = fs.readdirSync(root).filter(x => /^\d{2}-/.test(x)).sort();
+const md = new MarkdownIt({ html: true });
+const checks = [], totals = { chapters: 0, headings: 0, h23: 0, codeBlocks: 0, details: 0, formulae: 0, proseSnippets: 0 };
+const check = (name, pass, detail) => checks.push({ name, pass: Boolean(pass), detail });
+const compact = x => String(x).replace(/\s+/g, '');
+for (const [i, slug] of slugs.entries()) {
+  const page = captures.find(x => x.command === `node ${slug}/index.js`);
+  check(`${slug}: browser capture exists`, !!page);
+  if (!page) continue;
+  const source = fs.readFileSync(path.join(root, slug, 'README.md'), 'utf8');
+  const tokens = md.parse(source, {});
+  const headings = tokens.filter(x=>x.type==='heading_open').map(x=>Number(x.tag[1]));
+  const codes = tokens.filter(x=>['fence','code_block'].includes(x.type)).map(x=>x.content);
+  const snippets = tokens.flatMap(x=>x.type==='inline'?(x.children||[]).filter(c=>c.type==='text').map(c=>c.content):[]).map(compact).filter(x=>x.length>=28&&/[\u3400-\u9fff]/.test(x)&&!/[\\${}]/.test(x));
+  const missing = snippets.filter(x=>!compact(page.contentText).includes(x));
+  check(`${slug}: every source heading and full code block`, JSON.stringify(headings)===JSON.stringify(page.headings.map(x=>x.level))&&JSON.stringify(codes)===JSON.stringify(page.codes));
+  check(`${slug}: complete long prose and self-test count`, !missing.length&&page.details===(source.match(/<details(?:\s|>)/g)||[]).length, { snippets: snippets.length, missing });
+  const h23 = page.headings.filter(x=>[2,3].includes(x.level)).map(x=>x.id);
+  check(`${slug}: complete unique h2/h3 toc`, new Set(h23).size===h23.length&&JSON.stringify(h23)===JSON.stringify(page.toc));
+  check(`${slug}: source-order navigation and boundaries`, page.previous===(i?`/${slugs[i-1]}/`:null)&&page.next===(i<25?`/${slugs[i+1]}/`:null));
+  check(`${slug}: exact experiment route and new tab`, page.lab.href===`/labs/${slug}/index.html`&&page.lab.target==='_blank'&&page.lab.rel.includes('noopener'));
+  check(`${slug}: no math errors, model load, overlay, or desktop overflow`, !page.overlay&&!page.mathErrors.length&&!page.modelLoads.length&&page.width.document<=page.width.viewport+1);
+  check(`${slug}: eight sidebar groups and current chapter`, page.sidebarGroups.length===8&&page.current.includes(`/${slug}/`));
+  totals.chapters++; totals.headings+=headings.length; totals.h23+=h23.length; totals.codeBlocks+=codes.length; totals.details+=page.details; totals.formulae+=page.math; totals.proseSnippets+=snippets.length;
+}
+const pages = read('dev-root-verified/chapters.json');
+check('26 chapters fit mobile 390px', pages.length===26&&pages.every(x=>x.mobileWidth?.viewport===390&&x.mobileWidth.document<=391), pages.map(x=>({slug:x.slug,...x.mobileWidth})));
+const home = read('dev-root-verified/home.json');
+check('eight-stage home with 26 ordered chapters',home.stages===8&&JSON.stringify(home.chapters)===JSON.stringify(slugs.map(x=>`/${x}/`)));
+const labs = read('dev-root-verified/labs.json');
+check('26 actual experiment HTML pages and correct return links',labs.length===26&&labs.every(x=>x.text.length>30&&!x.overlay&&x.links.some(l=>new URL(l.href,x.url).pathname===`/${x.slug}/`)));
+const http = read('dev-root-verified/http-resources.json');
+check('all captured same-origin URLs return HTTP200',http.length===312&&http.every(x=>x.status===200),http.length);
+const search = read('dev-root-search-final/site-results.json');
+check('four-word search actually passed in fresh D session',search.failed===0&&search.passed===15);
+const flows = read('dev-root-flow-pass/flow-results.json');
+check('real model and evaluation import/export flows passed',flows.failed===0&&flows.passed===20);
+const result={reviewedAt:new Date().toISOString(),kind:'recheck of saved independent browser evidence',url:'http://127.0.0.1:4173/',sourceRuns:['dev-root-verified (reading/labs completed; later search interrupted)','dev-root-search-final (exit 0)','dev-root-flow-pass (exit 0)'],totals,checks,passed:checks.filter(x=>x.pass).length,failed:checks.filter(x=>!x.pass).length};
+fs.writeFileSync(path.join(evidence,'root-development-evidence-review.json'),JSON.stringify(result,null,2)+'\n');
+console.log(JSON.stringify({passed:result.passed,failed:result.failed,totals}));
+if(result.failed)process.exitCode=1;

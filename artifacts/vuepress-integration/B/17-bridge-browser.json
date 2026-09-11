@@ -1,0 +1,51 @@
+{
+  "origin": "当前页面来源：http://127.0.0.1:4173；数据桥需要明确允许此来源。",
+  "resources": [
+    {
+      "name": "http://127.0.0.1:4173/labs/shared/course.css",
+      "status": 200
+    },
+    {
+      "name": "http://127.0.0.1:4173/labs/shared/course.js",
+      "status": 200
+    },
+    {
+      "name": "http://127.0.0.1:4173/labs/17-cnn-classifier/bundle.js",
+      "status": 200
+    },
+    {
+      "name": "http://127.0.0.1:4474/config",
+      "status": 200
+    }
+  ],
+  "status": {
+    "bridge": "http://127.0.0.1:4474",
+    "config": {
+      "augmentation": {
+        "probability": 0.5,
+        "regeneratedEachEpoch": true,
+        "rotationDegrees": [
+          -8,
+          8
+        ],
+        "stretchX": [
+          0.9,
+          1.1
+        ]
+      },
+      "batchSize": 128,
+      "dropoutSeedPolicy": "resample",
+      "epochs": 5,
+      "learningRate": 0.001,
+      "seed": 1701,
+      "trainSize": 55000,
+      "validationSize": 5000
+    },
+    "connected": true,
+    "mode": "config-only",
+    "note": "仅检查连接并读取配置，没有启动训练或保存模型。",
+    "pageOrigin": "http://127.0.0.1:4173"
+  },
+  "trainingLog": "",
+  "url": "http://127.0.0.1:4173/labs/17-cnn-classifier/train.html?bridge=http%3A%2F%2F127.0.0.1%3A4474"
+}

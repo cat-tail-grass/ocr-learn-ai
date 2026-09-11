@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>25 · 照片中的手写数字串</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22%3E%3Crect width=%2264%22 height=%2264%22 rx=%2214%22 fill=%22%23126451%22/%3E%3Ctext x=%2232%22 y=%2246%22 text-anchor=%22middle%22 font-size=%2244%22 fill=%22white%22 font-family=%22sans-serif%22%3EO%3C/text%3E%3C/svg%3E">
+    <link rel="stylesheet" href="../shared/course.css" />
+    <style>
+      .workspace {
+        display: grid;
+        grid-template-columns: minmax(0, 1.35fr) minmax(280px, 1fr);
+        gap: 20px;
+      }
+      .workspace > .card {
+        margin-top: 0;
+        min-width: 0;
+      }
+      .canvas-frame {
+        background: #edf0ec;
+        border-radius: 8px;
+        min-height: 210px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 16px;
+      }
+      .canvas-frame canvas {
+        max-height: 390px;
+        object-fit: contain;
+        display: block;
+      }
+      .result-text {
+        font:
+          600 clamp(2.1rem, 5vw, 3.5rem) ui-monospace,
+          monospace;
+        letter-spacing: 0.12em;
+        overflow-wrap: anywhere;
+        min-height: 80px;
+        margin: 18px 0;
+        color: var(--accent);
+      }
+      .steps {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        font-size: 0.75rem;
+        color: var(--muted);
+        margin: 20px 0;
+      }
+      .steps span {
+        padding: 5px 10px;
+        border: 1px solid var(--line);
+        border-radius: 5px;
+      }
+      .digits {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+      .digit {
+        border: 1px solid var(--line);
+        padding: 10px;
+        border-radius: 8px;
+        width: 100px;
+        text-align: center;
+      }
+      .digit canvas {
+        width: 64px;
+        height: 64px;
+        image-rendering: pixelated;
+      }
+      .digit strong {
+        display: block;
+        font:
+          600 1.6rem ui-monospace,
+          monospace;
+      }
+      .digit small {
+        font-size: 0.74rem;
+        color: var(--muted);
+      }
+      #warnings {
+        font-size: 0.88rem;
+        color: #96552e;
+      }
+      #modelStatus {
+        font-size: 0.84rem;
+        overflow-wrap: anywhere;
+      }
+      .score-result {
+        padding: 12px;
+        background: var(--soft);
+        border-radius: 8px;
+        margin-top: 12px;
+      }
+      .controls label {
+        display: block;
+        font-size: 0.84rem;
+      }
+      .controls select {
+        max-width: 100%;
+      }
+      .record-actions {
+        border-top: 1px solid var(--line);
+        padding-top: 16px;
+        margin-top: 16px;
+      }
+      @media (max-width: 860px) {
+        .workspace {
+          grid-template-columns: 1fr;
+        }
+        .canvas-frame {
+          min-height: 160px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+<nav class="course-nav" aria-label="课程导航"><a href="../../" data-course-catalog><strong>OCR / 学习实验室</strong></a><div class="links"><a href="../../25-ocr-engine/" data-course-doc="25-ocr-engine">返回本章讲义</a><a href="../../" data-course-catalog>课程目录</a><a href="../25-ocr-engine/index.html" data-course-lab="25-ocr-engine">照片识别</a><a href="../26-validation/index.html" data-course-lab="26-validation">评估记录</a></div></nav>
+    <script src="../shared/course.js"></script>
+    <main>
+      <div class="eyebrow">25 / End-to-end experiment</div>
+      <h1>识别照片里的手写数字串</h1>
+      <p class="lead">
+        白纸、深色笔、单行横写，数字之间留一点间隔。观察每一步，再用实际书写内容核对结果。
+      </p>
+      <div class="steps">
+        <span>照片</span>→<span>灰度与阈值</span>→<span>定位与分割</span>→<span
+          >28 × 28 归一化</span
+        >→<span>自主训练 CNN</span>→<span>数字串</span>
+      </div>
+      <div class="workspace">
+        <section class="card">
+          <h2>1. 导入照片</h2>
+          <div class="controls">
+            <label for="photo">选择照片</label
+            ><input
+              id="photo"
+              type="file"
+              accept="image/jpeg,image/png,image/webp"
+            />
+          </div>
+          <p class="note">
+            支持 JPG、PNG、WebP，文件不超过 20 MB；浏览器按最长边 1200
+            像素处理。轻微倾斜可自动或手动校正。
+          </p>
+          <div class="actions">
+            <button id="sample" class="secondary">加载手写样例</button
+            ><span id="sourceLabel" class="hint"
+              >样例由 MNIST 手写图拼接，用于流程实验。</span
+            >
+          </div>
+          <div class="canvas-frame">
+            <canvas
+              id="original"
+              width="720"
+              height="250"
+              aria-label="导入的原始照片"
+            ></canvas>
+          </div>
+          <details>
+            <summary>预处理参数</summary>
+            <div class="controls">
+              <label
+                >阈值方法
+                <select id="thresholdMethod">
+                  <option value="otsu">Otsu 自动阈值</option>
+                  <option value="adaptive">局部均值（光照不均）</option>
+                  <option value="fixed">固定阈值 128</option>
+                </select></label
+              ><label
+                >校正角度
+                <input
+                  id="angle"
+                  type="number"
+                  min="-15"
+                  max="15"
+                  step="0.5"
+                  value="0"
+                  style="width: 85px" /></label
+              ><label
+                ><input id="autoDeskew" type="checkbox" checked />
+                自动估计轻微倾斜</label
+              ><label><input id="denoise" type="checkbox" /> 中值去噪</label>
+            </div>
+            <p class="hint">
+              参数调整用于观察处理效果。已保存的首次预测不会被重试覆盖；不同参数的成绩应分轮统计。
+            </p>
+          </details>
+          <div class="actions">
+            <button id="recognize" disabled>开始识别</button
+            ><button id="reloadModel" class="secondary">重新加载模型</button>
+          </div>
+          <p id="modelStatus" role="status">正在加载项目训练的模型…</p>
+        </section>
+        <section class="card">
+          <h2>2. 查看完整结果</h2>
+          <div id="status" class="status" role="status" aria-live="polite">
+            导入照片后开始识别。
+          </div>
+          <div id="result" class="result-text" aria-label="预测数字串">—</div>
+          <p id="timing" class="hint"></p>
+          <div id="warnings"></div>
+          <div id="digits" class="digits"></div>
+          <div class="record-actions">
+            <h3>3. 核对实际书写内容</h3>
+            <label for="truth">正确数字串</label>
+            <div class="actions">
+              <input
+                id="truth"
+                type="text"
+                inputmode="numeric"
+                pattern="[0-9]*"
+                maxlength="1000"
+                placeholder="例如 001208，保留前导零"
+                autocomplete="off"
+              /><button id="compare" class="secondary" disabled>核对</button>
+            </div>
+            <div id="comparison" aria-live="polite"></div>
+            <label for="experiment">实验轮次</label
+            ><input
+              id="experiment"
+              type="text"
+              maxlength="80"
+              value="现场实验-1"
+            />
+            <div class="actions">
+              <button id="save" disabled>保存本轮首次结果</button
+              ><a href="../26-validation/index.html">查看全部评估记录 →</a>
+            </div>
+            <p class="hint">
+              模型得分表示模型判断；实际准确率必须与正确答案比较。错误和空结果也应保留。
+            </p>
+          </div>
+        </section>
+      </div>
+      <section class="card">
+        <h2>中间结果：笔画有没有被正确分开？</h2>
+        <div class="two-columns">
+          <div>
+            <h3>阈值与噪点过滤</h3>
+            <canvas
+              id="binary"
+              width="720"
+              height="250"
+              aria-label="二值化后的笔画"
+            ></canvas>
+          </div>
+          <div>
+            <h3>校正后的灰度图与字符框</h3>
+            <canvas
+              id="boxes"
+              width="720"
+              height="250"
+              aria-label="数字分割区域"
+            ></canvas>
+          </div>
+        </div>
+        <p class="hint">
+          一个框应对应一个数字。断笔不一定是两个数字；数字粘连、拍摄不完整或多行排版可能导致分割失败。
+        </p>
+      </section>
+      <a href="../../25-ocr-engine/" data-course-doc="25-ocr-engine">阅读本章讲义、接口与局限</a>
+    </main>
+    <script src="bundle.js"></script>
+  </body>
+</html>

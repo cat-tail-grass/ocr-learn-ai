@@ -174,7 +174,7 @@ function detectTextLines(imageData, options = {}) {
     const projection = calculateHorizontalProjection(imageData);
     
     // Step 2: 计算阈值
-    const maxProjection = Math.max(...projection);
+    const maxProjection = projection.reduce((max, value) => Math.max(max, value), 0);
     const threshold = maxProjection * projectionThreshold;
     
     // Step 3: 检测行区域
@@ -182,15 +182,15 @@ function detectTextLines(imageData, options = {}) {
     let inLine = false;
     let lineStart = 0;
     
-    for (let y = 0; y < height; y++) {
-        if (!inLine && projection[y] > threshold) {
+    for (let y = 0; y <= height; y++) {
+        if (!inLine && y < height && projection[y] > threshold) {
             // 进入行区域
             inLine = true;
             lineStart = y;
-        } else if (inLine && (projection[y] <= threshold || y === height - 1)) {
+        } else if (inLine && (y === height || projection[y] <= threshold)) {
             // 离开行区域
             inLine = false;
-            const lineEnd = y === height - 1 && projection[y] > threshold ? y + 1 : y;
+            const lineEnd = y; // 末尾额外哨兵使最后一行也能闭合，区间[start,end)
             const lineHeight = lineEnd - lineStart;
             
             if (lineHeight >= minLineHeight) {
@@ -240,7 +240,7 @@ function groupRegionsIntoLines(regions, options = {}) {
     const { lineThreshold = avgHeight * 0.5 } = options;
     
     // 按质心 Y 坐标排序
-    const sorted = [...regions].sort((a, b) => a.centroid.y - b.centroid.y);
+    const sorted = [...regions].sort((a, b) => a.centroid.y - b.centroid.y || a.boundingBox.x - b.boundingBox.x);
     
     // 聚类分行
     const lines = [];
@@ -315,7 +315,7 @@ function segmentCharacters(imageData, lineRegion, options = {}) {
     }
     
     // Step 2: 计算阈值
-    const maxProjection = Math.max(...projection);
+    const maxProjection = projection.reduce((max, value) => Math.max(max, value), 0);
     const threshold = maxProjection * gapThreshold;
     
     // Step 3: 找到字符边界
@@ -323,15 +323,15 @@ function segmentCharacters(imageData, lineRegion, options = {}) {
     let inChar = false;
     let charStart = 0;
     
-    for (let x = 0; x < lineWidth; x++) {
-        if (!inChar && projection[x] > threshold) {
+    for (let x = 0; x <= lineWidth; x++) {
+        if (!inChar && x < lineWidth && projection[x] > threshold) {
             // 进入字符区域
             inChar = true;
             charStart = x;
-        } else if (inChar && (projection[x] <= threshold || x === lineWidth - 1)) {
+        } else if (inChar && (x === lineWidth || projection[x] <= threshold)) {
             // 离开字符区域
             inChar = false;
-            const charEnd = x === lineWidth - 1 && projection[x] > threshold ? x + 1 : x;
+            const charEnd = x; // 半开区间，包含恰好开始于末列的字符
             const charWidth = charEnd - charStart;
             
             if (charWidth >= minCharWidth) {
@@ -391,31 +391,16 @@ function segmentCharactersByCC(imageData, options = {}) {
  * @returns {object[]} 排序后的字符数组
  */
 function sortCharacters(characters, options = {}) {
-    if (characters.length === 0) return [];
-    
-    // 计算平均高度作为默认行阈值
-    const avgHeight = characters.reduce((sum, c) => sum + c.height, 0) / characters.length;
-    const { lineThreshold = avgHeight * 0.5 } = options;
-    
-    // 复制数组避免修改原数组
-    const sorted = [...characters];
-    
-    // 按 Y 坐标排序（考虑行阈值）
-    sorted.sort((a, b) => {
-        const centerA = a.y + a.height / 2;
-        const centerB = b.y + b.height / 2;
-        
-        // 如果 Y 坐标差异在阈值内，认为是同一行
-        if (Math.abs(centerA - centerB) <= lineThreshold) {
-            // 同行按 X 坐标排序
-            return a.x - b.x;
-        }
-        
-        // 不同行按 Y 坐标排序
-        return centerA - centerB;
-    });
-    
-    return sorted;
+    // 不能把“Y差小于阈值”放进sort比较器：A同行B、B同行C不意味着A同行C，
+    // 会产生比较环，导致结果随输入排列改变。先分配行，再在行内按x排序。
+    const regions = characters.map(box => ({
+        boundingBox: box,
+        centroid: { x: box.x + (box.width - 1) / 2, y: box.y + (box.height - 1) / 2 },
+        original: box
+    }));
+    const lines = groupRegionsIntoLines(regions, options);
+    return lines.flatMap(line => line.map(r => r.original).sort((a, b) =>
+        a.x - b.x || a.y - b.y || a.width - b.width || a.height - b.height));
 }
 
 // ==================== 辅助函数 ====================
@@ -486,6 +471,15 @@ function calculateRegionStats(regions) {
     };
 }
 
+/** 只保留候选连通域的真实像素，不能填满边界框，否则会填掉字内空洞。 */
+function maskCandidateRegions(imageData, regions) {
+    const result = createImageData(imageData.width, imageData.height, 255, 255, 255);
+    for (const region of regions) {
+        for (const { x, y } of region.pixels) setPixel(result, x, y, 0, 0, 0);
+    }
+    return result;
+}
+
 /**
  * 完整的文本定位流程
  * 
@@ -520,13 +514,14 @@ function localizeText(imageData, options = {}) {
         minArea, maxArea, minAspectRatio, maxAspectRatio, minFillRatio
     });
     
-    // Step 3: 行检测
-    const lines = detectTextLines(imageData, { minLineHeight, projectionThreshold });
+    // Step 3: 筛选实际作用于投影输入。否则minArea等参数只改变统计，不改变输出。
+    const filteredImageData = maskCandidateRegions(imageData, candidateRegions);
+    const lines = detectTextLines(filteredImageData, { minLineHeight, projectionThreshold });
     
     // Step 4: 字符分割（对每行进行）
     const allCharacters = [];
     for (const line of lines) {
-        const chars = segmentCharacters(imageData, line, { minCharWidth, gapThreshold });
+        const chars = segmentCharacters(filteredImageData, line, { minCharWidth, gapThreshold });
         allCharacters.push(...chars);
     }
     
@@ -534,6 +529,7 @@ function localizeText(imageData, options = {}) {
     const sortedCharacters = sortCharacters(allCharacters);
     
     return {
+        filteredImageData,
         // 所有连通域
         allRegions,
         // 候选字符区域
@@ -578,5 +574,6 @@ module.exports = {
     calculateRegionStats,
     
     // 完整流程
+    maskCandidateRegions,
     localizeText
 };

@@ -1,0 +1,796 @@
+{
+  "hasContent": true,
+  "head": [
+    "http://127.0.0.1:4176/favicon.svg",
+    "http://127.0.0.1:4176/favicon.svg"
+  ],
+  "resources": [
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/@vite/client"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/index.html?html-proxy&index=0.js"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/vuepress/dist/client-app.js?v=43a3520a"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/client/dist/app.js?v=43a3520a"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/vite/dist/client/env.mjs"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/.vuepress/.cache/deps/vue.js?v=43a3520a"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/.vuepress/.temp/internal/clientConfigs.js"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/client/dist/utils-jFeCv-dX.js?v=43a3520a"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/.vuepress/.cache/deps/@vuepress_shared.js?v=43a3520a"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/.vuepress/.cache/deps/vue-router.js?v=43a3520a"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/.vuepress/.temp/internal/userStyle.js"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/.vuepress/.temp/internal/siteData.js"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/.vuepress/.cache/deps/vue.runtime.esm-bundler-D2wK8Voh.js?v=43a3520a"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/.vuepress/.cache/deps/dist-CjGRH3aa.js?v=43a3520a"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/plugin-active-header-links/dist/client/config.js?v=43a3520a"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/plugin-markdown-hint/dist/client/config.js?v=43a3520a"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/plugin-back-to-top/dist/client/config.js?v=43a3520a"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/plugin-copy-code/dist/client/config.js?v=43a3520a"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/.vuepress/.temp/git/config.js"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/plugin-medium-zoom/dist/client/config.js?v=43a3520a"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/plugin-nprogress/dist/client/config.js?v=43a3520a"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/.vuepress/search/client.mjs"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/.vuepress/.temp/prismjs/config.js"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/.vuepress/.temp/markdown-tab/config.js"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/plugin-theme-data/dist/client/config.js?v=43a3520a"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/.vuepress/.temp/markdown-math/config.js"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/plugin-slimsearch/dist/client/config.js?v=43a3520a"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/.vuepress/client.mjs"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/theme-default/dist/client/config.js?v=43a3520a"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/.vuepress/.temp/internal/routes.js"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/plugin-active-header-links/dist/useActiveHeaderLinks-Cj1jzYVL.js?v=43a3520a"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/vuepress/dist/client.js?v=43a3520a"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/plugin-markdown-hint/dist/client/config.css"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/plugin-back-to-top/dist/client/config.css"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vueuse/core/dist/index.js?v=43a3520a"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/plugin-copy-code/dist/useCopyCode-sJhNiwEE.js?v=43a3520a"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/plugin-back-to-top/dist/BackToTop-CJ-V9Qgf.js?v=43a3520a"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/plugin-git/dist/client/components/GitContributors.js?v=43a3520a"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/plugin-git/dist/client/components/GitChangelog.js?v=43a3520a"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/plugin-medium-zoom/dist/client/config.css"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/plugin-medium-zoom/dist/useMediumZoom-B2cO3M6s.js?v=43a3520a"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/medium-zoom/dist/medium-zoom.esm.js?v=43a3520a"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/plugin-nprogress/dist/useNprogress-BWcsTgAc.js?v=43a3520a"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/.vuepress/search/tokenize.mjs"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/plugin-slimsearch/dist/client/index.js?v=43a3520a"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/highlighter-helper/dist/client/styles/base.css"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/plugin-prismjs/dist/client/styles/nord.css"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/highlighter-helper/dist/client/styles/line-numbers.css"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/highlighter-helper/dist/client/styles/notation-highlight.css"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/highlighter-helper/dist/client/styles/code-block-title.css"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/plugin-markdown-tab/dist/client/components/CodeTabs.js?v=43a3520a"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/plugin-markdown-tab/dist/client/components/Tabs.js?v=43a3520a"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/plugin-theme-data/dist/useThemeLocaleData-QKw21zSn.js?v=43a3520a"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/katex/dist/katex.min.css"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/plugin-markdown-math/dist/client/styles/katex.css"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/plugin-slimsearch/dist/client/config.css"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/plugin-slimsearch/dist/search-BKwHbuRq.js?v=43a3520a"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/plugin-slimsearch/dist/SearchLoading-DwDdooPz.js?v=43a3520a"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/.vuepress/components/CourseLayout.vue"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/.vuepress/components/CourseCatalog.vue"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/helper/dist/client/index.js?v=43a3520a"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/theme-default/dist/client/composables/useDarkMode.js?v=43a3520a"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/theme-default/dist/client/composables/useHeaders.js?v=43a3520a"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/theme-default/dist/client/composables/useScrollPromise.js?v=43a3520a"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/theme-default/dist/client/composables/useSidebarItems.js?v=43a3520a"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/theme-default/dist/client/layouts/Layout.vue"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/theme-default/dist/client/components/global/Badge.vue"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/theme-default/dist/client/layouts/NotFound.vue"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/helper/dist/client/styles/colors.css"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/helper/dist/client/styles/normalize.css"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/theme-default/dist/client/styles/index.scss"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/client/dist/index.js?v=43a3520a"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/plugin-git/dist/GitContributors-BiR-YbYa.js?v=43a3520a"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/plugin-copy-code/dist/useCopyCode-sJhNiwEE.css"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/helper/dist/client/styles/message.css"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/plugin-back-to-top/dist/BackToTop-CJ-V9Qgf.css"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/helper/dist/client/styles/transition/fade-in.css"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/plugin-git/dist/GitChangelog-Do7jXfkp.js?v=43a3520a"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vueuse/shared/dist/index.js?v=43a3520a"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/plugin-markdown-tab/dist/client/components/CodeTabs.css"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/plugin-markdown-tab/dist/client/components/Tabs.css"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/.vuepress/.cache/deps/@vue_devtools-api.js?v=43a3520a"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/.vuepress/.temp/internal/themeData.js"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/plugin-nprogress/dist/useNprogress-BWcsTgAc.css"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/vuepress/dist/shared.js?v=43a3520a"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/.vuepress/components/CourseToc.vue"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/.vuepress/styles/course.css"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/@id/__x00__plugin-vue:export-helper"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/theme-default/dist/useDarkMode-BfKvIN6K.js?v=43a3520a"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/theme-default/dist/client/composables/useData.js?v=43a3520a"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/helper/dist/shared/index.js?v=43a3520a"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/fflate/esm/browser.js?v=43a3520a"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/theme-default/dist/useScrollPromise-CB6ZLciv.js?v=43a3520a"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/theme-default/dist/useSidebarItems-D1vD1QQp.js?v=43a3520a"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/theme-default/dist/client/components/VPFadeSlideYTransition.vue"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/theme-default/dist/client/components/VPNavbar.vue"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/theme-default/dist/client/components/VPPage.vue"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/theme-default/dist/client/components/VPHome.vue"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/theme-default/dist/client/components/VPSidebar.vue"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/theme-default/dist/client/layouts/Layout.vue?vue&type=style&index=0&lang.scss"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/theme-default/dist/client/components/global/Badge.vue?vue&type=style&index=0&lang.scss"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/theme-default/dist/client/layouts/NotFound.vue?vue&type=style&index=0&scoped=0aedc4e3&lang.scss"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/plugin-git/dist/GitContributors-BiR-YbYa.css"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/plugin-git/dist/VPHeader-D3qaJHvA.js?v=43a3520a"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/plugin-git/dist/GitChangelog-Do7jXfkp.css"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/client/dist/constants-CWVu3aBh.js?v=43a3520a"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/theme-default/dist/useData-nv4hwlgW.js?v=43a3520a"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/helper/dist/client/styles/transition/fade-in-down.css"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/theme-default/dist/client/utils/resolveAutoLink.js?v=43a3520a"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/theme-default/dist/client/utils/resolvePrefix.js?v=43a3520a"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/theme-default/dist/client/composables/useUpdateDeviceStatus.js?v=43a3520a"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/theme-default/dist/client/components/VPNavbarBrand.vue"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/theme-default/dist/client/components/VPNavbarItems.vue"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/theme-default/dist/client/components/VPToggleSidebarButton.vue"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/theme-default/dist/client/components/VPToggleColorModeButton.vue"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/theme-default/dist/client/components/VPNavbar.vue?vue&type=style&index=0&lang.scss"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/theme-default/dist/client/components/VPPageMeta.vue"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/theme-default/dist/client/components/VPPageNav.vue"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/theme-default/dist/client/components/VPPage.vue?vue&type=style&index=0&lang.scss"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/theme-default/dist/client/components/VPHomeFeatures.vue"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/theme-default/dist/client/components/VPHomeFooter.vue"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/theme-default/dist/client/components/VPHomeHero.vue"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/theme-default/dist/client/components/VPHome.vue?vue&type=style&index=0&lang.scss"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/theme-default/dist/client/components/VPSidebarItems.vue"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/theme-default/dist/client/components/VPSidebar.vue?vue&type=style&index=0&lang.scss"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/client/dist/rolldown-runtime-D7D4PA-g.js?v=43a3520a"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/theme-default/dist/resolveAutoLink-XUJwl3Kb.js?v=43a3520a"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/theme-default/dist/resolvePrefix-CQnTmTk4.js?v=43a3520a"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/plugin-theme-data/dist/client/index.js?v=43a3520a"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/theme-default/dist/useUpdateDeviceStatus-DMKiVB3W.js?v=43a3520a"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/theme-default/dist/client/components/VPNavbarBrand.vue?vue&type=style&index=0&lang.scss"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/theme-default/dist/client/composables/useNavbarConfig.js?v=43a3520a"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/theme-default/dist/client/composables/useNavbarRepo.js?v=43a3520a"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/theme-default/dist/client/composables/useNavbarSelectLanguage.js?v=43a3520a"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/theme-default/dist/client/components/VPAutoLink.vue"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/theme-default/dist/client/components/VPNavbarDropdown.vue"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/theme-default/dist/client/components/VPNavbarItems.vue?vue&type=style&index=0&lang.scss"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/theme-default/dist/client/components/VPToggleSidebarButton.vue?vue&type=style&index=0&lang.scss"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/theme-default/dist/client/components/VPDarkIcon.vue"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/theme-default/dist/client/components/VPLightIcon.vue"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/theme-default/dist/client/components/VPToggleColorModeButton.vue?vue&type=style&index=0&lang.scss"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/plugin-git/dist/client/index.js?v=43a3520a"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/theme-default/dist/client/composables/useEditLink.js?v=43a3520a"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/theme-default/dist/client/components/VPEditIcon.vue"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/theme-default/dist/client/components/VPPageMeta.vue?vue&type=style&index=0&lang.scss"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/theme-default/dist/client/composables/useNavigate.js?v=43a3520a"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/theme-default/dist/client/composables/useRelatedLinks.js?v=43a3520a"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/theme-default/dist/client/components/VPPageNav.vue?vue&type=style&index=0&lang.scss"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/theme-default/dist/client/components/VPHomeFooter.vue?vue&type=style&index=0&lang.css"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/theme-default/dist/client/components/VPHomeFeatures.vue?vue&type=style&index=0&lang.scss"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/theme-default/dist/client/components/VPSidebarItem.vue"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/theme-default/dist/client/components/VPSidebarItems.vue?vue&type=style&index=0&lang.scss"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/theme-default/dist/client/components/VPHomeHero.vue?vue&type=style&index=0&lang.scss"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/theme-default/dist/client/styles/_variables.module.scss"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/theme-default/dist/useNavbarConfig-CxVplYul.js?v=43a3520a"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/theme-default/dist/useNavbarRepo-BScd94be.js?v=43a3520a"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/theme-default/dist/useNavbarSelectLanguage-FHyzHFEW.js?v=43a3520a"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/helper/dist/client/styles/transition/fade-in-height-expand.css"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/theme-default/dist/client/components/VPNavbarDropdown.vue?vue&type=style&index=0&lang.scss"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/theme-default/dist/useEditLink-BmoW42FE.js?v=43a3520a"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/theme-default/dist/useNavigate-mlFey3ew.js?v=43a3520a"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/theme-default/dist/useRelatedLinks-BwsPumn1.js?v=43a3520a"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/theme-default/dist/client/utils/isActiveSidebarItem.js?v=43a3520a"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/theme-default/dist/client/components/VPDropdownTransition.vue"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/theme-default/dist/client/components/VPSidebarItem.vue?vue&type=style&index=0&lang.scss"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/theme-default/dist/client/utils/resolveRepoType.js?v=43a3520a"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/theme-default/dist/client/utils/resolveEditLink.js?v=43a3520a"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/theme-default/dist/isActiveSidebarItem-CdmUcp0l.js?v=43a3520a"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/theme-default/dist/client/components/VPDropdownTransition.vue?vue&type=style&index=0&lang.scss"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/theme-default/dist/resolveRepoType-BfcHRhpi.js?v=43a3520a"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/theme-default/dist/resolveEditLink-lteF0-Mv.js?v=43a3520a"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/client/dist/setupDevtools-DJemw8CK.js?v=43a3520a"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/04-binarization/README.md?import"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/favicon.svg"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/favicon.svg"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/plugin-slimsearch/dist/worker/dev.js"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/plugin-slimsearch/dist/data-CJShFyw4.js?v=43a3520a"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/.vuepress/.cache/deps/slimsearch.js?v=43a3520a"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/.vuepress/.temp/slimsearch/worker-options.js"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/.vuepress/.temp/slimsearch/index.js"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/@vuepress/helper/dist/shared/index.js?v=43a3520a"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/node_modules/vuepress/dist/shared.js?v=43a3520a"
+    },
+    {
+      "status": 200,
+      "url": "http://127.0.0.1:4176/.vuepress/.cache/deps/@vuepress_shared.js?v=43a3520a"
+    }
+  ],
+  "url": "http://127.0.0.1:4176/04-binarization/",
+  "errors": {
+    "errors": [],
+    "lifecycle": {
+      "effectiveLaunch": {
+        "browserLaunched": true,
+        "engine": "chrome",
+        "launchHash": 11677035664275012000
+      },
+      "launched": false,
+      "relaunchedBrowser": false,
+      "restartedBackground": false,
+      "restoreStatus": "not_configured",
+      "reused": true,
+      "saveStatus": "not_attempted"
+    }
+  },
+  "messages": {
+    "lifecycle": {
+      "effectiveLaunch": {
+        "browserLaunched": true,
+        "engine": "chrome",
+        "launchHash": 11677035664275012000
+      },
+      "launched": false,
+      "relaunchedBrowser": false,
+      "restartedBackground": false,
+      "restoreStatus": "not_configured",
+      "reused": true,
+      "saveStatus": "not_attempted"
+    },
+    "messages": [
+      {
+        "args": [
+          {
+            "type": "string",
+            "value": "[vite] connecting..."
+          }
+        ],
+        "text": "[vite] connecting...",
+        "type": "debug"
+      },
+      {
+        "args": [
+          {
+            "type": "string",
+            "value": "[vite] connected."
+          }
+        ],
+        "text": "[vite] connected.",
+        "type": "debug"
+      }
+    ]
+  },
+  "passed": true
+}

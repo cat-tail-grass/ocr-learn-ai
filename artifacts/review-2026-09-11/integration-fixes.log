@@ -1,0 +1,115 @@
+npm warn Unknown user config "always-auth" (//r.npm.zaihui.com.cn/:always-auth). This will stop working in the next major version of npm.
+PASS shared/__tests__/review06-10-correctness.test.js
+  06 集合形态学与亮度残差
+    ✓ 黑前景腐蚀/膨胀须操作文字，不操作白背景 (3 ms)
+    ✓ 非对称B中心+右邻居，膨胀向右；开运算不能向左平移 (2 ms)
+    ✓ 矩形核1×3须使用独立高宽与锚点
+    ✓ 闭运算中间扩边，贴边前景不能消失 (1 ms)
+    ✓ 3×3圆盘与十字一致；二值帽输出白残差 (3 ms)
+  07 角度/坐标/边界
+    ✓ 零角nearest逐像素恒等，覆盖所有边界和1×1 (1 ms)
+    ✓ 零角bilinear逐像素恒等，覆盖所有边界和1×1 (1 ms)
+    ✓ 正90°视觉逆时针，绕像素网格中心
+    ✓ 双线性边界逐tap使用指定背景
+    ✓ 模拟7°后直接用检测角校正且方差增加 (1754 ms)
+    ✓ 模拟-7°后直接用检测角校正且方差增加 (1574 ms)
+    ✓ 细化不越过搜索界限；空白不凭空转向 (169 ms)
+    ✓ 霍夫角度总票数恒定，峰值能区分方向 (23 ms)
+  08 梯度方向与滞后连通
+    ✓ NMS按y向下的45°比较对角邻居 (1 ms)
+    ✓ NMS按y向下的135°比较对角邻居
+    ✓ NMS按y向下的-45°比较对角邻居
+    ✓ NMS按y向下的-135°比较对角邻居
+    ✓ Sobel手算270/70、方向14.53°，不是错的外积分解
+    ✓ 边界强点可带动多跳弱边缘，孤立弱点舍弃
+    ✓ 低阈值0不把平坦背景接成满幅边缘 (2 ms)
+  09 连通性独立穷举和讲义算例
+    ✓ 3×3的全部512种二值图，4/8连通分区均等于独立BFS (64 ms)
+    ✓ 斜桥Two-Pass例子为8连通1域/4连通3域，几何量可手算 (1 ms)
+    ✓ 拒绝无效连通性，不能静默当成4连通 (12 ms)
+  10 投影边界、筛选与阅读顺序
+    ✓ 末行/末列单像素区域正确闭合 (1 ms)
+    ✓ 带非零x/y偏移的字符分割返回全图坐标
+    ✓ 候选筛选必须影响最终字符且保留洞 (1 ms)
+    ✓ RLSA仅填两端包夹且≤阈值的间隙，水平/垂直一致
+    ✓ 先分行再排序，所有输入排列给出同一顺序
+
+PASS shared/__tests__/templateMatching.test.js
+  normalizedCrossCorrelation
+    ✓ 相同向量的相关系数应该为 1
+    ✓ 完全负相关的向量应该接近 -1
+    ✓ 无相关的向量应该接近 0
+    ✓ 常量向量应该处理正确
+    ✓ 长度不一致应该抛出错误 (19 ms)
+  calculateDistance
+    ✓ 欧氏距离应该正确计算
+    ✓ 曼哈顿距离应该正确计算
+    ✓ 余弦距离应该正确计算
+    ✓ 相关距离应该正确计算
+    ✓ 默认使用欧氏距离
+  createTemplate
+    ✓ 应该正确创建模板 (8 ms)
+    ✓ 不同特征类型应该产生不同维度
+    ✓ 相同图像应该产生相同特征 (11 ms)
+  buildTemplateLibrary
+    ✓ 应该正确构建模板库 (14 ms)
+    ✓ 空样本应该返回空库
+  matchTemplate
+    ✓ 应该返回排序后的结果 (5 ms)
+    ✓ 相同图像的距离应该最小 (3 ms)
+  calculateConfidence
+    ✓ 应该为每个结果添加置信度 (1 ms)
+    ✓ Softmax 置信度总和应该为 1
+    ✓ 距离最小的应该有最高置信度
+    ✓ 空数组应该返回空数组
+  TemplateMatcher
+    基本操作
+      ✓ 应该能创建空的匹配器
+      ✓ 应该能添加模板 (1 ms)
+      ✓ 应该能从图像添加模板 (4 ms)
+      ✓ 应该能清空模板库
+      ✓ 应该能删除指定类别
+    识别功能
+      ✓ 应该正确识别相同图像 (10 ms)
+      ✓ 应该返回候选结果 (4 ms)
+      ✓ 空模板库应该拒绝识别
+    拒绝阈值
+      ✓ 超过阈值应该拒绝
+      ✓ 不设阈值时不拒绝
+    导入导出
+      ✓ 应该能正确导出和导入 (1 ms)
+    批量识别
+      ✓ 应该能批量识别 (17 ms)
+  集成测试
+    ✓ 完整的识别流程 (46 ms)
+
+PASS shared/__tests__/11-13-correctnessRegression.test.js
+  11: moments, raster limits, preprocessing and HOG
+    ✓ large translations must not corrupt third central moments by cancellation (1714 ms)
+    ✓ three-pixel L agrees with hand moments and normalized Hu values (2 ms)
+    ✓ Hu is invariant to grid-preserving rotation; reflection flips only h7 (1 ms)
+    ✓ raster square scale change is not exact Hu invariance (1 ms)
+    ✓ thin nonempty character must survive crop-and-center (17 ms)
+    ✓ explicit zero std uses the documented constant-feature convention (1 ms)
+    ✓ HOG uses center differences, half-open hard bins, and magnitude votes (1 ms)
+  12: distances and scores
+    ✓ constant NCC uses zero sentinel, never perfect correlation
+    ✓ softmax requires positive finite temperature and preserves distant relative scores (4 ms)
+    ✓ HOG feature choice must not silently return combined features (4 ms)
+    ✓ empty image is rejected before matching and empty evaluation stays finite (5 ms)
+  13: honest splitting and parameter boundaries
+    ✓ split ratios 0 and 1 respect the declared endpoints; NaN is invalid (5 ms)
+    ✓ related augmented samples stay together with groupBy (1 ms)
+    ✓ invalid K and empty validation cannot silently choose a model (1 ms)
+    ✓ vote tie uses mean distance; odd K can still tie in multiclass
+    ✓ lower rejection threshold is stricter even when vote share is 100%
+    ✓ explicit confusion label order is retained and unknown labels are rejected (1 ms)
+  11–13: actual HTML algorithm parity
+    ✓ 11 browser statistical/Hu/combined features equal the Node module (10 ms)
+    ✓ 12 browser uses the same crop, Hu, feature dimensions and correlation (9 ms)
+    ✓ 13 browser uses the same feature pipeline and tie rule (9 ms)
+
+Test Suites: 3 passed, 3 total
+Tests:       82 passed, 82 total
+Snapshots:   0 total
+Time:        6.265 s

@@ -1,0 +1,739 @@
+{
+  "createdAt": "2026-09-11T11:32:52.774Z",
+  "baselineRoot": "/tmp/ocr-review-baseline-2026-09-11",
+  "scope": "相对复核前源文件快照，排除依赖、数据、模型、生成bundle和审查artifacts；不代表相对git的完整V1差异",
+  "modified": [
+    {
+      "path": ".cursorrules",
+      "before": "8add1f949b25476a774afce81f2141b56cb0cf7c0b9efe5c5680d9777f2d7157",
+      "after": "4b0af105fd46cda444e10f95e67a1c156f6f7d3be3681c97c5fcd13332c0ce3d"
+    },
+    {
+      "path": "01-image-fundamentals/README.md",
+      "before": "05dc2bccdd781713e63c71a376e4763287d1b00dec68dbdb5e4bdcc2c4a9ad0e",
+      "after": "b95076aaa0136e2ed0ebb9238201ddd33c0a183a9a6023f958ac355aca676d47"
+    },
+    {
+      "path": "01-image-fundamentals/index.html",
+      "before": "9dccfbe5c58d75315eead14c12466968a2a54f409654150e499338f42e603fc3",
+      "after": "57f83bef476ae1dd0824edbd1b6459ec4e2985ef4f856655cd179dd23755246d"
+    },
+    {
+      "path": "01-image-fundamentals/index.js",
+      "before": "754d49e211861662cc759d4d8cd6f5decf5b65c456cb5b684b1d88fbe47ed81b",
+      "after": "edaef96d7525c42c28c5dae80f83410305dca3a6b0248292f23c3ef3bbdd9fe2"
+    },
+    {
+      "path": "02-js-image-basics/README.md",
+      "before": "b535df88d4b9ab74183b4791635f446cf04371a643e9c34a18133838a63e517b",
+      "after": "745c6d11a3531113df8c0099f85278f6a4fc80b2dcef8966c68ca989e997268e"
+    },
+    {
+      "path": "02-js-image-basics/index.html",
+      "before": "ace64619c160485565827ff547aff281591ea2371b97a57177d0fa93b13db24e",
+      "after": "3b8a1ec9157f5cf222f825315e5441d3fba700d04d08db0eafa87f19cc69748e"
+    },
+    {
+      "path": "02-js-image-basics/index.js",
+      "before": "b9ed14d83699c34b01190a775884bc5fd18c9d93c82771318a9d29687321e586",
+      "after": "3c86fc081fbf5db64d2bbee43fdbc0c1aa2417e943657c788ab0ceb3f3d15b68"
+    },
+    {
+      "path": "03-grayscale/README.md",
+      "before": "72c65ddb52a310082f02b5c01834c6e66f1b75b4a231eaa61b9390ea2d4af485",
+      "after": "0ad73163048ec343cd7c7e73fa672f19f609f9b3b078e5c609e2821a35b3bf8b"
+    },
+    {
+      "path": "03-grayscale/index.html",
+      "before": "a58558892c45a45698007c9b43dfd3a095c8e3984a62fc0d4b2151aca7ea92dd",
+      "after": "bd147752f92ffc9f0a6b7a64eb1b6ef4afdcbd75bf4641e8d2f4f697ea452560"
+    },
+    {
+      "path": "03-grayscale/index.js",
+      "before": "4fe8edd4cad04a50bc022a81ae9a49cc5fcc0cb391c4b33f2941b1f316d8299b",
+      "after": "4ba7eb3e2247c79c089dff1b06765c63802d10965b435d8b217252965fecb8e3"
+    },
+    {
+      "path": "04-binarization/README.md",
+      "before": "4cbb9813a82857e3a5b0187c7b68548e427d8c7e4847375d1cda1151afe325bf",
+      "after": "2b0c7228c55a891b27c45a6ea4ef09ca199904cc07e01fe7f6f252609c2d9f91"
+    },
+    {
+      "path": "04-binarization/index.html",
+      "before": "e033904df969f400e393fda788a10970063df6cf002d691fc698ceec9680cb80",
+      "after": "462710f614f719619eba9c7a8af47bd119df2816e986953ebbb527a1e5b9b90a"
+    },
+    {
+      "path": "04-binarization/index.js",
+      "before": "e90677eb6b6ff9a5763e0606e95e9e949345c4c1e1f16f227d5419b9a9253786",
+      "after": "8a9e22174e259c31e4b8b013985e7f257a4087ab6a9f154710ca2cb5cb11f9e4"
+    },
+    {
+      "path": "05-denoising/README.md",
+      "before": "d730d79fb7ae7faa63997251c8d0571d9e2d6e9683156963d90bfbf8f20b0b8d",
+      "after": "f6887fd8b751a2cf658c4f77ada1dbe77e4b437ea8a683d27a08f98535d2947d"
+    },
+    {
+      "path": "05-denoising/index.html",
+      "before": "d64410f0f3ffeb456f9bdd2a25cd8caa307c571211859c1b6de2f1909c606399",
+      "after": "c7754714689bbfb1893d785318b46e3aadeeb65fde93da232645770e1ce642d9"
+    },
+    {
+      "path": "05-denoising/index.js",
+      "before": "c3cf8bc9d3961688d51c763f7205181dd62f5cdd0e84ff3ea0b0b671ef559531",
+      "after": "2a6513d58c2124a1561ab58ca1ce3cda6b451c8ccddc32d6a2e845110e7617dd"
+    },
+    {
+      "path": "06-morphology/README.md",
+      "before": "f230f3a82b746e03bc72438b63931cc288e04a95822ee06db3b1d8119a72229f",
+      "after": "7d0cc94d82e868cee93024547a2892d508045bea4d56367c56b5c5d316c40bba"
+    },
+    {
+      "path": "06-morphology/index.html",
+      "before": "398273e0e22487c7b9805d62d86b2f2774128bef042bb2e46d989af71727ce03",
+      "after": "03d87492a919921306d035948278910690a017dd107b57571661fa1c6fc9815d"
+    },
+    {
+      "path": "06-morphology/index.js",
+      "before": "3f4fc2cf4ac3be420ed7d763dd9eedcbffa972bd88d896355f98eb43f686cb37",
+      "after": "938bee979fa4aff5520f84a979cdf13d6e09ee29a5abfc7a9c85648f8071ab23"
+    },
+    {
+      "path": "07-deskewing/README.md",
+      "before": "6a6ac9791bbc39c81dc7c6a7d5d3ee10a1762ea1400b7b04a2d90dee3bc2981d",
+      "after": "095cf33c3cf7ce691c7e27c8ca8ec95e4e835d43bb5e06900ef002940d1398f5"
+    },
+    {
+      "path": "07-deskewing/index.html",
+      "before": "5b817156c12f7e078379c2a66b8951ae7b942fbbaf6a55f38f40102bd783f217",
+      "after": "dc9f6ccd1468cbfadd677cf8709d85cf1336cbc450da64135a41daa1293e6d9e"
+    },
+    {
+      "path": "07-deskewing/index.js",
+      "before": "3ac8c122a01c0feaef115ac02507bd6af47e5255b1a20916bfbab0a83cb68f2c",
+      "after": "c061e7829df016667a84ee1bc86b9109b3bf71d2d87e3db23f15e5468a9925c6"
+    },
+    {
+      "path": "08-edge-detection/README.md",
+      "before": "82f6fa590b190567eb38f111ce5f939cbebeca4113aae51159b698c4e525a878",
+      "after": "a6d15b5d48b4036462fe873faa35aebd2d430e57d2212c9dff6966c40bd3b05a"
+    },
+    {
+      "path": "08-edge-detection/index.html",
+      "before": "193ca646000c6963f3ce16725dd391015b7c53e294c7a679f1967b15f490eb4e",
+      "after": "ac3b59c2e9f24b9fd9574c0057a3385fe72a6775439b4cc0696587374ecd4da8"
+    },
+    {
+      "path": "08-edge-detection/index.js",
+      "before": "59f4627c498fe7c271e9f4b3c2083987ce9d481534c0e0203d42ab51d8039e78",
+      "after": "434976fb3f6c84e4af7faa4f2ebd456ca3a279dc78a23d53b7bc9b573697e494"
+    },
+    {
+      "path": "09-connected-components/README.md",
+      "before": "a83defa24936e339ed3714ec3ba91ba2eef24f74296319bbac0f3098f2d5fc18",
+      "after": "d84f4a18b737d38b107998220cef4117a2f4c4fc51df860a575b297d615c82ae"
+    },
+    {
+      "path": "09-connected-components/index.html",
+      "before": "f76d74335b27a0cdb1918492d2e0c4236587b09508dd57532f4e3e517ee26b9e",
+      "after": "efae3a45aa06ad37b3f4a34e0e50102be51f10b0337bad8456e802cd74aa56da"
+    },
+    {
+      "path": "09-connected-components/index.js",
+      "before": "b3862d695386f557d5f23e197bd9e92dccdbc669393b8a679a28b52f101b329a",
+      "after": "18eb911c8c0df78a20e6e2fc96c46d07df7c088d2ed41f7f131cac6015ea199e"
+    },
+    {
+      "path": "10-text-localization/README.md",
+      "before": "31b859596107f932693e74da7c116db5c5f21ea684bcbeda185f88e9057193b6",
+      "after": "8131f3cdb9f9b60d0ace752aecd89770c4c33fc494b6e0fc41e24a2ef99ae329"
+    },
+    {
+      "path": "10-text-localization/index.html",
+      "before": "9354f9aedbff09c6b0e8462dec9f6623b28ba8b40b9f9c4859e748ce20dca240",
+      "after": "15e41cb379f6ab99def0d17c50f51c7cb79434f4d4a8c6c83c5d8474f5d1c376"
+    },
+    {
+      "path": "10-text-localization/index.js",
+      "before": "1f4c5e8f5ff08f2b9dd2a4d78fef5a789dd181cb21a5b5df3b2e2adcc14f09e8",
+      "after": "4bf131527b06bdf4199e50d739041ed90452aa6ccab691fae81905f26262ce79"
+    },
+    {
+      "path": "11-feature-extraction/README.md",
+      "before": "95bdb33a8b72018b97922cd92efd98c1bcfd1ffc51e98fc2ecd8e7eb406a1da5",
+      "after": "782df4be5435101d8a9cc5847b330e7524ecb7ac9b5c834dc352294ee0934139"
+    },
+    {
+      "path": "11-feature-extraction/index.html",
+      "before": "e24f63b08437db0ded01d4907349814ea8e68b258a5e119d1cffbb346df73283",
+      "after": "a0d85c141621c388ed2e746bbe7426309fc551c3d921148f461c61f24bcb000d"
+    },
+    {
+      "path": "12-template-matching/README.md",
+      "before": "8522b00801b93c3eb82e8d7ac8cea13a89809dcbe3c47618d8704f9fb86fcb09",
+      "after": "af7353b113222de54cbe89936d3427878745417c2f25b2db34b144ef1bb5ae9f"
+    },
+    {
+      "path": "12-template-matching/index.html",
+      "before": "dceb26cdf50b9f163d22b9031b2746b6fc189b0e4675e2efd788ec443af70c26",
+      "after": "5d60b776fe063b8e5fafd5b0a0269b9cec64225e335d69ffcbde71947100a474"
+    },
+    {
+      "path": "13-knn-classifier/README.md",
+      "before": "6046d3b91592d2fadbdec951ab9b339e637ab7baa896748e26d46bf967d20d90",
+      "after": "32a9399da356332d48afec4020355182a252b4995a5aa139b0b8b5d3d37d90d2"
+    },
+    {
+      "path": "13-knn-classifier/index.html",
+      "before": "a05e02134a397804ecf42fdc2428628e21a46891faef665166ed057b68f39211",
+      "after": "efa7c73c970792b4266a0181c62b84fed103a1c5c70fdfdd704fa5c3f33d9345"
+    },
+    {
+      "path": "13-knn-classifier/index.js",
+      "before": "a89c5f69dc2191fb4b0a8a0c906968e9d7ace7663effad1f7aac66d445b533d2",
+      "after": "c03a63907982d95f496ecac2eceaaf43b6b2db675a29030435ff4d9c0f46f56f"
+    },
+    {
+      "path": "14-neural-network-basics/README.md",
+      "before": "f8072d10de615ae5dd844613829a1e976d978ab3f197d83af1807c7a31501816",
+      "after": "daa7a9dff2db3852581ba2fffdedc2a269b3368a2f93d048625f4284e6cf964f"
+    },
+    {
+      "path": "16-tensorflowjs-intro/README.md",
+      "before": "312c74b27521b929d448bfc7852521fd3cf1aba8270a2a6cc87ecd84c0e0b67e",
+      "after": "e6779abbaccbf48617a0d10a0c18a9b1356553e16dceefb272b2b0f0f920974d"
+    },
+    {
+      "path": "16-tensorflowjs-intro/browser.js",
+      "before": "85efb6a6c4c864e66c73179e9722e072162d647e5cafa81c155cdebdb4810a00",
+      "after": "06cfbaaee44bc6e5f43c0177b29b6d9a9f23860afacf33fee0c5a75be58a9901"
+    },
+    {
+      "path": "16-tensorflowjs-intro/index.html",
+      "before": "ccde8570d8b5104c0fd561f23318ea99b2531bf2a3e119351c7bdafd1a387eb0",
+      "after": "334ac0d5ae584097fd1663d319879380a66ec6e68ec547f280047e8cd3b8c101"
+    },
+    {
+      "path": "16-tensorflowjs-intro/index.js",
+      "before": "ae5bc427dac3e99545a344e30fff486d443b3e0d7e23f049fff423bd20c0118b",
+      "after": "c6069cfba3c03cadbd4667511c103cbdf940d0c6f80efc932be11d6fbbf74a16"
+    },
+    {
+      "path": "17-cnn-classifier/README.md",
+      "before": "45435f0c41f39e14433ba8f9e702eb45c6f32aad35c1629388a319ff2c1846b5",
+      "after": "1349deaf19f904e590bc74fb06d1b9be8591fb90819a184d43d1ff87e75699dd"
+    },
+    {
+      "path": "17-cnn-classifier/data.js",
+      "before": "c36c14fd04b4d2caf1acc6bb888adfbfb9740ae8a70b7eee25c3f3918bf0337e",
+      "after": "c2c461b2af2b02df26d17583624f7efacd0ae2ad169d4c8de718eb1525d479b1"
+    },
+    {
+      "path": "17-cnn-classifier/index.html",
+      "before": "b31f5f115e88e04d741247fb323ed6cc3d7b24d3a31b307c2b91dbdfb8e72368",
+      "after": "689ba32998d734075552ed37c1729917dfc92c3ef734face277bac1d037588a9"
+    },
+    {
+      "path": "17-cnn-classifier/index.js",
+      "before": "e8e32d15904d3ccacb29fd6fceb9a2163e057812f8fee8bef051649cdbac6fe1",
+      "after": "c1d7b426f1b70c241ea5da94700d67b3e7344dde9dd1c140a9556fb3fa9be069"
+    },
+    {
+      "path": "17-cnn-classifier/inference-browser.js",
+      "before": "e5b3f11ef41de5cbcc828f53ca25e4f5da6d0c69a0453708c6465d987ce73ca0",
+      "after": "9bc0647c85d36d15d893b91b47ec3fda53a17ff2b40f3302acb9bb240f629979"
+    },
+    {
+      "path": "17-cnn-classifier/train-webgl.js",
+      "before": "21a8a43f4e0a87d002fdcbdc43c607e0b705b3ea00fa3ac380b46271fea49db7",
+      "after": "89b1a3729a11971a015492996c275096f21ba041fd8b548085d3d41da3b37d62"
+    },
+    {
+      "path": "17-cnn-classifier/train.html",
+      "before": "4b22e1b4447d7c64a93b0c353877591b8ba012be417bb48a8e5c404a5c03e4b5",
+      "after": "6dc55f6dc2498ef9bdfa62c7ab127d47217dcd476e78055401786bc843f3587a"
+    },
+    {
+      "path": "17-cnn-classifier/train.js",
+      "before": "b1b90a1c1776144ab6ebc1006bb2791f748671820e588ab2d785484326b8904a",
+      "after": "d7b344713d03e09b7bc494ca26fa786b9369aca457b482e2b3fc78facdf6ec20"
+    },
+    {
+      "path": "17-cnn-classifier/verify.js",
+      "before": "d0ae60d331086cb01d01d8a2baa4e2db04083c6e15314a1e70c19549d20d0009",
+      "after": "f3eb9377d7a8b98165b46faea7f500144f4a0ca33d699c6974e0de70beeb284c"
+    },
+    {
+      "path": "18-rnn-basics/README.md",
+      "before": "5ea30850581f15faac9d1df8733c41ce8b296e480201a87194e413afb3f8fd69",
+      "after": "f2c9703ea93c41c91c8b3513dc4051245a9079cfaf969e1be0a05c5ac9efd66d"
+    },
+    {
+      "path": "18-rnn-basics/browser.js",
+      "before": "4cc6d79783947b8552603e565cccab3c3572c38c886de0e7e776c275d7e109a0",
+      "after": "9c9ddf33b6cd41f3029b1778bc1a0f2b13d15cb3e2e05371bf774c49541cdc06"
+    },
+    {
+      "path": "18-rnn-basics/index.html",
+      "before": "dae70d7c7fbcd322805c4644669e31f913dcff89dc9cfb1d7dc036de4199d5be",
+      "after": "e29e5ee098b5d977ee480786fa46e21e6e09c843ac8d8fcf671ff8ee9942185d"
+    },
+    {
+      "path": "18-rnn-basics/index.js",
+      "before": "81fdc34fb2db14bf57f3bd0d5edd16846226621bd1b20501eb5b14f7aba3d2a5",
+      "after": "61511e06be33cd06dbe4ab6f270927f55768ff18f3af76b1b0802da28ad833dd"
+    },
+    {
+      "path": "19-ctc-loss/README.md",
+      "before": "c43c9c0a70a5c29e56c0c87e7fb8927d376824dc653a1b6988a4cd3800587379",
+      "after": "13dbb846b8cd3adf4936e2e6eb4f7166f96ecab92caed2b65b25b8f1b1502ac8"
+    },
+    {
+      "path": "19-ctc-loss/index.js",
+      "before": "974948d8959138fde66f130d93b72391689f030cf6a8cf4bfdeb8c87c0b2bf7d",
+      "after": "40f3100195ea0f13e9ff7f8b89833c8e4c8c6682ec773430bdb1606fe9f6e18f"
+    },
+    {
+      "path": "20-crnn/README.md",
+      "before": "82f113667d862a4a276b2e4f38f0479dc036bf5c05c8e1aa63f148c7f0361edd",
+      "after": "124281434e1b9e1a2e45fb5b73b8e387e9c33fe6c4ef634ad0ae24192cd2d32a"
+    },
+    {
+      "path": "20-crnn/browser.js",
+      "before": "95659fbf2af08d0fc27278ef8f6519ae7f7f60e60f14bd154043f345aea62989",
+      "after": "08915325b7e4f4c731ad5774dd3d04ee28d95f064649a6e54acbfc61e9be8f50"
+    },
+    {
+      "path": "20-crnn/index.html",
+      "before": "80cbbd9b5c1a9a263c0a0f705f5fa96aa6d9cdb3590c675c10dfd197926ae160",
+      "after": "30b2cac2290ae30dd9d191e2818748a11a750d37c22b2c9607596457dabbf6ce"
+    },
+    {
+      "path": "21-attention/README.md",
+      "before": "382fc65422874322d1a0b2456d9107b071683b04082509ea59486de530dec43b",
+      "after": "278484e9f33aff8b4cb72299b55506ff941bf11cbe327f825ac335509e0efe1a"
+    },
+    {
+      "path": "22-text-detection-networks/README.md",
+      "before": "9f5c3361ae0731985c94ea991450c577b2d673006ca1a490e3d0d1acf3d5f465",
+      "after": "5b022716bbe98dad44b3cf077a57bdc41691fe013d86296fbc21ffcdcaa44421"
+    },
+    {
+      "path": "23-transformer-ocr/README.md",
+      "before": "74471d8f9ce502985b9443b35af227c2c0324d68dd0a2977849d62cce2c614b9",
+      "after": "e716a66852bc415de0a913b1c7839acd5ee4a4b23ff809ee85cd79e2bbd5613d"
+    },
+    {
+      "path": "23-transformer-ocr/index.html",
+      "before": "0fd1dd76ee2fed2d7a3168082c8b8aaec3d147ba2905da0ba828ba4b40e16bc5",
+      "after": "9d81b0770b3d955d2e95b75cf0a8df7e0fb2d1a5070695ac6bd9362628bc8097"
+    },
+    {
+      "path": "24-post-processing/README.md",
+      "before": "4d050e18a22589d911578772cf524b54fd018f1050e27430afe2be955f1740b5",
+      "after": "c2d1b3bd6ab2828a257a4a15555d4a9c80e05458ab75c201a26e53fed579646d"
+    },
+    {
+      "path": "24-post-processing/index.html",
+      "before": "88d550c36e1cf7f7016f67c7fa9e948076ff731754ba8971f0bff671327c2e3d",
+      "after": "d1371658c0469e333e2de6db9f0f5a7f905774e0005f2ddd7768d6a9413fc1df"
+    },
+    {
+      "path": "25-ocr-engine/README.md",
+      "before": "dd8b30be795c300f1db506dcbfcfd60924aacc66dc63ef50cbe23e01ebec3991",
+      "after": "32fcc44ca26ee397a1563201918a78fd078345fa8ac06cfa0b6269c9fb15611f"
+    },
+    {
+      "path": "25-ocr-engine/browser.js",
+      "before": "a0c2f71c94c352918d4d454ce7989264e8fac21ff797fbed540928d9e69f0354",
+      "after": "a99ebcea20da8e1e5d1a45d7b353642f7f153e71e01433c90d696a5305884720"
+    },
+    {
+      "path": "26-validation/README.md",
+      "before": "3c388afe0dec7b0cce8ce489997d2caaf0fc68cbed7919f5a87cd79c27a8a1c3",
+      "after": "051116c84ba30447170ffe3e0fedb477f41be108ad11303cc7de8263a0d75ee4"
+    },
+    {
+      "path": "26-validation/browser.js",
+      "before": "d3e3713526c3bae8475fc0cf9fe9d6045207842e41dc7d93f64e841985009b37",
+      "after": "e367c7912d4804ebc746be4470c0fb5be45407ad10835a9921ca87546bf45053"
+    },
+    {
+      "path": "26-validation/evaluate-images.js",
+      "before": "0005a68cdd1dc54e4c2e7de40a2f68afec4e9059777f1f0ef19a4c1805fa1b45",
+      "after": "c478ab9863c89c57676a29d4ad0f600171a9d9a7204e4f0b8b32f303c3d2f5f1"
+    },
+    {
+      "path": "26-validation/index.html",
+      "before": "7b8a7c5cc6efdc53f17974a01c8653c7139337e05fd2e19924aa5f26232a9b4a",
+      "after": "b5f382b0de31486d09d90491f184ce4cae508095fbe85acde0d6381a831cceae"
+    },
+    {
+      "path": "26-validation/index.js",
+      "before": "550533895d387eca03b1d69d4a4fdba0c55bcc83858f561f04c2f874904a7b66",
+      "after": "fbce39e6548251e0b6b7059ed02f5dc56ad523339341dc49328573a7fc2a30d4"
+    },
+    {
+      "path": "OUTLINE.md",
+      "before": "98ec328235a037f5959b82869731e5d3f7ed106fe9834303bc8433f836d9a6af",
+      "after": "a60df75b5edaad7a559d9e5c0852c6fbb11df4bb602cc971037e9cd43cdf5bdd"
+    },
+    {
+      "path": "PROGRESS.md",
+      "before": "859eb41161924bba65d4850051c22f2972a8bff5c8fcea88fff2200df6d72d80",
+      "after": "9b52479a5e6f5e261b071486aee3c6137531ebdd7b1c31c7693b22f245113066"
+    },
+    {
+      "path": "README.md",
+      "before": "43690ecdc74e4c155b9b5da9b3814ba6d6acd193968e5d6de97a272f7e424020",
+      "after": "3f05fe3f1ad728de9b5b1844d25ccd92a2b87e4c0b8ee9b64a5c7751c9fb7f4f"
+    },
+    {
+      "path": "docs/COURSE_REVIEW.md",
+      "before": "b4d5e911dea05a53d7a3bd254bb5042d6614ed297af4d5fc292675c311959676",
+      "after": "71f37107d5e8823cc19819616f63afcc569c1097f1ce418a06f9041a8b21ff04"
+    },
+    {
+      "path": "docs/SHARING_GUIDE.md",
+      "before": "4de15d4cab2a242a3e07052c565c315712396be8919daa340d65c03cf1111071",
+      "after": "3bd31888fb1157afcf83f2bf6a38e9846d24026a0d9d0d9cd260133296da26a0"
+    },
+    {
+      "path": "openspec/changes/complete-ocr-course-and-handwritten-digit-demo/tasks.md",
+      "before": "2992b947b4117d127c5f948c178440b7147cbffcec5e114b4f808c19c7b2a7e7",
+      "after": "df3a6c9b9ff702de5b32c77f25254772133ce0928c97dfc36bdf4fe74e436cf1"
+    },
+    {
+      "path": "scripts/verify-lessons.js",
+      "before": "02be71b814f50868b88d72e50d8ea51d4b76e9ea250afb5cf550f4abaa114966",
+      "after": "2331cde36de206c1508fcc396e54d3e75d7e5ab9dbf2050b0080f966aecfe251"
+    },
+    {
+      "path": "shared/03-grayscale/index.js",
+      "before": "ac2cd12798c91a045222503233b0b4d71ac74082c66fd098c224954a18b49971",
+      "after": "cc711bce11ff47496653ba32d196c56911d6808502ccf75188721e0e4d148239"
+    },
+    {
+      "path": "shared/04-binarization/index.js",
+      "before": "4a4f2b4d0ed89d2fd011de713d9cfb700b94585c1e4cad3bb1c3b3b508d5ba05",
+      "after": "9388233f9bb05940093c0cf2192990675ef5d1cfd8415881ececfa50c0ff831d"
+    },
+    {
+      "path": "shared/05-denoising/index.js",
+      "before": "f09241a005bb359d8ed881d56468b6b22faf0ed6c1cfa107c9217866fcb11767",
+      "after": "f1adae7c38801dd99a8d54549931815a4f03521db17a315816fc81a3a25c705b"
+    },
+    {
+      "path": "shared/06-morphology/index.js",
+      "before": "39938a44a7a81279028203cff32183e7828280370a8ee04890b4cfa8f0a9eeb5",
+      "after": "f99674dff5263b26b892f931aa9041698fa64959e13e67a1911d09a21440170a"
+    },
+    {
+      "path": "shared/07-deskewing/index.js",
+      "before": "0561d0e310154cf287fa94ee6d07824482c4e09c08983ec86c0d503fb18ee8d9",
+      "after": "32a939708685a017318c353dcc2278fc07f4499e82e06cc167c17e812257a0da"
+    },
+    {
+      "path": "shared/08-edge-detection/index.js",
+      "before": "1da6c505a19c87f4d8596322bfeefdc544534944d551920dc7ae4f565aadeec0",
+      "after": "27e661bb89dceee11aaea7caf0d8ce947a9850965f22a968a89d743d737976b1"
+    },
+    {
+      "path": "shared/09-connected-components/index.js",
+      "before": "cb41b3ea5bc8c842efe8b1f6d4cdb3d333ea7bc34df079e284aa9fec41909d94",
+      "after": "faedce243979f8ea7315cb142180e6ba175e1b43ea11294cbdb17d9f9747bd39"
+    },
+    {
+      "path": "shared/10-text-localization/index.js",
+      "before": "00ee667f93ac303ea526f49690ac963aee49e8b23bebe696bca14e894ca0970f",
+      "after": "e7290d8641c0662bc9dd1685c1cec8e0be59c8ca4a01dda176bd04f8adc8578d"
+    },
+    {
+      "path": "shared/11-feature-extraction/index.js",
+      "before": "af5ac2acec620026cb888afd156418c9f6c55f6e8a251fccc702428fb6cb85e9",
+      "after": "75b5f6fdc4e48f7ead5df0ddc218f296831cd972ddf77b71f95d1ef168d4a8ce"
+    },
+    {
+      "path": "shared/12-template-matching/index.js",
+      "before": "69a555b87d9b7d923424c10d96076841d766d14cd9521a301a0b6d26244e0641",
+      "after": "79395e9927f4b40ccdb9b8e194ae5f3ca625ccbd5e755fc26012a3a3470dfbb3"
+    },
+    {
+      "path": "shared/13-knn-classifier/index.js",
+      "before": "880bcf1037d0e085662edbf653bd33baa3cf0036f2b5ab757966d203723cc1b1",
+      "after": "5ddb6e3cfc0f47d26a90795b1dd3aaffd21c454e82b021484e515128e64fc6a7"
+    },
+    {
+      "path": "shared/16-tensorflowjs-intro/index.js",
+      "before": "97e76641850b822b203030095405a7c03d4867bd04aa263379fb4906145dad73",
+      "after": "5ff64e125baf0690350858544817e3b21234f7188c61a819bf03b09e3aad29fb"
+    },
+    {
+      "path": "shared/17-cnn-classifier/index.js",
+      "before": "8bbcdfa6b9c00ea0ec2dc26c401a3eadaae89e6e404ee4e8a1dc0a33e020d6a2",
+      "after": "684e35d0b0562aecb345ff3d6a95b22891920423661803fb684a9e3c43f88d82"
+    },
+    {
+      "path": "shared/18-rnn-basics/index.js",
+      "before": "3ccafa908e9a0591bee3e9458cbc86a79e07a95897dafc8e4d67a94c41256f1c",
+      "after": "80c96297caf4b1f7dc74af9c030f5aa2cd50344dc35656ea6322f386916db604"
+    },
+    {
+      "path": "shared/19-ctc-loss/index.js",
+      "before": "f18ae1c5827af50e7033d879838130dd00d60a74376af823fbccb65bca4caf92",
+      "after": "6b0a116ad8e632608bd6dc718d4d5e174ff1fc58dc84b6dd057c28e1997fe99f"
+    },
+    {
+      "path": "shared/20-crnn/index.js",
+      "before": "a18810f2138473edd98f899a41223138de142ac18437e3f44fa33ab026c38c84",
+      "after": "432ddaee1b41ed447856ad4386d08f241b5ace8b3ce919a3775e9eee56b5941d"
+    },
+    {
+      "path": "shared/21-attention/index.js",
+      "before": "73ec941e2a51d468696d416edb1e936ee126e73ff66a2e0fd9a99793f8d569cd",
+      "after": "adff6fc8de508f411114a1906686933a7566d5b19b58847a1cd6a7c4343fe210"
+    },
+    {
+      "path": "shared/22-text-detection-networks/index.js",
+      "before": "fd26eaa8e7498cb05571f3ac52f9b29d62944bc88423678ca8830951c03408f1",
+      "after": "3926b0027692e07feca609545069ce78d4130464398bb038cadf7bdb3257c890"
+    },
+    {
+      "path": "shared/23-transformer-ocr/index.js",
+      "before": "d19c2c57226e82151cfe47a5f80713c8631decf4711e6aa41f147c855a36c740",
+      "after": "bd0265c7a66ad7339e19e619b6182bd9583c502498031d4540d62e6970f70f5d"
+    },
+    {
+      "path": "shared/25-ocr-engine/index.js",
+      "before": "a2dd6607d7bae4167fc90f1fb115eb4617e6ffc11257fef5b26924c33dae1405",
+      "after": "4af955094af43cb17b50c1a6ad05177520768717ee540c9e466c5c7d25da9f6f"
+    },
+    {
+      "path": "shared/26-validation/index.js",
+      "before": "9f426aa38263be5507395f4f4b801cd33e46ffbe7369dee9fb01a312f11a1514",
+      "after": "86e52ce4da376ea621333b08b2de97081addf560187ff6feaf689e0b816385d7"
+    },
+    {
+      "path": "shared/README.md",
+      "before": "35be162742ffac9a03fa9e07342d6cf7597d11207c3fc9dd3f769856ca10ad4f",
+      "after": "5705559f3acb833bdb5d885e152c36152cc93aa374a1338c331b0421d4b3e5d8"
+    },
+    {
+      "path": "shared/__tests__/attention21.test.js",
+      "before": "43c5462f64b2ec2e14fb7674ef20214b12d2878fc7d1d475cc6477a0c8dfe058",
+      "after": "1ad66090eb7fde49183a3d3015a27a8cd1b2efae2704f17761a89cb346f714d6"
+    },
+    {
+      "path": "shared/__tests__/cnnDigitClassifier.test.js",
+      "before": "fa118f652b2aa2aa478ab018713e5b9241a135e28098ad9733db623458909acc",
+      "after": "e6bc43d9b15c18802e3f3d4a465f1e6dddc8890ecfb523532bd43ee9ec714779"
+    },
+    {
+      "path": "shared/__tests__/deskewing.test.js",
+      "before": "8797118eb9091008a746333ed446fc155c7848ec01566f7a0814e564d833da8c",
+      "after": "ef86b06f7630b017931c1d43ef848a715927cd6e9eadcb4392d7b12f120ba496"
+    },
+    {
+      "path": "shared/__tests__/rnnBasics.test.js",
+      "before": "b7abbdbc44fd8b4bdc4efdd64e3c0506a5e1fcfdac89b3eb99856c40433b45a2",
+      "after": "a316a58bf46276d972d4df32dac7a66b7d08c28f3beaef67313d44cc904300c9"
+    },
+    {
+      "path": "shared/__tests__/templateMatching.test.js",
+      "before": "52255073b06843c8cb7ee6a30ffec2efe1daec2ea763b5a9b99b628605d3581e",
+      "after": "8b0aac28b07c26bc2afc53d189d199705dda95a4b4f6196786e573ffef4f6f49"
+    },
+    {
+      "path": "shared/__tests__/tensorflowjsIntro.test.js",
+      "before": "062f137364afe48cee7c2eacf1dac42a98b9d48d5cacb5df2c4decf59c1ea5b8",
+      "after": "e70b62e7c266d8105f0e01ae65bd61ae0285cdbb5998d9724635e1afcd644db6"
+    },
+    {
+      "path": "shared/__tests__/textDetection22.test.js",
+      "before": "ac1c69c0032cb33447b6f7897f3f796ba5d038d91b644a4ed4c4264b7dfc8cd0",
+      "after": "c2cdec95021ed66f37242a094a8618e12ee98a0e8943efb5cbe2eb234efa02b7"
+    },
+    {
+      "path": "shared/__tests__/transformer23.test.js",
+      "before": "851b6ca96cf041818d10ff2f99aa0c46516d769d469e54f92900325d936f55a7",
+      "after": "a7a289bb859a6ac942ceee58a602a3ad63e5036eba785230bd9e30e685bf6a61"
+    },
+    {
+      "path": "shared/core/MockImageData.js",
+      "before": "f996912459ea3c35fdee95a7c50421ac1974d40690bc817368ef78f68d19c506",
+      "after": "63b604a58e03809a3d80ea3df983806cb64a3fd82e5c347791105aa511a006f0"
+    },
+    {
+      "path": "shared/core/colorConversion.js",
+      "before": "87393639d9370d06028f56ba77ab1a017184080482574412d94b28c46145f6f2",
+      "after": "026740085b90a537480ca2f9ae291e582bd574be56cf431d01504769930b3fc0"
+    },
+    {
+      "path": "shared/core/index.js",
+      "before": "96e5fb0d76ae8a1c510bda489eb38facd435bff3d6dc381b03362f33cf7cdb2d",
+      "after": "10349c1d9df2ac32cee591428aedeb412f357ed7c0db6a9789f0709e80580e75"
+    },
+    {
+      "path": "shared/core/pixelAccess.js",
+      "before": "9b9d4e6298fea927314d3b6c909edeb24f1295c230810c8f02fd044ad4ed3fd2",
+      "after": "d1de762871368b12b6ef864fef4530bf417a943f5012d9d04edff98141ffb772"
+    },
+    {
+      "path": "shared/core/utils.js",
+      "before": "7458441fe562152fc172784e29423886bd16130a69e9226358051dd7348eea9e",
+      "after": "f3cc94ef5424f37377bfe706a79a94ec502976b77b4135f95fe701eed7033c29"
+    },
+    {
+      "path": "shared/index.js",
+      "before": "870e91887be8e2769f3398c9d688020356f1836406138199610c2869cdacf52e",
+      "after": "25e0a22e77c87394959a75bf18ca8f285eb2d078131ff74e20d7d63e72eefce6"
+    }
+  ],
+  "added": [
+    {
+      "path": "02-js-image-basics/browser.js",
+      "sha256": "dd529d7297e70e53eb0cbabe23eb1919b755bf6b0bc6e9e499e5d6efad82983c"
+    },
+    {
+      "path": "03-grayscale/browser.js",
+      "sha256": "3f82d16ebb94467b882052d8e7901d204e59be87d99f73fbdc537fa26bc46595"
+    },
+    {
+      "path": "04-binarization/browser.js",
+      "sha256": "56ed6c3486a85ab3c25fec59cd58c6664b48cbfe0cb14da3f34ce9cfbf064465"
+    },
+    {
+      "path": "05-denoising/browser.js",
+      "sha256": "3139e63d9356eca1fe8ce6e31b57db276a6febeb81e75c1559eab91ce2662863"
+    },
+    {
+      "path": "06-morphology/browser.js",
+      "sha256": "e5fd1944c20ea26226b5068dede2092868affbf43cbc1456e2bcb7a819bf9de2"
+    },
+    {
+      "path": "06-morphology/build-browser.js",
+      "sha256": "45fe786b12f210f1ae8df5f21c654d48acd771382c79de0de6f6adbac4f5c0b1"
+    },
+    {
+      "path": "07-deskewing/browser.js",
+      "sha256": "65f28ca5dda562a33f6cc1cc6fa730196835db653dbcb0aded9b09636d66658b"
+    },
+    {
+      "path": "07-deskewing/build-browser.js",
+      "sha256": "45fe786b12f210f1ae8df5f21c654d48acd771382c79de0de6f6adbac4f5c0b1"
+    },
+    {
+      "path": "08-edge-detection/browser.js",
+      "sha256": "a20fe0d1f3ca5642f1106f0bb730c6d973c375e59edd628ace82e049852bf607"
+    },
+    {
+      "path": "08-edge-detection/build-browser.js",
+      "sha256": "45fe786b12f210f1ae8df5f21c654d48acd771382c79de0de6f6adbac4f5c0b1"
+    },
+    {
+      "path": "09-connected-components/browser.js",
+      "sha256": "09cc54265e4ce79e5c18ba988a915c5d9736f39796b5714085266ed00caaca39"
+    },
+    {
+      "path": "09-connected-components/build-browser.js",
+      "sha256": "45fe786b12f210f1ae8df5f21c654d48acd771382c79de0de6f6adbac4f5c0b1"
+    },
+    {
+      "path": "10-text-localization/browser.js",
+      "sha256": "4c4e2e79f27b7052cfefa8f9be2d3c3938458c756707272548934c963dd44c53"
+    },
+    {
+      "path": "10-text-localization/build-browser.js",
+      "sha256": "45fe786b12f210f1ae8df5f21c654d48acd771382c79de0de6f6adbac4f5c0b1"
+    },
+    {
+      "path": "21-attention/review-2026-09-11-browser.json",
+      "sha256": "cfbabd276962f1a308f3187444c206ce2476063dfe0776b9569a372f7b541508"
+    },
+    {
+      "path": "22-text-detection-networks/review-2026-09-11-browser.json",
+      "sha256": "7dc52b291a52709e2d3258298aa654881d2f88f0ee1d8b866b407d1e47175774"
+    },
+    {
+      "path": "23-transformer-ocr/review-2026-09-11-browser.json",
+      "sha256": "b21604a499cbdb98b45160b7690cf4b2cbf8df41fb75a5320a6b53dc08cf4dc0"
+    },
+    {
+      "path": "26-validation/manifest.js",
+      "sha256": "bc97d3420dd5e05b655bc042e365fce69ee39f7768eb5b83f13d4381b1431172"
+    },
+    {
+      "path": "docs/reviews/2026-09-11/01-05.md",
+      "sha256": "ce556ccb9b44992cda0dc4589eac0d4ea2c4ca12677a84bc701b171b81bc4b95"
+    },
+    {
+      "path": "docs/reviews/2026-09-11/06-10.md",
+      "sha256": "22f0a4a33f2cb8a87080c3d7001c142bc516d5e6ac6509c8eb676c396c7466b4"
+    },
+    {
+      "path": "docs/reviews/2026-09-11/11-13.md",
+      "sha256": "27b1fbe4b9e9f28bcc1244d7e3551d1feef10968047ccfcd1aee6f936ae8d43f"
+    },
+    {
+      "path": "docs/reviews/2026-09-11/14-17.md",
+      "sha256": "4f9d24e7b2608c95c77a05278b79681713aa5561fa88b38a78f85c833e1f57c4"
+    },
+    {
+      "path": "docs/reviews/2026-09-11/18-20.md",
+      "sha256": "fdfa3b810e0a4de4fa667a75ca48e6bfcc0574f5bbf1ee6e4f00e7f583e578b2"
+    },
+    {
+      "path": "docs/reviews/2026-09-11/21-24.md",
+      "sha256": "5d9d02e099a9426069c426cbcef44541511111ccb7897f074053208429a6afd6"
+    },
+    {
+      "path": "docs/reviews/2026-09-11/25-26.md",
+      "sha256": "2ff236d083914720ba87e8cb916277d62a1e1c4e800a9facfb15788b4b4f79a0"
+    },
+    {
+      "path": "docs/reviews/2026-09-11/README.md",
+      "sha256": "793764b8daef747cee58e9d8e872348abc657be6dee4f84e1e118fd4092b96f4"
+    },
+    {
+      "path": "docs/reviews/2026-09-11/REVIEW_CONTRACT.md",
+      "sha256": "4bf1179b77b099bbdd8794c5098973cf8a55a54398466f95ded7b4e0bab9a396"
+    },
+    {
+      "path": "shared/13-knn-classifier/demoDataset.js",
+      "sha256": "06bf7c805320e001c57d32d7ba58250554c3e36f4d7043a38a62dec30180c16e"
+    },
+    {
+      "path": "shared/__tests__/11-13-correctnessRegression.test.js",
+      "sha256": "7c31335e8a38c96fdd705fd08f0e3d4197cb160137255a30db3b4e248213d941"
+    },
+    {
+      "path": "shared/__tests__/18-rnn-regression.test.js",
+      "sha256": "b58b2b408f6881bf30bec6e116028210eb7a265709c793ee15d6d4f0f1003e3b"
+    },
+    {
+      "path": "shared/__tests__/19-ctc-regression.test.js",
+      "sha256": "0bbcaf0d0562a1efccbfea4ad7e153e4068a081e93d9ec00e7affbbcdd627a1a"
+    },
+    {
+      "path": "shared/__tests__/20-crnn-regression.test.js",
+      "sha256": "1b317bd23ebec7d7fcb21964c8eb2924538ec5166664dc591d9178ea06387447"
+    },
+    {
+      "path": "shared/__tests__/correctness01-05.test.js",
+      "sha256": "adf1d46bd1113a77d5974234b35c5dd230d64f9675dd0c7c5e843406c4d00e94"
+    },
+    {
+      "path": "shared/__tests__/review06-10-correctness.test.js",
+      "sha256": "362d21eb184e9a15b4a7eaa1f5ae9fc155dc5dc5b80b817a8f12a5e46152d900"
+    },
+    {
+      "path": "shared/__tests__/review25Integration.test.js",
+      "sha256": "0110ce14b29b4f5f532ac89d3b7e90b93bb27d892cf38951c44606e3a73d8afe"
+    },
+    {
+      "path": "shared/__tests__/review26Evaluation.test.js",
+      "sha256": "5cc07cddb5ba47877dfd2562e0e4babcd9f4fb6d094e72d2398e215ce2c2e744"
+    }
+  ],
+  "deleted": []
+}

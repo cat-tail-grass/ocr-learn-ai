@@ -1,0 +1,36 @@
+npm warn Unknown user config "always-auth" (//r.npm.zaihui.com.cn/:always-auth). This will stop working in the next major version of npm.
+
+> ocr-learning@1.0.0 build
+> node scripts/build-site.mjs
+
+已构建 02-js-image-basics/browser.js
+已构建 03-grayscale/browser.js
+已构建 04-binarization/browser.js
+已构建 05-denoising/browser.js
+已构建 06-morphology/browser.js
+已构建 07-deskewing/browser.js
+已构建 08-edge-detection/browser.js
+已构建 09-connected-components/browser.js
+已构建 10-text-localization/browser.js
+已构建 14-neural-network-basics/browser.js
+已构建 15-cnn-basics/browser.js
+已构建 16-tensorflowjs-intro/browser.js
+已构建 17-cnn-classifier/browser.js
+已构建 18-rnn-basics/browser.js
+已构建 19-ctc-loss/browser.js
+已构建 20-crnn/browser.js
+已构建 21-attention/browser.js
+已构建 22-text-detection-networks/browser.js
+已构建 23-transformer-ocr/browser.js
+已构建 24-post-processing/browser.js
+已构建 25-ocr-engine/browser.js
+已构建 26-validation/browser.js
+浏览器入口就绪：22 个。npm run dev 启动课程站；npm run build 生成完整静态站点。
+实验资源已装配：78 个文件 → .vuepress/public/labs
+- Initializing and preparing data
+✔ Initializing and preparing data - done in 1.48s
+- Compiling with vite
+✔ Compiling with vite - done in 2.18s
+- Rendering 44 pages
+✔ Rendering 44 pages - done in 409ms
+success VuePress build completed in 4.95s!

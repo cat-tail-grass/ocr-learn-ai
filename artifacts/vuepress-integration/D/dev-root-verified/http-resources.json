@@ -1,0 +1,1562 @@
+[
+  {
+    "url": "http://127.0.0.1:4173/",
+    "status": 200,
+    "contentType": "text/html"
+  },
+  {
+    "url": "http://127.0.0.1:4173/.vuepress/.cache/deps/@vue_devtools-api.js?v=db20fd8b",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/.vuepress/.cache/deps/@vuepress_shared.js?v=db20fd8b",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/.vuepress/.cache/deps/dist-CjGRH3aa.js?v=db20fd8b",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/.vuepress/.cache/deps/slimsearch.js?v=db20fd8b",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/.vuepress/.cache/deps/vue-router.js?v=db20fd8b",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/.vuepress/.cache/deps/vue.js?v=db20fd8b",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/.vuepress/.cache/deps/vue.runtime.esm-bundler-D2wK8Voh.js?v=db20fd8b",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/.vuepress/.temp/git/config.js",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/.vuepress/.temp/internal/clientConfigs.js?t=1789129976528",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/.vuepress/.temp/internal/routes.js",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/.vuepress/.temp/internal/siteData.js",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/.vuepress/.temp/internal/themeData.js",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/.vuepress/.temp/internal/userStyle.js",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/.vuepress/.temp/markdown-math/config.js",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/.vuepress/.temp/markdown-tab/config.js",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/.vuepress/.temp/prismjs/config.js",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/.vuepress/.temp/slimsearch/index.js",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/.vuepress/.temp/slimsearch/worker-options.js",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/.vuepress/client.mjs?t=1789129976528",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/.vuepress/components/CourseCatalog.vue",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/.vuepress/components/CourseLayout.vue?t=1789129976528",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/.vuepress/components/CourseToc.vue",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/.vuepress/search/client.mjs",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/.vuepress/search/tokenize.mjs",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/.vuepress/styles/course.css?t=1789129976528",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/@id/__x00__plugin-vue:export-helper",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/@vite/client",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/01-image-fundamentals/",
+    "status": 200,
+    "contentType": "text/html"
+  },
+  {
+    "url": "http://127.0.0.1:4173/01-image-fundamentals/README.md?import",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/02-js-image-basics/",
+    "status": 200,
+    "contentType": "text/html"
+  },
+  {
+    "url": "http://127.0.0.1:4173/02-js-image-basics/README.md?import",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/03-grayscale/",
+    "status": 200,
+    "contentType": "text/html"
+  },
+  {
+    "url": "http://127.0.0.1:4173/03-grayscale/README.md?import",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/04-binarization/",
+    "status": 200,
+    "contentType": "text/html"
+  },
+  {
+    "url": "http://127.0.0.1:4173/04-binarization/README.md?import",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/05-denoising/",
+    "status": 200,
+    "contentType": "text/html"
+  },
+  {
+    "url": "http://127.0.0.1:4173/05-denoising/README.md?import",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/06-morphology/",
+    "status": 200,
+    "contentType": "text/html"
+  },
+  {
+    "url": "http://127.0.0.1:4173/06-morphology/README.md?import",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/07-deskewing/",
+    "status": 200,
+    "contentType": "text/html"
+  },
+  {
+    "url": "http://127.0.0.1:4173/07-deskewing/README.md?import",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/08-edge-detection/",
+    "status": 200,
+    "contentType": "text/html"
+  },
+  {
+    "url": "http://127.0.0.1:4173/08-edge-detection/README.md?import",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/09-connected-components/",
+    "status": 200,
+    "contentType": "text/html"
+  },
+  {
+    "url": "http://127.0.0.1:4173/09-connected-components/README.md?import",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/10-text-localization/",
+    "status": 200,
+    "contentType": "text/html"
+  },
+  {
+    "url": "http://127.0.0.1:4173/10-text-localization/README.md?import",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/11-feature-extraction/",
+    "status": 200,
+    "contentType": "text/html"
+  },
+  {
+    "url": "http://127.0.0.1:4173/11-feature-extraction/README.md?import",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/12-template-matching/",
+    "status": 200,
+    "contentType": "text/html"
+  },
+  {
+    "url": "http://127.0.0.1:4173/12-template-matching/README.md?import",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/13-knn-classifier/",
+    "status": 200,
+    "contentType": "text/html"
+  },
+  {
+    "url": "http://127.0.0.1:4173/13-knn-classifier/README.md?import",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/14-neural-network-basics/",
+    "status": 200,
+    "contentType": "text/html"
+  },
+  {
+    "url": "http://127.0.0.1:4173/14-neural-network-basics/README.md?import",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/15-cnn-basics/",
+    "status": 200,
+    "contentType": "text/html"
+  },
+  {
+    "url": "http://127.0.0.1:4173/15-cnn-basics/README.md?import",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/16-tensorflowjs-intro/",
+    "status": 200,
+    "contentType": "text/html"
+  },
+  {
+    "url": "http://127.0.0.1:4173/16-tensorflowjs-intro/README.md?import",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/17-cnn-classifier/",
+    "status": 200,
+    "contentType": "text/html"
+  },
+  {
+    "url": "http://127.0.0.1:4173/17-cnn-classifier/README.md?import",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/18-rnn-basics/",
+    "status": 200,
+    "contentType": "text/html"
+  },
+  {
+    "url": "http://127.0.0.1:4173/18-rnn-basics/README.md?import",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/19-ctc-loss/",
+    "status": 200,
+    "contentType": "text/html"
+  },
+  {
+    "url": "http://127.0.0.1:4173/19-ctc-loss/README.md?import",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/20-crnn/",
+    "status": 200,
+    "contentType": "text/html"
+  },
+  {
+    "url": "http://127.0.0.1:4173/20-crnn/README.md?import",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/21-attention/",
+    "status": 200,
+    "contentType": "text/html"
+  },
+  {
+    "url": "http://127.0.0.1:4173/21-attention/README.md?import",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/22-text-detection-networks/",
+    "status": 200,
+    "contentType": "text/html"
+  },
+  {
+    "url": "http://127.0.0.1:4173/22-text-detection-networks/README.md?import",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/23-transformer-ocr/",
+    "status": 200,
+    "contentType": "text/html"
+  },
+  {
+    "url": "http://127.0.0.1:4173/23-transformer-ocr/README.md?import",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/24-post-processing/",
+    "status": 200,
+    "contentType": "text/html"
+  },
+  {
+    "url": "http://127.0.0.1:4173/24-post-processing/README.md?import",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/25-ocr-engine/",
+    "status": 200,
+    "contentType": "text/html"
+  },
+  {
+    "url": "http://127.0.0.1:4173/25-ocr-engine/README.md?import",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/26-validation/",
+    "status": 200,
+    "contentType": "text/html"
+  },
+  {
+    "url": "http://127.0.0.1:4173/26-validation/README.md?import",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/docs/reviews/2026-09-11/",
+    "status": 200,
+    "contentType": "text/html"
+  },
+  {
+    "url": "http://127.0.0.1:4173/docs/SHARING_GUIDE.html",
+    "status": 200,
+    "contentType": "text/html"
+  },
+  {
+    "url": "http://127.0.0.1:4173/index.html?html-proxy&index=0.js",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/01-image-fundamentals/index.html",
+    "status": 200,
+    "contentType": "text/html;charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/02-js-image-basics/bundle.js",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/02-js-image-basics/index.html",
+    "status": 200,
+    "contentType": "text/html;charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/03-grayscale/bundle.js",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/03-grayscale/index.html",
+    "status": 200,
+    "contentType": "text/html;charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/04-binarization/bundle.js",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/04-binarization/index.html",
+    "status": 200,
+    "contentType": "text/html;charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/05-denoising/bundle.js",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/05-denoising/index.html",
+    "status": 200,
+    "contentType": "text/html;charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/06-morphology/bundle.js",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/06-morphology/index.html",
+    "status": 200,
+    "contentType": "text/html;charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/07-deskewing/bundle.js",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/07-deskewing/index.html",
+    "status": 200,
+    "contentType": "text/html;charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/08-edge-detection/bundle.js",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/08-edge-detection/index.html",
+    "status": 200,
+    "contentType": "text/html;charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/09-connected-components/bundle.js",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/09-connected-components/index.html",
+    "status": 200,
+    "contentType": "text/html;charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/10-text-localization/bundle.js",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/10-text-localization/index.html",
+    "status": 200,
+    "contentType": "text/html;charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/11-feature-extraction/index.html",
+    "status": 200,
+    "contentType": "text/html;charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/12-template-matching/index.html",
+    "status": 200,
+    "contentType": "text/html;charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/13-knn-classifier/index.html",
+    "status": 200,
+    "contentType": "text/html;charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/14-neural-network-basics/bundle.js",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/14-neural-network-basics/index.html",
+    "status": 200,
+    "contentType": "text/html;charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/15-cnn-basics/bundle.js",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/15-cnn-basics/index.html",
+    "status": 200,
+    "contentType": "text/html;charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/16-tensorflowjs-intro/bundle.js",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/16-tensorflowjs-intro/index.html",
+    "status": 200,
+    "contentType": "text/html;charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/17-cnn-classifier/bundle.js",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/17-cnn-classifier/index.html",
+    "status": 200,
+    "contentType": "text/html;charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/17-cnn-classifier/model/model.json",
+    "status": 200,
+    "contentType": "application/json"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/17-cnn-classifier/model/training-report.json",
+    "status": 200,
+    "contentType": "application/json"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/17-cnn-classifier/model/weights.bin",
+    "status": 200,
+    "contentType": "application/octet-stream"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/17-cnn-classifier/train.html",
+    "status": 200,
+    "contentType": "text/html;charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/18-rnn-basics/bundle.js",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/18-rnn-basics/index.html",
+    "status": 200,
+    "contentType": "text/html;charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/19-ctc-loss/bundle.js",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/19-ctc-loss/index.html",
+    "status": 200,
+    "contentType": "text/html;charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/20-crnn/bundle.js",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/20-crnn/index.html",
+    "status": 200,
+    "contentType": "text/html;charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/20-crnn/model/weights.json",
+    "status": 200,
+    "contentType": "application/json"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/20-crnn/training-report.json",
+    "status": 200,
+    "contentType": "application/json"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/21-attention/bundle.js",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/21-attention/index.html",
+    "status": 200,
+    "contentType": "text/html;charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/22-text-detection-networks/bundle.js",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/22-text-detection-networks/index.html",
+    "status": 200,
+    "contentType": "text/html;charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/23-transformer-ocr/bundle.js",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/23-transformer-ocr/index.html",
+    "status": 200,
+    "contentType": "text/html;charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/24-post-processing/browser-qa-desktop.png",
+    "status": 200,
+    "contentType": "image/png"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/24-post-processing/browser-qa-results.json",
+    "status": 200,
+    "contentType": "application/json"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/24-post-processing/bundle.js",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/24-post-processing/index.html",
+    "status": 200,
+    "contentType": "text/html;charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/25-ocr-engine/bundle.js",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/25-ocr-engine/index.html",
+    "status": 200,
+    "contentType": "text/html;charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/25-ocr-engine/index.js",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/26-validation/bundle.js",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/26-validation/development-report.json",
+    "status": 200,
+    "contentType": "application/json"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/26-validation/index.html",
+    "status": 200,
+    "contentType": "text/html;charset=utf-8"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/26-validation/index.js",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/26-validation/test-freeze.json",
+    "status": 200,
+    "contentType": "application/json"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/26-validation/test-manifest.json",
+    "status": 200,
+    "contentType": "application/json"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/26-validation/test-report.json",
+    "status": 200,
+    "contentType": "application/json"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/shared/11-feature-extraction/index.js",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/shared/12-template-matching/index.js",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/shared/13-knn-classifier/demoDataset.js",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/shared/13-knn-classifier/index.js",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/shared/24-post-processing/index.js",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/shared/25-ocr-engine/index.js",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/shared/26-validation/index.js",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/shared/course.css",
+    "status": 200,
+    "contentType": "text/css"
+  },
+  {
+    "url": "http://127.0.0.1:4173/labs/shared/course.js",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/client/dist/app.js?t=1789129976528&v=db20fd8b",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/client/dist/constants-CWVu3aBh.js?v=db20fd8b",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/client/dist/index.js?v=db20fd8b",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/client/dist/rolldown-runtime-D7D4PA-g.js?v=db20fd8b",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/client/dist/setupDevtools-DJemw8CK.js?v=db20fd8b",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/client/dist/utils-jFeCv-dX.js?v=db20fd8b",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/helper/dist/client/index.js?v=db20fd8b",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/helper/dist/client/styles/colors.css",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/helper/dist/client/styles/message.css",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/helper/dist/client/styles/normalize.css",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/helper/dist/client/styles/transition/fade-in-down.css",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/helper/dist/client/styles/transition/fade-in-height-expand.css",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/helper/dist/client/styles/transition/fade-in.css",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/helper/dist/shared/index.js?v=db20fd8b",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/highlighter-helper/dist/client/styles/base.css",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/highlighter-helper/dist/client/styles/code-block-title.css",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/highlighter-helper/dist/client/styles/line-numbers.css",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/highlighter-helper/dist/client/styles/notation-highlight.css",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/plugin-active-header-links/dist/client/config.js?v=db20fd8b",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/plugin-active-header-links/dist/useActiveHeaderLinks-Cj1jzYVL.js?v=db20fd8b",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/plugin-back-to-top/dist/BackToTop-CJ-V9Qgf.css",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/plugin-back-to-top/dist/BackToTop-CJ-V9Qgf.js?v=db20fd8b",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/plugin-back-to-top/dist/client/config.css",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/plugin-back-to-top/dist/client/config.js?v=db20fd8b",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/plugin-copy-code/dist/client/config.js?v=db20fd8b",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/plugin-copy-code/dist/useCopyCode-sJhNiwEE.css",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/plugin-copy-code/dist/useCopyCode-sJhNiwEE.js?v=db20fd8b",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/plugin-git/dist/client/components/GitChangelog.js?v=db20fd8b",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/plugin-git/dist/client/components/GitContributors.js?v=db20fd8b",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/plugin-git/dist/client/index.js?v=db20fd8b",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/plugin-git/dist/GitChangelog-Do7jXfkp.css",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/plugin-git/dist/GitChangelog-Do7jXfkp.js?v=db20fd8b",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/plugin-git/dist/GitContributors-BiR-YbYa.css",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/plugin-git/dist/GitContributors-BiR-YbYa.js?v=db20fd8b",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/plugin-git/dist/VPHeader-D3qaJHvA.js?v=db20fd8b",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/plugin-markdown-hint/dist/client/config.css",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/plugin-markdown-hint/dist/client/config.js?v=db20fd8b",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/plugin-markdown-math/dist/client/styles/katex.css",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/plugin-markdown-tab/dist/client/components/CodeTabs.css",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/plugin-markdown-tab/dist/client/components/CodeTabs.js?v=db20fd8b",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/plugin-markdown-tab/dist/client/components/Tabs.css",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/plugin-markdown-tab/dist/client/components/Tabs.js?v=db20fd8b",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/plugin-medium-zoom/dist/client/config.css",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/plugin-medium-zoom/dist/client/config.js?v=db20fd8b",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/plugin-medium-zoom/dist/useMediumZoom-B2cO3M6s.js?v=db20fd8b",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/plugin-nprogress/dist/client/config.js?v=db20fd8b",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/plugin-nprogress/dist/useNprogress-BWcsTgAc.css",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/plugin-nprogress/dist/useNprogress-BWcsTgAc.js?v=db20fd8b",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/plugin-prismjs/dist/client/styles/nord.css",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/plugin-slimsearch/dist/client/config.css",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/plugin-slimsearch/dist/client/config.js?v=db20fd8b",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/plugin-slimsearch/dist/client/index.js?v=db20fd8b",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/plugin-slimsearch/dist/data-CJShFyw4.js?v=db20fd8b",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/plugin-slimsearch/dist/search-BKwHbuRq.js?v=db20fd8b",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/plugin-slimsearch/dist/SearchLoading-DwDdooPz.js?v=db20fd8b",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/plugin-slimsearch/dist/worker/dev.js",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/plugin-theme-data/dist/client/config.js?v=db20fd8b",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/plugin-theme-data/dist/client/index.js?v=db20fd8b",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/plugin-theme-data/dist/useThemeLocaleData-QKw21zSn.js?v=db20fd8b",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/theme-default/dist/client/components/global/Badge.vue",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/theme-default/dist/client/components/global/Badge.vue?vue&type=style&index=0&lang.scss",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/theme-default/dist/client/components/VPAutoLink.vue",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/theme-default/dist/client/components/VPDarkIcon.vue",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/theme-default/dist/client/components/VPDropdownTransition.vue",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/theme-default/dist/client/components/VPDropdownTransition.vue?vue&type=style&index=0&lang.scss",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/theme-default/dist/client/components/VPEditIcon.vue",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/theme-default/dist/client/components/VPFadeSlideYTransition.vue",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/theme-default/dist/client/components/VPHome.vue",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/theme-default/dist/client/components/VPHome.vue?vue&type=style&index=0&lang.scss",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/theme-default/dist/client/components/VPHomeFeatures.vue",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/theme-default/dist/client/components/VPHomeFeatures.vue?vue&type=style&index=0&lang.scss",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/theme-default/dist/client/components/VPHomeFooter.vue",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/theme-default/dist/client/components/VPHomeFooter.vue?vue&type=style&index=0&lang.css",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/theme-default/dist/client/components/VPHomeHero.vue",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/theme-default/dist/client/components/VPHomeHero.vue?vue&type=style&index=0&lang.scss",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/theme-default/dist/client/components/VPLightIcon.vue",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/theme-default/dist/client/components/VPNavbar.vue",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/theme-default/dist/client/components/VPNavbar.vue?vue&type=style&index=0&lang.scss",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/theme-default/dist/client/components/VPNavbarBrand.vue",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/theme-default/dist/client/components/VPNavbarBrand.vue?vue&type=style&index=0&lang.scss",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/theme-default/dist/client/components/VPNavbarDropdown.vue",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/theme-default/dist/client/components/VPNavbarDropdown.vue?vue&type=style&index=0&lang.scss",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/theme-default/dist/client/components/VPNavbarItems.vue",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/theme-default/dist/client/components/VPNavbarItems.vue?vue&type=style&index=0&lang.scss",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/theme-default/dist/client/components/VPPage.vue",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/theme-default/dist/client/components/VPPage.vue?vue&type=style&index=0&lang.scss",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/theme-default/dist/client/components/VPPageMeta.vue",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/theme-default/dist/client/components/VPPageMeta.vue?vue&type=style&index=0&lang.scss",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/theme-default/dist/client/components/VPPageNav.vue",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/theme-default/dist/client/components/VPPageNav.vue?vue&type=style&index=0&lang.scss",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/theme-default/dist/client/components/VPSidebar.vue",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/theme-default/dist/client/components/VPSidebar.vue?vue&type=style&index=0&lang.scss",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/theme-default/dist/client/components/VPSidebarItem.vue",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/theme-default/dist/client/components/VPSidebarItem.vue?vue&type=style&index=0&lang.scss",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/theme-default/dist/client/components/VPSidebarItems.vue",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/theme-default/dist/client/components/VPSidebarItems.vue?vue&type=style&index=0&lang.scss",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/theme-default/dist/client/components/VPToggleColorModeButton.vue",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/theme-default/dist/client/components/VPToggleColorModeButton.vue?vue&type=style&index=0&lang.scss",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/theme-default/dist/client/components/VPToggleSidebarButton.vue",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/theme-default/dist/client/components/VPToggleSidebarButton.vue?vue&type=style&index=0&lang.scss",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/theme-default/dist/client/composables/useDarkMode.js?v=db20fd8b",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/theme-default/dist/client/composables/useData.js?v=db20fd8b",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/theme-default/dist/client/composables/useEditLink.js?v=db20fd8b",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/theme-default/dist/client/composables/useHeaders.js?v=db20fd8b",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/theme-default/dist/client/composables/useNavbarConfig.js?v=db20fd8b",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/theme-default/dist/client/composables/useNavbarRepo.js?v=db20fd8b",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/theme-default/dist/client/composables/useNavbarSelectLanguage.js?v=db20fd8b",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/theme-default/dist/client/composables/useNavigate.js?v=db20fd8b",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/theme-default/dist/client/composables/useRelatedLinks.js?v=db20fd8b",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/theme-default/dist/client/composables/useScrollPromise.js?v=db20fd8b",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/theme-default/dist/client/composables/useSidebarItems.js?v=db20fd8b",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/theme-default/dist/client/composables/useUpdateDeviceStatus.js?v=db20fd8b",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/theme-default/dist/client/config.js?v=db20fd8b",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/theme-default/dist/client/layouts/Layout.vue",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/theme-default/dist/client/layouts/Layout.vue?vue&type=style&index=0&lang.scss",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/theme-default/dist/client/layouts/NotFound.vue",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/theme-default/dist/client/layouts/NotFound.vue?vue&type=style&index=0&scoped=0aedc4e3&lang.scss",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/theme-default/dist/client/styles/_variables.module.scss",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/theme-default/dist/client/styles/index.scss",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/theme-default/dist/client/utils/isActiveSidebarItem.js?v=db20fd8b",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/theme-default/dist/client/utils/resolveAutoLink.js?v=db20fd8b",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/theme-default/dist/client/utils/resolveEditLink.js?v=db20fd8b",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/theme-default/dist/client/utils/resolvePrefix.js?v=db20fd8b",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/theme-default/dist/client/utils/resolveRepoType.js?v=db20fd8b",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/theme-default/dist/isActiveSidebarItem-CdmUcp0l.js?v=db20fd8b",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/theme-default/dist/resolveAutoLink-XUJwl3Kb.js?v=db20fd8b",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/theme-default/dist/resolveEditLink-lteF0-Mv.js?v=db20fd8b",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/theme-default/dist/resolvePrefix-CQnTmTk4.js?v=db20fd8b",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/theme-default/dist/resolveRepoType-BfcHRhpi.js?v=db20fd8b",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/theme-default/dist/useDarkMode-BfKvIN6K.js?v=db20fd8b",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/theme-default/dist/useData-nv4hwlgW.js?v=db20fd8b",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/theme-default/dist/useEditLink-BmoW42FE.js?v=db20fd8b",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/theme-default/dist/useNavbarConfig-CxVplYul.js?v=db20fd8b",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/theme-default/dist/useNavbarRepo-BScd94be.js?v=db20fd8b",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/theme-default/dist/useNavbarSelectLanguage-FHyzHFEW.js?v=db20fd8b",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/theme-default/dist/useNavigate-mlFey3ew.js?v=db20fd8b",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/theme-default/dist/useRelatedLinks-BwsPumn1.js?v=db20fd8b",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/theme-default/dist/useScrollPromise-CB6ZLciv.js?v=db20fd8b",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/theme-default/dist/useSidebarItems-D1vD1QQp.js?v=db20fd8b",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vuepress/theme-default/dist/useUpdateDeviceStatus-DMKiVB3W.js?v=db20fd8b",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vueuse/core/dist/index.js?v=db20fd8b",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/@vueuse/shared/dist/index.js?v=db20fd8b",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/fflate/esm/browser.js?v=db20fd8b",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/katex/dist/fonts/KaTeX_AMS-Regular.woff2",
+    "status": 200,
+    "contentType": "font/woff2"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/katex/dist/fonts/KaTeX_Caligraphic-Regular.woff2",
+    "status": 200,
+    "contentType": "font/woff2"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/katex/dist/fonts/KaTeX_Main-Bold.woff2",
+    "status": 200,
+    "contentType": "font/woff2"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/katex/dist/fonts/KaTeX_Main-Regular.woff2",
+    "status": 200,
+    "contentType": "font/woff2"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/katex/dist/fonts/KaTeX_Math-Italic.woff2",
+    "status": 200,
+    "contentType": "font/woff2"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/katex/dist/fonts/KaTeX_Size1-Regular.woff2",
+    "status": 200,
+    "contentType": "font/woff2"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/katex/dist/fonts/KaTeX_Size2-Regular.woff2",
+    "status": 200,
+    "contentType": "font/woff2"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/katex/dist/fonts/KaTeX_Size3-Regular.woff2",
+    "status": 200,
+    "contentType": "font/woff2"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/katex/dist/fonts/KaTeX_Size4-Regular.woff2",
+    "status": 200,
+    "contentType": "font/woff2"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/katex/dist/katex.min.css",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/medium-zoom/dist/medium-zoom.esm.js?v=db20fd8b",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/vite/dist/client/env.mjs",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/vuepress/dist/client-app.js?t=1789129976528&v=db20fd8b",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/vuepress/dist/client.js?v=db20fd8b",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "url": "http://127.0.0.1:4173/node_modules/vuepress/dist/shared.js?v=db20fd8b",
+    "status": 200,
+    "contentType": "text/javascript"
+  }
+]

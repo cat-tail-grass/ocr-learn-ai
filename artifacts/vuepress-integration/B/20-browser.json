@@ -1,0 +1,25 @@
+{
+  "dimensions": "input          [1, 8, 20, 1]\nconvolution    [1, 8, 20, 4]\npooled         [1, 4, 10, 4]\nsequence       [1, 10, 16]\nbidirectional  [1, 10, 16]\nlogits         [1, 10, 3]",
+  "frames": "t= 0  blank=0.9973  0=0.0023  1=0.0004\nt= 1  blank=0.0011  0=0.9975  1=0.0014\nt= 2  blank=0.9999  0=0.0000  1=0.0001\nt= 3  blank=0.0006  0=0.9992  1=0.0002\nt= 4  blank=0.9951  0=0.0046  1=0.0003\nt= 5  blank=0.9846  0=0.0001  1=0.0153\nt= 6  blank=0.0002  0=0.0016  1=0.9982\nt= 7  blank=0.9997  0=0.0000  1=0.0003\nt= 8  blank=1.0000  0=0.0000  1=0.0000\nt= 9  blank=1.0000  0=0.0000  1=0.0000",
+  "prediction": "Prefix beam：001；贪婪：001",
+  "resources": [
+    {
+      "name": "http://127.0.0.1:4173/labs/shared/course.css",
+      "status": 200
+    },
+    {
+      "name": "http://127.0.0.1:4173/labs/shared/course.js",
+      "status": 200
+    },
+    {
+      "name": "http://127.0.0.1:4173/labs/20-crnn/bundle.js",
+      "status": 200
+    },
+    {
+      "name": "http://127.0.0.1:4173/labs/20-crnn/model/weights.json",
+      "status": 200
+    }
+  ],
+  "status": "已仅根据整行像素预测。手工改图后可再次识别；训练字形范围外可能失败。",
+  "url": "http://127.0.0.1:4173/labs/20-crnn/index.html"
+}

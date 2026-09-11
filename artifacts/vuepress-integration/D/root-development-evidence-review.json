@@ -1,0 +1,1116 @@
+{
+  "reviewedAt": "2026-09-11T12:50:56.099Z",
+  "kind": "recheck of saved independent browser evidence",
+  "url": "http://127.0.0.1:4173/",
+  "sourceRuns": [
+    "dev-root-verified (reading/labs completed; later search interrupted)",
+    "dev-root-search-final (exit 0)",
+    "dev-root-flow-pass (exit 0)"
+  ],
+  "totals": {
+    "chapters": 26,
+    "headings": 871,
+    "h23": 801,
+    "codeBlocks": 387,
+    "details": 35,
+    "formulae": 92,
+    "proseSnippets": 1524
+  },
+  "checks": [
+    {
+      "name": "01-image-fundamentals: browser capture exists",
+      "pass": true
+    },
+    {
+      "name": "01-image-fundamentals: every source heading and full code block",
+      "pass": true
+    },
+    {
+      "name": "01-image-fundamentals: complete long prose and self-test count",
+      "pass": true,
+      "detail": {
+        "snippets": 18,
+        "missing": []
+      }
+    },
+    {
+      "name": "01-image-fundamentals: complete unique h2/h3 toc",
+      "pass": true
+    },
+    {
+      "name": "01-image-fundamentals: source-order navigation and boundaries",
+      "pass": true
+    },
+    {
+      "name": "01-image-fundamentals: exact experiment route and new tab",
+      "pass": true
+    },
+    {
+      "name": "01-image-fundamentals: no math errors, model load, overlay, or desktop overflow",
+      "pass": true
+    },
+    {
+      "name": "01-image-fundamentals: eight sidebar groups and current chapter",
+      "pass": true
+    },
+    {
+      "name": "02-js-image-basics: browser capture exists",
+      "pass": true
+    },
+    {
+      "name": "02-js-image-basics: every source heading and full code block",
+      "pass": true
+    },
+    {
+      "name": "02-js-image-basics: complete long prose and self-test count",
+      "pass": true,
+      "detail": {
+        "snippets": 14,
+        "missing": []
+      }
+    },
+    {
+      "name": "02-js-image-basics: complete unique h2/h3 toc",
+      "pass": true
+    },
+    {
+      "name": "02-js-image-basics: source-order navigation and boundaries",
+      "pass": true
+    },
+    {
+      "name": "02-js-image-basics: exact experiment route and new tab",
+      "pass": true
+    },
+    {
+      "name": "02-js-image-basics: no math errors, model load, overlay, or desktop overflow",
+      "pass": true
+    },
+    {
+      "name": "02-js-image-basics: eight sidebar groups and current chapter",
+      "pass": true
+    },
+    {
+      "name": "03-grayscale: browser capture exists",
+      "pass": true
+    },
+    {
+      "name": "03-grayscale: every source heading and full code block",
+      "pass": true
+    },
+    {
+      "name": "03-grayscale: complete long prose and self-test count",
+      "pass": true,
+      "detail": {
+        "snippets": 16,
+        "missing": []
+      }
+    },
+    {
+      "name": "03-grayscale: complete unique h2/h3 toc",
+      "pass": true
+    },
+    {
+      "name": "03-grayscale: source-order navigation and boundaries",
+      "pass": true
+    },
+    {
+      "name": "03-grayscale: exact experiment route and new tab",
+      "pass": true
+    },
+    {
+      "name": "03-grayscale: no math errors, model load, overlay, or desktop overflow",
+      "pass": true
+    },
+    {
+      "name": "03-grayscale: eight sidebar groups and current chapter",
+      "pass": true
+    },
+    {
+      "name": "04-binarization: browser capture exists",
+      "pass": true
+    },
+    {
+      "name": "04-binarization: every source heading and full code block",
+      "pass": true
+    },
+    {
+      "name": "04-binarization: complete long prose and self-test count",
+      "pass": true,
+      "detail": {
+        "snippets": 20,
+        "missing": []
+      }
+    },
+    {
+      "name": "04-binarization: complete unique h2/h3 toc",
+      "pass": true
+    },
+    {
+      "name": "04-binarization: source-order navigation and boundaries",
+      "pass": true
+    },
+    {
+      "name": "04-binarization: exact experiment route and new tab",
+      "pass": true
+    },
+    {
+      "name": "04-binarization: no math errors, model load, overlay, or desktop overflow",
+      "pass": true
+    },
+    {
+      "name": "04-binarization: eight sidebar groups and current chapter",
+      "pass": true
+    },
+    {
+      "name": "05-denoising: browser capture exists",
+      "pass": true
+    },
+    {
+      "name": "05-denoising: every source heading and full code block",
+      "pass": true
+    },
+    {
+      "name": "05-denoising: complete long prose and self-test count",
+      "pass": true,
+      "detail": {
+        "snippets": 27,
+        "missing": []
+      }
+    },
+    {
+      "name": "05-denoising: complete unique h2/h3 toc",
+      "pass": true
+    },
+    {
+      "name": "05-denoising: source-order navigation and boundaries",
+      "pass": true
+    },
+    {
+      "name": "05-denoising: exact experiment route and new tab",
+      "pass": true
+    },
+    {
+      "name": "05-denoising: no math errors, model load, overlay, or desktop overflow",
+      "pass": true
+    },
+    {
+      "name": "05-denoising: eight sidebar groups and current chapter",
+      "pass": true
+    },
+    {
+      "name": "06-morphology: browser capture exists",
+      "pass": true
+    },
+    {
+      "name": "06-morphology: every source heading and full code block",
+      "pass": true
+    },
+    {
+      "name": "06-morphology: complete long prose and self-test count",
+      "pass": true,
+      "detail": {
+        "snippets": 15,
+        "missing": []
+      }
+    },
+    {
+      "name": "06-morphology: complete unique h2/h3 toc",
+      "pass": true
+    },
+    {
+      "name": "06-morphology: source-order navigation and boundaries",
+      "pass": true
+    },
+    {
+      "name": "06-morphology: exact experiment route and new tab",
+      "pass": true
+    },
+    {
+      "name": "06-morphology: no math errors, model load, overlay, or desktop overflow",
+      "pass": true
+    },
+    {
+      "name": "06-morphology: eight sidebar groups and current chapter",
+      "pass": true
+    },
+    {
+      "name": "07-deskewing: browser capture exists",
+      "pass": true
+    },
+    {
+      "name": "07-deskewing: every source heading and full code block",
+      "pass": true
+    },
+    {
+      "name": "07-deskewing: complete long prose and self-test count",
+      "pass": true,
+      "detail": {
+        "snippets": 20,
+        "missing": []
+      }
+    },
+    {
+      "name": "07-deskewing: complete unique h2/h3 toc",
+      "pass": true
+    },
+    {
+      "name": "07-deskewing: source-order navigation and boundaries",
+      "pass": true
+    },
+    {
+      "name": "07-deskewing: exact experiment route and new tab",
+      "pass": true
+    },
+    {
+      "name": "07-deskewing: no math errors, model load, overlay, or desktop overflow",
+      "pass": true
+    },
+    {
+      "name": "07-deskewing: eight sidebar groups and current chapter",
+      "pass": true
+    },
+    {
+      "name": "08-edge-detection: browser capture exists",
+      "pass": true
+    },
+    {
+      "name": "08-edge-detection: every source heading and full code block",
+      "pass": true
+    },
+    {
+      "name": "08-edge-detection: complete long prose and self-test count",
+      "pass": true,
+      "detail": {
+        "snippets": 18,
+        "missing": []
+      }
+    },
+    {
+      "name": "08-edge-detection: complete unique h2/h3 toc",
+      "pass": true
+    },
+    {
+      "name": "08-edge-detection: source-order navigation and boundaries",
+      "pass": true
+    },
+    {
+      "name": "08-edge-detection: exact experiment route and new tab",
+      "pass": true
+    },
+    {
+      "name": "08-edge-detection: no math errors, model load, overlay, or desktop overflow",
+      "pass": true
+    },
+    {
+      "name": "08-edge-detection: eight sidebar groups and current chapter",
+      "pass": true
+    },
+    {
+      "name": "09-connected-components: browser capture exists",
+      "pass": true
+    },
+    {
+      "name": "09-connected-components: every source heading and full code block",
+      "pass": true
+    },
+    {
+      "name": "09-connected-components: complete long prose and self-test count",
+      "pass": true,
+      "detail": {
+        "snippets": 15,
+        "missing": []
+      }
+    },
+    {
+      "name": "09-connected-components: complete unique h2/h3 toc",
+      "pass": true
+    },
+    {
+      "name": "09-connected-components: source-order navigation and boundaries",
+      "pass": true
+    },
+    {
+      "name": "09-connected-components: exact experiment route and new tab",
+      "pass": true
+    },
+    {
+      "name": "09-connected-components: no math errors, model load, overlay, or desktop overflow",
+      "pass": true
+    },
+    {
+      "name": "09-connected-components: eight sidebar groups and current chapter",
+      "pass": true
+    },
+    {
+      "name": "10-text-localization: browser capture exists",
+      "pass": true
+    },
+    {
+      "name": "10-text-localization: every source heading and full code block",
+      "pass": true
+    },
+    {
+      "name": "10-text-localization: complete long prose and self-test count",
+      "pass": true,
+      "detail": {
+        "snippets": 17,
+        "missing": []
+      }
+    },
+    {
+      "name": "10-text-localization: complete unique h2/h3 toc",
+      "pass": true
+    },
+    {
+      "name": "10-text-localization: source-order navigation and boundaries",
+      "pass": true
+    },
+    {
+      "name": "10-text-localization: exact experiment route and new tab",
+      "pass": true
+    },
+    {
+      "name": "10-text-localization: no math errors, model load, overlay, or desktop overflow",
+      "pass": true
+    },
+    {
+      "name": "10-text-localization: eight sidebar groups and current chapter",
+      "pass": true
+    },
+    {
+      "name": "11-feature-extraction: browser capture exists",
+      "pass": true
+    },
+    {
+      "name": "11-feature-extraction: every source heading and full code block",
+      "pass": true
+    },
+    {
+      "name": "11-feature-extraction: complete long prose and self-test count",
+      "pass": true,
+      "detail": {
+        "snippets": 29,
+        "missing": []
+      }
+    },
+    {
+      "name": "11-feature-extraction: complete unique h2/h3 toc",
+      "pass": true
+    },
+    {
+      "name": "11-feature-extraction: source-order navigation and boundaries",
+      "pass": true
+    },
+    {
+      "name": "11-feature-extraction: exact experiment route and new tab",
+      "pass": true
+    },
+    {
+      "name": "11-feature-extraction: no math errors, model load, overlay, or desktop overflow",
+      "pass": true
+    },
+    {
+      "name": "11-feature-extraction: eight sidebar groups and current chapter",
+      "pass": true
+    },
+    {
+      "name": "12-template-matching: browser capture exists",
+      "pass": true
+    },
+    {
+      "name": "12-template-matching: every source heading and full code block",
+      "pass": true
+    },
+    {
+      "name": "12-template-matching: complete long prose and self-test count",
+      "pass": true,
+      "detail": {
+        "snippets": 10,
+        "missing": []
+      }
+    },
+    {
+      "name": "12-template-matching: complete unique h2/h3 toc",
+      "pass": true
+    },
+    {
+      "name": "12-template-matching: source-order navigation and boundaries",
+      "pass": true
+    },
+    {
+      "name": "12-template-matching: exact experiment route and new tab",
+      "pass": true
+    },
+    {
+      "name": "12-template-matching: no math errors, model load, overlay, or desktop overflow",
+      "pass": true
+    },
+    {
+      "name": "12-template-matching: eight sidebar groups and current chapter",
+      "pass": true
+    },
+    {
+      "name": "13-knn-classifier: browser capture exists",
+      "pass": true
+    },
+    {
+      "name": "13-knn-classifier: every source heading and full code block",
+      "pass": true
+    },
+    {
+      "name": "13-knn-classifier: complete long prose and self-test count",
+      "pass": true,
+      "detail": {
+        "snippets": 14,
+        "missing": []
+      }
+    },
+    {
+      "name": "13-knn-classifier: complete unique h2/h3 toc",
+      "pass": true
+    },
+    {
+      "name": "13-knn-classifier: source-order navigation and boundaries",
+      "pass": true
+    },
+    {
+      "name": "13-knn-classifier: exact experiment route and new tab",
+      "pass": true
+    },
+    {
+      "name": "13-knn-classifier: no math errors, model load, overlay, or desktop overflow",
+      "pass": true
+    },
+    {
+      "name": "13-knn-classifier: eight sidebar groups and current chapter",
+      "pass": true
+    },
+    {
+      "name": "14-neural-network-basics: browser capture exists",
+      "pass": true
+    },
+    {
+      "name": "14-neural-network-basics: every source heading and full code block",
+      "pass": true
+    },
+    {
+      "name": "14-neural-network-basics: complete long prose and self-test count",
+      "pass": true,
+      "detail": {
+        "snippets": 80,
+        "missing": []
+      }
+    },
+    {
+      "name": "14-neural-network-basics: complete unique h2/h3 toc",
+      "pass": true
+    },
+    {
+      "name": "14-neural-network-basics: source-order navigation and boundaries",
+      "pass": true
+    },
+    {
+      "name": "14-neural-network-basics: exact experiment route and new tab",
+      "pass": true
+    },
+    {
+      "name": "14-neural-network-basics: no math errors, model load, overlay, or desktop overflow",
+      "pass": true
+    },
+    {
+      "name": "14-neural-network-basics: eight sidebar groups and current chapter",
+      "pass": true
+    },
+    {
+      "name": "15-cnn-basics: browser capture exists",
+      "pass": true
+    },
+    {
+      "name": "15-cnn-basics: every source heading and full code block",
+      "pass": true
+    },
+    {
+      "name": "15-cnn-basics: complete long prose and self-test count",
+      "pass": true,
+      "detail": {
+        "snippets": 107,
+        "missing": []
+      }
+    },
+    {
+      "name": "15-cnn-basics: complete unique h2/h3 toc",
+      "pass": true
+    },
+    {
+      "name": "15-cnn-basics: source-order navigation and boundaries",
+      "pass": true
+    },
+    {
+      "name": "15-cnn-basics: exact experiment route and new tab",
+      "pass": true
+    },
+    {
+      "name": "15-cnn-basics: no math errors, model load, overlay, or desktop overflow",
+      "pass": true
+    },
+    {
+      "name": "15-cnn-basics: eight sidebar groups and current chapter",
+      "pass": true
+    },
+    {
+      "name": "16-tensorflowjs-intro: browser capture exists",
+      "pass": true
+    },
+    {
+      "name": "16-tensorflowjs-intro: every source heading and full code block",
+      "pass": true
+    },
+    {
+      "name": "16-tensorflowjs-intro: complete long prose and self-test count",
+      "pass": true,
+      "detail": {
+        "snippets": 67,
+        "missing": []
+      }
+    },
+    {
+      "name": "16-tensorflowjs-intro: complete unique h2/h3 toc",
+      "pass": true
+    },
+    {
+      "name": "16-tensorflowjs-intro: source-order navigation and boundaries",
+      "pass": true
+    },
+    {
+      "name": "16-tensorflowjs-intro: exact experiment route and new tab",
+      "pass": true
+    },
+    {
+      "name": "16-tensorflowjs-intro: no math errors, model load, overlay, or desktop overflow",
+      "pass": true
+    },
+    {
+      "name": "16-tensorflowjs-intro: eight sidebar groups and current chapter",
+      "pass": true
+    },
+    {
+      "name": "17-cnn-classifier: browser capture exists",
+      "pass": true
+    },
+    {
+      "name": "17-cnn-classifier: every source heading and full code block",
+      "pass": true
+    },
+    {
+      "name": "17-cnn-classifier: complete long prose and self-test count",
+      "pass": true,
+      "detail": {
+        "snippets": 130,
+        "missing": []
+      }
+    },
+    {
+      "name": "17-cnn-classifier: complete unique h2/h3 toc",
+      "pass": true
+    },
+    {
+      "name": "17-cnn-classifier: source-order navigation and boundaries",
+      "pass": true
+    },
+    {
+      "name": "17-cnn-classifier: exact experiment route and new tab",
+      "pass": true
+    },
+    {
+      "name": "17-cnn-classifier: no math errors, model load, overlay, or desktop overflow",
+      "pass": true
+    },
+    {
+      "name": "17-cnn-classifier: eight sidebar groups and current chapter",
+      "pass": true
+    },
+    {
+      "name": "18-rnn-basics: browser capture exists",
+      "pass": true
+    },
+    {
+      "name": "18-rnn-basics: every source heading and full code block",
+      "pass": true
+    },
+    {
+      "name": "18-rnn-basics: complete long prose and self-test count",
+      "pass": true,
+      "detail": {
+        "snippets": 48,
+        "missing": []
+      }
+    },
+    {
+      "name": "18-rnn-basics: complete unique h2/h3 toc",
+      "pass": true
+    },
+    {
+      "name": "18-rnn-basics: source-order navigation and boundaries",
+      "pass": true
+    },
+    {
+      "name": "18-rnn-basics: exact experiment route and new tab",
+      "pass": true
+    },
+    {
+      "name": "18-rnn-basics: no math errors, model load, overlay, or desktop overflow",
+      "pass": true
+    },
+    {
+      "name": "18-rnn-basics: eight sidebar groups and current chapter",
+      "pass": true
+    },
+    {
+      "name": "19-ctc-loss: browser capture exists",
+      "pass": true
+    },
+    {
+      "name": "19-ctc-loss: every source heading and full code block",
+      "pass": true
+    },
+    {
+      "name": "19-ctc-loss: complete long prose and self-test count",
+      "pass": true,
+      "detail": {
+        "snippets": 61,
+        "missing": []
+      }
+    },
+    {
+      "name": "19-ctc-loss: complete unique h2/h3 toc",
+      "pass": true
+    },
+    {
+      "name": "19-ctc-loss: source-order navigation and boundaries",
+      "pass": true
+    },
+    {
+      "name": "19-ctc-loss: exact experiment route and new tab",
+      "pass": true
+    },
+    {
+      "name": "19-ctc-loss: no math errors, model load, overlay, or desktop overflow",
+      "pass": true
+    },
+    {
+      "name": "19-ctc-loss: eight sidebar groups and current chapter",
+      "pass": true
+    },
+    {
+      "name": "20-crnn: browser capture exists",
+      "pass": true
+    },
+    {
+      "name": "20-crnn: every source heading and full code block",
+      "pass": true
+    },
+    {
+      "name": "20-crnn: complete long prose and self-test count",
+      "pass": true,
+      "detail": {
+        "snippets": 90,
+        "missing": []
+      }
+    },
+    {
+      "name": "20-crnn: complete unique h2/h3 toc",
+      "pass": true
+    },
+    {
+      "name": "20-crnn: source-order navigation and boundaries",
+      "pass": true
+    },
+    {
+      "name": "20-crnn: exact experiment route and new tab",
+      "pass": true
+    },
+    {
+      "name": "20-crnn: no math errors, model load, overlay, or desktop overflow",
+      "pass": true
+    },
+    {
+      "name": "20-crnn: eight sidebar groups and current chapter",
+      "pass": true
+    },
+    {
+      "name": "21-attention: browser capture exists",
+      "pass": true
+    },
+    {
+      "name": "21-attention: every source heading and full code block",
+      "pass": true
+    },
+    {
+      "name": "21-attention: complete long prose and self-test count",
+      "pass": true,
+      "detail": {
+        "snippets": 65,
+        "missing": []
+      }
+    },
+    {
+      "name": "21-attention: complete unique h2/h3 toc",
+      "pass": true
+    },
+    {
+      "name": "21-attention: source-order navigation and boundaries",
+      "pass": true
+    },
+    {
+      "name": "21-attention: exact experiment route and new tab",
+      "pass": true
+    },
+    {
+      "name": "21-attention: no math errors, model load, overlay, or desktop overflow",
+      "pass": true
+    },
+    {
+      "name": "21-attention: eight sidebar groups and current chapter",
+      "pass": true
+    },
+    {
+      "name": "22-text-detection-networks: browser capture exists",
+      "pass": true
+    },
+    {
+      "name": "22-text-detection-networks: every source heading and full code block",
+      "pass": true
+    },
+    {
+      "name": "22-text-detection-networks: complete long prose and self-test count",
+      "pass": true,
+      "detail": {
+        "snippets": 83,
+        "missing": []
+      }
+    },
+    {
+      "name": "22-text-detection-networks: complete unique h2/h3 toc",
+      "pass": true
+    },
+    {
+      "name": "22-text-detection-networks: source-order navigation and boundaries",
+      "pass": true
+    },
+    {
+      "name": "22-text-detection-networks: exact experiment route and new tab",
+      "pass": true
+    },
+    {
+      "name": "22-text-detection-networks: no math errors, model load, overlay, or desktop overflow",
+      "pass": true
+    },
+    {
+      "name": "22-text-detection-networks: eight sidebar groups and current chapter",
+      "pass": true
+    },
+    {
+      "name": "23-transformer-ocr: browser capture exists",
+      "pass": true
+    },
+    {
+      "name": "23-transformer-ocr: every source heading and full code block",
+      "pass": true
+    },
+    {
+      "name": "23-transformer-ocr: complete long prose and self-test count",
+      "pass": true,
+      "detail": {
+        "snippets": 114,
+        "missing": []
+      }
+    },
+    {
+      "name": "23-transformer-ocr: complete unique h2/h3 toc",
+      "pass": true
+    },
+    {
+      "name": "23-transformer-ocr: source-order navigation and boundaries",
+      "pass": true
+    },
+    {
+      "name": "23-transformer-ocr: exact experiment route and new tab",
+      "pass": true
+    },
+    {
+      "name": "23-transformer-ocr: no math errors, model load, overlay, or desktop overflow",
+      "pass": true
+    },
+    {
+      "name": "23-transformer-ocr: eight sidebar groups and current chapter",
+      "pass": true
+    },
+    {
+      "name": "24-post-processing: browser capture exists",
+      "pass": true
+    },
+    {
+      "name": "24-post-processing: every source heading and full code block",
+      "pass": true
+    },
+    {
+      "name": "24-post-processing: complete long prose and self-test count",
+      "pass": true,
+      "detail": {
+        "snippets": 164,
+        "missing": []
+      }
+    },
+    {
+      "name": "24-post-processing: complete unique h2/h3 toc",
+      "pass": true
+    },
+    {
+      "name": "24-post-processing: source-order navigation and boundaries",
+      "pass": true
+    },
+    {
+      "name": "24-post-processing: exact experiment route and new tab",
+      "pass": true
+    },
+    {
+      "name": "24-post-processing: no math errors, model load, overlay, or desktop overflow",
+      "pass": true
+    },
+    {
+      "name": "24-post-processing: eight sidebar groups and current chapter",
+      "pass": true
+    },
+    {
+      "name": "25-ocr-engine: browser capture exists",
+      "pass": true
+    },
+    {
+      "name": "25-ocr-engine: every source heading and full code block",
+      "pass": true
+    },
+    {
+      "name": "25-ocr-engine: complete long prose and self-test count",
+      "pass": true,
+      "detail": {
+        "snippets": 124,
+        "missing": []
+      }
+    },
+    {
+      "name": "25-ocr-engine: complete unique h2/h3 toc",
+      "pass": true
+    },
+    {
+      "name": "25-ocr-engine: source-order navigation and boundaries",
+      "pass": true
+    },
+    {
+      "name": "25-ocr-engine: exact experiment route and new tab",
+      "pass": true
+    },
+    {
+      "name": "25-ocr-engine: no math errors, model load, overlay, or desktop overflow",
+      "pass": true
+    },
+    {
+      "name": "25-ocr-engine: eight sidebar groups and current chapter",
+      "pass": true
+    },
+    {
+      "name": "26-validation: browser capture exists",
+      "pass": true
+    },
+    {
+      "name": "26-validation: every source heading and full code block",
+      "pass": true
+    },
+    {
+      "name": "26-validation: complete long prose and self-test count",
+      "pass": true,
+      "detail": {
+        "snippets": 158,
+        "missing": []
+      }
+    },
+    {
+      "name": "26-validation: complete unique h2/h3 toc",
+      "pass": true
+    },
+    {
+      "name": "26-validation: source-order navigation and boundaries",
+      "pass": true
+    },
+    {
+      "name": "26-validation: exact experiment route and new tab",
+      "pass": true
+    },
+    {
+      "name": "26-validation: no math errors, model load, overlay, or desktop overflow",
+      "pass": true
+    },
+    {
+      "name": "26-validation: eight sidebar groups and current chapter",
+      "pass": true
+    },
+    {
+      "name": "26 chapters fit mobile 390px",
+      "pass": true,
+      "detail": [
+        {
+          "slug": "04-binarization",
+          "document": 390,
+          "viewport": 390
+        },
+        {
+          "slug": "11-feature-extraction",
+          "document": 390,
+          "viewport": 390
+        },
+        {
+          "slug": "17-cnn-classifier",
+          "document": 390,
+          "viewport": 390
+        },
+        {
+          "slug": "25-ocr-engine",
+          "document": 390,
+          "viewport": 390
+        },
+        {
+          "slug": "01-image-fundamentals",
+          "document": 390,
+          "viewport": 390
+        },
+        {
+          "slug": "02-js-image-basics",
+          "document": 390,
+          "viewport": 390
+        },
+        {
+          "slug": "03-grayscale",
+          "document": 390,
+          "viewport": 390
+        },
+        {
+          "slug": "05-denoising",
+          "document": 390,
+          "viewport": 390
+        },
+        {
+          "slug": "06-morphology",
+          "document": 390,
+          "viewport": 390
+        },
+        {
+          "slug": "07-deskewing",
+          "document": 390,
+          "viewport": 390
+        },
+        {
+          "slug": "08-edge-detection",
+          "document": 390,
+          "viewport": 390
+        },
+        {
+          "slug": "09-connected-components",
+          "document": 390,
+          "viewport": 390
+        },
+        {
+          "slug": "10-text-localization",
+          "document": 390,
+          "viewport": 390
+        },
+        {
+          "slug": "12-template-matching",
+          "document": 390,
+          "viewport": 390
+        },
+        {
+          "slug": "13-knn-classifier",
+          "document": 390,
+          "viewport": 390
+        },
+        {
+          "slug": "14-neural-network-basics",
+          "document": 390,
+          "viewport": 390
+        },
+        {
+          "slug": "15-cnn-basics",
+          "document": 390,
+          "viewport": 390
+        },
+        {
+          "slug": "16-tensorflowjs-intro",
+          "document": 390,
+          "viewport": 390
+        },
+        {
+          "slug": "18-rnn-basics",
+          "document": 390,
+          "viewport": 390
+        },
+        {
+          "slug": "19-ctc-loss",
+          "document": 390,
+          "viewport": 390
+        },
+        {
+          "slug": "20-crnn",
+          "document": 390,
+          "viewport": 390
+        },
+        {
+          "slug": "21-attention",
+          "document": 390,
+          "viewport": 390
+        },
+        {
+          "slug": "22-text-detection-networks",
+          "document": 390,
+          "viewport": 390
+        },
+        {
+          "slug": "23-transformer-ocr",
+          "document": 390,
+          "viewport": 390
+        },
+        {
+          "slug": "24-post-processing",
+          "document": 390,
+          "viewport": 390
+        },
+        {
+          "slug": "26-validation",
+          "document": 390,
+          "viewport": 390
+        }
+      ]
+    },
+    {
+      "name": "eight-stage home with 26 ordered chapters",
+      "pass": true
+    },
+    {
+      "name": "26 actual experiment HTML pages and correct return links",
+      "pass": true
+    },
+    {
+      "name": "all captured same-origin URLs return HTTP200",
+      "pass": true,
+      "detail": 312
+    },
+    {
+      "name": "four-word search actually passed in fresh D session",
+      "pass": true
+    },
+    {
+      "name": "real model and evaluation import/export flows passed",
+      "pass": true
+    }
+  ],
+  "passed": 214,
+  "failed": 0
+}

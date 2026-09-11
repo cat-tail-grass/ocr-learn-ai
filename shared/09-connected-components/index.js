@@ -97,7 +97,8 @@ class UnionFind {
 function labelConnectedComponents(imageData, connectivity = 8, foregroundThreshold = 128) {
     const { width, height } = imageData;
     const labels = new Int32Array(width * height);
-    const maxLabels = width * height;
+    if (connectivity !== 4 && connectivity !== 8) throw new RangeError('connectivity须为4或8');
+    const maxLabels = width * height + 1; // 0保留给背景，前景标签从1开始
     const uf = new UnionFind(maxLabels);
     let nextLabel = 1;
     

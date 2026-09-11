@@ -20,10 +20,11 @@ const { calculateHistogram } = require('../03-grayscale');
  * - 最简单的二值化方法
  * 
  * @param {ImageData|MockImageData} imageData - 灰度图像数据
- * @param {number} threshold - 阈值 (0-255)
+ * @param {number} threshold - 白色下界 T (0-256，gray >= T 为白)
  * @returns {MockImageData} 二值化后的图像数据
  */
 function binarizeFixed(imageData, threshold) {
+    if (!Number.isFinite(threshold)) throw new RangeError('threshold 必须有限');
     return forEachPixel(imageData, (pixel) => {
         const gray = pixel.r; // 假设是灰度图
         const binary = gray >= threshold ? 255 : 0;
@@ -37,7 +38,7 @@ function binarizeFixed(imageData, threshold) {
  * 原理说明：
  * - 基于类间方差最大化原理
  * - 遍历所有可能的阈值（0-255）
- * - 找到使前景和背景分离最好的阈值
+ * - 找到使灰度类间方差最大的阈值；不保证语义文字分割最优
  * - 类间方差 = w0 * w1 * (μ0 - μ1)²
  * 
  * 算法步骤：
@@ -46,48 +47,49 @@ function binarizeFixed(imageData, threshold) {
  * 3. 选择使类间方差最大的 t 作为最佳阈值
  * 
  * @param {number[]} histogram - 灰度直方图（长度256）
- * @returns {{threshold: number, variance: number}} Otsu 结果
+ * @returns {{threshold:number, variance:number, w0:number, w1:number, count0:number, count1:number, total:number, validSplit:boolean}} t 为低灰度类上界，variance 单位为灰度²
  */
 function calculateOtsuThreshold(histogram) {
+    if (histogram.length !== 256 || Array.from(histogram).some(v => !Number.isFinite(v) || v < 0)) {
+        throw new RangeError('Otsu 需要 256 桶非负、有限的直方图');
+    }
     const total = histogram.reduce((sum, count) => sum + count, 0);
-    
     if (total === 0) {
-        return { threshold: 128, variance: 0 };
+        return { threshold: 128, variance: 0, w0: 0, w1: 0, count0: 0, count1: 0, total, validSplit: false };
     }
-    
-    // 计算所有像素的灰度值总和
     let sum = 0;
-    for (let i = 0; i < 256; i++) {
-        sum += i * histogram[i];
-    }
-    
-    let sumB = 0;  // 背景像素灰度和
-    let wB = 0;    // 背景像素数
+    for (let i = 0; i < 256; i++) sum += i * histogram[i];
+
+    let sum0 = 0;
+    let count0 = 0;
     let maxVariance = 0;
-    let bestThreshold = 0;
-    
-    // 遍历所有可能的阈值
-    for (let t = 0; t < 256; t++) {
-        wB += histogram[t];         // 背景像素数
-        if (wB === 0) continue;
-        
-        const wF = total - wB;      // 前景像素数
-        if (wF === 0) break;
-        
-        sumB += t * histogram[t];   // 背景灰度和
-        const mB = sumB / wB;       // 背景平均灰度
-        const mF = (sum - sumB) / wF; // 前景平均灰度
-        
-        // 类间方差
-        const variance = wB * wF * (mB - mF) * (mB - mF);
-        
+    let threshold = 0;
+    // 单一灰度没有有效二类分割，保留 t=0 的确定性回退并明确标记。
+    let bestCount0 = histogram[0];
+    let validSplit = false;
+    for (let t = 0; t < 255; t++) {
+        count0 += histogram[t];
+        sum0 += t * histogram[t];
+        const count1 = total - count0;
+        if (count0 === 0) continue;
+        if (count1 === 0) break;
+        const mean0 = sum0 / count0;
+        const mean1 = (sum - sum0) / count1;
+        // C0=[0,t], C1=[t+1,255]；w0、w1 是比例而非像素数。
+        const variance = (count0 / total) * (count1 / total) * (mean0 - mean1) ** 2;
+        // 严格大于保证相同最大值取最小 t；不会强求直方图谷底。
         if (variance > maxVariance) {
             maxVariance = variance;
-            bestThreshold = t;
+            threshold = t;
+            bestCount0 = count0;
+            validSplit = true;
         }
     }
-    
-    return { threshold: bestThreshold, variance: maxVariance };
+    return {
+        threshold, variance: maxVariance,
+        w0: bestCount0 / total, w1: (total - bestCount0) / total,
+        count0: bestCount0, count1: total - bestCount0, total, validSplit
+    };
 }
 
 /**
@@ -104,12 +106,13 @@ function calculateOtsuThreshold(histogram) {
 function binarizeOtsu(imageData) {
     const histogram = calculateHistogram(imageData);
     const otsuResult = calculateOtsuThreshold(histogram);
-    const binaryImage = binarizeFixed(imageData, otsuResult.threshold);
+    // Otsu 的前景类包含灰度 t（[0, t]），而固定阈值用的是 gray < threshold。
+    // 使用 t + 1 对齐两种边界约定，否则纯黑/白图最佳 t=0 时黑笔画会全部丢失。
+    const binaryImage = binarizeFixed(imageData, otsuResult.threshold + 1);
     
     return {
-        imageData: binaryImage,
-        threshold: otsuResult.threshold,
-        variance: otsuResult.variance
+        ...otsuResult,
+        imageData: binaryImage
     };
 }
 
@@ -132,6 +135,9 @@ function binarizeOtsu(imageData) {
  * @returns {MockImageData} 二值化后的图像数据
  */
 function binarizeAdaptive(imageData, blockSize = 15, C = 5) {
+    if (!Number.isInteger(blockSize) || blockSize < 1 || blockSize % 2 === 0 || !Number.isFinite(C)) {
+        throw new RangeError('blockSize 必须是正奇数，C 必须有限');
+    }
     const { width, height } = imageData;
     const result = cloneImageData(imageData);
     const halfBlock = Math.floor(blockSize / 2);
@@ -160,7 +166,7 @@ function binarizeAdaptive(imageData, blockSize = 15, C = 5) {
             const currentPixel = getPixel(imageData, x, y);
             const binary = currentPixel.r >= threshold ? 255 : 0;
             
-            setPixel(result, x, y, binary, binary, binary);
+            setPixel(result, x, y, binary, binary, binary, currentPixel.a);
         }
     }
     

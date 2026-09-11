@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>02. JavaScript 图像处理基础 - OCR 学习</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22%3E%3Crect width=%2264%22 height=%2264%22 rx=%2214%22 fill=%22%23126451%22/%3E%3Ctext x=%2232%22 y=%2246%22 text-anchor=%22middle%22 font-size=%2244%22 fill=%22white%22 font-family=%22sans-serif%22%3EO%3C/text%3E%3C/svg%3E">
     <style>
         * {
             margin: 0;
@@ -281,8 +282,10 @@
             color: #ffd700;
         }
     </style>
+    <script src="../shared/course.js" defer></script>
 </head>
 <body>
+<nav class="course-nav" aria-label="课程导航"><a href="../../" data-course-catalog><strong>OCR / 学习实验室</strong></a><div class="links"><a href="../../02-js-image-basics/" data-course-doc="02-js-image-basics">返回本章讲义</a><a href="../../" data-course-catalog>课程目录</a><a href="../25-ocr-engine/index.html" data-course-lab="25-ocr-engine">照片识别</a><a href="../26-validation/index.html" data-course-lab="26-validation">评估记录</a></div></nav>
     <div class="container">
         <h1>🎨 02. JavaScript 图像处理基础</h1>
         
@@ -290,7 +293,7 @@
         <div class="section">
             <h2>📚 Canvas API 核心概念</h2>
             <p style="color: #aaa; line-height: 1.8;">
-                Canvas 是 HTML5 提供的绑图容器，通过 JavaScript 可以进行图形绑制和图像处理。
+                Canvas 是 HTML5 提供的绘图容器，通过 JavaScript 可以进行图形绘制和图像处理。
                 对于 OCR 项目，Canvas 是我们操作图像像素的核心工具。
             </p>
             
@@ -301,7 +304,7 @@
 <span class="code-keyword">const</span> canvas = document.<span class="code-function">getElementById</span>(<span class="code-string">'myCanvas'</span>);
 <span class="code-keyword">const</span> ctx = canvas.<span class="code-function">getContext</span>(<span class="code-string">'2d'</span>);
 
-<span class="code-comment">// 2. 绑制图片到 Canvas</span>
+<span class="code-comment">// 2. 绘制图片到 Canvas</span>
 ctx.<span class="code-function">drawImage</span>(img, <span class="code-number">0</span>, <span class="code-number">0</span>);
 
 <span class="code-comment">// 3. 获取像素数据</span>
@@ -538,7 +541,9 @@ canvas.<span class="code-function">toBlob</span>(<span class="code-keyword">func
         </div>
     </div>
 
+    <script src="./bundle.js"></script>
     <script>
+        const { cloneImageData, getPixel, setPixel } = window.OCRLesson02;
         /**
          * 02. JavaScript 图像处理基础 - 交互式演示
          * 
@@ -587,14 +592,6 @@ canvas.<span class="code-function">toBlob</span>(<span class="code-keyword">func
          * @param {ImageData} imageData - 要克隆的 ImageData
          * @returns {ImageData} 克隆的副本
          */
-        function cloneImageData(imageData) {
-            const cloned = new ImageData(
-                new Uint8ClampedArray(imageData.data),
-                imageData.width,
-                imageData.height
-            );
-            return cloned;
-        }
         
         /**
          * 获取指定位置的像素值
@@ -608,15 +605,6 @@ canvas.<span class="code-function">toBlob</span>(<span class="code-keyword">func
          * @param {number} y - Y 坐标
          * @returns {{r: number, g: number, b: number, a: number}} RGBA 值
          */
-        function getPixel(imageData, x, y) {
-            const index = (y * imageData.width + x) * 4;
-            return {
-                r: imageData.data[index],
-                g: imageData.data[index + 1],
-                b: imageData.data[index + 2],
-                a: imageData.data[index + 3]
-            };
-        }
         
         /**
          * 设置指定位置的像素值
@@ -629,13 +617,6 @@ canvas.<span class="code-function">toBlob</span>(<span class="code-keyword">func
          * @param {number} b - 蓝色值
          * @param {number} [a=255] - 透明度
          */
-        function setPixel(imageData, x, y, r, g, b, a = 255) {
-            const index = (y * imageData.width + x) * 4;
-            imageData.data[index] = r;
-            imageData.data[index + 1] = g;
-            imageData.data[index + 2] = b;
-            imageData.data[index + 3] = a;
-        }
         
         // ==================== 图像加载 ====================
         
@@ -706,6 +687,7 @@ canvas.<span class="code-function">toBlob</span>(<span class="code-keyword">func
                     log('错误: 图片加载失败');
                 };
                 
+                img.onerror = () => alert('无法解码该图片，请选择有效的PNG/JPEG');
                 img.src = e.target.result;
             };
             
@@ -713,6 +695,7 @@ canvas.<span class="code-function">toBlob</span>(<span class="code-keyword">func
                 log('错误: 文件读取失败');
             };
             
+            reader.onerror = () => alert('读取图片失败，请重试');
             reader.readAsDataURL(file);
         }
         
@@ -736,8 +719,8 @@ canvas.<span class="code-function">toBlob</span>(<span class="code-keyword">func
             
             if (width > maxSize || height > maxSize) {
                 const ratio = Math.min(maxSize / width, maxSize / height);
-                width = Math.round(width * ratio);
-                height = Math.round(height * ratio);
+                width = Math.max(1, Math.round(width * ratio));
+                height = Math.max(1, Math.round(height * ratio));
                 log(`图片已缩放至: ${width} × ${height}`);
             }
             
@@ -771,7 +754,7 @@ canvas.<span class="code-function">toBlob</span>(<span class="code-keyword">func
             document.getElementById('infoResolution').textContent = `${width} × ${height}`;
             document.getElementById('infoPixels').textContent = (width * height).toLocaleString();
             document.getElementById('infoDataLength').textContent = data.length.toLocaleString();
-            document.getElementById('infoMemory').textContent = `${(data.length / 1024).toFixed(2)} KB`;
+            document.getElementById('infoMemory').textContent = `${(data.length / 1024).toFixed(2)} KiB`;
         }
         
         /**

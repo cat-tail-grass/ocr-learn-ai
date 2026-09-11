@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>18 · RNN 与 LSTM</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22%3E%3Crect width=%2264%22 height=%2264%22 rx=%2214%22 fill=%22%23126451%22/%3E%3Ctext x=%2232%22 y=%2246%22 text-anchor=%22middle%22 font-size=%2244%22 fill=%22white%22 font-family=%22sans-serif%22%3EO%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="../shared/course.css">
+<style>main{max-width:1100px;margin:auto;padding:24px}label{display:block;margin:12px 0}input[type=text]{width:min(600px,90%)}canvas{max-width:100%;height:auto}.table-scroll{overflow:auto}th,td{padding:8px;text-align:right}pre{white-space:pre-wrap}</style>
+<script src="../shared/course.js" defer></script><script src="bundle.js" defer></script></head>
+<body>
+<nav class="course-nav" aria-label="课程导航"><a href="../../" data-course-catalog><strong>OCR / 学习实验室</strong></a><div class="links"><a href="../../18-rnn-basics/" data-course-doc="18-rnn-basics">返回本章讲义</a><a href="../../" data-course-catalog>课程目录</a><a href="../25-ocr-engine/index.html" data-course-lab="25-ocr-engine">照片识别</a><a href="../26-validation/index.html" data-course-lab="26-validation">评估记录</a></div></nav><main><nav aria-label="章节"><a href="../17-cnn-classifier/index.html">← 17 CNN 分类器</a> · <a href="../19-ctc-loss/index.html">19 CTC →</a></nav>
+<h1>18 · 让状态沿时间传递</h1><p>跟踪同一串输入经过 RNN、LSTM 与双向 RNN 的状态。这里的权重为手设教学值，尚未训练。</p>
+<section class="card"><h2>输入与循环权重</h2><label for="inputs">每步一个特征，逗号分隔（最多40步）</label><input id="inputs" type="text" value="1,0,-1,1">
+<label for="weight">RNN 循环权重 Wₕ：<output id="weight-value">0.80</output></label><input id="weight" type="range" min="-1.5" max="1.5" step="0.05" value="0.8">
+<label for="forget-bias">LSTM 遗忘门偏置 b_f：<output id="forget-value">1.0</output></label><input id="forget-bias" type="range" min="-3" max="4" step="0.1" value="1">
+<button id="run" type="button">展开时间步</button><button id="reset" type="button">恢复默认实验</button><p>RNN：Wₓ=0.5，b=0。LSTM：i=o=0.5，f=σ(b_f)，g=tanh(x)。初始状态全零。改变遗忘门偏置，观察 cell 保留比例。</p></section>
+<p id="status" role="status" aria-live="polite"></p><canvas id="state-plot" width="960" height="250" role="img" aria-label="RNN与LSTM隐藏状态折线；详细数值见下表"></canvas>
+<div class="table-scroll"><table><caption>原始时间顺序下的状态：i/f/o三个门与候选g</caption><thead><tr><th>t</th><th>x</th><th>RNN h</th><th>i</th><th>f</th><th>g（候选）</th><th>o</th><th>LSTM c</th><th>LSTM h</th><th>反向h</th></tr></thead><tbody id="states"></tbody></table></div>
+<p id="sensitivity"></p><section class="card"><h2>只改变未来输入的对照</h2><pre id="comparison"></pre></section><section class="card"><h2>怎么观察</h2><p>先改变最后一个输入：前向网络先前的状态保持原值，反向网络前面的状态会变化。再把循环权重从0.5拖到1.2，看20步梯度的数量级。LSTM的加法记忆路径有助于保留梯度，但不能保证所有梯度永不消失。</p><p><a href="../../18-rnn-basics/" data-course-doc="18-rnn-basics">阅读完整公式、维度和自测答案</a></p></section>
+</main></body></html>

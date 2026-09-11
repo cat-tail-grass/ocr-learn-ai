@@ -1,7 +1,9 @@
 /**
  * 形态学操作模块
  * 
- * 提供基于结构元素的形态学变换
+ * 二值形态学：默认白前景，可显式传{foreground: 'black'}操作黑字。
+ * 图外背景；闭运算中间扩边；梯度/顶帽/黑帽输出白色残差。
+ * topHat/blackHat按亮度定义，只支持二值残差，不是灰度光照校正器。
  * 
  * 来源：06. 形态学操作
  */
@@ -24,6 +26,8 @@ const { clamp } = require('../core/utils');
  * @returns {number[][]} 二维数组表示的结构元素
  */
 function createStructuringElement(shape, size) {
+    if (!Number.isInteger(size) || size <= 0) throw new RangeError('结构元素大小必须为正整数');
+    if (!['rect', 'cross', 'ellipse'].includes(shape)) throw new RangeError('未知结构元素形状');
     // 确保是奇数
     if (size % 2 === 0) size = size + 1;
     
@@ -47,7 +51,7 @@ function createStructuringElement(shape, size) {
                 // 椭圆形：使用椭圆方程判断
                 const dx = x - center;
                 const dy = y - center;
-                const radius = center + 0.5; // 半径略大于center，使边缘更圆滑
+                const radius = center; // 像素中心采样圆盘；3×3 时为十字形
                 if (dx * dx + dy * dy <= radius * radius) {
                     value = 1;
                 }
@@ -59,6 +63,57 @@ function createStructuringElement(shape, size) {
     }
     
     return element;
+}
+
+// 结构元素为奇数高×奇数宽的0/1矩阵，中心锚点须属于B。
+// 用中心偏移表示B：腐蚀查z+b，膨胀查z-b（反射B）。
+function structuringOffsets(element) {
+    const height = element.length;
+    const width = element[0]?.length;
+    if (!height || !width || height % 2 === 0 || width % 2 === 0 ||
+        element.some(row => row.length !== width || row.some(v => v !== 0 && v !== 1)) ||
+        element[Math.floor(height / 2)][Math.floor(width / 2)] !== 1) {
+        throw new RangeError('结构元素必须为奇数高宽的0/1矩阵，且中心为1');
+    }
+    const offsets = [];
+    for (let y = 0; y < height; y++) {
+        for (let x = 0; x < width; x++) {
+            if (element[y][x]) offsets.push([x - Math.floor(width / 2), y - Math.floor(height / 2)]);
+        }
+    }
+    return offsets;
+}
+
+function foregroundColors(options = {}) {
+    const foreground = options.foreground ?? 'white';
+    if (foreground !== 'white' && foreground !== 'black') throw new RangeError('foreground须为white或black');
+    return foreground === 'black' ? { fg: 0, bg: 255 } : { fg: 255, bg: 0 };
+}
+
+function binaryMorphology(imageData, element, options, erosion) {
+    const { width, height } = imageData;
+    const { fg, bg } = foregroundColors(options);
+    const offsets = structuringOffsets(element);
+    const result = createImageData(width, height, bg, bg, bg);
+    for (let y = 0; y < height; y++) {
+        for (let x = 0; x < width; x++) {
+            let selected = erosion;
+            for (const [dx, dy] of offsets) {
+                const sx = x + (erosion ? dx : -dx);
+                const sy = y + (erosion ? dy : -dy);
+                // 图像外始终是背景，不能让getPixel的黑色默认值冒充黑前景。
+                const inside = sx >= 0 && sx < width && sy >= 0 && sy < height;
+                const value = inside ? imageData.data[(sy * width + sx) * 4] : bg;
+                const isForeground = inside && (fg === 0 ? value < 128 : value >= 128);
+                if (erosion ? !isForeground : isForeground) {
+                    selected = !erosion;
+                    break;
+                }
+            }
+            if (selected) setPixel(result, x, y, fg, fg, fg);
+        }
+    }
+    return result;
 }
 
 /**
@@ -76,46 +131,8 @@ function createStructuringElement(shape, size) {
  * @param {number[][]} structuringElement - 结构元素
  * @returns {MockImageData} 腐蚀后的图像数据
  */
-function erode(imageData, structuringElement) {
-    const { width, height } = imageData;
-    const result = createImageData(width, height, 0, 0, 0); // 初始化为黑色
-    
-    const seSize = structuringElement.length;
-    const seCenter = Math.floor(seSize / 2);
-    
-    // Step 1: 遍历图像每个像素
-    for (let y = 0; y < height; y++) {
-        for (let x = 0; x < width; x++) {
-            let fits = true; // 假设结构元素完全匹配
-            
-            // Step 2: 检查结构元素覆盖的所有位置
-            for (let sy = 0; sy < seSize && fits; sy++) {
-                for (let sx = 0; sx < seSize && fits; sx++) {
-                    // 只检查结构元素中值为1的位置
-                    if (structuringElement[sy][sx] === 1) {
-                        // 计算图像中对应的位置
-                        const imgX = x + sx - seCenter;
-                        const imgY = y + sy - seCenter;
-                        
-                        // 获取像素值（边界外视为背景/黑色）
-                        const pixel = getPixel(imageData, imgX, imgY);
-                        
-                        // 如果任何一个位置不是前景（不是白色），则不匹配
-                        if (pixel.r < 128) { // 假设 < 128 是背景
-                            fits = false;
-                        }
-                    }
-                }
-            }
-            
-            // Step 3: 如果完全匹配，中心像素设为前景（白色）
-            if (fits) {
-                setPixel(result, x, y, 255, 255, 255);
-            }
-        }
-    }
-    
-    return result;
+function erode(imageData, structuringElement, options = {}) {
+    return binaryMorphology(imageData, structuringElement, options, true);
 }
 
 /**
@@ -133,46 +150,8 @@ function erode(imageData, structuringElement) {
  * @param {number[][]} structuringElement - 结构元素
  * @returns {MockImageData} 膨胀后的图像数据
  */
-function dilate(imageData, structuringElement) {
-    const { width, height } = imageData;
-    const result = createImageData(width, height, 0, 0, 0); // 初始化为黑色
-    
-    const seSize = structuringElement.length;
-    const seCenter = Math.floor(seSize / 2);
-    
-    // Step 1: 遍历图像每个像素
-    for (let y = 0; y < height; y++) {
-        for (let x = 0; x < width; x++) {
-            let hits = false; // 假设没有任何重叠
-            
-            // Step 2: 检查结构元素覆盖的所有位置
-            for (let sy = 0; sy < seSize && !hits; sy++) {
-                for (let sx = 0; sx < seSize && !hits; sx++) {
-                    // 只检查结构元素中值为1的位置
-                    if (structuringElement[sy][sx] === 1) {
-                        // 计算图像中对应的位置
-                        const imgX = x + sx - seCenter;
-                        const imgY = y + sy - seCenter;
-                        
-                        // 获取像素值
-                        const pixel = getPixel(imageData, imgX, imgY);
-                        
-                        // 如果任何一个位置是前景（白色），则有重叠
-                        if (pixel.r >= 128) { // 假设 >= 128 是前景
-                            hits = true;
-                        }
-                    }
-                }
-            }
-            
-            // Step 3: 如果有任何重叠，中心像素设为前景（白色）
-            if (hits) {
-                setPixel(result, x, y, 255, 255, 255);
-            }
-        }
-    }
-    
-    return result;
+function dilate(imageData, structuringElement, options = {}) {
+    return binaryMorphology(imageData, structuringElement, options, false);
 }
 
 /**
@@ -189,14 +168,8 @@ function dilate(imageData, structuringElement) {
  * @param {number[][]} structuringElement - 结构元素
  * @returns {MockImageData} 开运算后的图像数据
  */
-function morphOpen(imageData, structuringElement) {
-    // Step 1: 先腐蚀 - 去除小噪点
-    const eroded = erode(imageData, structuringElement);
-    
-    // Step 2: 后膨胀 - 恢复主体形状
-    const opened = dilate(eroded, structuringElement);
-    
-    return opened;
+function morphOpen(imageData, structuringElement, options = {}) {
+    return dilate(erode(imageData, structuringElement, options), structuringElement, options);
 }
 
 /**
@@ -213,14 +186,31 @@ function morphOpen(imageData, structuringElement) {
  * @param {number[][]} structuringElement - 结构元素
  * @returns {MockImageData} 闭运算后的图像数据
  */
-function morphClose(imageData, structuringElement) {
-    // Step 1: 先膨胀 - 填补空洞
-    const dilated = dilate(imageData, structuringElement);
-    
-    // Step 2: 后腐蚀 - 恢复主体形状
-    const closed = erode(dilated, structuringElement);
-    
-    return closed;
+function morphClose(imageData, structuringElement, options = {}) {
+    structuringOffsets(structuringElement);
+    const { fg, bg } = foregroundColors(options);
+    const px = Math.floor(structuringElement[0].length / 2);
+    const py = Math.floor(structuringElement.length / 2);
+    const { width, height } = imageData;
+    // 先扩边再复合，保留第一步膨胀到原图外的像素，最后才裁剪。
+    // 否则贴边物体会在第二步腐蚀时消失，违反A⊆A•B。
+    const padded = createImageData(width + 2 * px, height + 2 * py, bg, bg, bg);
+    for (let y = 0; y < height; y++) {
+        for (let x = 0; x < width; x++) {
+            const value = imageData.data[(y * width + x) * 4];
+            const binary = (fg === 0 ? value < 128 : value >= 128) ? fg : bg;
+            setPixel(padded, x + px, y + py, binary, binary, binary);
+        }
+    }
+    const closed = erode(dilate(padded, structuringElement, options), structuringElement, options);
+    const result = createImageData(width, height, bg, bg, bg);
+    for (let y = 0; y < height; y++) {
+        for (let x = 0; x < width; x++) {
+            const value = getPixel(closed, x + px, y + py).r;
+            setPixel(result, x, y, value, value, value);
+        }
+    }
+    return result;
 }
 
 /**
@@ -237,14 +227,14 @@ function morphClose(imageData, structuringElement) {
  * @param {number[][]} structuringElement - 结构元素
  * @returns {MockImageData} 形态学梯度图像
  */
-function morphGradient(imageData, structuringElement) {
+function morphGradient(imageData, structuringElement, options = {}) {
     const { width, height } = imageData;
     
     // Step 1: 计算膨胀
-    const dilated = dilate(imageData, structuringElement);
+    const dilated = dilate(imageData, structuringElement, options);
     
     // Step 2: 计算腐蚀
-    const eroded = erode(imageData, structuringElement);
+    const eroded = erode(imageData, structuringElement, options);
     
     // Step 3: 相减得到梯度
     const result = createImageData(width, height, 0, 0, 0);
@@ -254,7 +244,7 @@ function morphGradient(imageData, structuringElement) {
             const dilatedPixel = getPixel(dilated, x, y);
             const erodedPixel = getPixel(eroded, x, y);
             
-            const gradValue = clamp(dilatedPixel.r - erodedPixel.r, 0, 255);
+            const gradValue = Math.abs(dilatedPixel.r - erodedPixel.r);
             setPixel(result, x, y, gradValue, gradValue, gradValue);
         }
     }
@@ -268,7 +258,7 @@ function morphGradient(imageData, structuringElement) {
  * 原理说明：
  * - 原图减去开运算结果
  * - 效果：提取比周围亮的细节（亮点、细纹）
- * - 常用于不均匀光照校正
+ * - 灰度顶帽可用于光照校正；这里仅实现二值残差，不支持灰度光照估计
  * 
  * 公式：TopHat(A, B) = A - Opening(A, B)
  * 
@@ -290,7 +280,8 @@ function topHat(imageData, structuringElement) {
             const originalPixel = getPixel(imageData, x, y);
             const openedPixel = getPixel(opened, x, y);
             
-            const value = clamp(originalPixel.r - openedPixel.r, 0, 255);
+            const binaryValue = originalPixel.r >= 128 ? 255 : 0;
+            const value = clamp(binaryValue - openedPixel.r, 0, 255);
             setPixel(result, x, y, value, value, value);
         }
     }
@@ -326,7 +317,8 @@ function blackHat(imageData, structuringElement) {
             const closedPixel = getPixel(closed, x, y);
             const originalPixel = getPixel(imageData, x, y);
             
-            const value = clamp(closedPixel.r - originalPixel.r, 0, 255);
+            const binaryValue = originalPixel.r >= 128 ? 255 : 0;
+            const value = clamp(closedPixel.r - binaryValue, 0, 255);
             setPixel(result, x, y, value, value, value);
         }
     }

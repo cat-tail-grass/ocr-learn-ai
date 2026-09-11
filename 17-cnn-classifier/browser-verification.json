@@ -1,0 +1,11 @@
+{
+  "modelId": "ocr-mnist-cnn-v1-9c7b0b8e8224",
+  "backend": "webgl",
+  "preprocessingId": "dark-rgba-bbox20-centroid-v1",
+  "blank": false,
+  "prediction": "0",
+  "confidence": 0.9999924898147583,
+  "tensorsBefore25Predictions": 8,
+  "tensorsAfter25Predictions": 8,
+  "note": "非数字或错误分割也可能高分；本页只接受单字符。"
+}

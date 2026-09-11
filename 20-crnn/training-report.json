@@ -1,0 +1,503 @@
+{
+  "experiment": "真实端到端 CNN + BiLSTM + CTC；小型合成0/1数字串",
+  "tfjs": "4.22.0",
+  "backend": "cpu",
+  "config": {
+    "height": 8,
+    "width": 20,
+    "channels": 4,
+    "hiddenSize": 8,
+    "classes": 3,
+    "seed": 20260908
+  },
+  "parameterCount": 1691,
+  "steps": 160,
+  "learningRate": 0.02,
+  "clippingGlobalNorm": 5,
+  "initialLoss": 4.809089660644531,
+  "finalLoss": 0.004528186284005642,
+  "history": [
+    {
+      "step": 1,
+      "loss": 4.413681507110596,
+      "elapsedMs": 148
+    },
+    {
+      "step": 20,
+      "loss": 2.9751603603363037,
+      "elapsedMs": 1422
+    },
+    {
+      "step": 40,
+      "loss": 2.509021520614624,
+      "elapsedMs": 2464
+    },
+    {
+      "step": 60,
+      "loss": 1.6735014915466309,
+      "elapsedMs": 3504
+    },
+    {
+      "step": 80,
+      "loss": 0.2132847160100937,
+      "elapsedMs": 4553
+    },
+    {
+      "step": 100,
+      "loss": 0.017637673765420914,
+      "elapsedMs": 5657
+    },
+    {
+      "step": 120,
+      "loss": 0.007985033094882965,
+      "elapsedMs": 6722
+    },
+    {
+      "step": 140,
+      "loss": 0.005680641159415245,
+      "elapsedMs": 7850
+    },
+    {
+      "step": 160,
+      "loss": 0.004528186284005642,
+      "elapsedMs": 8952
+    }
+  ],
+  "firstGradientNorms": {
+    "convKernel": 0.5506269931793213,
+    "convBias": 1.3638302087783813,
+    "forwardKernel": 0.3752279281616211,
+    "forwardBias": 1.2451218366622925,
+    "backwardKernel": 0.23492176830768585,
+    "backwardBias": 0.9875409007072449,
+    "outputKernel": 0.25620517134666443,
+    "outputBias": 1.8164838552474976
+  },
+  "maxConvolutionWeightChange": 1.6289658844470978,
+  "ctcGradientCheck": {
+    "maxAbsoluteError": 3.101504830738122e-8,
+    "coordinates": 9,
+    "epsilon": 0.0001
+  },
+  "initialValidation": {
+    "count": 14,
+    "exactCorrect": 0,
+    "exactAccuracy": 0,
+    "rows": [
+      {
+        "id": "synthetic-19001-0-0",
+        "truth": "0",
+        "prediction": "0101",
+        "greedy": "00",
+        "correct": false
+      },
+      {
+        "id": "synthetic-19001-0-1",
+        "truth": "1",
+        "prediction": "01010",
+        "greedy": "000",
+        "correct": false
+      },
+      {
+        "id": "synthetic-19001-0-2",
+        "truth": "00",
+        "prediction": "0101",
+        "greedy": "0",
+        "correct": false
+      },
+      {
+        "id": "synthetic-19001-0-3",
+        "truth": "01",
+        "prediction": "0101",
+        "greedy": "0",
+        "correct": false
+      },
+      {
+        "id": "synthetic-19001-0-4",
+        "truth": "10",
+        "prediction": "0101",
+        "greedy": "0",
+        "correct": false
+      },
+      {
+        "id": "synthetic-19001-0-5",
+        "truth": "11",
+        "prediction": "0101",
+        "greedy": "00",
+        "correct": false
+      },
+      {
+        "id": "synthetic-19001-0-6",
+        "truth": "000",
+        "prediction": "0101",
+        "greedy": "0",
+        "correct": false
+      },
+      {
+        "id": "synthetic-19001-0-7",
+        "truth": "001",
+        "prediction": "0101",
+        "greedy": "00",
+        "correct": false
+      },
+      {
+        "id": "synthetic-19001-0-8",
+        "truth": "010",
+        "prediction": "0101",
+        "greedy": "0",
+        "correct": false
+      },
+      {
+        "id": "synthetic-19001-0-9",
+        "truth": "011",
+        "prediction": "0101",
+        "greedy": "0",
+        "correct": false
+      },
+      {
+        "id": "synthetic-19001-0-10",
+        "truth": "100",
+        "prediction": "0101",
+        "greedy": "0",
+        "correct": false
+      },
+      {
+        "id": "synthetic-19001-0-11",
+        "truth": "101",
+        "prediction": "0101",
+        "greedy": "0",
+        "correct": false
+      },
+      {
+        "id": "synthetic-19001-0-12",
+        "truth": "110",
+        "prediction": "01010",
+        "greedy": "0",
+        "correct": false
+      },
+      {
+        "id": "synthetic-19001-0-13",
+        "truth": "111",
+        "prediction": "0101",
+        "greedy": "00",
+        "correct": false
+      }
+    ]
+  },
+  "train": {
+    "count": 28,
+    "exactCorrect": 28,
+    "exactAccuracy": 1,
+    "rows": [
+      {
+        "id": "synthetic-71-0-0",
+        "truth": "0",
+        "prediction": "0",
+        "greedy": "0",
+        "correct": true
+      },
+      {
+        "id": "synthetic-71-0-1",
+        "truth": "1",
+        "prediction": "1",
+        "greedy": "1",
+        "correct": true
+      },
+      {
+        "id": "synthetic-71-0-2",
+        "truth": "00",
+        "prediction": "00",
+        "greedy": "00",
+        "correct": true
+      },
+      {
+        "id": "synthetic-71-0-3",
+        "truth": "01",
+        "prediction": "01",
+        "greedy": "01",
+        "correct": true
+      },
+      {
+        "id": "synthetic-71-0-4",
+        "truth": "10",
+        "prediction": "10",
+        "greedy": "10",
+        "correct": true
+      },
+      {
+        "id": "synthetic-71-0-5",
+        "truth": "11",
+        "prediction": "11",
+        "greedy": "11",
+        "correct": true
+      },
+      {
+        "id": "synthetic-71-0-6",
+        "truth": "000",
+        "prediction": "000",
+        "greedy": "000",
+        "correct": true
+      },
+      {
+        "id": "synthetic-71-0-7",
+        "truth": "001",
+        "prediction": "001",
+        "greedy": "001",
+        "correct": true
+      },
+      {
+        "id": "synthetic-71-0-8",
+        "truth": "010",
+        "prediction": "010",
+        "greedy": "010",
+        "correct": true
+      },
+      {
+        "id": "synthetic-71-0-9",
+        "truth": "011",
+        "prediction": "011",
+        "greedy": "011",
+        "correct": true
+      },
+      {
+        "id": "synthetic-71-0-10",
+        "truth": "100",
+        "prediction": "100",
+        "greedy": "100",
+        "correct": true
+      },
+      {
+        "id": "synthetic-71-0-11",
+        "truth": "101",
+        "prediction": "101",
+        "greedy": "101",
+        "correct": true
+      },
+      {
+        "id": "synthetic-71-0-12",
+        "truth": "110",
+        "prediction": "110",
+        "greedy": "110",
+        "correct": true
+      },
+      {
+        "id": "synthetic-71-0-13",
+        "truth": "111",
+        "prediction": "111",
+        "greedy": "111",
+        "correct": true
+      },
+      {
+        "id": "synthetic-71-1-0",
+        "truth": "0",
+        "prediction": "0",
+        "greedy": "0",
+        "correct": true
+      },
+      {
+        "id": "synthetic-71-1-1",
+        "truth": "1",
+        "prediction": "1",
+        "greedy": "1",
+        "correct": true
+      },
+      {
+        "id": "synthetic-71-1-2",
+        "truth": "00",
+        "prediction": "00",
+        "greedy": "00",
+        "correct": true
+      },
+      {
+        "id": "synthetic-71-1-3",
+        "truth": "01",
+        "prediction": "01",
+        "greedy": "01",
+        "correct": true
+      },
+      {
+        "id": "synthetic-71-1-4",
+        "truth": "10",
+        "prediction": "10",
+        "greedy": "10",
+        "correct": true
+      },
+      {
+        "id": "synthetic-71-1-5",
+        "truth": "11",
+        "prediction": "11",
+        "greedy": "11",
+        "correct": true
+      },
+      {
+        "id": "synthetic-71-1-6",
+        "truth": "000",
+        "prediction": "000",
+        "greedy": "000",
+        "correct": true
+      },
+      {
+        "id": "synthetic-71-1-7",
+        "truth": "001",
+        "prediction": "001",
+        "greedy": "001",
+        "correct": true
+      },
+      {
+        "id": "synthetic-71-1-8",
+        "truth": "010",
+        "prediction": "010",
+        "greedy": "010",
+        "correct": true
+      },
+      {
+        "id": "synthetic-71-1-9",
+        "truth": "011",
+        "prediction": "011",
+        "greedy": "011",
+        "correct": true
+      },
+      {
+        "id": "synthetic-71-1-10",
+        "truth": "100",
+        "prediction": "100",
+        "greedy": "100",
+        "correct": true
+      },
+      {
+        "id": "synthetic-71-1-11",
+        "truth": "101",
+        "prediction": "101",
+        "greedy": "101",
+        "correct": true
+      },
+      {
+        "id": "synthetic-71-1-12",
+        "truth": "110",
+        "prediction": "110",
+        "greedy": "110",
+        "correct": true
+      },
+      {
+        "id": "synthetic-71-1-13",
+        "truth": "111",
+        "prediction": "111",
+        "greedy": "111",
+        "correct": true
+      }
+    ]
+  },
+  "validation": {
+    "count": 14,
+    "exactCorrect": 14,
+    "exactAccuracy": 1,
+    "rows": [
+      {
+        "id": "synthetic-19001-0-0",
+        "truth": "0",
+        "prediction": "0",
+        "greedy": "0",
+        "correct": true
+      },
+      {
+        "id": "synthetic-19001-0-1",
+        "truth": "1",
+        "prediction": "1",
+        "greedy": "1",
+        "correct": true
+      },
+      {
+        "id": "synthetic-19001-0-2",
+        "truth": "00",
+        "prediction": "00",
+        "greedy": "00",
+        "correct": true
+      },
+      {
+        "id": "synthetic-19001-0-3",
+        "truth": "01",
+        "prediction": "01",
+        "greedy": "01",
+        "correct": true
+      },
+      {
+        "id": "synthetic-19001-0-4",
+        "truth": "10",
+        "prediction": "10",
+        "greedy": "10",
+        "correct": true
+      },
+      {
+        "id": "synthetic-19001-0-5",
+        "truth": "11",
+        "prediction": "11",
+        "greedy": "11",
+        "correct": true
+      },
+      {
+        "id": "synthetic-19001-0-6",
+        "truth": "000",
+        "prediction": "000",
+        "greedy": "000",
+        "correct": true
+      },
+      {
+        "id": "synthetic-19001-0-7",
+        "truth": "001",
+        "prediction": "001",
+        "greedy": "001",
+        "correct": true
+      },
+      {
+        "id": "synthetic-19001-0-8",
+        "truth": "010",
+        "prediction": "010",
+        "greedy": "010",
+        "correct": true
+      },
+      {
+        "id": "synthetic-19001-0-9",
+        "truth": "011",
+        "prediction": "011",
+        "greedy": "011",
+        "correct": true
+      },
+      {
+        "id": "synthetic-19001-0-10",
+        "truth": "100",
+        "prediction": "100",
+        "greedy": "100",
+        "correct": true
+      },
+      {
+        "id": "synthetic-19001-0-11",
+        "truth": "101",
+        "prediction": "101",
+        "greedy": "101",
+        "correct": true
+      },
+      {
+        "id": "synthetic-19001-0-12",
+        "truth": "110",
+        "prediction": "110",
+        "greedy": "110",
+        "correct": true
+      },
+      {
+        "id": "synthetic-19001-0-13",
+        "truth": "111",
+        "prediction": "111",
+        "greedy": "111",
+        "correct": true
+      }
+    ]
+  },
+  "data": {
+    "trainSeed": 71,
+    "validationSeed": 19001,
+    "trainCopies": 2,
+    "validationCopies": 1,
+    "scope": "同一字形生成器、相同14种字符串、新噪声和位移；用于教学验证，不是独立手写测试集"
+  },
+  "elapsedMs": 9006
+}

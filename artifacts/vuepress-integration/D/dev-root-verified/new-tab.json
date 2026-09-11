@@ -1,0 +1,117 @@
+{
+  "tabsBefore": {
+    "lifecycle": {
+      "effectiveLaunch": {
+        "browserLaunched": true,
+        "engine": "chrome",
+        "launchHash": 11677035664275012000
+      },
+      "launched": false,
+      "relaunchedBrowser": false,
+      "restartedBackground": false,
+      "restoreStatus": "not_configured",
+      "reused": true,
+      "saveStatus": "not_attempted"
+    },
+    "tabs": [
+      {
+        "active": true,
+        "label": null,
+        "tabId": "t1",
+        "targetId": "857A6144F32E7A50925FA385293A53CF",
+        "title": "127.0.0.1:4173/04-binarization/",
+        "type": "page",
+        "url": "http://127.0.0.1:4173/04-binarization/"
+      },
+      {
+        "active": false,
+        "label": null,
+        "tabId": "t2",
+        "targetId": "6B5C6A0513E5B8F19BC14B13B3EA1800",
+        "title": "127.0.0.1:4173/labs/04-binarization/index.html",
+        "type": "page",
+        "url": "http://127.0.0.1:4173/labs/04-binarization/index.html"
+      },
+      {
+        "active": false,
+        "label": null,
+        "tabId": "t3",
+        "targetId": "B5A7C7F6F493CCE6BBFBEFE2118C80E7",
+        "title": "127.0.0.1:4173/labs/04-binarization/index.html",
+        "type": "page",
+        "url": "http://127.0.0.1:4173/labs/04-binarization/index.html"
+      },
+      {
+        "active": false,
+        "label": null,
+        "tabId": "t4",
+        "targetId": "99A82058F25E6877DE45F9E484DB4B8B",
+        "title": "127.0.0.1:4173/labs/04-binarization/index.html",
+        "type": "page",
+        "url": "http://127.0.0.1:4173/labs/04-binarization/index.html"
+      }
+    ]
+  },
+  "tabsAfter": {
+    "lifecycle": {
+      "effectiveLaunch": {
+        "browserLaunched": true,
+        "engine": "chrome",
+        "launchHash": 11677035664275012000
+      },
+      "launched": false,
+      "relaunchedBrowser": false,
+      "restartedBackground": false,
+      "restoreStatus": "not_configured",
+      "reused": true,
+      "saveStatus": "not_attempted"
+    },
+    "tabs": [
+      {
+        "active": false,
+        "label": null,
+        "tabId": "t1",
+        "targetId": "857A6144F32E7A50925FA385293A53CF",
+        "title": "127.0.0.1:4173/04-binarization/",
+        "type": "page",
+        "url": "http://127.0.0.1:4173/04-binarization/"
+      },
+      {
+        "active": false,
+        "label": null,
+        "tabId": "t2",
+        "targetId": "6B5C6A0513E5B8F19BC14B13B3EA1800",
+        "title": "127.0.0.1:4173/labs/04-binarization/index.html",
+        "type": "page",
+        "url": "http://127.0.0.1:4173/labs/04-binarization/index.html"
+      },
+      {
+        "active": false,
+        "label": null,
+        "tabId": "t3",
+        "targetId": "B5A7C7F6F493CCE6BBFBEFE2118C80E7",
+        "title": "127.0.0.1:4173/labs/04-binarization/index.html",
+        "type": "page",
+        "url": "http://127.0.0.1:4173/labs/04-binarization/index.html"
+      },
+      {
+        "active": false,
+        "label": null,
+        "tabId": "t4",
+        "targetId": "99A82058F25E6877DE45F9E484DB4B8B",
+        "title": "127.0.0.1:4173/labs/04-binarization/index.html",
+        "type": "page",
+        "url": "http://127.0.0.1:4173/labs/04-binarization/index.html"
+      },
+      {
+        "active": true,
+        "label": null,
+        "tabId": "t5",
+        "targetId": "22DEC5AACE9DFE1B2C87902287E1D4D7",
+        "title": "127.0.0.1:4173/labs/04-binarization/index.html",
+        "type": "page",
+        "url": "http://127.0.0.1:4173/labs/04-binarization/index.html"
+      }
+    ]
+  }
+}

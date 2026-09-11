@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>第12章 - 模板匹配</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22%3E%3Crect width=%2264%22 height=%2264%22 rx=%2214%22 fill=%22%23126451%22/%3E%3Ctext x=%2232%22 y=%2246%22 text-anchor=%22middle%22 font-size=%2244%22 fill=%22white%22 font-family=%22sans-serif%22%3EO%3C/text%3E%3C/svg%3E">
     <style>
         * {
             margin: 0;
@@ -346,8 +347,10 @@
             .distance-comparison { grid-template-columns: repeat(2, 1fr); }
         }
     </style>
+    <script src="../shared/course.js" defer></script>
 </head>
 <body>
+<nav class="course-nav" aria-label="课程导航"><a href="../../" data-course-catalog><strong>OCR / 学习实验室</strong></a><div class="links"><a href="../../12-template-matching/" data-course-doc="12-template-matching">返回本章讲义</a><a href="../../" data-course-catalog>课程目录</a><a href="../25-ocr-engine/index.html" data-course-lab="25-ocr-engine">照片识别</a><a href="../26-validation/index.html" data-course-lab="26-validation">评估记录</a></div></nav>
     <div class="container">
         <h1>🎯 第12章：模板匹配</h1>
         <p class="subtitle">通过与标准模板比对来识别字符</p>
@@ -375,6 +378,7 @@
                             <option value="pixel">像素特征</option>
                             <option value="projection">投影特征</option>
                             <option value="zone">网格特征</option>
+                            <option value="hog">教学版 HOG</option>
                         </select>
                     </div>
                 </div>
@@ -435,7 +439,7 @@
         <div class="card">
             <h2>📚 模板库</h2>
             <div class="info-box">
-                <p>模板库包含标准数字 0-9 的模板。识别时，将输入与每个模板比较，选择距离最小的模板作为结果。</p>
+                <p>模板库为浏览器 Arial 字体的数字 0–9，不是手写评估集。组合特征为 6 个统计量 + 7 个 Hu 对数值 + 56 个投影值 + 16 个网格值，共 85 维。输入和模板均裁剪、保持宽高比并按外接框居中。</p>
             </div>
             <div class="stats-grid">
                 <div class="stat-item">
@@ -458,8 +462,9 @@
         <div class="card">
             <h2>📏 距离度量比较</h2>
             <div class="info-box">
-                <p>不同的距离度量方法会产生不同的匹配结果。选择合适的度量方法对识别效果很重要。</p>
+                <p>Softmax 相对分数不是正确概率：即使所有模板都很远，也可能得到高分。拒识阈值越小越严格，不同特征/距离需分别在验证集上选阈值。相关系数遇到常量向量未定义，本例返回 0 占位（距离 1）。</p>
             </div>
+            <p id="comparisonTarget">对照候选：-</p>
             <div class="distance-comparison" id="distanceComparison">
                 <div class="distance-item">
                     <div class="distance-name">欧氏距离</div>
@@ -481,7 +486,11 @@
         </div>
     </div>
     
+    <script src="../shared/11-feature-extraction/index.js"></script>
+    <script src="../shared/12-template-matching/index.js"></script>
     <script>
+        const { euclideanDistance, manhattanDistance, cosineSimilarity, cropAndCenter, extractStatisticalFeatures } = OCRFeatures;
+        const { createTemplate, calculateDistance, calculateConfidence, normalizedCrossCorrelation: normalizedCorrelation, matchTemplate } = OCRTemplates;
         // ==================== 全局变量 ====================
         const drawCanvas = document.getElementById('drawCanvas');
         const drawCtx = drawCanvas.getContext('2d');
@@ -512,6 +521,7 @@
             
             // 构建模板库
             buildTemplates();
+            loadDigit(0);
         }
         
         function startDrawing(e) {
@@ -541,8 +551,9 @@
         
         function getMousePos(e) {
             const rect = drawCanvas.getBoundingClientRect();
-            const x = (e.clientX || e.touches[0].clientX) - rect.left;
-            const y = (e.clientY || e.touches[0].clientY) - rect.top;
+            const point = e.touches ? e.touches[0] : e;
+            const x = (point.clientX - rect.left) * drawCanvas.width / rect.width;
+            const y = (point.clientY - rect.top) * drawCanvas.height / rect.height;
             return [x, y];
         }
         
@@ -569,21 +580,21 @@
             for (let d = 0; d <= 9; d++) {
                 // 创建模板图像
                 const canvas = document.createElement('canvas');
-                canvas.width = 28;
-                canvas.height = 28;
+                canvas.width = 140;
+                canvas.height = 140;
                 const ctx = canvas.getContext('2d');
                 
                 // 绘制数字
                 ctx.fillStyle = '#ffffff';
-                ctx.fillRect(0, 0, 28, 28);
+                ctx.fillRect(0, 0, 140, 140);
                 ctx.fillStyle = '#000';
-                ctx.font = 'bold 24px Arial';
+                ctx.font = 'bold 100px Arial';
                 ctx.textAlign = 'center';
                 ctx.textBaseline = 'middle';
-                ctx.fillText(d.toString(), 14, 15);
+                ctx.fillText(d.toString(), 70, 75);
                 
                 // 提取特征
-                const imageData = ctx.getImageData(0, 0, 28, 28);
+                const imageData = ctx.getImageData(0, 0, 140, 140);
                 const features = extractFeatures(imageData);
                 
                 templates[d] = {
@@ -604,7 +615,7 @@
                 displayCanvas.style.height = '56px';
                 displayCanvas.style.imageRendering = 'pixelated';
                 const displayCtx = displayCanvas.getContext('2d');
-                displayCtx.putImageData(imageData, 0, 0);
+                displayCtx.putImageData(cropAndCenter(imageData, 28), 0, 0);
                 
                 const label = document.createElement('div');
                 label.className = 'template-label';
@@ -636,212 +647,32 @@
             }
             
             document.getElementById('featureDim').textContent = templates[0].features.length;
+            recognize();
         }
         
-        // ==================== 特征提取 ====================
+        // 与 Node 使用同一裁剪、外接框居中和特征提取流程。
         function extractFeatures(imageData) {
-            switch (featureType) {
-                case 'pixel':
-                    return extractPixelFeatures(imageData);
-                case 'projection':
-                    return extractProjectionFeatures(imageData);
-                case 'zone':
-                    return extractZoneFeatures(imageData);
-                case 'combined':
-                default:
-                    return extractCombinedFeatures(imageData);
-            }
+            return createTemplate(imageData, '', { featureType }).features;
         }
-        
-        function extractPixelFeatures(imageData) {
-            const features = [];
-            for (let i = 0; i < imageData.data.length; i += 4) {
-                features.push(imageData.data[i] / 255);
-            }
-            return features;
-        }
-        
-        function extractProjectionFeatures(imageData) {
-            const { width, height, data } = imageData;
-            const horizontal = new Array(height).fill(0);
-            const vertical = new Array(width).fill(0);
-            
-            for (let y = 0; y < height; y++) {
-                for (let x = 0; x < width; x++) {
-                    const idx = (y * width + x) * 4;
-                    if (data[idx] < 128) {
-                        horizontal[y]++;
-                        vertical[x]++;
-                    }
-                }
-            }
-            
-            const maxH = Math.max(...horizontal, 1);
-            const maxV = Math.max(...vertical, 1);
-            
-            return [
-                ...horizontal.map(v => v / maxH),
-                ...vertical.map(v => v / maxV)
-            ];
-        }
-        
-        function extractZoneFeatures(imageData, gridSize = 4) {
-            const { width, height, data } = imageData;
-            const cellWidth = width / gridSize;
-            const cellHeight = height / gridSize;
-            const features = [];
-            
-            for (let gy = 0; gy < gridSize; gy++) {
-                for (let gx = 0; gx < gridSize; gx++) {
-                    let foreground = 0;
-                    let total = 0;
-                    
-                    const startX = Math.floor(gx * cellWidth);
-                    const startY = Math.floor(gy * cellHeight);
-                    const endX = Math.floor((gx + 1) * cellWidth);
-                    const endY = Math.floor((gy + 1) * cellHeight);
-                    
-                    for (let y = startY; y < endY; y++) {
-                        for (let x = startX; x < endX; x++) {
-                            const idx = (y * width + x) * 4;
-                            total++;
-                            if (data[idx] < 128) foreground++;
-                        }
-                    }
-                    
-                    features.push(total > 0 ? foreground / total : 0);
-                }
-            }
-            
-            return features;
-        }
-        
-        function extractCombinedFeatures(imageData) {
-            const stats = extractStatisticalFeatures(imageData);
-            const projection = extractProjectionFeatures(imageData);
-            const zone = extractZoneFeatures(imageData);
-            
-            return [...stats, ...projection, ...zone];
-        }
-        
-        function extractStatisticalFeatures(imageData) {
-            const { width, height, data } = imageData;
-            let sum = 0, foreground = 0, sumX = 0, sumY = 0;
-            
-            for (let y = 0; y < height; y++) {
-                for (let x = 0; x < width; x++) {
-                    const idx = (y * width + x) * 4;
-                    sum += data[idx];
-                    if (data[idx] < 128) {
-                        foreground++;
-                        sumX += x;
-                        sumY += y;
-                    }
-                }
-            }
-            
-            const total = width * height;
-            const mean = sum / total / 255;
-            const fillRatio = foreground / total;
-            const centroidX = foreground > 0 ? sumX / foreground / width : 0.5;
-            const centroidY = foreground > 0 ? sumY / foreground / height : 0.5;
-            
-            return [mean, fillRatio, centroidX, centroidY];
-        }
-        
-        // ==================== 距离计算 ====================
-        function euclideanDistance(a, b) {
-            let sum = 0;
-            for (let i = 0; i < a.length; i++) {
-                sum += (a[i] - b[i]) ** 2;
-            }
-            return Math.sqrt(sum);
-        }
-        
-        function manhattanDistance(a, b) {
-            let sum = 0;
-            for (let i = 0; i < a.length; i++) {
-                sum += Math.abs(a[i] - b[i]);
-            }
-            return sum;
-        }
-        
-        function cosineSimilarity(a, b) {
-            let dot = 0, normA = 0, normB = 0;
-            for (let i = 0; i < a.length; i++) {
-                dot += a[i] * b[i];
-                normA += a[i] * a[i];
-                normB += b[i] * b[i];
-            }
-            const denom = Math.sqrt(normA) * Math.sqrt(normB);
-            return denom === 0 ? 0 : dot / denom;
-        }
-        
-        function normalizedCorrelation(a, b) {
-            const n = a.length;
-            const meanA = a.reduce((s, v) => s + v, 0) / n;
-            const meanB = b.reduce((s, v) => s + v, 0) / n;
-            
-            let varA = 0, varB = 0, covar = 0;
-            for (let i = 0; i < n; i++) {
-                const diffA = a[i] - meanA;
-                const diffB = b[i] - meanB;
-                varA += diffA * diffA;
-                varB += diffB * diffB;
-                covar += diffA * diffB;
-            }
-            
-            const stdA = Math.sqrt(varA / n);
-            const stdB = Math.sqrt(varB / n);
-            
-            if (stdA === 0 || stdB === 0) return 1;
-            return covar / (n * stdA * stdB);
-        }
-        
-        function calculateDistance(a, b, metric) {
-            switch (metric) {
-                case 'euclidean': return euclideanDistance(a, b);
-                case 'manhattan': return manhattanDistance(a, b);
-                case 'cosine': return 1 - cosineSimilarity(a, b);
-                case 'correlation': return 1 - normalizedCorrelation(a, b);
-                default: return euclideanDistance(a, b);
-            }
-        }
-        
+
         // ==================== 识别 ====================
         function recognize() {
-            // 获取绘制的图像
-            const inputData = drawCtx.getImageData(0, 0, 140, 140);
-            
-            // 缩放到 28x28
-            const resized = resizeImage(inputData, 28, 28);
-            
-            // 提取特征
-            const features = extractFeatures(resized);
-            
-            // 计算与所有模板的距离
-            const distances = [];
-            for (let d = 0; d <= 9; d++) {
-                const dist = calculateDistance(features, templates[d].features, distanceMetric);
-                distances.push({ label: d.toString(), distance: dist });
+            const inputData = drawCtx.getImageData(0, 0, drawCanvas.width, drawCanvas.height);
+            if (extractStatisticalFeatures(inputData).foregroundCount === 0) {
+                document.getElementById('resultChar').textContent = '?';
+                document.getElementById('resultConfidence').textContent = '空白图像：请先绘制字符。';
+                document.getElementById('confidenceFill').style.width = '0%';
+                document.getElementById('candidatesList').innerHTML = '';
+                document.querySelectorAll('.template-item').forEach(el => el.classList.remove('best-match'));
+                document.querySelectorAll('.template-score, .distance-value').forEach(el => el.textContent = '-');
+                return;
             }
-            
-            // 排序
-            distances.sort((a, b) => a.distance - b.distance);
-            
-            // 计算置信度 (Softmax)
-            const temp = 1.0;
-            const negDists = distances.map(d => -d.distance / temp);
-            const maxNeg = Math.max(...negDists);
-            const expVals = negDists.map(d => Math.exp(d - maxNeg));
-            const sumExp = expVals.reduce((a, b) => a + b, 0);
-            
-            distances.forEach((d, i) => {
-                d.confidence = expVals[i] / sumExp;
-            });
-            
+            const features = extractFeatures(inputData);
+            const library = new Map(Object.entries(templates).map(([label, template]) => [label, [template]]));
+            const distances = calculateConfidence(matchTemplate(features, library, { metric: distanceMetric }));
+
             // 更新所有距离显示
-            updateDistanceComparison(features);
+            updateDistanceComparison(features, distances[0].label);
             
             // 更新模板显示
             updateTemplateDisplay(distances);
@@ -850,44 +681,9 @@
             displayResult(distances);
         }
         
-        function resizeImage(imageData, targetWidth, targetHeight) {
-            const { width, height, data } = imageData;
-            const result = new ImageData(targetWidth, targetHeight);
-            
-            const scaleX = width / targetWidth;
-            const scaleY = height / targetHeight;
-            
-            for (let y = 0; y < targetHeight; y++) {
-                for (let x = 0; x < targetWidth; x++) {
-                    const srcX = Math.min(Math.floor(x * scaleX), width - 1);
-                    const srcY = Math.min(Math.floor(y * scaleY), height - 1);
-                    
-                    const srcIdx = (srcY * width + srcX) * 4;
-                    const dstIdx = (y * targetWidth + x) * 4;
-                    
-                    result.data[dstIdx] = data[srcIdx];
-                    result.data[dstIdx + 1] = data[srcIdx + 1];
-                    result.data[dstIdx + 2] = data[srcIdx + 2];
-                    result.data[dstIdx + 3] = data[srcIdx + 3];
-                }
-            }
-            
-            return result;
-        }
-        
-        function updateDistanceComparison(features) {
-            // 计算与最佳匹配的各种距离
-            let bestLabel = 0;
-            let bestDist = Infinity;
-            
-            for (let d = 0; d <= 9; d++) {
-                const dist = euclideanDistance(features, templates[d].features);
-                if (dist < bestDist) {
-                    bestDist = dist;
-                    bestLabel = d;
-                }
-            }
-            
+        function updateDistanceComparison(features, bestLabel) {
+            // 同一个候选在四种度量下的数值，不把不同候选的距离混在一起。
+            document.getElementById('comparisonTarget').textContent = `对照候选：${bestLabel}（当前所选度量的最佳匹配）`;
             const bestFeatures = templates[bestLabel].features;
             
             document.getElementById('euclideanDist').textContent = 
@@ -928,7 +724,7 @@
             } else {
                 resultChar.textContent = best.label;
                 resultChar.classList.remove('result-rejected');
-                resultConfidence.textContent = `置信度: ${(best.confidence * 100).toFixed(1)}%`;
+                resultConfidence.textContent = `相对匹配分数: ${(best.confidence * 100).toFixed(1)}%`;
                 resultConfidence.classList.remove('result-rejected');
                 confidenceFill.style.width = `${best.confidence * 100}%`;
             }
@@ -954,6 +750,7 @@
         // ==================== 设置 ====================
         function updateSettings() {
             distanceMetric = document.getElementById('distanceMetric').value;
+            recognize();
         }
         
         function updateThreshold() {
@@ -965,6 +762,7 @@
                 rejectThreshold = value;
                 document.getElementById('thresholdValue').textContent = value.toFixed(1);
             }
+            recognize();
         }
         
         function loadDigit(d) {

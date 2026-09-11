@@ -1,0 +1,560 @@
+{
+  "files": 78,
+  "groups": {
+    "experiments": 26,
+    "bundles": 22,
+    "shared": 6,
+    "cnn": 10,
+    "crnn": 2,
+    "samples": 1,
+    "readingResources": 11
+  },
+  "assets": [
+    {
+      "source": "01-image-fundamentals/index.html",
+      "destination": "01-image-fundamentals/index.html",
+      "group": "experiments",
+      "bytes": 29439,
+      "sha256": "171f64e79163d6cf8b8c8c4d0b94322ec26dfc29eb10e84a82d701de1b189f30"
+    },
+    {
+      "source": "02-js-image-basics/index.html",
+      "destination": "02-js-image-basics/index.html",
+      "group": "experiments",
+      "bytes": 39124,
+      "sha256": "1b4cbcfb4ff539bd50ce072613c3a96a3b6973130b78073a49406b64e4472bc6"
+    },
+    {
+      "source": "03-grayscale/index.html",
+      "destination": "03-grayscale/index.html",
+      "group": "experiments",
+      "bytes": 29181,
+      "sha256": "e7d287132e2bbe9b65520fe870fb8a45d56d650a77bc8ad5f9cc5abee5993044"
+    },
+    {
+      "source": "04-binarization/index.html",
+      "destination": "04-binarization/index.html",
+      "group": "experiments",
+      "bytes": 39098,
+      "sha256": "b6bf926636cf9d5e3fdffcc25e7cd28ce7a0572d4482606df30cd1cec8e58d0b"
+    },
+    {
+      "source": "05-denoising/index.html",
+      "destination": "05-denoising/index.html",
+      "group": "experiments",
+      "bytes": 35439,
+      "sha256": "fc2d59e53cb1b43b368b0c4fce956fa60c15d8c9a3826a64ecfe49d7831a1a51"
+    },
+    {
+      "source": "06-morphology/index.html",
+      "destination": "06-morphology/index.html",
+      "group": "experiments",
+      "bytes": 38154,
+      "sha256": "6f8c25beba46fa902e9c2aeca69c7899ff1feea920b1998a96ad6e6857c07df5"
+    },
+    {
+      "source": "07-deskewing/index.html",
+      "destination": "07-deskewing/index.html",
+      "group": "experiments",
+      "bytes": 36787,
+      "sha256": "9b3639850d278cbd37797de426cd2267f3a23940b54ece3b7f621c2ec6171581"
+    },
+    {
+      "source": "08-edge-detection/index.html",
+      "destination": "08-edge-detection/index.html",
+      "group": "experiments",
+      "bytes": 26154,
+      "sha256": "bf7727b7c6f6eaf02592f94b3b2f8c5d0f82da596d72d88aa04afec5635e3f0d"
+    },
+    {
+      "source": "09-connected-components/index.html",
+      "destination": "09-connected-components/index.html",
+      "group": "experiments",
+      "bytes": 27627,
+      "sha256": "18bdd5d3105931a272fa676db374c955b802a0b6c066aca328c950b90b6378d0"
+    },
+    {
+      "source": "10-text-localization/index.html",
+      "destination": "10-text-localization/index.html",
+      "group": "experiments",
+      "bytes": 31193,
+      "sha256": "e2cf9af1b493573d33e09b044def0ac94e2bbcbc441dd9a5473e9650f1165541"
+    },
+    {
+      "source": "11-feature-extraction/index.html",
+      "destination": "11-feature-extraction/index.html",
+      "group": "experiments",
+      "bytes": 36343,
+      "sha256": "6f6c34ee2f2d6e48fb9587ba25311beefc57e81051b37cd0fa61d4e1b2114d6f"
+    },
+    {
+      "source": "12-template-matching/index.html",
+      "destination": "12-template-matching/index.html",
+      "group": "experiments",
+      "bytes": 29313,
+      "sha256": "1e1084962ad955fb81207d11f919dbe4cc9d35d556561df39cd98552c2d49778"
+    },
+    {
+      "source": "13-knn-classifier/index.html",
+      "destination": "13-knn-classifier/index.html",
+      "group": "experiments",
+      "bytes": 25129,
+      "sha256": "97f0bdf6d969a602887c0fa612037390b9405849b25037c42d6ad3dcf88e90b0"
+    },
+    {
+      "source": "14-neural-network-basics/index.html",
+      "destination": "14-neural-network-basics/index.html",
+      "group": "experiments",
+      "bytes": 6639,
+      "sha256": "b845a576b93e64548d7eb70a7903cca9cc0d5f429db319d448eea1892376362b"
+    },
+    {
+      "source": "15-cnn-basics/index.html",
+      "destination": "15-cnn-basics/index.html",
+      "group": "experiments",
+      "bytes": 6246,
+      "sha256": "138630ee44a5265c10e9255948162f76a907b637c98d528efac46600f5b07c87"
+    },
+    {
+      "source": "16-tensorflowjs-intro/index.html",
+      "destination": "16-tensorflowjs-intro/index.html",
+      "group": "experiments",
+      "bytes": 4084,
+      "sha256": "8f365d3844adfd15e4c1f38aa9b54502c88a70ea2c23b2d649d5d4f29aa6b185"
+    },
+    {
+      "source": "17-cnn-classifier/index.html",
+      "destination": "17-cnn-classifier/index.html",
+      "group": "experiments",
+      "bytes": 5701,
+      "sha256": "7b18d6ffd28555310683aca5d10d496bd7364198c9d9b9d854cb9f64cea49c4f"
+    },
+    {
+      "source": "18-rnn-basics/index.html",
+      "destination": "18-rnn-basics/index.html",
+      "group": "experiments",
+      "bytes": 3579,
+      "sha256": "aeb84caff54b9f7b36dc3075076010f139a905168518136e17c67e35c6e59314"
+    },
+    {
+      "source": "19-ctc-loss/index.html",
+      "destination": "19-ctc-loss/index.html",
+      "group": "experiments",
+      "bytes": 3793,
+      "sha256": "d5c5b0cbd4b324c639033d02d6e04d18c4fdb4aefadaaa240b28d9b4f06a2e2e"
+    },
+    {
+      "source": "20-crnn/index.html",
+      "destination": "20-crnn/index.html",
+      "group": "experiments",
+      "bytes": 5363,
+      "sha256": "f9254b3b8744b7ad35b306769913dc386e15de8232a00cd471fb09b47d5dfb8b"
+    },
+    {
+      "source": "21-attention/index.html",
+      "destination": "21-attention/index.html",
+      "group": "experiments",
+      "bytes": 5337,
+      "sha256": "92703dea13a52b93e654a58190c39ac710d8145b51f940f46caf12acba47588e"
+    },
+    {
+      "source": "22-text-detection-networks/index.html",
+      "destination": "22-text-detection-networks/index.html",
+      "group": "experiments",
+      "bytes": 7358,
+      "sha256": "8a7e0506c76872f5bca88b9ceac4682bca4d51272f010393977685ed395a6609"
+    },
+    {
+      "source": "23-transformer-ocr/index.html",
+      "destination": "23-transformer-ocr/index.html",
+      "group": "experiments",
+      "bytes": 6567,
+      "sha256": "156ddc559d0b4824ca53a8f211ab35fbb87e04f56e60812157e2ac059b4d58fc"
+    },
+    {
+      "source": "24-post-processing/index.html",
+      "destination": "24-post-processing/index.html",
+      "group": "experiments",
+      "bytes": 17741,
+      "sha256": "35939c48606fe572e91eae5c0ca5722d4b28154c7569ba7bbb76cb49c33d1588"
+    },
+    {
+      "source": "25-ocr-engine/index.html",
+      "destination": "25-ocr-engine/index.html",
+      "group": "experiments",
+      "bytes": 9349,
+      "sha256": "ff096d93556255cc14dddeb7286bc06cafb26629f41f666c7cee32a172f49494"
+    },
+    {
+      "source": "26-validation/index.html",
+      "destination": "26-validation/index.html",
+      "group": "experiments",
+      "bytes": 6207,
+      "sha256": "ef79b13c4e81891a2bd75ba1984ce6f0ccbf918895971a71d778ebb6d4684097"
+    },
+    {
+      "source": "02-js-image-basics/bundle.js",
+      "destination": "02-js-image-basics/bundle.js",
+      "group": "bundles",
+      "bytes": 3654,
+      "sha256": "7c4adbb4108febb08374d145698f621bb206b2c711bcafc01f6ae199a2b0f029"
+    },
+    {
+      "source": "03-grayscale/bundle.js",
+      "destination": "03-grayscale/bundle.js",
+      "group": "bundles",
+      "bytes": 4959,
+      "sha256": "d464127cdb5ec7a5a75e4258b3b7c6f3734d893bb1f2c1ff2603cb14d5b16ef3"
+    },
+    {
+      "source": "04-binarization/bundle.js",
+      "destination": "04-binarization/bundle.js",
+      "group": "bundles",
+      "bytes": 6937,
+      "sha256": "412431bd68833827b1e0bee273ea45629a4d25528910f5e0e8c070744f5b6be8"
+    },
+    {
+      "source": "05-denoising/bundle.js",
+      "destination": "05-denoising/bundle.js",
+      "group": "bundles",
+      "bytes": 9296,
+      "sha256": "520f16a291c8b66c1593dad5c30a1cc382895345c3f7723b8da23ddc318c3098"
+    },
+    {
+      "source": "06-morphology/bundle.js",
+      "destination": "06-morphology/bundle.js",
+      "group": "bundles",
+      "bytes": 9701,
+      "sha256": "f332efc86e0d98cb71659da49bfb38bce854833ab26d3c0817838a3dd8de5f50"
+    },
+    {
+      "source": "07-deskewing/bundle.js",
+      "destination": "07-deskewing/bundle.js",
+      "group": "bundles",
+      "bytes": 11412,
+      "sha256": "e1df83504bbee4c0ec2f413e7189c77d4b94500e331766ba50dec5c9a595347d"
+    },
+    {
+      "source": "08-edge-detection/bundle.js",
+      "destination": "08-edge-detection/bundle.js",
+      "group": "bundles",
+      "bytes": 14004,
+      "sha256": "ea2823f837bfa3c9daabc781164e6af767d26d9bf2bacc0f6088a026bcf57a2e"
+    },
+    {
+      "source": "09-connected-components/bundle.js",
+      "destination": "09-connected-components/bundle.js",
+      "group": "bundles",
+      "bytes": 10129,
+      "sha256": "cb3e29bef99223916f776864a572e6534f6c287e393230373c060f82f5ad3941"
+    },
+    {
+      "source": "10-text-localization/bundle.js",
+      "destination": "10-text-localization/bundle.js",
+      "group": "bundles",
+      "bytes": 18906,
+      "sha256": "91e66138de7ecf21211a416ea9b95202d50dc5691256fc388cfe5e1253964ef4"
+    },
+    {
+      "source": "14-neural-network-basics/bundle.js",
+      "destination": "14-neural-network-basics/bundle.js",
+      "group": "bundles",
+      "bytes": 13336,
+      "sha256": "626d33d723612522edaf3803f51a6b26ecf3f65736b773397e1b702ea05adf3f"
+    },
+    {
+      "source": "15-cnn-basics/bundle.js",
+      "destination": "15-cnn-basics/bundle.js",
+      "group": "bundles",
+      "bytes": 12620,
+      "sha256": "b5534ea23eb64cb18951c92b1d2ad7ed80ec63d08d5f49a30cbfe5f9bb6b008b"
+    },
+    {
+      "source": "16-tensorflowjs-intro/bundle.js",
+      "destination": "16-tensorflowjs-intro/bundle.js",
+      "group": "bundles",
+      "bytes": 1864577,
+      "sha256": "65324ab7d17137aa0120515a787169ef67cca67a0cdbb96243739770f590b888"
+    },
+    {
+      "source": "17-cnn-classifier/bundle.js",
+      "destination": "17-cnn-classifier/bundle.js",
+      "group": "bundles",
+      "bytes": 1882679,
+      "sha256": "1388379c915cf85fde2611d683f5223e7d7ef120ba960ab8e22aa1a3b4c79473"
+    },
+    {
+      "source": "18-rnn-basics/bundle.js",
+      "destination": "18-rnn-basics/bundle.js",
+      "group": "bundles",
+      "bytes": 5945,
+      "sha256": "1f1a2b856b84155741ffe26c5be00ac07f3aee8b21ea73ea9fd4ab4a99e67cf0"
+    },
+    {
+      "source": "19-ctc-loss/bundle.js",
+      "destination": "19-ctc-loss/bundle.js",
+      "group": "bundles",
+      "bytes": 9000,
+      "sha256": "077bcafb74b78a603d09ef9346397ada5e7db937513edbe8b9f77e3b3fa78787"
+    },
+    {
+      "source": "20-crnn/bundle.js",
+      "destination": "20-crnn/bundle.js",
+      "group": "bundles",
+      "bytes": 1879879,
+      "sha256": "8a934a017c60b262af457ec56bc30f919da140434af5d4ab8193596c1aae9118"
+    },
+    {
+      "source": "21-attention/bundle.js",
+      "destination": "21-attention/bundle.js",
+      "group": "bundles",
+      "bytes": 7822,
+      "sha256": "e7ffa06a4b272c0ccfec035e5bd2d7001778a0685806bd8123a86e7941384af7"
+    },
+    {
+      "source": "22-text-detection-networks/bundle.js",
+      "destination": "22-text-detection-networks/bundle.js",
+      "group": "bundles",
+      "bytes": 8564,
+      "sha256": "894a9950f5f8a29da0501c5e189c4cf546023b854bfca48534f240d1c50222ca"
+    },
+    {
+      "source": "23-transformer-ocr/bundle.js",
+      "destination": "23-transformer-ocr/bundle.js",
+      "group": "bundles",
+      "bytes": 15418,
+      "sha256": "1d7f26595207f9543c04acf83071fc5b1f4c2b908918e3fa8414be023042836a"
+    },
+    {
+      "source": "24-post-processing/bundle.js",
+      "destination": "24-post-processing/bundle.js",
+      "group": "bundles",
+      "bytes": 21919,
+      "sha256": "4313390a7f6a1e4b1e3b8dac8f43ff9475d77e72650b4272711bd80c31f863fa"
+    },
+    {
+      "source": "25-ocr-engine/bundle.js",
+      "destination": "25-ocr-engine/bundle.js",
+      "group": "bundles",
+      "bytes": 1918157,
+      "sha256": "9d2a5af765502ed5cebcc83eeec7f10f033aedf50c7c58a1191fc3a5a040cb9e"
+    },
+    {
+      "source": "26-validation/bundle.js",
+      "destination": "26-validation/bundle.js",
+      "group": "bundles",
+      "bytes": 15762,
+      "sha256": "b3355909b44c4e53146ac35dd4ab75d482256ea8b32a9cf0c26c14f33cc8feff"
+    },
+    {
+      "source": "shared/course.css",
+      "destination": "shared/course.css",
+      "group": "shared",
+      "bytes": 3988,
+      "sha256": "eb22fbebd54509021a919060fb975632485f96e69aaff54b07f2b7bbab48eb7e"
+    },
+    {
+      "source": "shared/course.js",
+      "destination": "shared/course.js",
+      "group": "shared",
+      "bytes": 2157,
+      "sha256": "52efece619e63824d32e01e27a882869dbdf21fbed50435119a329e2d0d59527"
+    },
+    {
+      "source": "shared/11-feature-extraction/index.js",
+      "destination": "shared/11-feature-extraction/index.js",
+      "group": "shared",
+      "bytes": 31447,
+      "sha256": "75b5f6fdc4e48f7ead5df0ddc218f296831cd972ddf77b71f95d1ef168d4a8ce"
+    },
+    {
+      "source": "shared/12-template-matching/index.js",
+      "destination": "shared/12-template-matching/index.js",
+      "group": "shared",
+      "bytes": 19321,
+      "sha256": "79395e9927f4b40ccdb9b8e194ae5f3ca625ccbd5e755fc26012a3a3470dfbb3"
+    },
+    {
+      "source": "shared/13-knn-classifier/index.js",
+      "destination": "shared/13-knn-classifier/index.js",
+      "group": "shared",
+      "bytes": 25905,
+      "sha256": "5ddb6e3cfc0f47d26a90795b1dd3aaffd21c454e82b021484e515128e64fc6a7"
+    },
+    {
+      "source": "shared/13-knn-classifier/demoDataset.js",
+      "destination": "shared/13-knn-classifier/demoDataset.js",
+      "group": "shared",
+      "bytes": 10861,
+      "sha256": "06bf7c805320e001c57d32d7ba58250554c3e36f4d7043a38a62dec30180c16e"
+    },
+    {
+      "source": "17-cnn-classifier/train.html",
+      "destination": "17-cnn-classifier/train.html",
+      "group": "cnn",
+      "bytes": 2755,
+      "sha256": "6a263cdeb7567b4e4b3f0c584cfdeb193047a41d38d8e8c8a4abe490ca53bc5a"
+    },
+    {
+      "source": "17-cnn-classifier/model/model.json",
+      "destination": "17-cnn-classifier/model/model.json",
+      "group": "cnn",
+      "bytes": 6947,
+      "sha256": "91221372a1f64637684099c7e9402e27791b498f47e5b1de72fb2031f6ef12f6"
+    },
+    {
+      "source": "17-cnn-classifier/model/weights.bin",
+      "destination": "17-cnn-classifier/model/weights.bin",
+      "group": "cnn",
+      "bytes": 58152,
+      "sha256": "9c7b0b8e8224d188ddc38bcaf680dd032753441d6b3413870e7722a457fed90c"
+    },
+    {
+      "source": "17-cnn-classifier/model/config.json",
+      "destination": "17-cnn-classifier/model/config.json",
+      "group": "cnn",
+      "bytes": 2177,
+      "sha256": "89ac6ad97a9c66fc1b8860cfcdeba482f35d0b3c23c5e7241cad128c53944b0a"
+    },
+    {
+      "source": "17-cnn-classifier/model/inference-verification.json",
+      "destination": "17-cnn-classifier/model/inference-verification.json",
+      "group": "cnn",
+      "bytes": 24970,
+      "sha256": "1b2f18c52a009e32550097682dd31dab74dbb7d5e06d352ecf6a5c26ced90b02"
+    },
+    {
+      "source": "17-cnn-classifier/model/split.json",
+      "destination": "17-cnn-classifier/model/split.json",
+      "group": "cnn",
+      "bytes": 349002,
+      "sha256": "1c758aab4a0158f70d1195c71e754659030e6533b2e82377096e56e4452edbf4"
+    },
+    {
+      "source": "17-cnn-classifier/model/test-predictions.json",
+      "destination": "17-cnn-classifier/model/test-predictions.json",
+      "group": "cnn",
+      "bytes": 40101,
+      "sha256": "9cadc784f5cae38d84e9dac2b89ceaeef45b8e854f5d113fb10e8ad741024fee"
+    },
+    {
+      "source": "17-cnn-classifier/model/training-curve.json",
+      "destination": "17-cnn-classifier/model/training-curve.json",
+      "group": "cnn",
+      "bytes": 1080,
+      "sha256": "d1d2c52976835e543e3b70fe84db45191fa2aa80cdbbe3d69022eba7f9f8a8b3"
+    },
+    {
+      "source": "17-cnn-classifier/model/training-report.json",
+      "destination": "17-cnn-classifier/model/training-report.json",
+      "group": "cnn",
+      "bytes": 10179,
+      "sha256": "0bcdd6a98fa80ca3a451884a161161e8e01569262453785bc23f64e3e227faca"
+    },
+    {
+      "source": "17-cnn-classifier/validation-samples.json",
+      "destination": "17-cnn-classifier/validation-samples.json",
+      "group": "cnn",
+      "bytes": 19043,
+      "sha256": "cfcee7938ee541c0d114825d80eb03c9198b2fb337a096dfcb1fc3df51d794ea"
+    },
+    {
+      "source": "20-crnn/model/weights.json",
+      "destination": "20-crnn/model/weights.json",
+      "group": "crnn",
+      "bytes": 34098,
+      "sha256": "fd9a194f7b5e43c5dc0cbeec79cca5da706b8f4d74d33c9eca390af7ce99234e"
+    },
+    {
+      "source": "20-crnn/training-report.json",
+      "destination": "20-crnn/training-report.json",
+      "group": "crnn",
+      "bytes": 10954,
+      "sha256": "5c3448e44658ed795b73103464782921037d29e1d6f7ac80b8a76c69266ff3b5"
+    },
+    {
+      "source": "26-validation/fixtures/development-line.png",
+      "destination": "26-validation/fixtures/development-line.png",
+      "group": "samples",
+      "bytes": 17459,
+      "sha256": "c95cc2fcaa6044548643845aadf003ca4d5e1b21b31c5f0b19bd69a113a94438"
+    },
+    {
+      "source": "24-post-processing/browser-qa-results.json",
+      "destination": "24-post-processing/browser-qa-results.json",
+      "group": "readingResources",
+      "bytes": 3815,
+      "sha256": "a98738155488b6e4f86f52e033a58b364afe818dd9ef2e0824911fb20ef6a072"
+    },
+    {
+      "source": "24-post-processing/browser-qa-desktop.png",
+      "destination": "24-post-processing/browser-qa-desktop.png",
+      "group": "readingResources",
+      "bytes": 104967,
+      "sha256": "327f7804ff6baf248bf3a8bad14d4ea4dde5b4d30c087f3992fec7e07af55a2c"
+    },
+    {
+      "source": "25-ocr-engine/index.js",
+      "destination": "25-ocr-engine/index.js",
+      "group": "readingResources",
+      "bytes": 7768,
+      "sha256": "06ccbb90f176adcaf33d5ff0542ce8e16591c1a0c982bea4ea8b89e99bca300b"
+    },
+    {
+      "source": "26-validation/index.js",
+      "destination": "26-validation/index.js",
+      "group": "readingResources",
+      "bytes": 7841,
+      "sha256": "fbce39e6548251e0b6b7059ed02f5dc56ad523339341dc49328573a7fc2a30d4"
+    },
+    {
+      "source": "26-validation/development-report.json",
+      "destination": "26-validation/development-report.json",
+      "group": "readingResources",
+      "bytes": 34469,
+      "sha256": "72b543adcbaa637ecec491971b919db90e9590baa30553e1ccf5f5cd2244703e"
+    },
+    {
+      "source": "26-validation/test-report.json",
+      "destination": "26-validation/test-report.json",
+      "group": "readingResources",
+      "bytes": 35618,
+      "sha256": "dc136557bcb6812ca8bf4084ef23ca1781cfe4d7bed9a706827893351b5aedf6"
+    },
+    {
+      "source": "26-validation/test-freeze.json",
+      "destination": "26-validation/test-freeze.json",
+      "group": "readingResources",
+      "bytes": 351,
+      "sha256": "8ef8c1cd1b4aacb2f53e09c5afd6be56bda9e823154c3f25dad3234b6c43f6fc"
+    },
+    {
+      "source": "26-validation/test-manifest.json",
+      "destination": "26-validation/test-manifest.json",
+      "group": "readingResources",
+      "bytes": 5342,
+      "sha256": "006b4f949ca2a3263075322225efb33b1cb76e5ce59d86884c49ba96b2977888"
+    },
+    {
+      "source": "shared/24-post-processing/index.js",
+      "destination": "shared/24-post-processing/index.js",
+      "group": "readingResources",
+      "bytes": 15745,
+      "sha256": "4489fe3a51b0a174d6b001ee6274b7da3d6685de1c355da21547a3cdd1fec38b"
+    },
+    {
+      "source": "shared/25-ocr-engine/index.js",
+      "destination": "shared/25-ocr-engine/index.js",
+      "group": "readingResources",
+      "bytes": 12559,
+      "sha256": "4af955094af43cb17b50c1a6ad05177520768717ee540c9e466c5c7d25da9f6f"
+    },
+    {
+      "source": "shared/26-validation/index.js",
+      "destination": "shared/26-validation/index.js",
+      "group": "readingResources",
+      "bytes": 4111,
+      "sha256": "86e52ce4da376ea621333b08b2de97081addf560187ff6feaf689e0b816385d7"
+    }
+  ]
+}

@@ -15,191 +15,10 @@
  * 运行方式：node index.js
  */
 
-// 引入共享模块
-const {
-    MockImageData,
-    getPixel,
-    setPixel,
-    cloneImageData,
-    forEachPixel,
-    forEachPixelXY,
-    grayscaleWeighted,
-    calculateHistogram,
-    calculateHistogramStats
-} = require('../shared/imageUtils');
-
-// ==================== 二值化算法实现 ====================
-
-/**
- * 固定阈值二值化
- * 
- * 原理说明：
- * - 使用一个固定的阈值分割图像
- * - 大于等于阈值的像素变为白色（255）
- * - 小于阈值的像素变为黑色（0）
- * 
- * @param {MockImageData} imageData - 灰度图像数据
- * @param {number} threshold - 阈值 (0-255)
- * @returns {MockImageData} 二值化后的图像数据
- */
-function binarizeFixed(imageData, threshold) {
-    return forEachPixel(imageData, (pixel) => {
-        // 假设输入是灰度图，R=G=B
-        const gray = pixel.r;
-        const binary = gray >= threshold ? 255 : 0;
-        return { r: binary, g: binary, b: binary };
-    });
-}
-
-/**
- * 计算 Otsu 阈值
- * 
- * 原理说明：
- * - Otsu 算法基于类间方差最大化原理
- * - 遍历所有可能的阈值（0-255）
- * - 计算每个阈值对应的类间方差
- * - 选择使类间方差最大的阈值
- * 
- * 类间方差公式：
- * σ²(t) = w0(t) × w1(t) × [μ0(t) - μ1(t)]²
- * 
- * 其中：
- * - w0, w1 = 前景和背景的像素比例
- * - μ0, μ1 = 前景和背景的平均灰度值
- * 
- * @param {number[]} histogram - 灰度直方图（长度256）
- * @returns {{threshold: number, variance: number, w0: number, w1: number}} Otsu 结果
- */
-function calculateOtsuThreshold(histogram) {
-    // 计算总像素数
-    const total = histogram.reduce((sum, count) => sum + count, 0);
-
-    if (total === 0) {
-        return { threshold: 128, variance: 0, w0: 0, w1: 0 };
-    }
-
-    // 计算灰度值总和（用于快速计算均值）
-    let sum = 0;
-    for (let i = 0; i < 256; i++) {
-        sum += i * histogram[i];
-    }
-
-    // 遍历所有可能的阈值
-    let sumB = 0;      // 前景灰度值累计
-    let wB = 0;        // 前景像素数
-    let maxVariance = 0;
-    let bestThreshold = 0;
-    let bestW0 = 0;    // ✅ 记录最佳阈值时的前景像素数
-
-    for (let t = 0; t < 256; t++) {
-        wB += histogram[t];           // 前景权重（像素数）
-        if (wB === 0) continue;       // 跳过空的前景
-
-        const wF = total - wB;        // 背景权重
-        if (wF === 0) break;          // 没有背景了，结束
-
-        sumB += t * histogram[t];     // 前景灰度值累计
-
-        const mB = sumB / wB;                 // 前景均值
-        const mF = (sum - sumB) / wF;         // 背景均值
-
-        // 类间方差
-        const variance = wB * wF * (mB - mF) * (mB - mF);
-
-        // 记录最大方差对应的阈值
-        if (variance > maxVariance) {
-            maxVariance = variance;
-            bestThreshold = t;
-            bestW0 = wB;              // ✅ 同时记录此时的前景像素数
-        }
-    }
-
-    return {
-        threshold: bestThreshold,
-        variance: maxVariance,
-        w0: bestW0,              // ✅ 使用最佳阈值时记录的值
-        w1: total - bestW0       // ✅ 背景像素数
-    };
-}
-
-/**
- * Otsu 二值化
- * 
- * 原理说明：
- * - 先计算灰度直方图
- * - 使用 Otsu 算法自动确定阈值
- * - 应用该阈值进行二值化
- * 
- * @param {MockImageData} imageData - 灰度图像数据
- * @returns {{imageData: MockImageData, threshold: number, variance: number}} 结果
- */
-function binarizeOtsu(imageData) {
-    // 计算直方图
-    const histogram = calculateHistogram(imageData);
-    
-    // 计算 Otsu 阈值
-    const otsuResult = calculateOtsuThreshold(histogram);
-    
-    // 应用阈值进行二值化
-    const binaryImage = binarizeFixed(imageData, otsuResult.threshold);
-    
-    return {
-        imageData: binaryImage,
-        threshold: otsuResult.threshold,
-        variance: otsuResult.variance
-    };
-}
-
-/**
- * 自适应阈值二值化
- * 
- * 原理说明：
- * - 每个像素的阈值根据其局部邻域动态计算
- * - 阈值 = 邻域均值 - 常数C
- * - 适合处理光照不均匀的图像
- * 
- * @param {MockImageData} imageData - 灰度图像数据
- * @param {number} blockSize - 邻域大小（奇数）
- * @param {number} C - 从均值减去的常数
- * @returns {MockImageData} 二值化后的图像数据
- */
-function binarizeAdaptive(imageData, blockSize = 15, C = 5) {
-    const { width, height } = imageData;
-    const result = cloneImageData(imageData);
-    const halfBlock = Math.floor(blockSize / 2);
-    
-    for (let y = 0; y < height; y++) {
-        for (let x = 0; x < width; x++) {
-            // 计算邻域均值
-            let sum = 0;
-            let count = 0;
-            
-            for (let dy = -halfBlock; dy <= halfBlock; dy++) {
-                for (let dx = -halfBlock; dx <= halfBlock; dx++) {
-                    const nx = x + dx;
-                    const ny = y + dy;
-                    
-                    if (nx >= 0 && nx < width && ny >= 0 && ny < height) {
-                        const pixel = getPixel(imageData, nx, ny);
-                        sum += pixel.r;
-                        count++;
-                    }
-                }
-            }
-            
-            const mean = sum / count;
-            const threshold = mean - C;
-            
-            // 获取当前像素并二值化
-            const currentPixel = getPixel(imageData, x, y);
-            const binary = currentPixel.r >= threshold ? 255 : 0;
-            
-            setPixel(result, x, y, binary, binary, binary);
-        }
-    }
-    
-    return result;
-}
+// 数学推导见 README，逐步实现见 shared/04-binarization；浏览器使用相同函数。
+const { MockImageData, getPixel, setPixel } = require('../shared/core');
+const { calculateHistogram } = require('../shared/03-grayscale');
+const { binarizeFixed, calculateOtsuThreshold, binarizeOtsu, binarizeAdaptive } = require('../shared/04-binarization');
 
 // ==================== 演示函数 ====================
 
@@ -219,7 +38,7 @@ function demonstrateWhyBinarize() {
 1. 【简化数据】
    - 灰度图：256 个灰度级（8-bit）
    - 二值图：2 个灰度级（1-bit）
-   - 数据量减少 8 倍！
+   - 只有位打包存储才能减至1/8；本项目RGBA存储不变
 
 2. 【分离前景和背景】
    - 文字（前景）→ 黑色 (0)
@@ -227,12 +46,12 @@ function demonstrateWhyBinarize() {
    - 明确区分便于后续处理
 
 3. 【减少噪声影响】
-   - 中间灰度级的噪声被消除
+   - 中间灰度级被映射，噪声也可能变成黑白斑点
    - 只保留明确的黑白信息
 
 4. 【便于后续算法】
    - 连通域分析需要二值图
-   - 形态学操作需要二值图
+   - 本课二值形态学需要二值图，灰度形态学另有定义
    - 轮廓检测需要二值图
 
 【OCR 预处理流水线】
@@ -264,8 +83,8 @@ else
 
 【阈值选择的影响】
 
-阈值过高 → 文字变细甚至断裂
-阈值过低 → 文字变粗，背景噪声增多
+阈值过高 → 黑色类增大，文字变粗，背景可能变黑
+阈值过低 → 黑色类缩小，文字变细甚至断裂
 `);
     
     // 创建测试图像
@@ -325,7 +144,8 @@ function demonstrateOtsu() {
 【Otsu 算法核心思想】
 
 寻找一个阈值 t，使得前景和背景的"类间方差"最大。
-类间方差越大，说明前景和背景分离得越好。
+最大化的是灰度分组统计目标，不保证OCR语义分割最佳。
+Otsu低灰度类包含t，应用固定阈值时用T=t+1。
 
 【类间方差公式】
 
@@ -379,8 +199,8 @@ function demonstrateOtsu() {
     console.log('\n【Otsu 计算结果】\n');
     console.log(`  最佳阈值: ${result.threshold}`);
     console.log(`  类间方差: ${result.variance.toFixed(2)}`);
-    console.log(`  前景像素比例: ${((result.w0 / total) * 100).toFixed(1)}%`);
-    console.log(`  背景像素比例: ${((result.w1 / total) * 100).toFixed(1)}%`);
+    console.log(`  前景像素比例: ${((result.w0) * 100).toFixed(1)}%`);
+    console.log(`  背景像素比例: ${((result.w1) * 100).toFixed(1)}%`);
     
     console.log(`
 
@@ -392,7 +212,7 @@ function demonstrateOtsu() {
 
 【Otsu 算法的局限】
 
-1. 假设直方图是双峰分布
+1. 不要求双峰；分布重叠或类别失衡时，统计最优未必语义正确
 2. 对光照不均匀的图像效果不佳
 3. 全局阈值，不能处理局部差异
 `);
@@ -480,7 +300,7 @@ threshold(x, y) = mean(邻域) - C
         }
     }
     
-    console.log('原始灰度值（20=文字，60-200=渐变背景）：');
+    console.log('原始灰度值（20/120=文字，60-200=渐变背景）：');
     for (let y = 0; y < 5; y++) {
         let row = '  ';
         for (let x = 0; x < 10; x++) {
@@ -624,10 +444,10 @@ function demonstrateThresholdComparison() {
     console.log(`\n  Otsu 自动阈值: ${otsuResult.threshold}\n`);
     
     // 对比不同阈值的效果
-    const thresholds = [80, otsuResult.threshold, 150];
+    const thresholds = [80, otsuResult.threshold + 1, 150];
     
     console.log('【不同阈值的二值化结果】\n');
-    console.log('           阈值=80        阈值=' + otsuResult.threshold + '(Otsu)    阈值=150');
+    console.log('           T=80           t=' + otsuResult.threshold + '(Otsu，T=t+1)    T=150');
     console.log('          ──────────    ──────────    ──────────');
     
     for (let y = 0; y < 3; y++) {
@@ -664,6 +484,20 @@ function demonstrateThresholdComparison() {
 `);
 }
 
+function demonstrateOtsuBoundaries() {
+    console.log('\n【Otsu边界与六像素方差验算】');
+    for (const values of [[0, 255], [30, 40, 50, 180, 190, 200], [128, 128]]) {
+        const img = new MockImageData(values.length, 1);
+        values.forEach((g, x) => setPixel(img, x, 0, g, g, g));
+        const result = binarizeOtsu(img);
+        console.log({ input: values, t: result.threshold, whiteLowerBound: result.threshold + 1,
+            variance: result.variance, w0: result.w0, w1: result.w1, validSplit: result.validSplit,
+            output: Array.from(result.imageData.data).filter((_, i) => i % 4 === 0) });
+    }
+    console.log('六像素例：σW²=200/3，σB²=5625，σT²=5691⅔；总方差=类内+类间。');
+    console.log('单灰度图没有有效二类分割，t=0仅为确定性回退，不能当识别成功。');
+}
+
 // ==================== 主程序 ====================
 
 function main() {
@@ -678,6 +512,7 @@ function main() {
     demonstrateWhyBinarize();
     demonstrateFixedThreshold();
     demonstrateOtsu();
+    demonstrateOtsuBoundaries();
     demonstrateAdaptiveThreshold();
     demonstrateFullProcess();
     demonstrateThresholdComparison();
@@ -699,7 +534,7 @@ function main() {
 | 方法     | 优点           | 缺点                   |
 |----------|----------------|------------------------|
 | 固定阈值 | 简单快速       | 需手动调整，不够灵活   |
-| Otsu     | 自动化，效果好 | 假设双峰分布           |
+| Otsu     | 自动化，效果好 | 可能分错语义区域           |
 | 自适应   | 处理光照不均   | 计算量大，参数需调优   |
 
 【可复用模块】
@@ -717,7 +552,7 @@ function main() {
 }
 
 // 运行主程序
-main();
+if (require.main === module) main();
 
 // ==================== 导出模块 ====================
 

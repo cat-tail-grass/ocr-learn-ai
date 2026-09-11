@@ -1,0 +1,30 @@
+- navigation "课程导航" [ref=e1]
+  - link "OCR / 学习实验室" [ref=e2]
+  - link "返回本章讲义" [ref=e3]
+  - link "课程目录" [ref=e4]
+  - link "照片识别" [ref=e5]
+  - link "评估记录" [ref=e6]
+- heading "识别照片里的手写数字串" [level=1, ref=e7]
+- heading "1. 导入照片" [level=2, ref=e9]
+- button "选择照片" [ref=e10]: 未选择任何文件
+- button "加载手写样例" [ref=e11]
+- combobox "阈值方法 " [expanded=false, ref=e26]: Otsu 自动阈值
+  - option "Otsu 自动阈值" [selected, ref=e28]
+  - option "局部均值（光照不均）" [ref=e29]
+  - option "固定阈值 128" [ref=e30]
+- spinbutton "校正角度 " [ref=e27]: 8
+- checkbox " 自动估计轻微倾斜" [checked=false, ref=e24]
+- checkbox " 中值去噪" [checked=false, ref=e25]
+- button "开始识别" [ref=e12]
+- button "重新加载模型" [ref=e13]
+- heading "2. 查看完整结果" [level=2, ref=e14]
+- heading "3. 核对实际书写内容" [level=3, ref=e15]
+- textbox "正确数字串" [ref=e16]: 001208
+- button "核对" [ref=e17]
+- textbox "实验轮次" [ref=e18]: D-dev-root-flow-pass-synthetic-1789130150272
+- button "保存本轮首次结果" [ref=e19]
+- link "查看全部评估记录 →" [ref=e20]
+- heading "中间结果：笔画有没有被正确分开？" [level=2, ref=e21]
+- heading "阈值与噪点过滤" [level=3, ref=e22]
+- heading "校正后的灰度图与字符框" [level=3, ref=e23]
+- link "阅读本章讲义、接口与局限" [ref=e8]

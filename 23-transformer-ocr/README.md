@@ -1,0 +1,467 @@
+# 23. Transformer OCR：位置、多头、图像块与自回归识别
+
+第21章已经得到一个可运行的注意力算子。本章把它装进更完整的前向结构，回答四个问题：如何告诉模型位置？多个头怎样组合？二维图像怎样变成token？输出长度不同于输入时怎样逐步生成？
+
+本章执行固定种子的小型编码器/解码器前向，真实计算patch、Q/K/V、多头权重、LayerNorm、残差与FFN，并检查因果可见性。**参数未训练，输出不是OCR预测。** 完整ViT、TrOCR与PaddleOCR作为架构和模型接入对照，不把教学结构称为这些系统的复现。
+
+## 学习目标与前置知识
+
+1. 用排列实验解释位置编码的动机，算出正弦/余弦编码。
+2. 从投影、分头、各头注意力、拼接、输出投影追踪所有维度。
+3. 解释LayerNorm、残差、FFN分别改变什么，并区分pre-norm/post-norm。
+4. 实现按约定顺序切patch与线性映射，理解token数和分辨率的代价。
+5. 区分编码器self attention、解码器causal self attention与cross attention。
+6. 理解TrOCR的训练、预训练初始化、教师强制、tokenization和自回归停止条件。
+
+前置：第14章线性层/非线性，第15章图像通道，第18–20章序列与CTC，第21章缩放点积，第22章裁剪与几何。共享模块直接引用第21章，无需等待RNN、CTC代码，也不依赖训练框架。
+
+## OCR位置与三入口对应
+
+```text
+文字行图像（通常由检测/裁剪得到）
+  → 切patch并映射到dModel通道
+  → 位置表示 + Transformer视觉编码器
+  → 图像memory ─────────────────────────┐
+                                       ↓
+已生成token → 文本嵌入/位置 → 因果self → cross → FFN → 词表logits
+     ↑                                                   ↓
+     └────────────────── 下一个token / EOS ───────────────┘
+```
+
+该结构是第25章“传统定位分割+自主CNN”之外的学习路线，不把随机前向模块接到照片识别主流程中。检测负责位置，本章侧重给定区域的序列表示与读取；通用文档版面并非天然由一个行识别器解决。
+
+| 知识点 | 文档位置 | HTML实验 | Node实验/共享函数 |
+|---|---|---|---|
+| 图像切块与线性嵌入 | §1 | 原图、patch边界编号、中间矩阵 | 实验1 `patchify` |
+| 位置编码与排列 | §2 | 位置开关、位置矩阵 | 实验2 `sinusoidalPositionEncoding`、排列误差 |
+| 多头投影与合并 | §3 | 选择头、权重表、Q/K/V | 实验3 `multiHeadAttention` |
+| LN、残差、FFN | §4 | 展开投影/结果，文档解释其关系 | 实验4 `layerNorm`、`encoderBlock` |
+| 因果与cross attention | §5 | 三类层切换、mask开关、视觉权重叠加 | 实验5 `decoderBlock`未来扰动 |
+| 自回归生成 | §6 | 展示教师前缀状态；无识别预测 | 实验6 `greedyDecode`受控logits |
+| token规模和边界 | §7 | patch2/4、头1/2/4对照 | 实验7内存数量、非法patch断言 |
+| ViT/TrOCR/PaddleOCR | §8–9 | 明确随机模型提示 | 文档架构及官方来源；不宣称运行完整模型 |
+
+## 1. 图像怎样成为token：patch与嵌入
+
+### 动机与直觉
+
+注意力算子接受“位置×通道”的矩阵，不接受含糊的“图片”。CNN路线可以先产生特征图，再把宽度转为时间轴；ViT式路线把图像切为固定大小的不重叠块，将每块展平后线性投影。
+
+一个patch可以含一部分笔画、多个笔画或空白，它不是预先分割出的一个字符。输入token数由几何划分决定，输出token数由文本内容及tokenizer决定。
+
+### 定义、维度与算例
+
+输入图像 `X∈R^{H×W×C}`，块大小P×P，H/W都可被P整除：
+
+\[
+N=\frac{HW}{P^2},\quad X_p\in R^{N\times(P^2C)},\quad
+Z=X_pE,\quad E\in R^{P^2C\times D}.
+\]
+
+N是patch数，D是dModel，E是所有patch共用的线性映射。本章不加投影偏置。原始ViT使用可学习映射和位置嵌入；参见 [ViT原论文§3.1](https://arxiv.org/html/2010.11929v2)。
+
+默认图为4×8×1，P=2：N=8，每块4个值，E为4×4，最终Z为8×4。P改为4：N=2，每块16个值，E为16×4，Z为2×4。改变P会改变投影输入宽度，不能不改参数就加载同一个线性矩阵。
+
+进一步用一张2×4双通道图检查**展平顺序**：data为0到15、按HWC交错。P=2时第一个patch为 `[0,1,2,3,8,9,10,11]`，第二个为 `[4,5,6,7,12,13,14,15]`。先遍历patch的y/x，再遍历块内y/x/channel；若改成CHW而不改索引，输出将完全不同。
+
+### 一次线性映射的手算
+
+单个灰度patch展平为 `p=[1,0,0,1]`，投影：
+
+```text
+E = [[1,0],
+     [0,1],
+     [1,1],
+     [2,0]]
+pE = [1×1+0×0+0×1+1×2, 1×0+0×1+0×1+1×0] = [3,0]
+```
+
+两个输出通道是四个像素的不同加权组合，不是“两个概率”。完整随机例子的第一个patch为 `[0,0,0,1]`，所以它的投影结果等于E的最后一行；Node实验1会同时打印p/E/pE供核对。
+
+### 实现步骤与限制
+
+`patchify`先检查尺寸正整数、数据长度与HWC一致、像素有限、H/W能被P整除；然后按patch起点遍历、按块内顺序收集数值，返回patches和每块坐标。实际代码在共享模块逐层循环，可用断点检查同一个像素来自哪里。
+
+```javascript
+const { patchify } = require('../shared/23-transformer-ocr');
+const { matmul } = require('../shared/21-attention');
+const { patches, positions } = patchify({
+  width: 4, height: 2, channels: 1,
+  data: [1,0,0,1, 0,1,1,0]
+}, 2);
+const embeddings = matmul(patches, [[1,0],[0,1],[1,1],[2,0]]);
+```
+
+本API不偷偷裁掉不完整边缘；不能整除时抛错，调用方需明确padding、resize或可变大小策略。patch太大会丢失局部辨别细节，太小会增加注意力代价。预训练模型的插值与分辨率适配也要遵守其具体配置。
+
+## 2. 位置编码：让相同内容拥有不同位置
+
+### 没有位置时，模型缺少什么
+
+没有位置表示时，稠密self attention仍能比较内容，但对token顺序没有独立的绝对位置标记。用排列矩阵Π表示重排：
+
+\[
+Q'=\Pi Q,\ K'=\Pi K,\ V'=\Pi V,
+\quad S'=\Pi S\Pi^\top,
+\quad A'=\Pi A\Pi^\top,
+\quad O'=\Pi O.
+\]
+
+原因是同时重排查询行、键列后，每行softmax的分母只是加数换了顺序。逐token的LayerNorm/FFN和残差仍满足这个性质。因此无位置的编码器是**排列等变**：输入重排，输出随之重排；不是说输出矩阵“完全不变”。对token平均池化才可能进一步得到排列不变的整体表示。
+
+这对“12”和“21”这样的序列很关键。模型需要可区分的空间/顺序线索。图像块内部像素顺序有局部几何，但不能单独告诉网络整张图上块与块的排列。
+
+### 正弦/余弦公式与符号
+
+本实验采用原始Transformer的固定位置编码：
+
+\[
+PE(pos,2i)=\sin\left(\frac{pos}{10000^{2i/D}}\right),\quad
+PE(pos,2i+1)=\cos\left(\frac{pos}{10000^{2i/D}}\right).
+\]
+
+pos是位置编号，从0开始，D是模型通道数，i是频率对编号。同一对sin/cos使用同一个频率，不要把奇数通道指数误写为 `(2i+1)/D`。编码通过 `Z+PE` 相加，维度仍是N×D，不是拼接成N×2D。公式来源为 [Attention Is All You Need §3.5](https://arxiv.org/html/1706.03762v7)。
+
+### 可手算例子
+
+D=4时有两组频率：1与1/100。pos=0：`[0,1,0,1]`；pos=1：
+
+```text
+[sin(1),cos(1),sin(.01),cos(.01)]
+≈ [.84147098,.54030231,.00999983,.99995000]
+```
+
+若嵌入为 `[3,0,1,2]`，在位置0变为 `[3,1,1,3]`，在位置1变为 `[3.84147098,.54030231,1.00999983,2.99995]`。同一内容由此具有不同的位置表示，但具体如何使用这些值仍需学习。
+
+### 为什么有助表达相对位置
+
+令同一频率下角度为ωp，位移为Δ。由和角公式，`sin(ω(p+Δ))`、`cos(ω(p+Δ))` 可写成 `sin(ωp),cos(ωp)` 的线性组合，组合系数依赖Δ。因此编码中包含可用于相对位移的结构。它不保证训练短行后一定能准确识别任意长行；输入分布、token数量与模型训练范围仍然重要。
+
+### 代码与实测排列对照
+
+`sinusoidalPositionEncoding(N,D,offset=0)`生成N×D矩阵；奇数D保留最后一个未成对的sin通道，offset指定起始位置。上面的精确线性位移关系适用于完整sin/cos频率对；奇数D的最后一个孤立sin通道缺少配对cos，不能据此宣称整个编码仍有同一性质。随后`add`相加，形状不符会失败。
+
+Node实验2使用同一组随机参数：
+
+1. 无位置：分别编码原序列和反序列，比较“反序列输出”与“原输出反转”。
+2. 有位置：将内容反转，但把固定位置编号重新按0…N−1分配，再比较。
+
+实测最大绝对误差分别约 `4.4408920985e-16` 和 `2.5563907727`。前者是浮点求和误差，后者证明本例位置编码打破了原有关系，不证明网络已经学会阅读顺序。
+
+## 3. 多头注意力：不同投影、独立读取、合并输出
+
+### 动机与定义
+
+单个注意力分布只能形成一种加权混合。不同投影可以在不同子空间中建立不同关系，然后将各头读出的内容合并。这是设计容量，不是预先给每个头贴上“只看横线/只看竖线”的确定标签。
+
+对于头h：
+
+\[
+Q_h=X_qW_h^Q,\quad K_h=X_mW_h^K,\quad V_h=X_mW_h^V,
+\]
+\[
+O_h=\operatorname{softmax}(Q_hK_h^\top/\sqrt{d_h}+M)V_h,
+\quad O=\operatorname{Concat}(O_1,\ldots,O_H)W^O.
+\]
+
+H是头数（此处不是图像高度），本地实现 `d_h=D/H`，Q/K/V总投影和Wo均为D×D。每头权重为T×S，头内输出T×dh，拼接后T×D，再乘Wo得到T×D。[原论文§3.2.2](https://arxiv.org/html/1706.03762v7) 解释了这一结构。
+
+### 一次可完全手算的双头实验
+
+设D=2，H=2，每头维度1，Q/K/V的总投影均为单位矩阵，Wo=diag(2,3)。查询 `[[1,2]]`，memory `[[1,0],[0,1]]`：
+
+1. 头0读第0通道：q=1，k=[1,0]，v=[1,0]。
+2. 分数[1,0]，权重约[.73105858,.26894142]，输出.73105858。
+3. 头1读第1通道：q=2，k=[0,1]，v=[0,1]。
+4. 分数[0,2]，权重约[.11920292,.88079708]，输出.88079708。
+5. 拼接为[.73105858,.88079708]，乘Wo得[1.46211716,2.64239123]。
+
+注意缩放用每头dh=1，不能错误地除以√2。Jest用这一独立算例检查分头、拼接与Wo，避免仅测试输出形状。
+
+### 实现与参数影响
+
+完整步骤：验证D可被头数整除→执行总Q/K/V投影→按连续通道切片→每头调用第21章attention→按head顺序拼接→乘Wo。把总投影矩阵的列分块，等价于每个头有自己的投影矩阵；不能只把一张算好的权重表复制H份称为多头。
+
+```javascript
+const { multiHeadAttention, createTinyParameters } = require('../shared/23-transformer-ocr');
+const parameters = createTinyParameters({ dimension: 4, numHeads: 2, seed: 23 });
+const result = multiHeadAttention(query, memory, parameters.encoder.attention);
+// result.heads[h].Q/K/V/weights/output 可逐头检查。
+// result.concatenated 与 result.output 区分拼接和Wo投影。
+```
+
+固定D时头数增加，单头通道变小；Q/K/V/Wo的参数量约4D²，不因拆头而成倍增加，但显式权重张量有H×T×S个元素。更多头并不保证效果更好。当前API要求query/memory同D、所有头同宽；真实模型可有不同编码器/解码器宽度，再用投影适配。
+
+## 4. Transformer block：注意力之外还有什么
+
+### 残差与LayerNorm的动机
+
+注意力混合得到的新表示不一定要覆盖原表示。残差把原输入与新变换相加，让信息和梯度有一条直接路径。相加要求形状相同，所以Wo输出回D维。
+
+LayerNorm在每个token的通道轴上标准化：
+
+\[
+\mu=\frac1D\sum_jx_j,\quad v=\frac1D\sum_j(x_j-\mu)^2,
+\quad LN(x)_j=\gamma_j\frac{x_j-\mu}{\sqrt{v+\epsilon}}+\beta_j.
+\]
+
+γ/β是按通道的缩放/平移参数，ε>0避免零除。本章默认γ=1、β=0、ε=1e−5。它不跨batch或跨token统计，因此推理不需要BatchNorm式的移动均值；计算用总体方差除D，不是统计学样本方差除D−1。
+
+手算`[1,3]`：均值2，方差1，输出约`[-.999995,.999995]`。`[100,102]`得到相同结果；常数行`[4,4]`在默认γ/β下输出[0,0]。正常行的输出方差因为ε存在而略小于1，不应测试其浮点值严格等于1。
+
+### FFN为何不是再做一次跨位置混合
+
+FFN对每个位置独立应用同一套通道变换：
+
+\[
+FFN(x)=\operatorname{ReLU}(xW_1+b_1)W_2+b_2.
+\]
+
+W1为D×Dff，W2为Dff×D，本章Dff=2D。注意力主要跨位置读取，FFN在每个位置增加非线性表示能力；FFN不独立把当前位置与其他token平均。
+
+手算x=[1,−2]，W1=[[1,0,1],[0,1,1]]，b1=0，得到隐藏[1,−2,−1]；ReLU后[1,0,0]。W2=[[1,2],[3,4],[5,6]]，b2=0，则输出[1,2]。若省略ReLU，一般情形合成一个仿射变换 `x(W1W2)+(b1W2+b2)`；本例无偏置时为线性变换，无法保留ReLU提供的非线性能力。
+
+### pre-norm与post-norm不能混写
+
+本地编码器为：
+
+\[
+U=X+MHA(LN(X),LN(X)),\quad Y=U+FFN(LN(U)).
+\]
+
+即pre-norm。原始2017 Transformer图使用post-norm，即`LN(X+Sublayer(X))`；原始ViT使用pre-norm和GELU MLP。本实验选择pre-norm与ReLU便于复用第14章理解，既非原始Transformer参数化的逐项复现，也非原始ViT的完全实现。没有dropout、批处理和可训练LN参数。
+
+Node实验4打印原输入、LN手算、注意力后的残差和FFN后的输出；共享模块中`residual`显式返回，便于断点检查。同D的残差连接解决不了不合理的尺度、学习率或训练数据；本章没有训练这些权重。
+
+## 5. 解码器：因果self与视觉cross的分工
+
+### 为什么需要两种读取
+
+生成下一个token时，解码器既需要“已经输出什么”，也需要“图像中是什么”。self attention读取文本前缀，cross attention读取编码器memory。
+
+本章一个pre-norm解码块为：
+
+\[
+U=X+MHA_{self}(LN(X),LN(X),M_{causal}),
+\]
+\[
+V=U+MHA_{cross}(LN(U),Memory),\quad
+Y=V+FFN(LN(V)).
+\]
+
+记忆长度S和文本长度T可以不同；self权重T×T，cross权重T×S。本实现为便于直观追踪，cross中仅规范化查询侧，memory直接来自编码器输出。这是本地结构约定，不代表所有预训练模型的规范化位置。
+
+### 具体维度与遮罩
+
+默认8个图像patch、3个文本前缀向量、D=4、H=2：
+
+```text
+图像memory：8×4
+文本前缀：[BOS,0,0] → 3×4 示例向量（手工指定，未训练）
+self Q/K/V：每头3×2 → 权重3×3
+cross Q：每头3×2；K/V：每头8×2 → 权重3×8
+最终解码状态：3×4
+```
+
+第一文本位置只能看到BOS，self第一行应为[1,0,0]；第二行最多看到前两项。cross可以看整行图像，它没有“不能看图像右边未来”的同一种限制，不应该直接用文本三角遮罩套到3×8矩阵。
+
+### 教师强制为什么还需要遮罩
+
+训练时可以一次提供完整的右移目标前缀，从而并行计算各位置损失。目标“001”若用独立BOS作开始标记：输入为 `[BOS,0,0,1]`，监督为 `[0,0,1,EOS]`。如果没有因果遮罩，第一个位置可以偷看后面真实的0/1，造成训练时的信息泄露。
+
+右移输入与因果遮罩要同时正确，仅遮住“更右位置”却在当前位置放着当前目标也会泄露。特殊开始标记的具体ID由模型配置决定，下面§8说明TrOCR论文的EOS起始约定。
+
+### 一个可验证的扰动实验
+
+Node实验5复制前缀，只把最后一个token向量替换成 `[90,−30,20,80]`。启用causal时，前两行最终解码输出最大差应为0（或浮点容差内），不是仅检查注意力矩阵上的零。测试因此覆盖self、残差、cross和FFN组合后的可见性。
+
+页面可关闭causal，看到self上三角重新有权重。两个相同token即使不加位置，也可能因各自可见前缀长度不同而形成不同上下文；不能用“输入相同所以所有解码状态必须相同”作为普遍断言。
+
+## 6. 从状态到文本：交叉熵、生成与停止
+
+### 训练目标怎样得到
+
+完整识别器还需要词表投影 `logits_t=Y_tW_vocab+b`，词表大小记为Vocab。条件概率为：
+
+\[
+p(y_t\mid y_{<t},I)=\operatorname{softmax}(logits_t)_{y_t},\quad
+L=-\sum_t\log p(y_t^*\mid y_{<t}^*,I).
+\]
+
+I是图像，星号表示真值；padding位置通常不计损失，EOS需要监督。假设三个有效目标的条件概率是0.8、0.5、0.25，总负对数似然为 `−ln(.8×.5×.25)=−ln(.1)=2.30258509`；若报告平均损失，则除3得到0.76752836。损失与CER是不同指标。
+
+完整训练要让梯度穿过词表头、decoder、cross、encoder和图像嵌入，既需要图像—文本配对数据，也需要独立验证。本章没有实现这套训练目标和优化器，不输出模拟“训练准确率”。
+
+### 自回归生成步骤与手算
+
+推理没有真实后续前缀。起始token进入模型，选出下一个token，将它追加到前缀，重复至EOS或长度限制。贪心选择每步最大logit；由于softmax单调，argmax(logits)与argmax(probabilities)相同。
+
+本地受控实验词表ID：0表示“0”，1表示“1”，2是BOS，3是EOS。四步最高logit对应 `[0,0,1,3]`：
+
+```text
+prefix [2]       → 0
+prefix [2,0]     → 0
+prefix [2,0,0]   → 1
+prefix [2,0,0,1] → EOS，停止
+输出token [0,0,1]，字符串语义为“001”
+```
+
+这只是给生成循环输入人为可控logits的测试，不是从小图像识别出“001”。两个相邻0保留，不使用CTC重复折叠。
+
+### 接口与解码局限
+
+`greedyDecode(step,{bosId,eosId,vocabularySize,maxNewTokens=16})`在每一步传入前缀拷贝，step返回每个词表ID均有有限值的完整logit数组；数组空洞必须报错。例如 `[,0,10]` 的第0项缺失，不能用它初始化argmax并错误输出0。选择平局时最小ID。返回 `{tokens,stoppedBy:'eos'|'maxNewTokens',steps}`，不包含终止EOS。达到maxNewTokens是截断状态，不能当成正常完成。
+
+当前小接口要求BOS/EOS ID不同，目的是让受控例子清楚；它不是TrOCR tokenizer适配器。真实模型必须尊重`decoder_start_token_id`/`eos_token_id`等配置，并且可以额外限制某些special token。贪心不保证全局序列概率最大；beam search可以保留多个候选但仍需处理长度偏好、EOS、内存和延迟，不能保证正确。
+
+例如第一步A=.6、B=.4；若下一步最优条件概率分别为.1与.9，两步路径概率是.06与.36，逐步贪心会先选A却错过更高概率的B路径。这是数值示例，不代表beam一定更适合任意数字串。
+
+## 7. token数量、存储与长行
+
+### 为什么小patch代价大
+
+稠密视觉self attention显式权重数为 `H_heads×N²`，其中 `N=HW/P²`。固定图像分辨率时P减半，N变为4倍，权重数变为16倍。
+
+默认4×8图：P=2时N=8，两头共128个权重；P=4时N=2，共8个。Node实验7会打印该表。理论float32存储分别512与32字节，只计算单层权重，不包含激活、参数、梯度等。本章JS数组是双精度数值及对象结构，实际内存不能按这个float32估计直接报告。
+
+一个更接近模型量级的算例：384×384图、16×16 patch，N=576；12头的权重数为3,981,312，float32约15.19MiB/层，仅用于解释规模。是否额外加入CLS/distillation token取决于具体模型，不能一概把所有模型的长度写为576。
+
+运算还包含投影O(ND²)、注意力O(N²D)、FFN的O(NDDff)。对自回归解码，训练时可并行处理有遮罩的前缀，推理仍通常逐token进行；KV cache可减少重复计算，本章没有实现cache。
+
+### 长宽比与图像预处理
+
+极长文本若强制缩到方图，字符可能横向压缩、细笔画丢失；保持长宽比加padding又改变有效token比例。必须按模型训练时的processor执行，不能凭“保持比例肯定更好”替换预训练模型的输入流程。序列最大长度、位置编码插值和停止参数都要单独核对。
+
+## 8. ViT与TrOCR：从结构理解到真实模型
+
+### ViT并不直接等于OCR
+
+原始ViT将patch线性映射，加可学习位置嵌入，插入可学习分类token，用Transformer编码器产生图像分类表示；其中MLP使用GELU、block使用pre-norm。[ViT论文](https://arxiv.org/html/2010.11929v2) 讨论的是图像识别及预训练规模，而非“加个attention就能输出字符”的结论。
+
+本章保留patch映射与多头编码思想，使用固定正弦位置编码、ReLU、无CLS token，暴露全部patch输出作为memory。下游要生成文本，还需要解码器、词表和训练。
+
+### TrOCR的关键变化
+
+[TrOCR原论文](https://arxiv.org/html/2109.10282v2) 使用图像Transformer编码器与文本Transformer解码器，研究视觉和语言预训练初始化、文本行配对数据训练与下游微调。它将图像和已生成文本共同用于下一个文本token的预测。
+
+几个容易漏掉的具体点：
+
+- 论文比较DeiT/BEiT等视觉编码器初始化，解码器利用RoBERTa初始化；原语言模型没有的cross attention层需要额外初始化，不能把RoBERTa原封不动当成完整OCR解码器。
+- 输出使用子词/BPE语义，不保证一个token恰好一个字符；数字“001”在真实tokenizer中如何切分要实际检查，不能套用本章四ID词表。
+- 论文训练将真值序列末尾加EOS，再右移，使用EOS作为起始输入；具体发布模型按配置处理。因此本章BOS/EOS分开的生成循环是教学约定，不能不加适配直接冒充TrOCR解码。
+- 输入任务是文字行图像。整页多栏、表格顺序和检测裁剪通常需要其他阶段；这里没有承诺通用文档理解。
+
+### 官方使用流程与JavaScript边界
+
+[Transformers官方TrOCR文档](https://huggingface.co/docs/transformers/model_doc/trocr) 以图像processor、tokenizer和VisionEncoderDecoder组织使用流程：图像经processor成为pixel_values，模型generate得到token IDs，tokenizer解码为文本。
+
+接入时先固定模型/processor/tokenizer版本与文件校验，核对RGB、缩放、归一化、输入分辨率、起止ID、最大生成长度、特殊token和空输出，再使用独立真实照片评价。本章并未安装该Python模型栈，也未验证任意TrOCR权重可以直接在TensorFlow.js或浏览器运行；模型导出格式、算子、缓存和processor都需要实际兼容验证。
+
+公开预训练模型用于对照时应独立标注来源，不能替代本项目自主训练模型而宣称“自己的训练效果”。本课程也不根据旧年份论文的排名称某架构在所有OCR任务中“最新/最佳”。
+
+## 9. 与CRNN/CTC及PaddleOCR的比较
+
+| 路线 | 输入到输出关系 | 对齐/解码 | 选择时看什么 |
+|---|---|---|---|
+| 分割+CNN | 每个字符裁剪独立分类 | 按字符框排序拼接 | 分割质量、断笔与粘连、字符域差异 |
+| CRNN+CTC | 整行视觉时间序列 | blank与单调路径合并 | 时间分辨率、重复字符、解码策略 |
+| Transformer+CTC | 注意力编码的视觉序列 | 仍可使用CTC | 编码方式与损失选择是两个不同维度 |
+| encoder-decoder OCR | 图像memory与文本前缀 | 自回归、EOS、tokenizer | 数据/预训练、生成延迟、漏读/重复/幻觉 |
+
+Transformer是一类结构，不必然使用自回归解码，也不排斥CTC。TrOCR是一种具体识别路线，PaddleOCR则是包含模型与检测/识别等能力的系统工具集合，不能将其视为单个固定的Transformer网络。
+
+截至核验时，[PaddleOCR官方PP-OCRv5说明](https://www.paddleocr.ai/main/en/version3.x/algorithm/PP-OCRv5/PP-OCRv5.html) 分别介绍检测与识别能力；阅读时需要定位具体版本和模型组件，不能把框架名当算法公式。本章只作架构辨析，没有执行PaddleOCR推理或引用其成绩作为本项目结果。
+
+任意数字串的语言规律往往弱于普通语言。语言预训练带来的偏好可能帮助，也可能把罕见数字串改成更“常见”的输出；后处理不应靠词典擅自修正订单号。最终需要独立CER与整串完全正确率，同时保留前导零与重复字符。
+
+## 10. 代码运行、接口与实测
+
+首次在项目根目录 `npm install`；本章不需要新增依赖或模型下载。
+
+```bash
+node 23-transformer-ocr/index.js
+npx jest --runInBand shared/__tests__/transformer23.test.js
+npm run build
+npm start
+```
+
+浏览器访问 `/23-transformer-ocr/`。调节patch大小、头数、位置编码、因果遮罩，选择编码器/self/cross和查询行，查看原图、patch、热图、逐格权重及Q/K/V。可编辑4×8的灰度矩阵并应用，非法JSON、形状或数值范围会报错并清空过期结果；“恢复默认”恢复全部输入参数。使用同一共享模块，HTML不另写注意力算法。
+
+| API | 契约 |
+|---|---|
+| `patchify(image,patchSize)` | HWC平面data→`{patches,positions,gridWidth,gridHeight}` |
+| `sinusoidalPositionEncoding(N,D,offset)` | 正整数尺寸→N×D矩阵 |
+| `add(A,B)` | 同形矩阵逐元素加，新矩阵 |
+| `multiHeadAttention(query,memory,parameters,{mask})` | `{Q,K,V,heads,concatenated,output,shape}` |
+| `layerNorm(X,{epsilon,gamma,beta})` | 每token沿通道归一化 |
+| `feedForward(X,{W1,b1,W2,b2})` | ReLU的两层逐token映射 |
+| `encoderBlock(X,parameters)` | `{attention,residual,output}` |
+| `decoderBlock(tokens,memory,parameters,{causal})` | `{selfAttention,crossAttention,output}` |
+| `seededMatrixFactory(seed)` | 返回生成确定性矩阵的函数，种子uint32 |
+| `createTinyParameters({dimension,numHeads,seed})` | encoder/decoder参数组；默认4/2/23 |
+| `greedyDecode(step,options)` | token数组、停止原因、实际步数 |
+| `createTransformerExample(options)` | 图像、patch、嵌入、位置、参数和中间值；可传32个[0,1]值的`pixels`替换默认图 |
+
+矩阵为有限非空 `number[][]`，不修改输入，不访问DOM。patchify额外支持平面TypedArray像素，要求长度恰好H×W×C。随机矩阵使用LCG固定种子，输出范围按输入维度缩放，便于每次前向复现；这不是宣称最优初始化方法。demo的patch投影seed=101、block参数seed=23，无随机训练。
+
+默认实测：图像4×8×1→patch8×4→编码器8×4→解码器3×4；两头的headSize=2，cross权重每头3×8。无位置/有位置排列误差分别约4.44e−16/2.55639077；causal下改变最后一个token，前两行输出不变；受控生成保留[0,0,1]并于第4步EOS停止。这些是运算与逻辑验证，未测OCR准确率。
+
+## 11. 常见误区与排障
+
+| 现象/误区 | 原因 | 检查方法 |
+|---|---|---|
+| 改了patch大小维度就报错 | 投影输入是P²C | 同时检查patch与E行数，不偷偷裁剪 |
+| 多头结果与手算差√H | 错用√D缩放 | 每头使用√(D/H) |
+| 权重沿错误方向归一化 | query/key轴颠倒 | 检查每个query行的权重和是否为1 |
+| 训练损失很小、生成很差 | 标签未右移或缺causal | 扰动未来token并检查早期输出 |
+| 相同token得到不同上下文 | 位置或允许前缀不同 | 比较位置编码和mask，不只看原向量 |
+| 注意力图集中就认为识别可信 | 权重不是字符概率或解释证明 | 查看词表结果与独立标注错误 |
+| “001”变成“01” | 误用了CTC折叠或数值转换 | 保留token序列与字符串语义 |
+| 一直生成不到EOS | 模型/特殊token/长度配置 | 返回截断状态，核对词表和模型配置 |
+| 声称ViT使用本例固定正弦位置 | 把教学配置当原模型 | 区分原ViT可学习位置与本实验 |
+
+## 12. 自测与答案
+
+1. 32×128 RGB图，P=8，patch矩阵尺寸是什么？映射D=64时E尺寸是什么？
+2. D=4、pos=1的后两个正弦位置编码值是多少？
+3. 无位置self attention是排列不变还是等变？
+4. D=8、H=2，单头权重的缩放分母是什么？
+5. 多头能否通过复制同一张权重表实现？
+6. LN([2,2])在默认参数下是什么？为什么不会除0？
+7. 教师强制目标为“11”，输入和监督如何右移？
+8. T=4，视觉S=16，self/cross权重尺寸是什么？
+9. patch边长减半，N和稠密权重数量分别如何变化？
+10. 为什么本例greedyDecode不能直接当TrOCR生成实现？
+11. TrOCR为什么不是整页文本检测器？
+
+<details><summary>参考答案</summary>
+
+1. N=32×128/64=64，每块8×8×3=192，patch为64×192，E为192×64。
+2. sin(.01)≈.00999983、cos(.01)≈.99995；一对通道使用相同频率。
+3. 等变，输入重排时输出相应重排，不是输出矩阵完全不变。
+4. √4=2，使用每头宽度而不是√8。
+5. 复制权重表不能实现通用多头注意力；应分别投影并计算，再拼接输出。特定参数或输入下不同头的数值结果可以恰好相同，定义不强制各头结果不同。
+6. [0,0]，方差0但分母含正ε。
+7. 教学BOS约定下输入[BOS,1,1]，监督[1,1,EOS]，还需causal mask。
+8. 每头self为4×4，cross为4×16。
+9. 图像尺寸固定时N变4倍，N²变16倍。
+10. 缺模型、processor、tokenizer、词表头、cache及发布配置；本接口还要求BOS/EOS不同，而真实开始ID按模型配置确定。
+11. 论文侧重文本行图像识别，整页区域定位与版面阅读顺序不是其行识别接口自动提供的能力。
+
+</details>
+
+## 分享重点与下一章
+
+用“8个patch不等于8个字符”建立输入/输出长度区别，再用无位置排列实验解释PE，随后手算双头例子，最后扰动未来token验证causal。每个图都应说明参数来源与维度，避免把随机热图当作已训练模型的理解能力。
+
+下一章 [后处理与优化](../24-post-processing/README.md) 讨论如何评价输出、处理拒识与错误，尤其区分模型概率、字符错误率与整串准确率。模型结构理解不能替代真实照片验证。
+
+## 一手参考
+
+- [Attention Is All You Need](https://arxiv.org/html/1706.03762v7)：缩放点积、多头、原始post-norm结构与正弦位置编码。
+- [An Image is Worth 16x16 Words](https://arxiv.org/html/2010.11929v2)：patch、可学习位置、分类token、pre-norm与GELU。
+- [TrOCR原论文](https://arxiv.org/html/2109.10282v2)：编码/解码初始化、文字行训练、BPE、EOS起始约定。
+- [Transformers官方TrOCR文档](https://huggingface.co/docs/transformers/model_doc/trocr)：processor、tokenizer、VisionEncoderDecoder和生成接口。
+- [PaddleOCR官方PP-OCRv5说明](https://www.paddleocr.ai/main/en/version3.x/algorithm/PP-OCRv5/PP-OCRv5.html)：按具体版本区分系统与模型能力。
+
+核验日期：2026-09-08。所列架构用于理解设计选择，不作当前“最新/最佳”排名。

@@ -1,0 +1,21 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>20 · 可训练的小型 CRNN</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22%3E%3Crect width=%2264%22 height=%2264%22 rx=%2214%22 fill=%22%23126451%22/%3E%3Ctext x=%2232%22 y=%2246%22 text-anchor=%22middle%22 font-size=%2244%22 fill=%22white%22 font-family=%22sans-serif%22%3EO%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="../shared/course.css"><style>main{max-width:1100px;margin:auto;padding:24px}label{display:block;margin:12px 0}canvas{display:block;margin:12px 0;max-width:100%;height:auto;border:1px solid #8794a8;image-rendering:pixelated;touch-action:none}pre{white-space:pre-wrap}textarea{display:block;max-width:95%;font-family:monospace}.columns{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px}button{margin:6px 8px 6px 0}</style>
+<script src="../shared/course.js" defer></script><script src="bundle.js" defer></script></head><body>
+<nav class="course-nav" aria-label="课程导航"><a href="../../" data-course-catalog><strong>OCR / 学习实验室</strong></a><div class="links"><a href="../../20-crnn/" data-course-doc="20-crnn">返回本章讲义</a><a href="../../" data-course-catalog>课程目录</a><a href="../25-ocr-engine/index.html" data-course-lab="25-ocr-engine">照片识别</a><a href="../26-validation/index.html" data-course-lab="26-validation">评估记录</a></div></nav><main>
+<nav aria-label="章节"><a href="../19-ctc-loss/index.html">← 19 CTC</a> · <a href="../21-attention/index.html">21 Attention →</a></nav><h1>20 · 从整行像素训练到字符串</h1>
+<p>CNN → 双向 LSTM → CTC，全部参数真实训练。模型只在合成的1–3位0/1点阵数字上训练与验证，提供训练链路与最终“分割 + CNN”路线的教学对照；手绘或范围外输入可能产生空串或错误串。</p>
+<section class="card"><h2>整行输入</h2><label for="text">生成示例字符串（仅用于绘图）</label><input id="text" type="text" value="001" maxlength="3">
+<label for="seed">绘图种子（0–4294967295）</label><input id="seed" type="number" value="42" min="0" max="4294967295"><button id="generate" type="button">生成整行图像</button>
+<p>鼠标或触摸涂黑像素，按住 Shift 擦除。也可以通过下面的文本框用键盘编辑所有像素。</p><canvas id="line" width="600" height="240" role="img" aria-label="8行20列数字图像，可绘制；键盘替代入口为下方像素文本框"></canvas>
+<details><summary>用键盘编辑像素</summary><label for="pixels">8行×20列，1为笔画，0为背景</label><p>编辑框以0.5阈值显示当前灰度图；应用后将变成只有0/1的图像，原有灰度噪声会被替换。</p><textarea id="pixels" rows="8" cols="24" spellcheck="false"></textarea><button id="apply-pixels" type="button">应用像素并识别</button></details>
+<button id="recognize" type="button">只根据像素识别</button><button id="clear" type="button">清空画布</button><p id="prediction"></p></section>
+<p id="status" role="status" aria-live="polite">正在加载本项目训练权重…</p><div class="columns"><section class="card"><h2>特征图怎样变成时间序列</h2><pre id="dimensions"></pre><p>20列经2倍池化得到10帧；每帧有4行×4通道=16个特征。双向LSTM每个方向8维，输出包含blank的3类概率。</p></section>
+<section class="card"><h2>逐帧模型输出</h2><pre id="frames"></pre></section></div>
+<section class="card"><h2>从真实CNN特征追踪一个时间步</h2><p>平均池化后的4个特征通道。每张4行×10列；蓝色为正、红色为负、白色接近0。它们由当前像素和已训练卷积核计算。</p><canvas id="features" width="600" height="280" role="img" aria-label="4个池化特征图，选择时间步可查看数值"></canvas>
+<label for="frame-index">查看时间步 t=<output id="frame-value">0</output></label><input id="frame-index" type="range" min="0" max="9" step="1" value="0"><pre id="selected-frame"></pre></section>
+<section class="card"><h2>在浏览器重新训练</h2><p>从固定种子的随机参数开始，160次全批更新；使用28个合成训练样本、14个新扰动合成验证样本。CPU运行可能需要十几秒或更久，进度在下方实时显示。</p>
+<label for="steps">更新次数（默认160，最多5000）</label><input id="steps" type="number" min="1" max="5000" value="160"><label for="learning-rate">Adam学习率（默认0.02）</label><input id="learning-rate" type="number" min="0.0001" max="1" step="0.005" value="0.02">
+<button id="train" type="button">训练完整小型 CRNN</button><canvas id="loss-plot" width="600" height="180" role="img" aria-label="横轴更新次数，纵轴平均CTC损失，具体数值见下方日志"></canvas><pre id="training"></pre><p>这里没有字符裁剪、单字符真值位置或识别时的目标长度提示。CTC解析梯度通过 tf.customGrad 接回CNN和双向LSTM；同步CPU算法适合教学小数据。</p></section>
+<p><a href="../../20-crnn/" data-course-doc="20-crnn">阅读公式、训练报告、局限及自测</a> · <a href="training-report.json">原始实测报告</a></p>
+</main></body></html>

@@ -39,7 +39,18 @@ function lerp(a, b, t) {
     return a + (b - a) * t;
 }
 
+/** 可复现教学实验用的 32-bit LCG；返回 [0,1)，不用于安全用途。 */
+function createSeededRandom(seed = 20260911) {
+    if (!Number.isInteger(seed)) throw new TypeError('seed 必须为整数');
+    let state = seed >>> 0;
+    return () => {
+        state = (Math.imul(1664525, state) + 1013904223) >>> 0;
+        return state / 4294967296;
+    };
+}
+
 module.exports = {
+    createSeededRandom,
     clamp,
     lerp
 };

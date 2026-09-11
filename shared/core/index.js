@@ -17,7 +17,7 @@ const { getPixel, setPixel, getGray } = require('./pixelAccess');
 const { cloneImageData, createImageData } = require('./imageData');
 const { forEachPixel, forEachPixelXY } = require('./pixelIterator');
 const { rgbToHex, hexToRgb, rgbToGray, rgbToHsv } = require('./colorConversion');
-const { clamp, lerp } = require('./utils');
+const { clamp, lerp, createSeededRandom } = require('./utils');
 
 module.exports = {
     // 类
@@ -44,5 +44,6 @@ module.exports = {
     
     // 工具函数
     clamp,
-    lerp
+    lerp,
+    createSeededRandom
 };

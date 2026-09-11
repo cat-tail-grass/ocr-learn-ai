@@ -1,0 +1,6 @@
+data/*.gz
+data/*.tmp
+bundle.js
+*.log
+model/*.log
+model-webgl/

@@ -1,0 +1,241 @@
+{
+  "schemaVersion": 1,
+  "mode": "development",
+  "description": "真实 MNIST 字迹的合成数字行；非手机实拍，不代表实拍照片成绩",
+  "source": "https://github.com/cvdfoundation/mnist",
+  "writerIsolation": "MNIST IDX 不含逐样本书写者标识；遵循官方分区，不能据此证明每行书写者隔离",
+  "rows": [
+    {
+      "id": "development-1",
+      "path": "fixtures/development-line.png",
+      "truth": "001208",
+      "sourcePart": "train",
+      "sourceIndices": [
+        56424,
+        22596,
+        45941,
+        34532,
+        4239,
+        27118
+      ],
+      "transform": {
+        "angle": 0,
+        "shadow": 0
+      },
+      "imageId": "c95cc2fcaa6044548643845aadf003ca4d5e1b21b31c5f0b19bd69a113a94438",
+      "sampleKind": "synthetic-mnist"
+    },
+    {
+      "id": "development-2",
+      "path": "fixtures/development-02.png",
+      "truth": "112233",
+      "sourcePart": "train",
+      "sourceIndices": [
+        51397,
+        21884,
+        59628,
+        3672,
+        30251,
+        31641
+      ],
+      "transform": {
+        "angle": 3,
+        "shadow": 0
+      },
+      "imageId": "180b8f75a170f96d51de3b1d673dd98712c08030e122af572695ed055a0e8bba",
+      "sampleKind": "synthetic-mnist"
+    },
+    {
+      "id": "development-3",
+      "path": "fixtures/development-03.png",
+      "truth": "987654",
+      "sourcePart": "train",
+      "sourceIndices": [
+        27884,
+        45109,
+        10002,
+        41912,
+        51950,
+        14700
+      ],
+      "transform": {
+        "angle": 0,
+        "shadow": 0.2
+      },
+      "imageId": "5f1d5cb0c75aa9d90f4bccee9940c1c5d3f5e3883822745c5cfa29d8c05e62af",
+      "sampleKind": "synthetic-mnist"
+    },
+    {
+      "id": "development-4",
+      "path": "fixtures/development-04.png",
+      "truth": "305",
+      "sourcePart": "train",
+      "sourceIndices": [
+        12702,
+        21355,
+        14854
+      ],
+      "transform": {
+        "angle": 0,
+        "shadow": 0
+      },
+      "imageId": "91942932ec2f3aea34195cf9e6b1b3543b8d8d0af403b247be814f899368aa5e",
+      "sampleKind": "synthetic-mnist"
+    },
+    {
+      "id": "development-5",
+      "path": "fixtures/development-05.png",
+      "truth": "00011",
+      "sourcePart": "train",
+      "sourceIndices": [
+        4265,
+        4918,
+        4776,
+        19516,
+        23543
+      ],
+      "transform": {
+        "angle": 3,
+        "shadow": 0
+      },
+      "imageId": "ee04f8bf38f28dfb02aac507868fdf7282b98eef6f5f753a2c963c73b7148620",
+      "sampleKind": "synthetic-mnist"
+    },
+    {
+      "id": "development-6",
+      "path": "fixtures/development-06.png",
+      "truth": "70890",
+      "sourcePart": "train",
+      "sourceIndices": [
+        30504,
+        41259,
+        59834,
+        34224,
+        22857
+      ],
+      "transform": {
+        "angle": 0,
+        "shadow": 0.2
+      },
+      "imageId": "d64a05d61c2854532bd2d44258c197f0b25d741393c4d1edbd22dd4ce79c21a3",
+      "sampleKind": "synthetic-mnist"
+    },
+    {
+      "id": "development-7",
+      "path": "fixtures/development-07.png",
+      "truth": "24680",
+      "sourcePart": "train",
+      "sourceIndices": [
+        58494,
+        40548,
+        21418,
+        13016,
+        4002
+      ],
+      "transform": {
+        "angle": 0,
+        "shadow": 0
+      },
+      "imageId": "6a827978f3c7a6c21756a1042a6f559ef9a02ecdf6682cfa2b3ee9f3bc5e2d6d",
+      "sampleKind": "synthetic-mnist"
+    },
+    {
+      "id": "development-8",
+      "path": "fixtures/development-08.png",
+      "truth": "13579",
+      "sourcePart": "train",
+      "sourceIndices": [
+        49359,
+        17710,
+        4704,
+        44927,
+        52304
+      ],
+      "transform": {
+        "angle": 3,
+        "shadow": 0
+      },
+      "imageId": "2b02b1f55d27419eef60310d1838fbc4d151cf0ae7b27a6eda32179ffdb0d013",
+      "sampleKind": "synthetic-mnist"
+    },
+    {
+      "id": "development-9",
+      "path": "fixtures/development-09.png",
+      "truth": "90009",
+      "sourcePart": "train",
+      "sourceIndices": [
+        36486,
+        54728,
+        13880,
+        37183,
+        52123
+      ],
+      "transform": {
+        "angle": 0,
+        "shadow": 0.2
+      },
+      "imageId": "ec2a00a6d9383f5f3f0f81e67b66053097eaa0f0648b656ccbf1cb6b88dc9cf3",
+      "sampleKind": "synthetic-mnist"
+    },
+    {
+      "id": "development-10",
+      "path": "fixtures/development-10.png",
+      "truth": "101010",
+      "sourcePart": "train",
+      "sourceIndices": [
+        13725,
+        6619,
+        16591,
+        12716,
+        34033,
+        57356
+      ],
+      "transform": {
+        "angle": 0,
+        "shadow": 0
+      },
+      "imageId": "0c64a4d1edbc29d8ecada7bc455370fb37b46aa9ba27d3872f9f379a84a6a470",
+      "sampleKind": "synthetic-mnist"
+    },
+    {
+      "id": "development-11",
+      "path": "fixtures/development-11.png",
+      "truth": "827364",
+      "sourcePart": "train",
+      "sourceIndices": [
+        7021,
+        48621,
+        3940,
+        8790,
+        38219,
+        45724
+      ],
+      "transform": {
+        "angle": 3,
+        "shadow": 0
+      },
+      "imageId": "1276df28a37e2fde8a06125175432a5ee2b27438759533e56962361fa9f04ca0",
+      "sampleKind": "synthetic-mnist"
+    },
+    {
+      "id": "development-12",
+      "path": "fixtures/development-12.png",
+      "truth": "556677",
+      "sourcePart": "train",
+      "sourceIndices": [
+        50060,
+        18929,
+        901,
+        45851,
+        9445,
+        31715
+      ],
+      "transform": {
+        "angle": 0,
+        "shadow": 0.2
+      },
+      "imageId": "c9dd695495f17da331feb1fab1cf724fc2793928be59a84e67e8935d9e12d326",
+      "sampleKind": "synthetic-mnist"
+    }
+  ]
+}

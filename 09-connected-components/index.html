@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>09. 连通域分析 - Connected Component Analysis</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22%3E%3Crect width=%2264%22 height=%2264%22 rx=%2214%22 fill=%22%23126451%22/%3E%3Ctext x=%2232%22 y=%2246%22 text-anchor=%22middle%22 font-size=%2244%22 fill=%22white%22 font-family=%22sans-serif%22%3EO%3C/text%3E%3C/svg%3E">
     <style>
         * {
             margin: 0;
@@ -290,8 +291,10 @@
             font-family: monospace;
         }
     </style>
+    <script src="../shared/course.js" defer></script>
 </head>
 <body>
+<nav class="course-nav" aria-label="课程导航"><a href="../../" data-course-catalog><strong>OCR / 学习实验室</strong></a><div class="links"><a href="../../09-connected-components/" data-course-doc="09-connected-components">返回本章讲义</a><a href="../../" data-course-catalog>课程目录</a><a href="../25-ocr-engine/index.html" data-course-lab="25-ocr-engine">照片识别</a><a href="../26-validation/index.html" data-course-lab="26-validation">评估记录</a></div></nav>
     <div class="container">
         <h1>🔗 09. 连通域分析 (Connected Component Analysis)</h1>
         <p class="subtitle">将相连像素归为同一区域 - OCR 字符分割的核心技术</p>
@@ -390,7 +393,10 @@
         </div>
     </div>
     
+    <script src="bundle.js"></script>
     <script>
+        const { labelConnectedComponents, extractRegionProperties, colorizeLabels, generateDistinctColors: generateColors } = LessonAlgorithms;
+
         // ==================== 全局变量 ====================
         let currentImageData = null;
         let binaryImageData = null;
@@ -426,191 +432,17 @@
             imageData.data[index + 3] = a;
         }
         
-        // ==================== 并查集 ====================
         
-        class UnionFind {
-            constructor(size) {
-                this.parent = Array.from({ length: size }, (_, i) => i);
-                this.rank = new Array(size).fill(0);
-            }
-            
-            find(x) {
-                if (this.parent[x] !== x) {
-                    this.parent[x] = this.find(this.parent[x]);
-                }
-                return this.parent[x];
-            }
-            
-            union(x, y) {
-                const rootX = this.find(x);
-                const rootY = this.find(y);
-                if (rootX !== rootY) {
-                    if (this.rank[rootX] < this.rank[rootY]) {
-                        this.parent[rootX] = rootY;
-                    } else if (this.rank[rootX] > this.rank[rootY]) {
-                        this.parent[rootY] = rootX;
-                    } else {
-                        this.parent[rootY] = rootX;
-                        this.rank[rootX]++;
-                    }
-                }
-            }
-        }
         
-        // ==================== 连通域标记 ====================
         
-        function labelConnectedComponents(imageData, connectivity = 8, threshold = 128) {
-            const { width, height } = imageData;
-            const labels = new Int32Array(width * height);
-            const maxLabels = width * height;
-            const uf = new UnionFind(maxLabels);
-            let nextLabel = 1;
-            
-            // Pass 1
-            for (let y = 0; y < height; y++) {
-                for (let x = 0; x < width; x++) {
-                    const idx = y * width + x;
-                    const pixel = getPixel(imageData, x, y);
-                    
-                    if (pixel.r >= threshold) {
-                        labels[idx] = 0;
-                        continue;
-                    }
-                    
-                    const neighborLabels = [];
-                    
-                    if (x > 0 && labels[idx - 1] > 0) neighborLabels.push(labels[idx - 1]);
-                    if (y > 0 && labels[idx - width] > 0) neighborLabels.push(labels[idx - width]);
-                    
-                    if (connectivity === 8) {
-                        if (x > 0 && y > 0 && labels[idx - width - 1] > 0) neighborLabels.push(labels[idx - width - 1]);
-                        if (x < width - 1 && y > 0 && labels[idx - width + 1] > 0) neighborLabels.push(labels[idx - width + 1]);
-                    }
-                    
-                    if (neighborLabels.length === 0) {
-                        labels[idx] = nextLabel++;
-                    } else {
-                        const minLabel = Math.min(...neighborLabels);
-                        labels[idx] = minLabel;
-                        for (const label of neighborLabels) {
-                            if (label !== minLabel) uf.union(minLabel, label);
-                        }
-                    }
-                }
-            }
-            
-            // Pass 2
-            const labelMap = new Map();
-            let finalLabelCount = 0;
-            
-            for (let i = 0; i < labels.length; i++) {
-                if (labels[i] > 0) {
-                    const root = uf.find(labels[i]);
-                    if (!labelMap.has(root)) {
-                        labelMap.set(root, ++finalLabelCount);
-                    }
-                    labels[i] = labelMap.get(root);
-                }
-            }
-            
-            return { labels, numLabels: finalLabelCount, width, height };
-        }
         
-        // ==================== 区域属性提取 ====================
         
-        function extractRegionProperties(labels, numLabels, width, height) {
-            const regions = [];
-            for (let i = 0; i <= numLabels; i++) {
-                regions.push({
-                    label: i, area: 0, pixels: [],
-                    minX: Infinity, maxX: -Infinity,
-                    minY: Infinity, maxY: -Infinity,
-                    sumX: 0, sumY: 0
-                });
-            }
-            
-            for (let y = 0; y < height; y++) {
-                for (let x = 0; x < width; x++) {
-                    const label = labels[y * width + x];
-                    if (label > 0) {
-                        const r = regions[label];
-                        r.area++;
-                        r.pixels.push({ x, y });
-                        r.minX = Math.min(r.minX, x);
-                        r.maxX = Math.max(r.maxX, x);
-                        r.minY = Math.min(r.minY, y);
-                        r.maxY = Math.max(r.maxY, y);
-                        r.sumX += x;
-                        r.sumY += y;
-                    }
-                }
-            }
-            
-            return regions.slice(1).filter(r => r.area > 0).map(r => ({
-                label: r.label,
-                area: r.area,
-                boundingBox: {
-                    x: r.minX, y: r.minY,
-                    width: r.maxX - r.minX + 1,
-                    height: r.maxY - r.minY + 1
-                },
-                centroid: { x: r.sumX / r.area, y: r.sumY / r.area },
-                fillRatio: r.area / ((r.maxX - r.minX + 1) * (r.maxY - r.minY + 1)),
-                aspectRatio: (r.maxX - r.minX + 1) / (r.maxY - r.minY + 1),
-                pixels: r.pixels
-            }));
-        }
         
-        // ==================== 可视化 ====================
-        
-        function hsvToRgb(h, s, v) {
-            let r, g, b;
-            const i = Math.floor(h / 60) % 6;
-            const f = h / 60 - Math.floor(h / 60);
-            const p = v * (1 - s);
-            const q = v * (1 - f * s);
-            const t = v * (1 - (1 - f) * s);
-            switch (i) {
-                case 0: r = v; g = t; b = p; break;
-                case 1: r = q; g = v; b = p; break;
-                case 2: r = p; g = v; b = t; break;
-                case 3: r = p; g = q; b = v; break;
-                case 4: r = t; g = p; b = v; break;
-                case 5: r = v; g = p; b = q; break;
-            }
-            return { r: Math.round(r * 255), g: Math.round(g * 255), b: Math.round(b * 255) };
-        }
-        
-        function generateColors(n) {
-            const colors = [];
-            for (let i = 0; i < n; i++) {
-                const hue = (i * 137.508) % 360;
-                colors.push(hsvToRgb(hue, 0.7 + (i % 3) * 0.1, 0.8 + (i % 2) * 0.1));
-            }
-            return colors;
-        }
-        
-        function colorizeLabels(labels, numLabels, width, height) {
-            const result = new ImageData(width, height);
-            const colors = generateColors(numLabels);
-            
-            for (let i = 0; i < result.data.length; i += 4) {
-                result.data[i] = result.data[i + 1] = result.data[i + 2] = 255;
-                result.data[i + 3] = 255;
-            }
-            
-            for (let y = 0; y < height; y++) {
-                for (let x = 0; x < width; x++) {
-                    const label = labels[y * width + x];
-                    if (label > 0 && label <= numLabels) {
-                        const c = colors[label - 1];
-                        setPixel(result, x, y, c.r, c.g, c.b);
-                    }
-                }
-            }
-            
-            return result;
-        }
+
+
+
+
+
         
         function toBinary(imageData, threshold) {
             const result = new ImageData(imageData.width, imageData.height);
@@ -693,7 +525,7 @@
             regions.forEach((region, index) => {
                 const card = document.createElement('div');
                 card.className = 'region-card';
-                card.onclick = () => selectRegion(region, colors[region.label - 1]);
+                card.onclick = () => selectRegion(region, colors[region.label - 1], card);
                 
                 // 创建小型预览画布
                 const canvas = document.createElement('canvas');
@@ -734,12 +566,12 @@
             });
         }
         
-        function selectRegion(region, color) {
+        function selectRegion(region, color, card) {
             // 更新选中状态
             document.querySelectorAll('.region-card').forEach((card, i) => {
                 card.classList.remove('selected');
             });
-            event.currentTarget.classList.add('selected');
+            if (card) card.classList.add('selected');
             
             // 显示详细信息
             const infoPanel = document.getElementById('selectedRegionInfo');

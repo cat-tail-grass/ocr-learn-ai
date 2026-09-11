@@ -13,229 +13,13 @@
  * 运行方式：node index.js
  */
 
-// 引入共享模块
+// 算法逐步实现位于 shared/03-grayscale，Node 与 HTML 调用同一份。
+const { MockImageData, getPixel, setPixel, createImageData, rgbToGray } = require('../shared/core');
 const {
-    MockImageData,
-    getPixel,
-    setPixel,
-    cloneImageData,
-    forEachPixel,
-    rgbToGray
-} = require('../shared/imageUtils');
-
-// ==================== 灰度化算法实现 ====================
-
-/**
- * 加权平均法灰度化（推荐）
- * 
- * 原理说明：
- * - 使用 ITU-R BT.601 标准权重
- * - Gray = 0.299R + 0.587G + 0.114B
- * - 绿色权重最大（0.587），因为人眼对绿色最敏感
- * - 这是最接近人眼感知的灰度化方法
- * 
- * 在OCR中的作用：
- * - 标准的预处理方法
- * - 保留最多的视觉信息
- * 
- * @param {MockImageData} imageData - 原始图像数据
- * @returns {MockImageData} 灰度化后的图像数据
- */
-function grayscaleWeighted(imageData) {
-    return forEachPixel(imageData, (pixel) => {
-        // 加权公式（ITU-R BT.601）
-        const gray = Math.round(0.299 * pixel.r + 0.587 * pixel.g + 0.114 * pixel.b);
-        return { r: gray, g: gray, b: gray };
-    });
-}
-
-/**
- * 平均值法灰度化
- * 
- * 原理说明：
- * - Gray = (R + G + B) / 3
- * - 简单取三个通道的算术平均值
- * - 不考虑人眼对颜色的敏感度差异
- * 
- * 优点：计算简单快速
- * 缺点：不符合人眼感知，某些颜色转换不自然
- * 
- * @param {MockImageData} imageData - 原始图像数据
- * @returns {MockImageData} 灰度化后的图像数据
- */
-function grayscaleAverage(imageData) {
-    return forEachPixel(imageData, (pixel) => {
-        // 平均值公式
-        const gray = Math.round((pixel.r + pixel.g + pixel.b) / 3);
-        return { r: gray, g: gray, b: gray };
-    });
-}
-
-/**
- * 最大值法灰度化
- * 
- * 原理说明：
- * - Gray = max(R, G, B)
- * - 取三个通道中的最大值
- * - 结果会偏亮
- * 
- * 适用场景：需要提取高亮区域时
- * 
- * @param {MockImageData} imageData - 原始图像数据
- * @returns {MockImageData} 灰度化后的图像数据
- */
-function grayscaleMax(imageData) {
-    return forEachPixel(imageData, (pixel) => {
-        // 取最大值
-        const gray = Math.max(pixel.r, pixel.g, pixel.b);
-        return { r: gray, g: gray, b: gray };
-    });
-}
-
-/**
- * 最小值法灰度化
- * 
- * 原理说明：
- * - Gray = min(R, G, B)
- * - 取三个通道中的最小值
- * - 结果会偏暗
- * 
- * 适用场景：需要提取暗色区域时
- * 
- * @param {MockImageData} imageData - 原始图像数据
- * @returns {MockImageData} 灰度化后的图像数据
- */
-function grayscaleMin(imageData) {
-    return forEachPixel(imageData, (pixel) => {
-        // 取最小值
-        const gray = Math.min(pixel.r, pixel.g, pixel.b);
-        return { r: gray, g: gray, b: gray };
-    });
-}
-
-/**
- * 单通道法灰度化
- * 
- * 原理说明：
- * - 只取一个指定通道的值作为灰度
- * - 适合分析特定颜色
- * 
- * @param {MockImageData} imageData - 原始图像数据
- * @param {'r'|'g'|'b'} channel - 要使用的通道
- * @returns {MockImageData} 灰度化后的图像数据
- */
-function grayscaleSingleChannel(imageData, channel) {
-    return forEachPixel(imageData, (pixel) => {
-        const gray = pixel[channel];
-        return { r: gray, g: gray, b: gray };
-    });
-}
-
-/**
- * 亮度法灰度化（Luminosity）
- * 
- * 原理说明：
- * - 另一种加权公式（ITU-R BT.709，用于 HDTV）
- * - Gray = 0.2126R + 0.7152G + 0.0722B
- * - 与 BT.601 略有不同，更适合现代显示器
- * 
- * @param {MockImageData} imageData - 原始图像数据
- * @returns {MockImageData} 灰度化后的图像数据
- */
-function grayscaleLuminosity(imageData) {
-    return forEachPixel(imageData, (pixel) => {
-        // BT.709 公式
-        const gray = Math.round(0.2126 * pixel.r + 0.7152 * pixel.g + 0.0722 * pixel.b);
-        return { r: gray, g: gray, b: gray };
-    });
-}
-
-// ==================== 灰度直方图 ====================
-
-/**
- * 计算灰度直方图
- * 
- * 原理说明：
- * - 统计每个灰度值（0-255）出现的次数
- * - 返回长度为 256 的数组
- * - 用于分析图像亮度分布
- * 
- * 用途：
- * - 选择二值化阈值（下一章）
- * - 图像增强
- * - 图像质量分析
- * 
- * @param {MockImageData} imageData - 灰度图像数据
- * @returns {number[]} 长度为256的数组
- */
-function calculateHistogram(imageData) {
-    const histogram = new Array(256).fill(0);
-    const data = imageData.data;
-    
-    // 遍历所有像素，统计灰度值
-    for (let i = 0; i < data.length; i += 4) {
-        // 假设是灰度图，R=G=B
-        const gray = data[i];
-        histogram[gray]++;
-    }
-    
-    return histogram;
-}
-
-/**
- * 计算灰度统计信息
- * 
- * @param {number[]} histogram - 直方图数据
- * @param {number} totalPixels - 总像素数
- * @returns {object} 统计信息
- */
-function calculateHistogramStats(histogram, totalPixels) {
-    // 最小和最大灰度值
-    let min = 0, max = 255;
-    for (let i = 0; i < 256; i++) {
-        if (histogram[i] > 0) { min = i; break; }
-    }
-    for (let i = 255; i >= 0; i--) {
-        if (histogram[i] > 0) { max = i; break; }
-    }
-    
-    // 平均值
-    let sum = 0;
-    for (let i = 0; i < 256; i++) {
-        sum += i * histogram[i];
-    }
-    const mean = sum / totalPixels;
-    
-    // 中位数
-    let cumSum = 0;
-    let median = 0;
-    for (let i = 0; i < 256; i++) {
-        cumSum += histogram[i];
-        if (cumSum >= totalPixels / 2) {
-            median = i;
-            break;
-        }
-    }
-    
-    // 众数
-    let mode = 0;
-    let maxCount = 0;
-    for (let i = 0; i < 256; i++) {
-        if (histogram[i] > maxCount) {
-            maxCount = histogram[i];
-            mode = i;
-        }
-    }
-    
-    // 标准差
-    let variance = 0;
-    for (let i = 0; i < 256; i++) {
-        variance += histogram[i] * Math.pow(i - mean, 2);
-    }
-    const std = Math.sqrt(variance / totalPixels);
-    
-    return { min, max, mean, median, mode, std };
-}
+    grayscaleWeighted, grayscaleAverage, grayscaleMax, grayscaleMin,
+    grayscaleSingleChannel, grayscaleLuminosity, grayscaleLinearSrgb,
+    calculateHistogram, calculateHistogramStats
+} = require('../shared/03-grayscale');
 
 // ==================== 演示函数 ====================
 
@@ -255,11 +39,11 @@ function demonstrateWhyGrayscale() {
 1. 【降低复杂度】
    - 彩色图：每像素 3 个通道（RGB）= 3 字节
    - 灰度图：每像素 1 个通道 = 1 字节
-   - 数据量减少 2/3！
+   - 上述紧凑存储才减少2/3；本项目RGBA存储不变
 
 2. 【去除颜色干扰】
-   - OCR 关注的是文字形状，不是颜色
-   - 红色文字和蓝色文字在灰度图中都是深色
+   - 很多OCR利用强度形状，颜色也可能是有用信息
+   - 本加权法纯红为76、纯蓝为29；等灰度异色可能无法再区分
    - 简化了后续处理逻辑
 
 3. 【为二值化做准备】
@@ -268,7 +52,7 @@ function demonstrateWhyGrayscale() {
 
 4. 【提高处理速度】
    - 算法只需处理一个通道
-   - 循环次数减少，计算更快
+   - 后续可以只读取R，实际加速取决于算法
 
 【OCR 预处理流水线】
 
@@ -349,28 +133,14 @@ function demonstrateWeights() {
     console.log(`
 【为什么绿色权重最大？】
 
-这与人眼的生理结构有关：
+系数来自色彩原色和亮度定义，不能当作L/M/S视锥细胞的相对敏感度。
 
-人眼视网膜上有三种视锥细胞：
-┌─────────┬─────────┬───────────────────────┐
-│ 视锥类型 │ 敏感颜色 │ 相对敏感度            │
-├─────────┼─────────┼───────────────────────┤
-│ L-锥    │ 红色    │ ████░░░░░░ (中等)     │
-│ M-锥    │ 绿色    │ ████████░░ (最高)     │
-│ S-锥    │ 蓝色    │ ██░░░░░░░░ (最低)     │
-└─────────┴─────────┴───────────────────────┘
+【编码值近似与线性光亮度】
 
-【两种常见标准】
-
-1. ITU-R BT.601（用于标清视频）
-   Gray = 0.299R + 0.587G + 0.114B
-         ≈ 0.3R  + 0.6G   + 0.1B
-   
-2. ITU-R BT.709（用于高清视频）
-   Gray = 0.2126R + 0.7152G + 0.0722B
-         ≈ 0.2R   + 0.7G    + 0.07B
-
-两者差异不大，BT.601 更常用。
+1. BT.601系数直接加权编码RGB：Gray=0.299R+0.587G+0.114B（本课程默认）。
+2. BT.709系数直接加权：0.2126R+0.7152G+0.0722B，仍不是sRGB线性亮度。
+3. sRGB相对亮度：先用分段传递函数解码到线性RGB，再按0.2126/0.7152/0.0722计算Y，
+   最后重新编码中性灰供显示。不能只换系数而省略解码/编码。
 
 【权重验证】
 
@@ -552,6 +322,17 @@ function demonstrateFullProcess() {
     }
 }
 
+function demonstrateDefinitionCounterexamples() {
+    console.log('\n【定义反例：编码值、亮度、中位数】');
+    const red = createImageData(1, 1, 255, 0, 0);
+    console.log(`纯红：BT.601快速灰度=${grayscaleWeighted(red).data[0]}，线性亮度再编码灰=${grayscaleLinearSrgb(red).data[0]}`);
+    const mixed = createImageData(1, 1, 255, 128, 64, 128);
+    console.log(`RGB(255,128,64)：158.677→${grayscaleWeighted(mixed).data[0]}；alpha仍为${grayscaleWeighted(mixed).data[3]}`);
+    const h = new Array(256).fill(0); h[0] = 1; h[255] = 1;
+    console.log('[0,255] 的直方图统计：', calculateHistogramStats(h, 2));
+    console.log('灰度保留alpha；HTML在处理前合成白底，透明像素不会被当作黑字。');
+}
+
 // ==================== 主程序 ====================
 
 function main() {
@@ -566,6 +347,7 @@ function main() {
     demonstrateWhyGrayscale();
     demonstrateAlgorithms();
     demonstrateWeights();
+    demonstrateDefinitionCounterexamples();
     demonstrateHistogram();
     demonstrateFullProcess();
     
@@ -607,7 +389,7 @@ function main() {
 }
 
 // 运行主程序
-main();
+if (require.main === module) main();
 
 // ==================== 导出模块 ====================
 
@@ -618,6 +400,7 @@ module.exports = {
     grayscaleMin,
     grayscaleSingleChannel,
     grayscaleLuminosity,
+    grayscaleLinearSrgb,
     calculateHistogram,
     calculateHistogramStats
 };

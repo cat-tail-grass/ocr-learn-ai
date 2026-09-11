@@ -15,165 +15,8 @@
  * 运行方式：node index.js
  */
 
-// ==================== 模拟 ImageData 结构 ====================
-
-/**
- * 模拟浏览器的 ImageData 类
- * 
- * 原理说明：
- * - 真正的 ImageData 是浏览器 API
- * - 这里模拟其结构以便理解
- * - 包含 width, height, data 三个属性
- * 
- * @class
- */
-class MockImageData {
-    /**
-     * 创建 ImageData 对象
-     * @param {number|Uint8ClampedArray} widthOrData - 宽度或数据数组
-     * @param {number} height - 高度
-     * @param {number} [width] - 当第一个参数是数据时，需要提供宽度
-     */
-    constructor(widthOrData, height, width) {
-        if (widthOrData instanceof Uint8ClampedArray) {
-            // 从现有数据创建
-            this.data = widthOrData;
-            this.width = height; // 第二个参数是宽度
-            this.height = width; // 第三个参数是高度
-        } else {
-            // 创建空白图像
-            this.width = widthOrData;
-            this.height = height;
-            this.data = new Uint8ClampedArray(widthOrData * height * 4);
-            
-            // 默认填充白色不透明
-            for (let i = 0; i < this.data.length; i += 4) {
-                this.data[i] = 255;     // R
-                this.data[i + 1] = 255; // G
-                this.data[i + 2] = 255; // B
-                this.data[i + 3] = 255; // A
-            }
-        }
-    }
-}
-
-// ==================== 核心工具函数 ====================
-
-/**
- * 获取指定位置的像素值
- * 
- * 原理说明：
- * - 使用第01章学到的索引计算公式
- * - index = (y * width + x) * 4
- * 
- * 这个函数将被放入 shared/ 目录供后续章节使用
- * 
- * @param {MockImageData} imageData - 图像数据
- * @param {number} x - X 坐标
- * @param {number} y - Y 坐标
- * @returns {{r: number, g: number, b: number, a: number}} RGBA 值
- */
-function getPixel(imageData, x, y) {
-    // 边界检查
-    if (x < 0 || x >= imageData.width || y < 0 || y >= imageData.height) {
-        return { r: 0, g: 0, b: 0, a: 0 };
-    }
-    
-    // 计算一维数组索引
-    const index = (y * imageData.width + x) * 4;
-    
-    return {
-        r: imageData.data[index],
-        g: imageData.data[index + 1],
-        b: imageData.data[index + 2],
-        a: imageData.data[index + 3]
-    };
-}
-
-/**
- * 设置指定位置的像素值
- * 
- * @param {MockImageData} imageData - 图像数据
- * @param {number} x - X 坐标
- * @param {number} y - Y 坐标
- * @param {number} r - 红色值 (0-255)
- * @param {number} g - 绿色值 (0-255)
- * @param {number} b - 蓝色值 (0-255)
- * @param {number} [a=255] - 透明度 (0-255)
- */
-function setPixel(imageData, x, y, r, g, b, a = 255) {
-    // 边界检查
-    if (x < 0 || x >= imageData.width || y < 0 || y >= imageData.height) {
-        return;
-    }
-    
-    const index = (y * imageData.width + x) * 4;
-    
-    // Uint8ClampedArray 会自动将值限制在 0-255
-    imageData.data[index] = r;
-    imageData.data[index + 1] = g;
-    imageData.data[index + 2] = b;
-    imageData.data[index + 3] = a;
-}
-
-/**
- * 克隆 ImageData 对象
- * 
- * 原理说明：
- * - 创建数据的深拷贝
- * - 避免修改原始图像
- * 
- * @param {MockImageData} imageData - 要克隆的图像数据
- * @returns {MockImageData} 克隆的副本
- */
-function cloneImageData(imageData) {
-    return new MockImageData(
-        new Uint8ClampedArray(imageData.data),
-        imageData.width,
-        imageData.height
-    );
-}
-
-/**
- * 遍历图像的所有像素
- * 
- * 原理说明：
- * - 提供统一的像素遍历接口
- * - 回调函数接收像素信息和坐标
- * 
- * @param {MockImageData} imageData - 图像数据
- * @param {Function} callback - 回调函数 (pixel, x, y, index) => newPixel
- * @returns {MockImageData} 处理后的图像数据
- */
-function forEachPixel(imageData, callback) {
-    const result = cloneImageData(imageData);
-    const { width, height, data } = result;
-    
-    for (let y = 0; y < height; y++) {
-        for (let x = 0; x < width; x++) {
-            const index = (y * width + x) * 4;
-            const pixel = {
-                r: data[index],
-                g: data[index + 1],
-                b: data[index + 2],
-                a: data[index + 3]
-            };
-            
-            // 调用回调函数
-            const newPixel = callback(pixel, x, y, index);
-            
-            // 如果回调返回了新像素值，则更新
-            if (newPixel) {
-                data[index] = newPixel.r;
-                data[index + 1] = newPixel.g;
-                data[index + 2] = newPixel.b;
-                data[index + 3] = newPixel.a !== undefined ? newPixel.a : pixel.a;
-            }
-        }
-    }
-    
-    return result;
-}
+// 与浏览器共用像素实现；算法逐步循环位于 shared/core。
+const { MockImageData, getPixel, setPixel, cloneImageData, forEachPixelXY } = require('../shared/core');
 
 // ==================== 演示函数 ====================
 
@@ -209,7 +52,7 @@ data 数组结构：
     // 创建示例
     const imageData = new MockImageData(4, 3);
     
-    console.log('示例：创建一个 4×3 的图像');
+    console.log('示例：创建一个4×3课程模拟图（默认白色不透明；原生ImageData为透明黑）');
     console.log(`  width: ${imageData.width}`);
     console.log(`  height: ${imageData.height}`);
     console.log(`  data.length: ${imageData.data.length}`);
@@ -229,24 +72,26 @@ function demonstrateUint8ClampedArray() {
 【Uint8ClampedArray 是什么？】
 
 - Uint8: 无符号 8 位整数，范围 0-255
-- Clamped: 自动截断，超出范围的值会被限制
+- Clamped: 饱和限幅，超出范围的值会被限制
 
 这个特性对图像处理非常有用：
-- 不需要手动检查边界
+- 数值限幅不会替代坐标边界检查
 - 不会出现颜色溢出问题
 `);
     
-    // 演示自动截断
-    const arr = new Uint8ClampedArray(5);
+    // 演示饱和限幅
+    const arr = new Uint8ClampedArray(7);
     
-    console.log('【自动截断演示】\n');
+    console.log('【饱和限幅演示】\n');
     
     const tests = [
         { input: 300, expected: 255, desc: '超过255' },
         { input: -50, expected: 0, desc: '负数' },
         { input: 128, expected: 128, desc: '正常值' },
-        { input: 255.9, expected: 255, desc: '小数（向下取整到255后截断）' },
-        { input: 0.1, expected: 0, desc: '小数（向下取整到0）' }
+        { input: 255.9, expected: 255, desc: '超过255，直接饱和为255' },
+        { input: 0.1, expected: 0, desc: '最近整数为0' },
+        { input: 128.5, expected: 128, desc: '平局取偶数128' },
+        { input: 129.5, expected: 130, desc: '平局取偶数130' }
     ];
     
     tests.forEach((test, i) => {
@@ -262,8 +107,8 @@ function demonstrateUint8ClampedArray() {
   arr[1] = -50;  // 存储 -50
 
 Uint8ClampedArray:
-  arr[0] = 300;  // 存储 255（自动截断）
-  arr[1] = -50;  // 存储 0（自动截断）
+  arr[0] = 300;  // 存储 255（饱和限幅）
+  arr[1] = -50;  // 存储 0（饱和限幅）
 
 这意味着在图像处理中，你可以直接进行加减运算，
 不用担心值溢出：
@@ -499,7 +344,7 @@ const canvas = document.getElementById('myCanvas');
 const ctx = canvas.getContext('2d');
 
 
-2. 绑制图片
+2. 绘制图片
 ───────────
 const img = new Image();
 img.onload = () => {
@@ -553,9 +398,9 @@ function demonstrateForEachPixel() {
     console.log('='.repeat(60));
     
     console.log(`
-【forEachPixel 函数】
+【forEachPixelXY 函数】
 
-为了简化像素处理，我们创建了 forEachPixel 高阶函数。
+为了简化像素处理，共享的 forEachPixelXY 提供坐标；forEachPixel 只提供RGBA索引。
 它封装了遍历逻辑，你只需要关注单个像素的处理。
 `);
     
@@ -574,7 +419,7 @@ function demonstrateForEachPixel() {
     }
     
     // 使用 forEachPixel 进行颜色反转
-    const inverted = forEachPixel(imageData, (pixel, x, y) => {
+    const inverted = forEachPixelXY(imageData, (pixel, x, y) => {
         return {
             r: 255 - pixel.r,
             g: 255 - pixel.g,
@@ -594,7 +439,7 @@ function demonstrateForEachPixel() {
 
 使用方法：
 ─────────
-const result = forEachPixel(imageData, (pixel, x, y, index) => {
+const result = forEachPixelXY(imageData, (pixel, x, y, index) => {
     // pixel: { r, g, b, a }
     // x, y: 当前坐标
     // index: 在 data 数组中的起始索引
@@ -637,7 +482,7 @@ function main() {
     console.log(`
 【核心知识点回顾】
 
-1. Canvas 是 HTML5 的绑图容器，通过 ctx = canvas.getContext('2d') 获取上下文
+1. Canvas 是 HTML5 的绘图容器，通过 ctx = canvas.getContext('2d') 获取上下文
 2. ImageData 包含 width、height 和 data（Uint8ClampedArray）
 3. Uint8ClampedArray 自动将值限制在 0-255，避免颜色溢出
 4. getImageData() 获取像素数据，putImageData() 写回像素数据
@@ -650,7 +495,7 @@ function main() {
 - getPixel(imageData, x, y) - 获取像素值
 - setPixel(imageData, x, y, r, g, b, a) - 设置像素值
 - cloneImageData(imageData) - 克隆图像数据
-- forEachPixel(imageData, callback) - 遍历处理像素
+- forEachPixelXY(imageData, callback) - 遍历处理像素
 
 【与 OCR 的关联】
 
@@ -667,7 +512,7 @@ Canvas API 是 OCR 引擎的基础设施：
 }
 
 // 运行主程序
-main();
+if (require.main === module) main();
 
 // ==================== 导出模块（供其他章节使用）====================
 
@@ -676,5 +521,5 @@ module.exports = {
     getPixel,
     setPixel,
     cloneImageData,
-    forEachPixel
+    forEachPixelXY
 };

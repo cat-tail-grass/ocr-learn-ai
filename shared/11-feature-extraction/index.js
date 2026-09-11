@@ -10,7 +10,14 @@
  * 这些特征将用于后续的模板匹配和 KNN 分类器。
  */
 
-const { cloneImageData, createImageData } = require('../core');
+// 同一实现供 Node 与普通 <script> 使用；工厂作用域隔离所有函数名。
+(function (root, factory) {
+    if (typeof module === 'object' && module.exports) {
+        module.exports = factory(require('../core'));
+    } else {
+        root.OCRFeatures = factory({ createImageData: (width, height) => new ImageData(width, height) });
+    }
+})(typeof globalThis !== 'undefined' ? globalThis : this, function ({ createImageData }) {
 
 // ==================== 像素级特征 ====================
 
@@ -197,18 +204,29 @@ function calculateCentralMoments(imageData) {
     const xBar = m00 > 0 ? m10 / m00 : 0;
     const yBar = m00 > 0 ? m01 / m00 : 0;
     
-    // 计算中心矩（使用公式展开）
+    // 直接按定义累加偏移后的坐标，避免 M30 - 3*xBar*M20 等大数相减。
+    // 例如四个像素整体平移到 x=99900 后，展开式可能把 mu30=0 算成 -1。
     const mu00 = m00;
-    const mu10 = 0; // 中心矩的一阶总是 0
+    const mu10 = 0;
     const mu01 = 0;
-    const mu20 = m20 - xBar * m10;
-    const mu02 = m02 - yBar * m01;
-    const mu11 = m11 - xBar * m01;
-    const mu30 = m30 - 3 * xBar * m20 + 2 * xBar * xBar * m10;
-    const mu03 = m03 - 3 * yBar * m02 + 2 * yBar * yBar * m01;
-    const mu21 = m21 - 2 * xBar * m11 - yBar * m20 + 2 * xBar * xBar * m01;
-    const mu12 = m12 - 2 * yBar * m11 - xBar * m02 + 2 * yBar * yBar * m10;
-    
+    let mu20 = 0, mu02 = 0, mu11 = 0;
+    let mu30 = 0, mu03 = 0, mu21 = 0, mu12 = 0;
+    const { width, height, data } = imageData;
+    for (let y = 0; y < height; y++) {
+        for (let x = 0; x < width; x++) {
+            if (data[(y * width + x) * 4] >= 128) continue;
+            const dx = x - xBar;
+            const dy = y - yBar;
+            mu20 += dx * dx;
+            mu02 += dy * dy;
+            mu11 += dx * dy;
+            mu30 += dx * dx * dx;
+            mu03 += dy * dy * dy;
+            mu21 += dx * dx * dy;
+            mu12 += dx * dy * dy;
+        }
+    }
+
     return {
         // 原始矩
         m00, m10, m01, m20, m02, m11, m30, m03, m21, m12,
@@ -471,27 +489,25 @@ function computeImageGradients(imageData) {
  * @param {object} options - 配置选项
  * @returns {number[]} HOG 特征向量
  */
-function extractHOGFeatures(imageData, options = {}) {
+function computeHOGCells(imageData, options = {}) {
     const {
         cellSize = 7,           // Cell 大小（像素）
-        blockSize = 2,          // Block 包含的 Cell 数
         numBins = 9,            // 方向直方图的 bin 数
         unsigned = true         // 是否使用无符号梯度（0-180°）
     } = options;
     
     const { width, height } = imageData;
     
+    for (const [name, value] of Object.entries({ cellSize, numBins })) {
+        if (!Number.isInteger(value) || value <= 0) throw new Error(`${name} 必须是正整数`);
+    }
+
     // Step 1: 计算梯度
     const gradients = computeImageGradients(imageData);
     
     // Step 2: 计算 Cell 数量
     const numCellsX = Math.floor(width / cellSize);
     const numCellsY = Math.floor(height / cellSize);
-    
-    if (numCellsX < blockSize || numCellsY < blockSize) {
-        // 图像太小，返回空特征
-        return [];
-    }
     
     // Step 3: 计算每个 Cell 的直方图
     const cellHistograms = [];
@@ -532,6 +548,18 @@ function extractHOGFeatures(imageData, options = {}) {
         }
     }
     
+    return { histograms: cellHistograms, numCellsX, numCellsY, cellSize, numBins, binWidth, unsigned, gradients };
+}
+
+/**
+ * 教学版 HOG：中心差分、单 bin 硬投票、相邻 block 步长一 cell、L2 归一化。
+ * 不含 Dalal–Triggs 的方向/空间插值、Gaussian 权重、L2-Hys 截断。
+ * 非整除边缘的残余行列不组成 cell；不能容纳一个 block 时返回 []。
+ */
+function extractHOGFeatures(imageData, options = {}) {
+    const { blockSize = 2 } = options;
+    if (!Number.isInteger(blockSize) || blockSize <= 0) throw new Error('blockSize 必须是正整数');
+    const { histograms: cellHistograms, numCellsX, numCellsY } = computeHOGCells(imageData, options);
     // Step 4: Block 归一化
     const numBlocksX = numCellsX - blockSize + 1;
     const numBlocksY = numCellsY - blockSize + 1;
@@ -594,8 +622,8 @@ function normalizeFeatures(features, method = 'l2', params = {}) {
             // Z-Score 标准化：x' = (x - μ) / σ
             const mean = params.mean !== undefined ? params.mean : 
                          features.reduce((a, b) => a + b, 0) / n;
-            const std = params.std !== undefined ? params.std :
-                        Math.sqrt(features.reduce((sum, f) => sum + (f - mean) ** 2, 0) / n) || 1;
+            const std = (params.std !== undefined ? params.std :
+                        Math.sqrt(features.reduce((sum, f) => sum + (f - mean) ** 2, 0) / n)) || 1;
             return features.map(f => (f - mean) / std);
         }
         
@@ -696,6 +724,8 @@ function getBoundingBox(imageData) {
  * @returns {ImageData} 处理后的图像
  */
 function cropAndCenter(imageData, targetSize, padding = 0.1) {
+    if (!Number.isInteger(targetSize) || targetSize <= 0) throw new Error('targetSize 必须是正整数');
+    if (!Number.isFinite(padding) || padding < 0 || padding >= 0.5) throw new Error('padding 必须在 [0, 0.5) 范围内');
     const bbox = getBoundingBox(imageData);
     const { width: srcWidth, height: srcHeight, data: srcData } = imageData;
     
@@ -716,8 +746,8 @@ function cropAndCenter(imageData, targetSize, padding = 0.1) {
     const availableSize = targetSize - 2 * paddingPixels;
     const scale = Math.min(availableSize / bbox.width, availableSize / bbox.height);
     
-    const scaledWidth = Math.floor(bbox.width * scale);
-    const scaledHeight = Math.floor(bbox.height * scale);
+    const scaledWidth = Math.max(1, Math.floor(bbox.width * scale));
+    const scaledHeight = Math.max(1, Math.floor(bbox.height * scale));
     
     // 计算居中偏移
     const offsetX = Math.floor((targetSize - scaledWidth) / 2);
@@ -859,7 +889,7 @@ function cosineSimilarity(a, b) {
     }
     
     const denominator = Math.sqrt(normA) * Math.sqrt(normB);
-    return denominator === 0 ? 0 : dotProduct / denominator;
+    return denominator === 0 ? 0 : Math.max(-1, Math.min(1, dotProduct / denominator));
 }
 
 /**
@@ -882,7 +912,7 @@ function manhattanDistance(a, b) {
 }
 
 // 导出所有函数
-module.exports = {
+return {
     // 像素级特征
     extractPixelFeatures,
     
@@ -904,6 +934,7 @@ module.exports = {
     
     // 梯度计算
     computeImageGradients,
+    computeHOGCells,
     
     // HOG 特征
     extractHOGFeatures,
@@ -924,3 +955,5 @@ module.exports = {
     cosineSimilarity,
     manhattanDistance
 };
+
+});

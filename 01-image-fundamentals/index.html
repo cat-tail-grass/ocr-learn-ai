@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>01. 数字图像基础 - OCR 学习</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22%3E%3Crect width=%2264%22 height=%2264%22 rx=%2214%22 fill=%22%23126451%22/%3E%3Ctext x=%2232%22 y=%2246%22 text-anchor=%22middle%22 font-size=%2244%22 fill=%22white%22 font-family=%22sans-serif%22%3EO%3C/text%3E%3C/svg%3E">
     <style>
         * {
             margin: 0;
@@ -280,8 +281,10 @@
         .memory-cell.b { background: rgba(107, 107, 255, 0.6); }
         .memory-cell.a { background: rgba(255, 255, 255, 0.3); }
     </style>
+    <script src="../shared/course.js" defer></script>
 </head>
 <body>
+<nav class="course-nav" aria-label="课程导航"><a href="../../" data-course-catalog><strong>OCR / 学习实验室</strong></a><div class="links"><a href="../../01-image-fundamentals/" data-course-doc="01-image-fundamentals">返回本章讲义</a><a href="../../" data-course-catalog>课程目录</a><a href="../25-ocr-engine/index.html" data-course-lab="25-ocr-engine">照片识别</a><a href="../26-validation/index.html" data-course-lab="26-validation">评估记录</a></div></nav>
     <div class="container">
         <h1>🖼️ 01. 数字图像基础</h1>
         
@@ -379,8 +382,8 @@
 <span class="code-comment">// imageData.data 是一个 Uint8ClampedArray</span>
 <span class="code-comment">// 结构: [R₀, G₀, B₀, A₀, R₁, G₁, B₁, A₁, ...]</span>
 
-<span class="code-comment">// 访问第 n 个像素的 RGB 值</span>
-<span class="code-keyword">const</span> n = <span class="code-number">5</span>;  <span class="code-comment">// 第5个像素</span>
+<span class="code-comment">// 访问编号为 n 的像素（从 0 开始）的 RGB 值</span>
+<span class="code-keyword">const</span> n = <span class="code-number">5</span>;  <span class="code-comment">// 编号为5的像素（第6个）</span>
 <span class="code-keyword">const</span> r = imageData.data[n * <span class="code-number">4</span> + <span class="code-number">0</span>];  <span class="code-comment">// 红色通道</span>
 <span class="code-keyword">const</span> g = imageData.data[n * <span class="code-number">4</span> + <span class="code-number">1</span>];  <span class="code-comment">// 绿色通道</span>
 <span class="code-keyword">const</span> b = imageData.data[n * <span class="code-number">4</span> + <span class="code-number">2</span>];  <span class="code-comment">// 蓝色通道</span>
@@ -653,7 +656,7 @@
             // 更新信息
             document.getElementById('imgResolution').textContent = `${img.width} × ${img.height}`;
             document.getElementById('imgPixels').textContent = (img.width * img.height).toLocaleString();
-            document.getElementById('imgDataSize').textContent = `${(data.length / 1024).toFixed(2)} KB`;
+            document.getElementById('imgDataSize').textContent = `${(data.length / 1024).toFixed(2)} KiB`;
             
             // 显示前10个像素的数据
             let sampleHtml = '';

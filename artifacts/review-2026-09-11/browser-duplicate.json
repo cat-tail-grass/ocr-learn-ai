@@ -1,0 +1,12 @@
+[
+  {
+    "id": "duplicate-new-id",
+    "imageId": "controlled-photo",
+    "experimentId": "theory-review",
+    "modelId": "controlled-records",
+    "sampleKind": "photo",
+    "prediction": "",
+    "truth": "305",
+    "status": "failed"
+  }
+]

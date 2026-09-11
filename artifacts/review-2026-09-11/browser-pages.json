@@ -1,0 +1,333 @@
+{
+  "createdAt": "2026-09-11T11:21:56.423Z",
+  "scope": "全部页面装载及浏览器运行错误；不等同于全部交互路径",
+  "rows": [
+    {
+      "chapter": "01-image-fundamentals",
+      "title": "01. 数字图像基础 - OCR 学习",
+      "readyState": "complete",
+      "heading": "🖼️ 01. 数字图像基础",
+      "scripts": [],
+      "canvases": 1,
+      "errors": [],
+      "passed": true
+    },
+    {
+      "chapter": "02-js-image-basics",
+      "title": "02. JavaScript 图像处理基础 - OCR 学习",
+      "readyState": "complete",
+      "heading": "🎨 02. JavaScript 图像处理基础",
+      "scripts": [
+        "http://127.0.0.1:4173/02-js-image-basics/bundle.js"
+      ],
+      "canvases": 4,
+      "errors": [],
+      "passed": true
+    },
+    {
+      "chapter": "03-grayscale",
+      "title": "03. 灰度化 - OCR 学习",
+      "readyState": "complete",
+      "heading": "🎨 03. 灰度化 (Grayscale Conversion)",
+      "scripts": [
+        "http://127.0.0.1:4173/03-grayscale/bundle.js"
+      ],
+      "canvases": 9,
+      "errors": [],
+      "passed": true
+    },
+    {
+      "chapter": "04-binarization",
+      "title": "04. 二值化 - OCR 学习",
+      "readyState": "complete",
+      "heading": "⚫⚪ 04. 二值化 (Binarization)",
+      "scripts": [
+        "http://127.0.0.1:4173/04-binarization/bundle.js"
+      ],
+      "canvases": 4,
+      "errors": [],
+      "passed": true
+    },
+    {
+      "chapter": "05-denoising",
+      "title": "05. 图像去噪 (Image Denoising)",
+      "readyState": "complete",
+      "heading": "05. 图像去噪 (Image Denoising)",
+      "scripts": [
+        "http://127.0.0.1:4173/05-denoising/bundle.js"
+      ],
+      "canvases": 7,
+      "errors": [],
+      "passed": true
+    },
+    {
+      "chapter": "06-morphology",
+      "title": "06. 形态学操作 (Morphological Operations)",
+      "readyState": "complete",
+      "heading": "06. 形态学操作 (Morphological Operations)",
+      "scripts": [
+        "http://127.0.0.1:4173/06-morphology/bundle.js"
+      ],
+      "canvases": 7,
+      "errors": [],
+      "passed": true
+    },
+    {
+      "chapter": "07-deskewing",
+      "title": "07. 倾斜校正 - OCR 学习项目",
+      "readyState": "complete",
+      "heading": "📐 07. 倾斜校正",
+      "scripts": [
+        "http://127.0.0.1:4173/07-deskewing/bundle.js"
+      ],
+      "canvases": 7,
+      "errors": [],
+      "passed": true
+    },
+    {
+      "chapter": "08-edge-detection",
+      "title": "08. 边缘检测 - Edge Detection",
+      "readyState": "complete",
+      "heading": "🔍 08. 边缘检测 (Edge Detection)",
+      "scripts": [
+        "http://127.0.0.1:4173/08-edge-detection/bundle.js"
+      ],
+      "canvases": 8,
+      "errors": [],
+      "passed": true
+    },
+    {
+      "chapter": "09-connected-components",
+      "title": "09. 连通域分析 - Connected Component Analysis",
+      "readyState": "complete",
+      "heading": "🔗 09. 连通域分析 (Connected Component Analysis)",
+      "scripts": [
+        "http://127.0.0.1:4173/09-connected-components/bundle.js"
+      ],
+      "canvases": 9,
+      "errors": [],
+      "passed": true
+    },
+    {
+      "chapter": "10-text-localization",
+      "title": "10. 文本区域定位 - OCR 学习",
+      "readyState": "complete",
+      "heading": "📍 10. 文本区域定位",
+      "scripts": [
+        "http://127.0.0.1:4173/10-text-localization/bundle.js"
+      ],
+      "canvases": 7,
+      "errors": [],
+      "passed": true
+    },
+    {
+      "chapter": "11-feature-extraction",
+      "title": "第11章 - 特征提取基础",
+      "readyState": "complete",
+      "heading": "📊 第11章：特征提取基础",
+      "scripts": [
+        "http://127.0.0.1:4173/shared/11-feature-extraction/index.js"
+      ],
+      "canvases": 19,
+      "errors": [],
+      "passed": true
+    },
+    {
+      "chapter": "12-template-matching",
+      "title": "第12章 - 模板匹配",
+      "readyState": "complete",
+      "heading": "🎯 第12章：模板匹配",
+      "scripts": [
+        "http://127.0.0.1:4173/shared/11-feature-extraction/index.js",
+        "http://127.0.0.1:4173/shared/12-template-matching/index.js"
+      ],
+      "canvases": 11,
+      "errors": [],
+      "passed": true
+    },
+    {
+      "chapter": "13-knn-classifier",
+      "title": "第13章 - KNN 分类器",
+      "readyState": "complete",
+      "heading": "第13章：KNN 分类器",
+      "scripts": [
+        "http://127.0.0.1:4173/shared/11-feature-extraction/index.js",
+        "http://127.0.0.1:4173/shared/12-template-matching/index.js",
+        "http://127.0.0.1:4173/shared/13-knn-classifier/index.js",
+        "http://127.0.0.1:4173/shared/13-knn-classifier/demoDataset.js"
+      ],
+      "canvases": 1,
+      "errors": [],
+      "passed": true
+    },
+    {
+      "chapter": "14-neural-network-basics",
+      "title": "14 · 神经网络基础 — 看见参数如何学习",
+      "readyState": "complete",
+      "heading": "让 17 个参数学会 XOR",
+      "scripts": [
+        "http://127.0.0.1:4173/shared/course.js",
+        "http://127.0.0.1:4173/14-neural-network-basics/bundle.js"
+      ],
+      "canvases": 2,
+      "errors": [],
+      "passed": true
+    },
+    {
+      "chapter": "15-cnn-basics",
+      "title": "15 · CNN 基础 — 卷积、通道与参数共享",
+      "readyState": "complete",
+      "heading": "从滑动窗口到 CNN",
+      "scripts": [
+        "http://127.0.0.1:4173/shared/course.js",
+        "http://127.0.0.1:4173/15-cnn-basics/bundle.js"
+      ],
+      "canvases": 0,
+      "errors": [],
+      "passed": true
+    },
+    {
+      "chapter": "16-tensorflowjs-intro",
+      "title": "16 · TensorFlow.js 入门",
+      "readyState": "complete",
+      "heading": "看见张量的计算与生命周期",
+      "scripts": [
+        "http://127.0.0.1:4173/shared/course.js",
+        "http://127.0.0.1:4173/16-tensorflowjs-intro/bundle.js"
+      ],
+      "canvases": 2,
+      "errors": [],
+      "passed": true
+    },
+    {
+      "chapter": "17-cnn-classifier",
+      "title": "17 · CNN 手写数字分类器",
+      "readyState": "complete",
+      "heading": "一个数字，十个类别",
+      "scripts": [
+        "http://127.0.0.1:4173/shared/course.js",
+        "http://127.0.0.1:4173/17-cnn-classifier/bundle.js"
+      ],
+      "canvases": 3,
+      "errors": [],
+      "passed": true
+    },
+    {
+      "chapter": "18-rnn-basics",
+      "title": "18 · RNN 与 LSTM",
+      "readyState": "complete",
+      "heading": "18 · 让状态沿时间传递",
+      "scripts": [
+        "http://127.0.0.1:4173/shared/course.js",
+        "http://127.0.0.1:4173/18-rnn-basics/bundle.js"
+      ],
+      "canvases": 1,
+      "errors": [],
+      "passed": true
+    },
+    {
+      "chapter": "19-ctc-loss",
+      "title": "19 · CTC 损失与解码",
+      "readyState": "complete",
+      "heading": "19 · 不切字符，也能计算整串损失",
+      "scripts": [
+        "http://127.0.0.1:4173/shared/course.js",
+        "http://127.0.0.1:4173/19-ctc-loss/bundle.js"
+      ],
+      "canvases": 0,
+      "errors": [],
+      "passed": true
+    },
+    {
+      "chapter": "20-crnn",
+      "title": "20 · 可训练的小型 CRNN",
+      "readyState": "complete",
+      "heading": "20 · 从整行像素训练到字符串",
+      "scripts": [
+        "http://127.0.0.1:4173/shared/course.js",
+        "http://127.0.0.1:4173/20-crnn/bundle.js"
+      ],
+      "canvases": 3,
+      "errors": [],
+      "passed": true
+    },
+    {
+      "chapter": "21-attention",
+      "title": "21 · Attention 权重实验",
+      "readyState": "complete",
+      "heading": "一次查询，怎样分配注意力",
+      "scripts": [
+        "http://127.0.0.1:4173/shared/course.js",
+        "http://127.0.0.1:4173/21-attention/bundle.js"
+      ],
+      "canvases": 1,
+      "errors": [],
+      "passed": true
+    },
+    {
+      "chapter": "22-text-detection-networks",
+      "title": "22 · 文本检测输出与后处理",
+      "readyState": "complete",
+      "heading": "从预测图到文字区域",
+      "scripts": [
+        "http://127.0.0.1:4173/shared/course.js",
+        "http://127.0.0.1:4173/22-text-detection-networks/bundle.js"
+      ],
+      "canvases": 7,
+      "errors": [],
+      "passed": true
+    },
+    {
+      "chapter": "23-transformer-ocr",
+      "title": "23 · Transformer OCR 运算实验",
+      "readyState": "complete",
+      "heading": "图像块怎样成为序列",
+      "scripts": [
+        "http://127.0.0.1:4173/shared/course.js",
+        "http://127.0.0.1:4173/23-transformer-ocr/bundle.js"
+      ],
+      "canvases": 3,
+      "errors": [],
+      "passed": true
+    },
+    {
+      "chapter": "24-post-processing",
+      "title": "24 · 后处理与独立评估 — OCR 学习实验室",
+      "readyState": "complete",
+      "heading": "错在哪里，要先对齐",
+      "scripts": [
+        "http://127.0.0.1:4173/shared/course.js",
+        "http://127.0.0.1:4173/24-post-processing/bundle.js"
+      ],
+      "canvases": 0,
+      "errors": [],
+      "passed": true
+    },
+    {
+      "chapter": "25-ocr-engine",
+      "title": "25 · 照片中的手写数字串",
+      "readyState": "complete",
+      "heading": "识别照片里的手写数字串",
+      "scripts": [
+        "http://127.0.0.1:4173/shared/course.js",
+        "http://127.0.0.1:4173/25-ocr-engine/bundle.js"
+      ],
+      "canvases": 3,
+      "errors": [],
+      "passed": true
+    },
+    {
+      "chapter": "26-validation",
+      "title": "26 · 手写数字串实战评估",
+      "readyState": "complete",
+      "heading": "每一张照片，都留在结果里。",
+      "scripts": [
+        "http://127.0.0.1:4173/shared/course.js",
+        "http://127.0.0.1:4173/26-validation/bundle.js"
+      ],
+      "canvases": 0,
+      "errors": [],
+      "passed": true
+    }
+  ]
+}

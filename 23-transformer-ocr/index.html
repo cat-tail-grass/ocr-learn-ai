@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>23 · Transformer OCR 运算实验</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22%3E%3Crect width=%2264%22 height=%2264%22 rx=%2214%22 fill=%22%23126451%22/%3E%3Ctext x=%2232%22 y=%2246%22 text-anchor=%22middle%22 font-size=%2244%22 fill=%22white%22 font-family=%22sans-serif%22%3EO%3C/text%3E%3C/svg%3E">
+    <link rel="stylesheet" href="../shared/course.css" />
+    <script src="../shared/course.js" defer></script>
+    <script src="bundle.js" defer></script>
+  </head>
+  <body>
+<nav class="course-nav" aria-label="课程导航"><a href="../../" data-course-catalog><strong>OCR / 学习实验室</strong></a><div class="links"><a href="../../23-transformer-ocr/" data-course-doc="23-transformer-ocr">返回本章讲义</a><a href="../../" data-course-catalog>课程目录</a><a href="../25-ocr-engine/index.html" data-course-lab="25-ocr-engine">照片识别</a><a href="../26-validation/index.html" data-course-lab="26-validation">评估记录</a></div></nav>
+    <main>
+      <p class="eyebrow">Chapter 23 / Transformer OCR</p>
+      <h1>图像块怎样成为序列</h1>
+      <p class="lead">
+        从小图像切块，经线性映射、位置编码和多头注意力，到解码器读取视觉特征。查看每一层的实际维度与权重。
+      </p>
+      <p class="note">
+        固定种子随机参数的前向实验，未训练、不会识别字符。它使用 pre-norm、ReLU
+        和正弦位置编码，省略训练与生成词表头；不是 ViT 或 TrOCR 的复现。TrOCR
+        的完整流程见本章文档。
+      </p>
+      <section class="card">
+        <h2>配置实验</h2>
+        <div class="controls">
+          <label
+            >图像块
+            <select id="patch">
+              <option value="2">2×2（8 个 token）</option>
+              <option value="4">4×4（2 个 token）</option>
+            </select></label
+          ><label
+            >注意力头数
+            <select id="heads">
+              <option value="1">1</option>
+              <option value="2" selected>2</option>
+              <option value="4">4</option>
+            </select></label
+          ><label
+            ><input id="positions" type="checkbox" checked />加入位置编码</label
+          ><label
+            ><input id="causal" type="checkbox" checked />解码器因果遮罩</label
+          >
+        </div>
+        <p id="status" class="status" role="status" aria-live="polite">
+          正在初始化…
+        </p>
+      </section>
+      <section class="card">
+        <h2>编辑4×8灰度输入</h2>
+        <label
+          >像素矩阵（4行8列，每个值0…1）<textarea
+            id="pixels"
+            rows="5"
+            style="display: block; width: 100%"
+            spellcheck="false"
+          ></textarea>
+        </label>
+        <div class="actions">
+          <button id="apply">应用像素输入</button
+          ><button id="reset" class="secondary">恢复默认</button>
+        </div>
+        <p class="hint">
+          尝试全部填0并切换位置编码：没有内容也可产生位置差异。空白图不会触发真正的OCR预测。
+        </p>
+      </section>
+      <div class="grid">
+        <section class="card">
+          <h2>4×8 灰度图与 patch 编号</h2>
+          <canvas
+            id="image"
+            width="640"
+            height="320"
+            role="img"
+            aria-label="两行四列的图像块，行优先编号；实际切块数据可在下方展开"
+          ></canvas>
+          <p class="hint">
+            白=0、深色=1。patch 数随块面积反比变化，不等于字符数。
+          </p>
+        </section>
+        <section class="card">
+          <h2>选择要查看的权重</h2>
+          <div class="controls">
+            <label
+              >注意力层
+              <select id="layer">
+                <option value="encoder">编码器 self attention</option>
+                <option value="self">解码器 masked self attention</option>
+                <option value="cross">解码器 cross attention</option>
+              </select></label
+            ><label
+              >头
+              <select id="head"></select></label
+            ><label
+              >查询行
+              <select id="query"></select
+            ></label>
+          </div>
+          <p id="layer-note"></p>
+          <pre id="selected" aria-live="polite"></pre>
+        </section>
+      </div>
+      <section class="card">
+        <h2>所有查询到所有键的权重</h2>
+        <canvas
+          id="attention"
+          width="880"
+          height="440"
+          role="img"
+          aria-label="注意力热图，逐格数值与行列标签见下方表格"
+        ></canvas>
+        <div id="weights" class="table-wrap"></div>
+      </section>
+      <section class="card">
+        <h2>查询所读取的视觉区域</h2>
+        <canvas
+          id="visual-attention"
+          width="640"
+          height="320"
+          role="img"
+          aria-label="当前头、当前查询对视觉 patch 的权重；解码器 self attention 不使用此图"
+        ></canvas>
+        <p id="visual-note"></p>
+      </section>
+      <section class="card">
+        <h2>从原理到中间值</h2>
+        <details>
+          <summary>图像切块、线性映射和位置编码</summary>
+          <pre id="patch-data"></pre>
+        </details>
+        <details>
+          <summary>本头的 Q / K / V、加权结果与最终输出</summary>
+          <pre id="projection-data"></pre>
+        </details>
+      </section>
+      <section class="card">
+        <h2>建议实验</h2>
+        <p>
+          先选择解码器 self
+          attention，关闭因果遮罩：上三角不再为零。保持遮罩关闭，再关闭位置编码，两个重复输入的查询行相同。
+          重新开启因果遮罩后，它们又可能因可见前缀不同而产生不同上下文。再选择 cross
+          attention，比较 3×8 与 3×2 的矩阵。
+        </p>
+        <p>
+          <a href="../../23-transformer-ocr/" data-course-doc="23-transformer-ocr"
+            >阅读 Transformer / ViT / TrOCR 的公式、适用边界和自测</a
+          >
+          · <a href="../24-post-processing/index.html">下一章：后处理</a>
+        </p>
+      </section>
+    </main>
+  </body>
+</html>

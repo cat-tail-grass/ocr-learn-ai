@@ -1,0 +1,31 @@
+npm warn Unknown user config "always-auth" (//r.npm.zaihui.com.cn/:always-auth). This will stop working in the next major version of npm.
+
+> ocr-learning@1.0.0 verify:lessons
+> node scripts/verify-lessons.js --execute --output-dir artifacts/review-2026-09-11
+
+01-image-fundamentals: 三件套齐全；Node passed
+02-js-image-basics: 三件套齐全；Node passed
+03-grayscale: 三件套齐全；Node passed
+04-binarization: 三件套齐全；Node passed
+05-denoising: 三件套齐全；Node passed
+06-morphology: 三件套齐全；Node passed
+07-deskewing: 三件套齐全；Node passed
+08-edge-detection: 三件套齐全；Node passed
+09-connected-components: 三件套齐全；Node passed
+10-text-localization: 三件套齐全；Node passed
+11-feature-extraction: 三件套齐全；Node passed
+12-template-matching: 三件套齐全；Node passed
+13-knn-classifier: 三件套齐全；Node passed
+14-neural-network-basics: 三件套齐全；Node passed
+15-cnn-basics: 三件套齐全；Node passed
+16-tensorflowjs-intro: 三件套齐全；Node passed
+17-cnn-classifier: 三件套齐全；Node passed
+18-rnn-basics: 三件套齐全；Node passed
+19-ctc-loss: 三件套齐全；Node passed
+20-crnn: 三件套齐全；Node passed
+21-attention: 三件套齐全；Node passed
+22-text-detection-networks: 三件套齐全；Node passed
+23-transformer-ocr: 三件套齐全；Node passed
+24-post-processing: 三件套齐全；Node passed
+25-ocr-engine: 三件套齐全；Node passed
+26-validation: 三件套齐全；Node passed

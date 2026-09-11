@@ -1,0 +1,139 @@
+{
+  "chapters": [
+    "/ocr/01-image-fundamentals/",
+    "/ocr/02-js-image-basics/",
+    "/ocr/03-grayscale/",
+    "/ocr/04-binarization/",
+    "/ocr/05-denoising/",
+    "/ocr/06-morphology/",
+    "/ocr/07-deskewing/",
+    "/ocr/08-edge-detection/",
+    "/ocr/09-connected-components/",
+    "/ocr/10-text-localization/",
+    "/ocr/11-feature-extraction/",
+    "/ocr/12-template-matching/",
+    "/ocr/13-knn-classifier/",
+    "/ocr/14-neural-network-basics/",
+    "/ocr/15-cnn-basics/",
+    "/ocr/16-tensorflowjs-intro/",
+    "/ocr/17-cnn-classifier/",
+    "/ocr/18-rnn-basics/",
+    "/ocr/19-ctc-loss/",
+    "/ocr/20-crnn/",
+    "/ocr/21-attention/",
+    "/ocr/22-text-detection-networks/",
+    "/ocr/23-transformer-ocr/",
+    "/ocr/24-post-processing/",
+    "/ocr/25-ocr-engine/",
+    "/ocr/26-validation/"
+  ],
+  "labs": [
+    {
+      "href": "/ocr/labs/01-image-fundamentals/index.html",
+      "target": "_blank"
+    },
+    {
+      "href": "/ocr/labs/02-js-image-basics/index.html",
+      "target": "_blank"
+    },
+    {
+      "href": "/ocr/labs/03-grayscale/index.html",
+      "target": "_blank"
+    },
+    {
+      "href": "/ocr/labs/04-binarization/index.html",
+      "target": "_blank"
+    },
+    {
+      "href": "/ocr/labs/05-denoising/index.html",
+      "target": "_blank"
+    },
+    {
+      "href": "/ocr/labs/06-morphology/index.html",
+      "target": "_blank"
+    },
+    {
+      "href": "/ocr/labs/07-deskewing/index.html",
+      "target": "_blank"
+    },
+    {
+      "href": "/ocr/labs/08-edge-detection/index.html",
+      "target": "_blank"
+    },
+    {
+      "href": "/ocr/labs/09-connected-components/index.html",
+      "target": "_blank"
+    },
+    {
+      "href": "/ocr/labs/10-text-localization/index.html",
+      "target": "_blank"
+    },
+    {
+      "href": "/ocr/labs/11-feature-extraction/index.html",
+      "target": "_blank"
+    },
+    {
+      "href": "/ocr/labs/12-template-matching/index.html",
+      "target": "_blank"
+    },
+    {
+      "href": "/ocr/labs/13-knn-classifier/index.html",
+      "target": "_blank"
+    },
+    {
+      "href": "/ocr/labs/14-neural-network-basics/index.html",
+      "target": "_blank"
+    },
+    {
+      "href": "/ocr/labs/15-cnn-basics/index.html",
+      "target": "_blank"
+    },
+    {
+      "href": "/ocr/labs/16-tensorflowjs-intro/index.html",
+      "target": "_blank"
+    },
+    {
+      "href": "/ocr/labs/17-cnn-classifier/index.html",
+      "target": "_blank"
+    },
+    {
+      "href": "/ocr/labs/18-rnn-basics/index.html",
+      "target": "_blank"
+    },
+    {
+      "href": "/ocr/labs/19-ctc-loss/index.html",
+      "target": "_blank"
+    },
+    {
+      "href": "/ocr/labs/20-crnn/index.html",
+      "target": "_blank"
+    },
+    {
+      "href": "/ocr/labs/21-attention/index.html",
+      "target": "_blank"
+    },
+    {
+      "href": "/ocr/labs/22-text-detection-networks/index.html",
+      "target": "_blank"
+    },
+    {
+      "href": "/ocr/labs/23-transformer-ocr/index.html",
+      "target": "_blank"
+    },
+    {
+      "href": "/ocr/labs/24-post-processing/index.html",
+      "target": "_blank"
+    },
+    {
+      "href": "/ocr/labs/25-ocr-engine/index.html",
+      "target": "_blank"
+    },
+    {
+      "href": "/ocr/labs/26-validation/index.html",
+      "target": "_blank"
+    }
+  ],
+  "modelLoads": [],
+  "stages": 8,
+  "text": "OCR 学习实验室\n课程实验目录分享指南勘误记录源码\n搜索课程\n⌃K\nOCR 原理学习与手写数字串实验\n\n面向有机器学习基础的研发同学，沿着像素处理、传统识别、神经网络、序列识别和现代 OCR，学习从照片到字符串的完整过程。第 01–13 章为既有课程；第 14–26 章延续同样的讲解尺度。每章都有 README.md 知识文档、index.html 交互实验、index.js Node.js 实验。\n\n完整学习路径\n\n8 个阶段，26 章循序学习\n\n从图像基础到自主 OCR 引擎。先读讲义，再打开实验验证；每章都提供本地运行命令。\n\n01\n基础准备\n02\n图像预处理\n03\n文本检测\n04\n传统识别\n05\n深度学习基础\n06\n深度学习 OCR\n07\n现代 OCR\n08\n自主引擎开发\n01\n基础准备\n\n01—02 章 · 2 节讲义与实验\n\n01\n数字图像基础\n实验 ↗\n02\nJavaScript 图像处理基础\n实验 ↗\n02\n图像预处理\n\n03—07 章 · 5 节讲义与实验\n\n03\n灰度化\n实验 ↗\n04\n二值化\n实验 ↗\n05\n图像去噪\n实验 ↗\n06\n形态学操作\n实验 ↗\n07\n"
+}

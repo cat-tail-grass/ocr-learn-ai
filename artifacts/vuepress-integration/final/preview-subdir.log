@@ -1,0 +1,7 @@
+npm warn Unknown user config "always-auth" (//r.npm.zaihui.com.cn/:always-auth). This will stop working in the next major version of npm.
+
+> ocr-learning@1.0.0 preview
+> node scripts/preview-site.mjs
+
+OCR 静态站点：http://127.0.0.1:4175/ocr/
+产物：/Users/wuxiuran/project/ocr-learn-ai/.vuepress/dist-ocr

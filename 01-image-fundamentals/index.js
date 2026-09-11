@@ -10,6 +10,8 @@
  * 运行方式：node index.js
  */
 
+const core = require('../shared/core');
+
 // ==================== 常量定义 ====================
 
 /**
@@ -72,7 +74,7 @@ function demonstratePixel() {
  * 
  * 原理解释：
  * - 分辨率 = 图像的宽度 × 高度（单位：像素）
- * - 分辨率越高，图像越清晰，文件越大
+ * - 像素数更多不保证细节更多；数据大小还取决于编码和压缩
  */
 function demonstrateResolution() {
     console.log('\n' + '='.repeat(60));
@@ -84,7 +86,7 @@ function demonstrateResolution() {
         { name: 'VGA', width: 640, height: 480 },
         { name: 'HD (720p)', width: 1280, height: 720 },
         { name: 'Full HD (1080p)', width: 1920, height: 1080 },
-        { name: '2K', width: 2560, height: 1440 },
+        { name: 'QHD (1440p)', width: 2560, height: 1440 },
         { name: '4K', width: 3840, height: 2160 },
         { name: '8K', width: 7680, height: 4320 }
     ];
@@ -101,7 +103,7 @@ function demonstrateResolution() {
         
         console.log(
             `${res.name.padEnd(16)}${String(res.width).padStart(4)}  × ${String(res.height).padStart(4)}` +
-            `    ${totalPixels.toLocaleString().padStart(12)}    ${rgbSizeMB.padStart(6)} MB`
+            `    ${totalPixels.toLocaleString().padStart(12)}    ${rgbSizeMB.padStart(6)} MiB`
         );
     });
     
@@ -174,11 +176,11 @@ function demonstrateGrayscale() {
 255 = 纯白 ⬜⬜⬜⬜
 
 【灰度的特点】
-1. 数据量是 RGB 的 1/3（每像素1字节 vs 3字节）
+1. 紧凑8-bit单通道数据量是RGB的1/3；Canvas灰度仍是4字节RGBA
 2. 当 R = G = B 时，彩色图显示为灰色
 3. OCR 通常先将彩色图转为灰度图，简化处理
 
-【灰度转换公式（标准加权法）】
+【灰度转换公式（借用 BT.601 系数的编码值近似）】
 Gray = 0.299 × R + 0.587 × G + 0.114 × B
 
 为什么权重不同？
@@ -199,7 +201,7 @@ Gray = 0.299 × R + 0.587 × G + 0.114 × B
     ];
     
     testColors.forEach(color => {
-        const gray = Math.round(0.299 * color.r + 0.587 * color.g + 0.114 * color.b);
+        const gray = core.rgbToGray(color.r, color.g, color.b);
         console.log(`  ${color.name}: RGB(${color.r}, ${color.g}, ${color.b}) → 灰度值: ${gray}`);
     });
 }
@@ -421,42 +423,10 @@ function rgbToGray(r, g, b) {
  * @returns {object} 模拟的 ImageData 对象
  */
 function createImageData(width, height) {
-    // 每个像素 4 个值（RGBA）
-    const data = new Uint8ClampedArray(width * height * 4);
-    
-    // 默认填充白色，完全不透明
-    for (let i = 0; i < data.length; i += 4) {
-        data[i] = 255;     // R
-        data[i + 1] = 255; // G
-        data[i + 2] = 255; // B
-        data[i + 3] = 255; // A
-    }
-    
-    return {
-        width,
-        height,
-        data,
-        
-        // 辅助方法：获取指定位置的像素
-        getPixel(x, y) {
-            const index = (y * width + x) * 4;
-            return {
-                r: this.data[index],
-                g: this.data[index + 1],
-                b: this.data[index + 2],
-                a: this.data[index + 3]
-            };
-        },
-        
-        // 辅助方法：设置指定位置的像素
-        setPixel(x, y, r, g, b, a = 255) {
-            const index = (y * width + x) * 4;
-            this.data[index] = r;
-            this.data[index + 1] = g;
-            this.data[index + 2] = b;
-            this.data[index + 3] = a;
-        }
-    };
+    const image = core.createImageData(width, height);
+    image.getPixel = (x, y) => core.getPixel(image, x, y);
+    image.setPixel = (x, y, r, g, b, a = 255) => core.setPixel(image, x, y, r, g, b, a);
+    return image;
 }
 
 /**
@@ -483,6 +453,8 @@ function demonstrateImageData() {
     img.setPixel(1, 2, 0, 0, 0);       // 下中：黑色
     img.setPixel(2, 2, 255, 255, 255); // 右下角：白色
     
+    console.log('课程模拟容器默认白色不透明；原生 new ImageData(w,h) 默认透明黑。');
+    console.log('A=0透明，A=255不透明；alpha不是亮度，RGB读写为非预乘值。');
     // 显示图像数据
     console.log('图像布局：');
     console.log('┌───────┬───────┬───────┐');
@@ -557,4 +529,4 @@ function main() {
 }
 
 // 运行主程序
-main();
+if (require.main === module) main();

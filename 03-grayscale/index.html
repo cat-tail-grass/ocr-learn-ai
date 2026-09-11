@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>03. 灰度化 - OCR 学习</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22%3E%3Crect width=%2264%22 height=%2264%22 rx=%2214%22 fill=%22%23126451%22/%3E%3Ctext x=%2232%22 y=%2246%22 text-anchor=%22middle%22 font-size=%2244%22 fill=%22white%22 font-family=%22sans-serif%22%3EO%3C/text%3E%3C/svg%3E">
     <style>
         * {
             margin: 0;
@@ -284,8 +285,10 @@
             margin-top: 5px;
         }
     </style>
+    <script src="../shared/course.js" defer></script>
 </head>
 <body>
+<nav class="course-nav" aria-label="课程导航"><a href="../../" data-course-catalog><strong>OCR / 学习实验室</strong></a><div class="links"><a href="../../03-grayscale/" data-course-doc="03-grayscale">返回本章讲义</a><a href="../../" data-course-catalog>课程目录</a><a href="../25-ocr-engine/index.html" data-course-lab="25-ocr-engine">照片识别</a><a href="../26-validation/index.html" data-course-lab="26-validation">评估记录</a></div></nav>
     <div class="container">
         <h1>🎨 03. 灰度化 (Grayscale Conversion)</h1>
         
@@ -503,7 +506,9 @@ Gray = <span class="code-number">0.299</span> × R + <span class="code-number">0
         </div>
     </div>
 
+    <script src="./bundle.js"></script>
     <script>
+        const { grayscaleWeighted, grayscaleAverage, grayscaleMax, grayscaleMin, grayscaleSingleChannel, grayscaleLuminosity, grayscaleLinearSrgb, calculateHistogram, calculateHistogramStats, calculateStats } = window.OCRLesson03;
         /**
          * 03. 灰度化 - 交互式演示
          * 
@@ -537,25 +542,6 @@ Gray = <span class="code-number">0.299</span> × R + <span class="code-number">0
          * @param {ImageData} imageData - 原始图像数据
          * @returns {ImageData} 灰度化后的图像数据
          */
-        function grayscaleWeighted(imageData) {
-            const result = cloneImageData(imageData);
-            const data = result.data;
-            
-            for (let i = 0; i < data.length; i += 4) {
-                const r = data[i];
-                const g = data[i + 1];
-                const b = data[i + 2];
-                
-                // 加权公式
-                const gray = Math.round(0.299 * r + 0.587 * g + 0.114 * b);
-                
-                data[i] = gray;
-                data[i + 1] = gray;
-                data[i + 2] = gray;
-            }
-            
-            return result;
-        }
         
         /**
          * 平均值法灰度化
@@ -567,25 +553,6 @@ Gray = <span class="code-number">0.299</span> × R + <span class="code-number">0
          * @param {ImageData} imageData - 原始图像数据
          * @returns {ImageData} 灰度化后的图像数据
          */
-        function grayscaleAverage(imageData) {
-            const result = cloneImageData(imageData);
-            const data = result.data;
-            
-            for (let i = 0; i < data.length; i += 4) {
-                const r = data[i];
-                const g = data[i + 1];
-                const b = data[i + 2];
-                
-                // 平均值
-                const gray = Math.round((r + g + b) / 3);
-                
-                data[i] = gray;
-                data[i + 1] = gray;
-                data[i + 2] = gray;
-            }
-            
-            return result;
-        }
         
         /**
          * 最大值法灰度化
@@ -597,25 +564,6 @@ Gray = <span class="code-number">0.299</span> × R + <span class="code-number">0
          * @param {ImageData} imageData - 原始图像数据
          * @returns {ImageData} 灰度化后的图像数据
          */
-        function grayscaleMax(imageData) {
-            const result = cloneImageData(imageData);
-            const data = result.data;
-            
-            for (let i = 0; i < data.length; i += 4) {
-                const r = data[i];
-                const g = data[i + 1];
-                const b = data[i + 2];
-                
-                // 最大值
-                const gray = Math.max(r, g, b);
-                
-                data[i] = gray;
-                data[i + 1] = gray;
-                data[i + 2] = gray;
-            }
-            
-            return result;
-        }
         
         /**
          * 最小值法灰度化
@@ -627,25 +575,6 @@ Gray = <span class="code-number">0.299</span> × R + <span class="code-number">0
          * @param {ImageData} imageData - 原始图像数据
          * @returns {ImageData} 灰度化后的图像数据
          */
-        function grayscaleMin(imageData) {
-            const result = cloneImageData(imageData);
-            const data = result.data;
-            
-            for (let i = 0; i < data.length; i += 4) {
-                const r = data[i];
-                const g = data[i + 1];
-                const b = data[i + 2];
-                
-                // 最小值
-                const gray = Math.min(r, g, b);
-                
-                data[i] = gray;
-                data[i + 1] = gray;
-                data[i + 2] = gray;
-            }
-            
-            return result;
-        }
         
         /**
          * 单通道法灰度化
@@ -657,23 +586,6 @@ Gray = <span class="code-number">0.299</span> × R + <span class="code-number">0
          * @param {string} channel - 'r', 'g', 或 'b'
          * @returns {ImageData} 灰度化后的图像数据
          */
-        function grayscaleSingleChannel(imageData, channel) {
-            const result = cloneImageData(imageData);
-            const data = result.data;
-            
-            // 确定通道偏移
-            const offset = channel === 'r' ? 0 : (channel === 'g' ? 1 : 2);
-            
-            for (let i = 0; i < data.length; i += 4) {
-                const gray = data[i + offset];
-                
-                data[i] = gray;
-                data[i + 1] = gray;
-                data[i + 2] = gray;
-            }
-            
-            return result;
-        }
         
         // ==================== 灰度直方图 ====================
         
@@ -687,18 +599,6 @@ Gray = <span class="code-number">0.299</span> × R + <span class="code-number">0
          * @param {ImageData} imageData - 灰度图像数据
          * @returns {number[]} 长度为256的数组，每个位置表示该灰度值的像素数
          */
-        function calculateHistogram(imageData) {
-            const histogram = new Array(256).fill(0);
-            const data = imageData.data;
-            
-            for (let i = 0; i < data.length; i += 4) {
-                // 假设已经是灰度图，R=G=B
-                const gray = data[i];
-                histogram[gray]++;
-            }
-            
-            return histogram;
-        }
         
         /**
          * 绘制灰度直方图
@@ -749,66 +649,12 @@ Gray = <span class="code-number">0.299</span> × R + <span class="code-number">0
          * @param {number} totalPixels - 总像素数
          * @returns {object} 统计信息
          */
-        function calculateStats(histogram, totalPixels) {
-            // 找最小和最大灰度值
-            let min = 0, max = 255;
-            for (let i = 0; i < 256; i++) {
-                if (histogram[i] > 0) { min = i; break; }
-            }
-            for (let i = 255; i >= 0; i--) {
-                if (histogram[i] > 0) { max = i; break; }
-            }
-            
-            // 计算平均值
-            let sum = 0;
-            for (let i = 0; i < 256; i++) {
-                sum += i * histogram[i];
-            }
-            const mean = sum / totalPixels;
-            
-            // 计算中位数
-            let cumSum = 0;
-            let median = 0;
-            for (let i = 0; i < 256; i++) {
-                cumSum += histogram[i];
-                if (cumSum >= totalPixels / 2) {
-                    median = i;
-                    break;
-                }
-            }
-            
-            // 找众数
-            let mode = 0;
-            let maxCount = 0;
-            for (let i = 0; i < 256; i++) {
-                if (histogram[i] > maxCount) {
-                    maxCount = histogram[i];
-                    mode = i;
-                }
-            }
-            
-            // 计算标准差
-            let variance = 0;
-            for (let i = 0; i < 256; i++) {
-                variance += histogram[i] * Math.pow(i - mean, 2);
-            }
-            const std = Math.sqrt(variance / totalPixels);
-            
-            return { min, max, mean, median, mode, std };
-        }
         
         // ==================== 工具函数 ====================
         
         /**
          * 克隆 ImageData
          */
-        function cloneImageData(imageData) {
-            return new ImageData(
-                new Uint8ClampedArray(imageData.data),
-                imageData.width,
-                imageData.height
-            );
-        }
         
         // ==================== 图像处理 ====================
         
@@ -823,8 +669,8 @@ Gray = <span class="code-number">0.299</span> × R + <span class="code-number">0
             
             if (width > maxSize || height > maxSize) {
                 const ratio = Math.min(maxSize / width, maxSize / height);
-                width = Math.round(width * ratio);
-                height = Math.round(height * ratio);
+                width = Math.max(1, Math.round(width * ratio));
+                height = Math.max(1, Math.round(height * ratio));
             }
             
             // 绘制原图
@@ -832,6 +678,8 @@ Gray = <span class="code-number">0.299</span> × R + <span class="code-number">0
             originalCanvas.width = width;
             originalCanvas.height = height;
             const originalCtx = originalCanvas.getContext('2d');
+            originalCtx.fillStyle = '#fff';
+            originalCtx.fillRect(0, 0, width, height); // OCR输入先合成白底
             originalCtx.drawImage(img, 0, 0, width, height);
             
             // 获取原始图像数据
@@ -928,8 +776,10 @@ Gray = <span class="code-number">0.299</span> × R + <span class="code-number">0
             reader.onload = (e) => {
                 const img = new Image();
                 img.onload = () => processImage(img);
+                img.onerror = () => alert('无法解码该图片，请选择有效的PNG/JPEG');
                 img.src = e.target.result;
             };
+            reader.onerror = () => alert('读取图片失败，请重试');
             reader.readAsDataURL(file);
         }
         

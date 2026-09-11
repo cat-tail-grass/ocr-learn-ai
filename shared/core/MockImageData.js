@@ -1,7 +1,7 @@
 /**
  * 模拟 ImageData 类模块
  * 
- * 提供浏览器 ImageData 的 Node.js 实现
+ * 提供 8-bit RGBA 数据容器；并非浏览器 ImageData 的完整实现
  * 
  * 来源：02. JavaScript 图像处理基础
  */
@@ -41,7 +41,7 @@ class MockImageData {
             this.height = height;
             this.data = new Uint8ClampedArray(widthOrData * height * 4);
             
-            // 默认填充白色不透明
+            // 课程约定填充白色不透明；原生 new ImageData(w,h) 则是透明黑
             for (let i = 0; i < this.data.length; i += 4) {
                 this.data[i] = 255;     // R
                 this.data[i + 1] = 255; // G

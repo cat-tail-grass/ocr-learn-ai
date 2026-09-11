@@ -7,7 +7,7 @@
 1. **特征的概念** - 理解什么是特征，为什么需要特征提取
 2. **像素级特征** - 原始像素值作为特征
 3. **统计特征** - 均值、方差、矩等统计量
-4. **结构特征** - 投影特征、轮廓特征
+4. **结构特征** - 投影特征、网格分区（轮廓与端点仅作方法概览）
 5. **HOG 特征** - 方向梯度直方图，经典的图像特征
 6. **特征向量** - 组合多种特征形成完整的特征表示
 
@@ -27,6 +27,12 @@
 | 10. 文本区域定位 | ✅ 已完成 | **字符分割** |
 
 ---
+
+## 输入约定与本章在 OCR 中的位置
+
+输入是第 10 章分割后的单字符灰度图：RGBA 四通道，灰度要求 R=G=B，黑字白底。坐标 x 向右、y 向下，像素索引从 0 开始。形状统计用前景指示函数 `F(x,y)=1[gray<128]`；亮度均值/方差仍用灰度值。像素 `normalize` 模式黑色=0、白色=1，`binary` 模式前景=1、背景=0，二者不可混用。输出为固定顺序的特征向量，交给 12/13 章的模板匹配或 KNN。
+
+`cropAndCenter` 按前景外接框裁剪、保持宽高比缩放、外接框居中，不是质心对齐。极窄边至少保留 1 像素，离散取整会轻微改变宽高比。空白图像没有定义良好的形状质心：代码的 `(0.5,0.5)` 和全零 Hu 仅为占位，识别页会明确提示空白。
 
 ## 核心概念
 
@@ -153,8 +159,8 @@
 │     描述：字符的"密度"，不同字符差异明显                                   │
 │                                                                          │
 │  5. 质心（Centroid）                                                      │
-│     cx = Σ(x × p(x,y)) / Σp(x,y)                                         │
-│     cy = Σ(y × p(x,y)) / Σp(x,y)                                         │
+│     cx = Σ(x × F(x,y)) / ΣF(x,y)                                         │
+│     cy = Σ(y × F(x,y)) / ΣF(x,y)                                         │
 │     描述：字符的重心位置                                                   │
 │                                                                          │
 └──────────────────────────────────────────────────────────────────────────┘
@@ -170,7 +176,7 @@
 ├──────────────────────────────────────────────────────────────────────────┤
 │                                                                          │
 │  1. 原始矩（Raw Moments）                                                 │
-│     M_pq = Σ Σ x^p × y^q × I(x, y)                                       │
+│     M_pq = Σ Σ x^p × y^q × F(x, y)                                       │
 │                                                                          │
 │     常用矩：                                                              │
 │     M00 = 面积（前景像素总数）                                            │
@@ -178,7 +184,7 @@
 │     M20, M02, M11 = 二阶矩，描述分布                                      │
 │                                                                          │
 │  2. 中心矩（Central Moments）—— 平移不变                                  │
-│     μ_pq = Σ Σ (x - x̄)^p × (y - ȳ)^q × I(x, y)                          │
+│     μ_pq = Σ Σ (x - x̄)^p × (y - ȳ)^q × F(x, y)                          │
 │                                                                          │
 │     其中 x̄ = M10/M00, ȳ = M01/M00 是质心坐标                             │
 │                                                                          │
@@ -208,17 +214,19 @@
 │                          投影特征                                          │
 ├──────────────────────────────────────────────────────────────────────────┤
 │                                                                          │
-│  字符 "A":                                                               │
-│       █                                                                  │
-│      █ █         水平投影        垂直投影                                 │
-│     █   █        [1]             [2,3,4,4,3,2,1]                         │
-│    █████         [2]                                                     │
-│    █   █         [2]             投影值 = 每行/列的前景像素数              │
-│   █     █        [5]                                                     │
-│   █     █        [2]                                                     │
-│                  [2]                                                     │
-│                                                                          │
-│  作为特征向量：                                                           │
+│  7×7 字符 A（# 为前景，. 为背景）：
+  ...#...  水平计数 1
+  ..#.#..           2
+  .#...#.           2
+  .#####.           5
+  .#...#.           2
+  #.....#           2
+  #.....#           2
+  垂直计数：[2,3,2,2,2,3,2]；两个投影的和都等于 16。
+  默认分别除以各自最大计数：水平除以 5，垂直除以 3。
+  这不是概率分布，不要求向量和为 1。
+
+  作为特征向量：                                                           │
 │  • 水平投影：高度维向量（如 28 维）                                        │
 │  • 垂直投影：宽度维向量（如 28 维）                                        │
 │  • 合并：56 维特征向量                                                    │
@@ -226,7 +234,7 @@
 │  优点：                                                                   │
 │  • 捕获字符的轮廓形状                                                     │
 │  • 对小幅度变形有一定容忍度                                                │
-│  • 复用第 7 章已实现的投影计算函数                                         │
+│  • 使用与第 7 章一致的行/列计数定义                                         │
 │                                                                          │
 └──────────────────────────────────────────────────────────────────────────┘
 ```
@@ -274,9 +282,9 @@ HOG（Histogram of Oriented Gradients）是一种强大的特征描述子，广�
 │  计算步骤：                                                               │
 │                                                                          │
 │  Step 1: 计算梯度                                                        │
-│  ┌─────────────┐   Sobel     ┌─────────────┐                            │
+│  ┌─────────────┐  中心差分  ┌─────────────┐                            │
 │  │  灰度图像   │ ─────────→  │ 梯度幅值 G  │                            │
-│  │             │   算子      │ 梯度方向 θ  │                            │
+│  │             │ [-1,0,1]      │ 梯度方向 θ  │                            │
 │  └─────────────┘             └─────────────┘                            │
 │                                                                          │
 │  Step 2: 划分 Cell                                                       │
@@ -329,9 +337,9 @@ HOG（Histogram of Oriented Gradients）是一种强大的特征描述子，广�
 │  └──────────────────────────────────────────────────────────────────┘   │
 │       ↓              ↓              ↓              ↓                     │
 │  ┌─────────┐   ┌─────────┐   ┌─────────┐   ┌─────────┐                  │
-│  │统计特征 │   │投影特征 │   │网格特征 │   │HOG特征  │                  │
-│  │ 7 维    │   │ 56 维   │   │ 16 维   │   │ 324 维  │                  │
-│  │(Hu矩等) │   │(水平+   │   │(4×4分区)│   │(梯度直  │                  │
+│  │统计+Hu  │   │投影特征 │   │网格特征 │   │HOG特征  │                  │
+│  │ 6+7 维  │   │ 56 维   │   │ 16 维   │   │ 324 维  │                  │
+│  │(13 维)  │   │(水平+   │   │(4×4分区)│   │(梯度直  │                  │
 │  │         │   │ 垂直)   │   │         │   │ 方图)   │                  │
 │  └────┬────┘   └────┬────┘   └────┬────┘   └────┬────┘                  │
 │       └──────────────┴──────────────┴──────────────┘                     │
@@ -343,7 +351,7 @@ HOG（Histogram of Oriented Gradients）是一种强大的特征描述子，广�
 │                    ┌───────────────────┐                                 │
 │                    │ 最终特征向量       │                                 │
 │                    │ [f1, f2, ..., fn] │                                 │
-│                    │ n = 403 维        │                                 │
+│                    │ n = 409 维        │                                 │
 │                    └───────────────────┘                                 │
 │                                                                          │
 └──────────────────────────────────────────────────────────────────────────┘
@@ -380,6 +388,28 @@ HOG（Histogram of Oriented Gradients）是一种强大的特征描述子，广�
 
 ---
 
+### 9. 可手算的矩、HOG 与维度核验
+
+三像素 L：`F(0,0)=F(1,0)=F(0,1)=1`，其余为 0。则 `M00=3`，`M10=M01=1`，质心 `(1/3,1/3)`；`μ20=μ02=2/3`，`μ11=-1/3`。二阶归一化分母为 `M00²=9`，所以 `η20=η02=2/27`、`η11=-1/27`，得到 `h1=4/27≈0.148148`、`h2=4/729≈0.005487`。统计向量中的质心还要分别除以图像宽、高，而计算中心矩必须使用像素坐标的质心。
+
+尺度归一化为什么是 `(p+q)/2+1`：连续二维图形按 `s>0` 等比例缩放时，面积 `M00` 乘 `s²`，坐标 p+q 次幂再乘 `s^(p+q)`，故 `μpq` 乘 `s^(p+q+2)`。用 `M00^((p+q)/2+1)` 正好抵消。非等比例拉伸和灰度强度乘常数不属于这个结论。
+
+栅格反例：全黑 `n×n` 正方形的 `h1=(n²-1)/(6n²)`，4×4 得 `0.15625`，8×8 得 `0.1640625`，并不完全相等。保留像素集合的整数平移、90°旋转可更精确保持；任意旋转/重采样只有近似性质。前 6 个 Hu 值对镜像不变，第 7 个变号。Hu 不保证形状可唯一恢复，也不能保证视觉相似的字符具有更小的欧氏距离。[OpenCV HuMoments](https://docs.opencv.org/4.x/d3/dc0/group__imgproc__shape.html)
+
+本章 Hu 对数映射为 `h=0 → 0`，否则 `-sign(h)·log10(|h|+1e-10)`。这是带 epsilon 的教学映射：极小非零项趋近 ±10，与恰为 0 的映射不连续，可能放大数值噪声，不能把对数距离当作形状相似的保证。默认组合向量直接拼接，没有自动逐块均衡；Hu 分量可能占主要权重。要改变块权重必须在验证集上选择。
+
+HOG 梯度例：`I(x,y)=30+3x+y` 的内点 `Gx=6,Gy=2`，幅值 `√40`，角度约 `18.435°`。9 个无符号 bin 宽 20°，按左闭右开区间投到 `[0°,20°)`。7×7 图的边界梯度为 0，25 个内点给该 bin 总投票 `25√40≈158.114`。改成 `30+5x+2y` 后角度约 `21.801°`，整票跳到 `[20°,40°)`，这正是硬分箱对小角度变化敏感的反例。负角度按模 180°映射，180°回到 0°；有符号模式改用 360°。
+
+这是**教学版 HOG**：中心差分、单方向 bin 投票、单 cell 空间归属、2×2 cell 的 L2 归一化（分母 `√(Σv²+1e-6)`），block 步长 1 cell。没有方向/空间插值、Gaussian 加权和 L2-Hys 截断；不能声称完整复现 Dalal–Triggs。尺寸不能整除 cellSize 时，右/下残余条带不组成 cell；放不下一个 block 则返回空向量。参数必须为正整数。[Dalal–Triggs 原论文](https://lear.inrialpes.fr/people/triggs/pubs/Dalal-cvpr05.pdf)
+
+一般 HOG 维度为 `(⌊W/c⌋-b+1)(⌊H/c⌋-b+1)b²B`（两个括号均为正时）；W=H=28、c=7、b=2、B=9 得 324。一个 block 是 36 维，前 18 项只是一半。默认组合不含 HOG：`6+7+56+16=85`；Node 的 HOG 组合实验为 `85+324=409`。
+
+### 10. 单样本归一化与逐维标准化不是一回事
+
+`normalizeFeatures([10,50,100,200,500], 'minmax')` 在**这一个向量内部**取最小/最大，结果 `[0,0.081633,0.183673,0.387755,1]`；`zscore` 也默认在向量内计算均值和总体标准差。L2 只改变整体长度，例如 `[3,4]→[0.6,0.8]`，不会改变两维之比。零向量保持零；常量向量的 minmax/zscore 为零（除数为 0 时按 1 处理）。
+
+如果要让不同特征维度可比，常用的是在**训练集的每一列**拟合 `μ_j,σ_j`，然后对验证/测试/线上样本复用 `x'_j=(x_j-μ_j)/σ_j`。当前辅助函数没有拟合这种逐列变换；不要把它与 StandardScaler 混淆，也不要用整份数据（含测试集）拟合缩放参数。[scikit-learn 数据预处理](https://scikit-learn.org/stable/modules/preprocessing.html)
+
 ## 算法实现
 
 ### 1. 像素级特征
@@ -396,22 +426,28 @@ HOG（Histogram of Oriented Gradients）是一种强大的特征描述子，广�
  */
 function extractPixelFeatures(imageData, options = {}) {
     const {
-        targetSize = 28,       // 归一化到的目标尺寸
-        normalize = true       // 是否归一化到 [0, 1]
+        normalize = true,
+        binary = false
     } = options;
     
-    // Step 1: 尺寸归一化（实际应用中需要缩放图像）
-    // 这里假设图像已经是目标尺寸
-    
-    const features = [];
     const { width, height, data } = imageData;
+    const features = [];
     
-    // Step 2: 提取每个像素的灰度值
+    // 遍历所有像素，提取灰度值
     for (let y = 0; y < height; y++) {
         for (let x = 0; x < width; x++) {
             const idx = (y * width + x) * 4;
-            const gray = data[idx]; // 假设已是灰度图
-            features.push(normalize ? gray / 255 : gray);
+            const gray = data[idx]; // 假设已是灰度图（R=G=B）
+
+            if (binary) {
+                // 二值特征：前景为 1，背景为 0
+                features.push(gray < 128 ? 1 : 0);
+            } else if (normalize) {
+                // 归一化到 [0, 1]
+                features.push(gray / 255);
+            } else {
+                features.push(gray);
+            }
         }
     }
     
@@ -443,7 +479,7 @@ function extractStatisticalFeatures(imageData) {
             const gray = data[idx];
             sum += gray;
             
-            if (gray < 128) { // 前景像素
+            if (gray < 128) { // 前景像素（黑色）
                 foregroundCount++;
                 sumX += x;
                 sumY += y;
@@ -471,12 +507,14 @@ function extractStatisticalFeatures(imageData) {
     const stdDev = Math.sqrt(variance);
     
     return {
-        mean: mean / 255,           // 归一化均值
-        variance: variance / (255 * 255),  // 归一化方差
-        stdDev: stdDev / 255,       // 归一化标准差
-        fillRatio,                  // 填充率
-        centroidX,                  // 归一化质心 X
-        centroidY                   // 归一化质心 Y
+        mean: mean / 255,                    // 归一化均值 [0, 1]
+        variance: variance / (255 * 255),    // 归一化方差
+        stdDev: stdDev / 255,                // 归一化标准差
+        fillRatio,                           // 填充率（前景像素占比）
+        centroidX,                           // 归一化质心 X [0, 1]
+        centroidY,                           // 归一化质心 Y [0, 1]
+        foregroundCount,                     // 前景像素数量
+        aspectRatio: width / height          // 宽高比
     };
 }
 ```
@@ -487,7 +525,7 @@ function extractStatisticalFeatures(imageData) {
 /**
  * 计算图像的原始矩
  * 
- * 原理：M_pq = Σ Σ x^p × y^q × I(x, y)
+ * 原理：M_pq = Σ Σ x^p × y^q × F(x, y)
  * 
  * @param {ImageData} imageData - 输入图像（二值图）
  * @param {number} p - x 的幂次
@@ -515,7 +553,7 @@ function calculateRawMoment(imageData, p, q) {
  * @param {ImageData} imageData - 输入图像
  * @returns {number[]} 7 个 Hu 矩值
  */
-function calculateHuMoments(imageData) {
+function calculateCentralMoments(imageData) {
     // 计算原始矩
     const m00 = calculateRawMoment(imageData, 0, 0);
     const m10 = calculateRawMoment(imageData, 1, 0);
@@ -532,17 +570,52 @@ function calculateHuMoments(imageData) {
     const xBar = m00 > 0 ? m10 / m00 : 0;
     const yBar = m00 > 0 ? m01 / m00 : 0;
     
-    // 计算中心矩
-    const mu20 = m20 - xBar * m10;
-    const mu02 = m02 - yBar * m01;
-    const mu11 = m11 - xBar * m01;
-    const mu30 = m30 - 3 * xBar * m20 + 2 * xBar * xBar * m10;
-    const mu03 = m03 - 3 * yBar * m02 + 2 * yBar * yBar * m01;
-    const mu21 = m21 - 2 * xBar * m11 - yBar * m20 + 2 * xBar * xBar * m01;
-    const mu12 = m12 - 2 * yBar * m11 - xBar * m02 + 2 * yBar * yBar * m10;
+    // 直接按定义累加偏移后的坐标，避免 M30 - 3*xBar*M20 等大数相减。
+    // 例如四个像素整体平移到 x=99900 后，展开式可能把 mu30=0 算成 -1。
+    const mu00 = m00;
+    const mu10 = 0;
+    const mu01 = 0;
+    let mu20 = 0, mu02 = 0, mu11 = 0;
+    let mu30 = 0, mu03 = 0, mu21 = 0, mu12 = 0;
+    const { width, height, data } = imageData;
+    for (let y = 0; y < height; y++) {
+        for (let x = 0; x < width; x++) {
+            if (data[(y * width + x) * 4] >= 128) continue;
+            const dx = x - xBar;
+            const dy = y - yBar;
+            mu20 += dx * dx;
+            mu02 += dy * dy;
+            mu11 += dx * dy;
+            mu30 += dx * dx * dx;
+            mu03 += dy * dy * dy;
+            mu21 += dx * dx * dy;
+            mu12 += dx * dy * dy;
+        }
+    }
+
+    return {
+        // 原始矩
+        m00, m10, m01, m20, m02, m11, m30, m03, m21, m12,
+        // 质心
+        xBar, yBar,
+        // 中心矩
+        mu00, mu10, mu01, mu20, mu02, mu11, mu30, mu03, mu21, mu12
+    };
+}
+
+function calculateHuMoments(imageData) {
+    const moments = calculateCentralMoments(imageData);
+    const { m00, mu20, mu02, mu11, mu30, mu03, mu21, mu12 } = moments;
+
+    // 避免除以零
+    if (m00 === 0) {
+        return [0, 0, 0, 0, 0, 0, 0];
+    }
     
     // 计算归一化中心矩
+    // η_pq = μ_pq / M00^((p+q)/2 + 1)
     const norm = (p, q) => Math.pow(m00, (p + q) / 2 + 1);
+
     const eta20 = mu20 / norm(2, 0);
     const eta02 = mu02 / norm(0, 2);
     const eta11 = mu11 / norm(1, 1);
@@ -551,18 +624,24 @@ function calculateHuMoments(imageData) {
     const eta21 = mu21 / norm(2, 1);
     const eta12 = mu12 / norm(1, 2);
     
-    // 计算 Hu 矩
+    // 计算 Hu 矩（7 个不变矩）
     const h1 = eta20 + eta02;
+
     const h2 = Math.pow(eta20 - eta02, 2) + 4 * Math.pow(eta11, 2);
+
     const h3 = Math.pow(eta30 - 3 * eta12, 2) + Math.pow(3 * eta21 - eta03, 2);
+
     const h4 = Math.pow(eta30 + eta12, 2) + Math.pow(eta21 + eta03, 2);
+
     const h5 = (eta30 - 3 * eta12) * (eta30 + eta12) * 
                (Math.pow(eta30 + eta12, 2) - 3 * Math.pow(eta21 + eta03, 2)) +
                (3 * eta21 - eta03) * (eta21 + eta03) * 
                (3 * Math.pow(eta30 + eta12, 2) - Math.pow(eta21 + eta03, 2));
+
     const h6 = (eta20 - eta02) * 
                (Math.pow(eta30 + eta12, 2) - Math.pow(eta21 + eta03, 2)) +
                4 * eta11 * (eta30 + eta12) * (eta21 + eta03);
+
     const h7 = (3 * eta21 - eta03) * (eta30 + eta12) * 
                (Math.pow(eta30 + eta12, 2) - 3 * Math.pow(eta21 + eta03, 2)) -
                (eta30 - 3 * eta12) * (eta21 + eta03) * 
@@ -578,7 +657,7 @@ function calculateHuMoments(imageData) {
 /**
  * 提取投影特征
  * 
- * 复用第 7 章的投影计算函数
+ * 沿用第 7 章的投影定义，此处独立提取归一化特征
  * 
  * @param {ImageData} imageData - 输入图像（二值图）
  * @param {object} options - 配置选项
@@ -589,11 +668,11 @@ function extractProjectionFeatures(imageData, options = {}) {
     
     const { width, height, data } = imageData;
     
-    // 计算水平投影（每行的前景像素数）
+    // 初始化投影数组
     const horizontalProjection = new Array(height).fill(0);
-    // 计算垂直投影（每列的前景像素数）
     const verticalProjection = new Array(width).fill(0);
     
+    // 遍历所有像素，计算投影
     for (let y = 0; y < height; y++) {
         for (let x = 0; x < width; x++) {
             const idx = (y * width + x) * 4;
@@ -604,7 +683,7 @@ function extractProjectionFeatures(imageData, options = {}) {
         }
     }
     
-    // 归一化
+    // 归一化（除以最大值）
     if (normalize) {
         const maxH = Math.max(...horizontalProjection, 1);
         const maxV = Math.max(...verticalProjection, 1);
@@ -618,9 +697,9 @@ function extractProjectionFeatures(imageData, options = {}) {
     }
     
     return {
-        horizontal: horizontalProjection,
-        vertical: verticalProjection,
-        combined: [...horizontalProjection, ...verticalProjection]
+        horizontal: horizontalProjection,    // 水平投影（高度维）
+        vertical: verticalProjection,        // 垂直投影（宽度维）
+        combined: [...horizontalProjection, ...verticalProjection]  // 合并
     };
 }
 ```
@@ -638,23 +717,27 @@ function extractProjectionFeatures(imageData, options = {}) {
 function extractZoneFeatures(imageData, gridSize = 4) {
     const { width, height, data } = imageData;
     
-    const cellWidth = Math.floor(width / gridSize);
-    const cellHeight = Math.floor(height / gridSize);
+    // 计算每个网格单元的尺寸
+    const cellWidth = width / gridSize;
+    const cellHeight = height / gridSize;
     
     const features = [];
     
+    // 遍历每个网格单元
     for (let gy = 0; gy < gridSize; gy++) {
         for (let gx = 0; gx < gridSize; gx++) {
             let foregroundCount = 0;
             let totalCount = 0;
             
-            const startX = gx * cellWidth;
-            const startY = gy * cellHeight;
-            const endX = gx === gridSize - 1 ? width : startX + cellWidth;
-            const endY = gy === gridSize - 1 ? height : startY + cellHeight;
+            // 计算当前网格的边界
+            const startX = Math.floor(gx * cellWidth);
+            const startY = Math.floor(gy * cellHeight);
+            const endX = Math.floor((gx + 1) * cellWidth);
+            const endY = Math.floor((gy + 1) * cellHeight);
             
-            for (let y = startY; y < endY; y++) {
-                for (let x = startX; x < endX; x++) {
+            // 统计网格内的前景像素
+            for (let y = startY; y < endY && y < height; y++) {
+                for (let x = startX; x < endX && x < width; x++) {
                     const idx = (y * width + x) * 4;
                     totalCount++;
                     if (data[idx] < 128) {
@@ -682,24 +765,29 @@ function extractZoneFeatures(imageData, gridSize = 4) {
  * @param {object} options - 配置选项
  * @returns {number[]} HOG 特征向量
  */
-function extractHOGFeatures(imageData, options = {}) {
+function computeHOGCells(imageData, options = {}) {
     const {
         cellSize = 7,           // Cell 大小（像素）
-        blockSize = 2,          // Block 包含的 Cell 数
         numBins = 9,            // 方向直方图的 bin 数
         unsigned = true         // 是否使用无符号梯度（0-180°）
     } = options;
     
-    const { width, height, data } = imageData;
+    const { width, height } = imageData;
     
+    for (const [name, value] of Object.entries({ cellSize, numBins })) {
+        if (!Number.isInteger(value) || value <= 0) throw new Error(`${name} 必须是正整数`);
+    }
+
     // Step 1: 计算梯度
-    const gradients = computeGradients(imageData);
+    const gradients = computeImageGradients(imageData);
     
-    // Step 2: 计算每个 Cell 的直方图
+    // Step 2: 计算 Cell 数量
     const numCellsX = Math.floor(width / cellSize);
     const numCellsY = Math.floor(height / cellSize);
     
+    // Step 3: 计算每个 Cell 的直方图
     const cellHistograms = [];
+    const binWidth = unsigned ? 180 / numBins : 360 / numBins;
     
     for (let cy = 0; cy < numCellsY; cy++) {
         for (let cx = 0; cx < numCellsX; cx++) {
@@ -710,23 +798,25 @@ function extractHOGFeatures(imageData, options = {}) {
             
             for (let y = startY; y < startY + cellSize && y < height; y++) {
                 for (let x = startX; x < startX + cellSize && x < width; x++) {
-                    const magnitude = gradients.magnitude[y * width + x];
-                    let direction = gradients.direction[y * width + x];
+                    const idx = y * width + x;
+                    const mag = gradients.magnitude[idx];
+                    let dir = gradients.direction[idx];
                     
-                    // 将方向转换到 [0, 180) 或 [0, 360)
+                    // 将方向转换到正确的范围
                     if (unsigned) {
-                        direction = direction < 0 ? direction + 180 : direction;
-                        direction = direction >= 180 ? direction - 180 : direction;
+                        // 无符号：将 [-180, 180] 映射到 [0, 180]
+                        if (dir < 0) dir += 180;
+                        if (dir >= 180) dir -= 180;
                     } else {
-                        direction = direction < 0 ? direction + 360 : direction;
+                        // 有符号：将 [-180, 180] 映射到 [0, 360]
+                        if (dir < 0) dir += 360;
                     }
                     
                     // 计算 bin 索引
-                    const binWidth = unsigned ? 180 / numBins : 360 / numBins;
-                    const bin = Math.floor(direction / binWidth) % numBins;
+                    const bin = Math.floor(dir / binWidth) % numBins;
                     
-                    // 投票（使用幅值作为权重）
-                    histogram[bin] += magnitude;
+                    // 使用幅值作为投票权重
+                    histogram[bin] += mag;
                 }
             }
             
@@ -734,10 +824,21 @@ function extractHOGFeatures(imageData, options = {}) {
         }
     }
     
-    // Step 3: Block 归一化
+    return { histograms: cellHistograms, numCellsX, numCellsY, cellSize, numBins, binWidth, unsigned, gradients };
+}
+
+function extractHOGFeatures(imageData, options = {}) {
+    const { blockSize = 2 } = options;
+    if (!Number.isInteger(blockSize) || blockSize <= 0) throw new Error('blockSize 必须是正整数');
+    const { histograms: cellHistograms, numCellsX, numCellsY } = computeHOGCells(imageData, options);
+    // Step 4: Block 归一化
     const numBlocksX = numCellsX - blockSize + 1;
     const numBlocksY = numCellsY - blockSize + 1;
     
+    if (numBlocksX <= 0 || numBlocksY <= 0) {
+        return [];
+    }
+
     const features = [];
     
     for (let by = 0; by < numBlocksY; by++) {
@@ -765,18 +866,26 @@ function extractHOGFeatures(imageData, options = {}) {
 }
 
 /**
- * 计算图像梯度（用于 HOG）
+ * 计算图像梯度（用于 HOG；图像边界置零）
  */
-function computeGradients(imageData) {
+function computeImageGradients(imageData) {
     const { width, height, data } = imageData;
     
     const magnitude = new Float32Array(width * height);
     const direction = new Float32Array(width * height);
     
-    for (let y = 1; y < height - 1; y++) {
-        for (let x = 1; x < width - 1; x++) {
-            // 使用简单差分计算梯度
+    for (let y = 0; y < height; y++) {
+        for (let x = 0; x < width; x++) {
             const idx = y * width + x;
+
+            // 边界处理：边界像素梯度设为 0
+            if (x === 0 || x === width - 1 || y === 0 || y === height - 1) {
+                magnitude[idx] = 0;
+                direction[idx] = 0;
+                continue;
+            }
+
+            // 计算 x 和 y 方向的梯度
             const left = data[((y) * width + (x - 1)) * 4];
             const right = data[((y) * width + (x + 1)) * 4];
             const up = data[((y - 1) * width + x) * 4];
@@ -786,11 +895,11 @@ function computeGradients(imageData) {
             const gy = down - up;
             
             magnitude[idx] = Math.sqrt(gx * gx + gy * gy);
-            direction[idx] = Math.atan2(gy, gx) * 180 / Math.PI;
+            direction[idx] = Math.atan2(gy, gx) * 180 / Math.PI; // 转换为角度
         }
     }
     
-    return { magnitude, direction };
+    return { magnitude, direction, width, height };
 }
 ```
 
@@ -810,10 +919,10 @@ function computeGradients(imageData) {
 │   Step 1: 预处理                                                         │
 │   - 二值化（如果还不是）                                                   │
 │   - 尺寸归一化（缩放到固定大小，如 28×28）                                 │
-│   - 居中对齐（使质心在中心）                                               │
+│   - 外接框居中（质心不一定在中心）                                               │
 │     ↓                                                                    │
 │   Step 2: 多类型特征提取                                                  │
-│   - 统计特征（Hu 矩等）→ 7 维                                             │
+│   - 基本统计 6 维 + Hu 矩 7 维                                             │
 │   - 投影特征（水平 + 垂直）→ 56 维                                        │
 │   - 网格特征（4×4 分区）→ 16 维                                           │
 │   - HOG 特征 → 324 维（可选）                                             │
@@ -834,7 +943,7 @@ function computeGradients(imageData) {
 | 特征类型 | 维度 | 优点 | 缺点 | 适用场景 |
 |----------|------|------|------|----------|
 | 像素特征 | 高 | 信息完整 | 维度高、不鲁棒 | 深度学习输入 |
-| 统计特征 | 低 | 紧凑、旋转不变 | 信息有损 | 快速粗分类 |
+| 统计特征 | 低 | 紧凑；仅 Hu 部分具旋转不变性 | 信息有损 | 快速粗分类 |
 | 投影特征 | 中 | 捕获形状 | 对倾斜敏感 | 印刷体识别 |
 | 网格特征 | 低 | 局部信息 | 精度有限 | 辅助特征 |
 | HOG 特征 | 高 | 鲁棒、效果好 | 计算较慢 | 高精度识别 |
@@ -852,10 +961,12 @@ function computeGradients(imageData) {
 
 ### 运行方式
 
-**浏览器演示（推荐）：**
+**首次安装与浏览器演示（项目根目录）：**
 ```bash
-open 11-feature-extraction/index.html
+npm install
+npm start
 ```
+浏览器打开 `http://127.0.0.1:4173/11-feature-extraction/`。也可直接打开本章 HTML；共享脚本按相对路径加载，无需构建。
 
 **Node.js 示例：**
 ```bash
@@ -891,8 +1002,8 @@ node index.js
 
 | 类型 | 公式 | 作用 |
 |------|------|------|
-| 原始矩 | M_pq = Σ Σ x^p y^q I(x,y) | 基础计算 |
-| 中心矩 | μ_pq = Σ Σ (x-x̄)^p (y-ȳ)^q I(x,y) | 平移不变 |
+| 原始矩 | M_pq = Σ Σ x^p y^q F(x,y) | 基础计算 |
+| 中心矩 | μ_pq = Σ Σ (x-x̄)^p (y-ȳ)^q F(x,y) | 平移不变 |
 | 归一化中心矩 | η_pq = μ_pq / M00^((p+q)/2+1) | 尺度不变 |
 | Hu 矩 | 由 η 的组合构成 | 旋转不变 |
 
@@ -905,6 +1016,25 @@ node index.js
 | L2 归一化 | x' = x / \|\|x\|\|₂ | 单位向量 |
 
 ---
+
+## 知识点与三入口对应
+
+| 知识点 | 文档位置 | HTML 实验 | Node 实验/函数 |
+|---|---|---|---|
+| 统计量与前景约定 | 统计特征、输入约定 | 统计值与归一化图 | 2 / extractStatisticalFeatures |
+| 原始/中心/归一化矩、Hu | 图像矩、手算核验 | 7 个对数 Hu 值 | 3 / calculateCentralMoments、calculateHuMoments |
+| 投影与网格 | 结构特征 | 行列投影、4×4 填充率 | 4–5 |
+| 梯度、硬分箱、block | HOG、手算核验 | 梯度幅值、真实 cell 直方图 | 6 / computeHOGCells、extractHOGFeatures |
+| 归一化与组合维度 | 特征构建、归一化范围 | 85 维组合与匹配 | 7–9；HOG 组合为 409 维 |
+
+浏览器与 Node 都直接调用 `shared/11-feature-extraction/index.js`；浏览器输入使用 Arial 字体/手绘，Node 使用几何字符，所以不同输入的距离不能横向视为同一次实验结果。
+
+## 排障
+
+- 同一字符略移动后特征变化大：像素/投影/HOG 不是平移不变的；先核对裁剪、画布坐标和尺寸。中心矩使用直接中心化累加，避免大坐标原始矩展开时的大数相消。
+- 0/O 的 Hu 距离反而比 0/1 大：看原始矩、零附近项和笔画厚度；Hu 特征不是视觉相似性的度量保证。
+- 组合特征增加后更差：维度不等于区分能力；检查特征冗余、Hu 对数尺度和验证集表现。
+- HOG 图方向似乎与笔画垂直：梯度方向是法向，不是边缘切向。本页线段显示投票区间中点。
 
 ## 自测问题
 
@@ -923,14 +1053,15 @@ node index.js
    - 原始像素维度高（28×28=784 维），计算量大
    - 原始像素对平移、旋转、缩放敏感
    - 原始像素没有语义信息，难以区分相似字符
-   - 特征提取可以降维、提取本质信息、提高鲁棒性
+   - 合适的特征可以降维、提取结构、提高特定扰动下的稳定性；不是所有特征都降维或旋转不变
 
 2. **Hu 矩的特殊性质**：
    - Hu 矩是由归一化中心矩的非线性组合构成
    - 具有平移不变性（使用中心矩）
    - 具有尺度不变性（使用归一化）
    - 具有旋转不变性（组合方式保证）
-   - 因此同一个字符不管大小、位置、旋转，Hu 矩都相近
+   - 等比例缩放/旋转不变性以连续图形为前提；栅格化、噪声、裁剪会改变结果
+   - 镜像改变第 7 项符号；旋转不变性也会丢失区分 6/9 等字符所需的方向
 
 3. **HOG 特征计算步骤**：
    - Step 1: 计算每个像素的梯度幅值和方向
@@ -943,7 +1074,7 @@ node index.js
 4. **为什么需要归一化**：
    - 不同特征的量纲和数值范围不同
    - 数值大的特征会主导分类结果
-   - 归一化后所有特征对分类的贡献更均衡
+   - 逐维标准化或块权重能调节维度贡献；单向量 L2 不会均衡各维的相对大小
    - 有利于梯度下降等优化算法的收敛
 
 5. **组合特征的方法**：
@@ -959,3 +1090,10 @@ node index.js
 ## 下一步
 
 学完本章后，继续学习 **12. 模板匹配**！你将学习如何使用特征向量进行字符识别的最简单方法——通过与标准模板比对来识别字符。
+
+## 参考来源
+
+- [OpenCV Moments 定义](https://docs.opencv.org/4.x/d8/d23/classcv_1_1Moments.html)：原始矩、中心矩、归一化矩。
+- [OpenCV HuMoments](https://docs.opencv.org/4.x/d3/dc0/group__imgproc__shape.html)：7 个不变量及栅格化/镜像边界。
+- [Dalal & Triggs, CVPR 2005](https://lear.inrialpes.fr/people/triggs/pubs/Dalal-cvpr05.pdf)：标准 HOG 设计；本章明确为简化实现。
+- [scikit-learn 预处理](https://scikit-learn.org/stable/modules/preprocessing.html)：逐维标准化与逐样本归一化。

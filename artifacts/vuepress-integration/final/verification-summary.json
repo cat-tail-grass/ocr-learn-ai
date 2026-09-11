@@ -1,0 +1,94 @@
+{
+  "checkedAt": "2026-09-11T13:06:08.480Z",
+  "algorithm": {
+    "suites": 33,
+    "tests": 525,
+    "success": true
+  },
+  "node": {
+    "passed": 26,
+    "failures": 0
+  },
+  "contentChecks": 64,
+  "courseSourcesUnchangedSinceContentVerification": true,
+  "checks": [
+    {
+      "file": "D/root-development-evidence-review.json",
+      "passed": 214,
+      "failed": 0
+    },
+    {
+      "file": "D/dev-root-search-final/site-results.json",
+      "passed": 15,
+      "failed": 0
+    },
+    {
+      "file": "D/dev-root-flow-pass/flow-results.json",
+      "passed": 20,
+      "failed": 0
+    },
+    {
+      "file": "D/dev-ocr/smoke-results.json",
+      "passed": 35,
+      "failed": 0
+    },
+    {
+      "file": "D/dev-ocr-favicon/favicon-results.json",
+      "passed": 5,
+      "failed": 0
+    },
+    {
+      "file": "D/static-root/site-results.json",
+      "passed": 271,
+      "failed": 0
+    },
+    {
+      "file": "D/static-root-flows/flow-results.json",
+      "passed": 21,
+      "failed": 0
+    },
+    {
+      "file": "D/static-ocr/site-results.json",
+      "passed": 272,
+      "failed": 0
+    },
+    {
+      "file": "D/static-ocr-flows/flow-results.json",
+      "passed": 21,
+      "failed": 0
+    },
+    {
+      "file": "D/final-root-search/site-results.json",
+      "passed": 16,
+      "failed": 0
+    },
+    {
+      "file": "D/final-ocr-search/site-results.json",
+      "passed": 16,
+      "failed": 0
+    }
+  ],
+  "hmr": true,
+  "protectedArtifacts": {
+    "count": 20,
+    "failures": 0
+  },
+  "finalStaticFiles": [
+    {
+      "name": "root",
+      "count": 230,
+      "allPassed": true
+    },
+    {
+      "name": "ocr",
+      "count": 230,
+      "allPassed": true
+    }
+  ],
+  "taskCounts": {
+    "complete": 31,
+    "pending": 0
+  },
+  "scope": "Site integration and synthetic workflow checks; real-photo validation remains separate.",
+  "success": true
+}

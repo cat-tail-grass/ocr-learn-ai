@@ -1,0 +1,1795 @@
+{
+  "generatedAt": "2026-09-11T12:32:50.099Z",
+  "chapters": [
+    {
+      "id": "01",
+      "source": "01-image-fundamentals/README.md",
+      "sha256": "b95076aaa0136e2ed0ebb9238201ddd33c0a183a9a6023f958ac355aca676d47",
+      "lines": 232,
+      "bytes": 8597,
+      "headings": 17,
+      "codeBlocks": 8,
+      "tables": 4,
+      "details": 1,
+      "formulas": 0,
+      "renderedBytes": 13150,
+      "firstHeading": "01. 数字图像基础 (Digital Image Fundamentals)",
+      "lastHeading": "参考来源",
+      "status": "passed"
+    },
+    {
+      "id": "02",
+      "source": "02-js-image-basics/README.md",
+      "sha256": "745c6d11a3531113df8c0099f85278f6a4fc80b2dcef8966c68ca989e997268e",
+      "lines": 252,
+      "bytes": 8565,
+      "headings": 19,
+      "codeBlocks": 10,
+      "tables": 5,
+      "details": 1,
+      "formulas": 0,
+      "renderedBytes": 13241,
+      "firstHeading": "02. JavaScript 图像处理基础 (Canvas API / ImageData Manipulation)",
+      "lastHeading": "参考来源",
+      "status": "passed"
+    },
+    {
+      "id": "03",
+      "source": "03-grayscale/README.md",
+      "sha256": "0ad73163048ec343cd7c7e73fa672f19f609f9b3b078e5c609e2821a35b3bf8b",
+      "lines": 243,
+      "bytes": 8588,
+      "headings": 17,
+      "codeBlocks": 11,
+      "tables": 6,
+      "details": 1,
+      "formulas": 0,
+      "renderedBytes": 14039,
+      "firstHeading": "03. 灰度化 (Grayscale Conversion)",
+      "lastHeading": "参考来源",
+      "status": "passed"
+    },
+    {
+      "id": "04",
+      "source": "04-binarization/README.md",
+      "sha256": "2b0c7228c55a891b27c45a6ea4ef09ca199904cc07e01fe7f6f252609c2d9f91",
+      "lines": 681,
+      "bytes": 24359,
+      "headings": 41,
+      "codeBlocks": 27,
+      "tables": 10,
+      "details": 1,
+      "formulas": 0,
+      "renderedBytes": 34105,
+      "firstHeading": "04. 二值化 (Binarization / Thresholding)",
+      "lastHeading": "参考来源",
+      "status": "passed"
+    },
+    {
+      "id": "05",
+      "source": "05-denoising/README.md",
+      "sha256": "f6887fd8b751a2cf658c4f77ada1dbe77e4b437ea8a683d27a08f98535d2947d",
+      "lines": 391,
+      "bytes": 15014,
+      "headings": 25,
+      "codeBlocks": 16,
+      "tables": 7,
+      "details": 1,
+      "formulas": 0,
+      "renderedBytes": 22027,
+      "firstHeading": "05. 图像去噪 (Image Denoising / Noise Reduction)",
+      "lastHeading": "参考来源",
+      "status": "passed"
+    },
+    {
+      "id": "06",
+      "source": "06-morphology/README.md",
+      "sha256": "7d0cc94d82e868cee93024547a2892d508045bea4d56367c56b5c5d316c40bba",
+      "lines": 339,
+      "bytes": 12103,
+      "headings": 20,
+      "codeBlocks": 15,
+      "tables": 6,
+      "details": 1,
+      "formulas": 0,
+      "renderedBytes": 17207,
+      "firstHeading": "06. 形态学操作 (Morphological Operations)",
+      "lastHeading": "下一步",
+      "status": "passed"
+    },
+    {
+      "id": "07",
+      "source": "07-deskewing/README.md",
+      "sha256": "095cf33c3cf7ce691c7e27c8ca8ec95e4e835d43bb5e06900ef002940d1398f5",
+      "lines": 423,
+      "bytes": 15231,
+      "headings": 22,
+      "codeBlocks": 19,
+      "tables": 4,
+      "details": 1,
+      "formulas": 0,
+      "renderedBytes": 21379,
+      "firstHeading": "07. 倾斜校正 (Deskewing / Skew Correction)",
+      "lastHeading": "下一步",
+      "status": "passed"
+    },
+    {
+      "id": "08",
+      "source": "08-edge-detection/README.md",
+      "sha256": "a6d15b5d48b4036462fe873faa35aebd2d430e57d2212c9dff6966c40bd3b05a",
+      "lines": 446,
+      "bytes": 19247,
+      "headings": 22,
+      "codeBlocks": 18,
+      "tables": 6,
+      "details": 1,
+      "formulas": 0,
+      "renderedBytes": 24768,
+      "firstHeading": "08. 边缘检测 (Edge Detection)",
+      "lastHeading": "下一步",
+      "status": "passed"
+    },
+    {
+      "id": "09",
+      "source": "09-connected-components/README.md",
+      "sha256": "d84f4a18b737d38b107998220cef4117a2f4c4fc51df860a575b297d615c82ae",
+      "lines": 439,
+      "bytes": 18373,
+      "headings": 22,
+      "codeBlocks": 17,
+      "tables": 4,
+      "details": 1,
+      "formulas": 0,
+      "renderedBytes": 23481,
+      "firstHeading": "09. 连通域分析 (Connected Component Analysis)",
+      "lastHeading": "下一步",
+      "status": "passed"
+    },
+    {
+      "id": "10",
+      "source": "10-text-localization/README.md",
+      "sha256": "8131f3cdb9f9b60d0ace752aecd89770c4c33fc494b6e0fc41e24a2ef99ae329",
+      "lines": 606,
+      "bytes": 30205,
+      "headings": 32,
+      "codeBlocks": 17,
+      "tables": 6,
+      "details": 1,
+      "formulas": 0,
+      "renderedBytes": 37198,
+      "firstHeading": "10. 文本区域定位 (Text Localization)",
+      "lastHeading": "下一步",
+      "status": "passed"
+    },
+    {
+      "id": "11",
+      "source": "11-feature-extraction/README.md",
+      "sha256": "782df4be5435101d8a9cc5847b330e7524ecb7ac9b5c834dc352294ee0934139",
+      "lines": 1100,
+      "bytes": 63828,
+      "headings": 36,
+      "codeBlocks": 19,
+      "tables": 7,
+      "details": 1,
+      "formulas": 0,
+      "renderedBytes": 73156,
+      "firstHeading": "11. 特征提取基础 (Feature Extraction)",
+      "lastHeading": "参考来源",
+      "status": "passed"
+    },
+    {
+      "id": "12",
+      "source": "12-template-matching/README.md",
+      "sha256": "af7353b113222de54cbe89936d3427878745417c2f25b2db34b144ef1bb5ae9f",
+      "lines": 700,
+      "bytes": 41508,
+      "headings": 29,
+      "codeBlocks": 15,
+      "tables": 6,
+      "details": 1,
+      "formulas": 0,
+      "renderedBytes": 48054,
+      "firstHeading": "12. 模板匹配 (Template Matching)",
+      "lastHeading": "下一步",
+      "status": "passed"
+    },
+    {
+      "id": "13",
+      "source": "13-knn-classifier/README.md",
+      "sha256": "32a9399da356332d48afec4020355182a252b4995a5aa139b0b8b5d3d37d90d2",
+      "lines": 215,
+      "bytes": 6533,
+      "headings": 17,
+      "codeBlocks": 6,
+      "tables": 2,
+      "details": 0,
+      "formulas": 0,
+      "renderedBytes": 10582,
+      "firstHeading": "13. KNN 分类器 (K-Nearest Neighbors)",
+      "lastHeading": "小结",
+      "status": "passed"
+    },
+    {
+      "id": "14",
+      "source": "14-neural-network-basics/README.md",
+      "sha256": "daa7a9dff2db3852581ba2fffdedc2a269b3368a2f93d048625f4284e6cf964f",
+      "lines": 520,
+      "bytes": 28798,
+      "headings": 34,
+      "codeBlocks": 21,
+      "tables": 12,
+      "details": 1,
+      "formulas": 0,
+      "renderedBytes": 42513,
+      "firstHeading": "14. 神经网络基础：从数值梯度到可学习的 MLP",
+      "lastHeading": "原始论文与官方资料",
+      "status": "passed"
+    },
+    {
+      "id": "15",
+      "source": "15-cnn-basics/README.md",
+      "sha256": "3bdbc0c169939f9c6e73775cc80d970615856770092435277f0cfb4cb47ab27a",
+      "lines": 637,
+      "bytes": 33341,
+      "headings": 46,
+      "codeBlocks": 31,
+      "tables": 10,
+      "details": 1,
+      "formulas": 0,
+      "renderedBytes": 47490,
+      "firstHeading": "15. CNN 基础：从多通道互相关到完整前向",
+      "lastHeading": "原论文与官方资料",
+      "status": "passed"
+    },
+    {
+      "id": "16",
+      "source": "16-tensorflowjs-intro/README.md",
+      "sha256": "e6779abbaccbf48617a0d10a0c18a9b1356553e16dceefb272b2b0f0f920974d",
+      "lines": 392,
+      "bytes": 20492,
+      "headings": 36,
+      "codeBlocks": 14,
+      "tables": 5,
+      "details": 1,
+      "formulas": 5,
+      "renderedBytes": 60630,
+      "firstHeading": "16. TensorFlow.js 入门：从手算到可保存的模型",
+      "lastHeading": "原始资料与核验",
+      "status": "passed"
+    },
+    {
+      "id": "17",
+      "source": "17-cnn-classifier/README.md",
+      "sha256": "8069c1caecd51f031c2242b7fba1960f5ca7dc6a057003458e63ff2efb434732",
+      "lines": 581,
+      "bytes": 39819,
+      "headings": 43,
+      "codeBlocks": 12,
+      "tables": 11,
+      "details": 1,
+      "formulas": 11,
+      "renderedBytes": 115383,
+      "firstHeading": "17. CNN 字符分类器：真实训练、统一输入与独立评估",
+      "lastHeading": "原论文与官方参考",
+      "status": "passed"
+    },
+    {
+      "id": "18",
+      "source": "18-rnn-basics/README.md",
+      "sha256": "f2c9703ea93c41c91c8b3513dc4051245a9079cfaf969e1be0a05c5ac9efd66d",
+      "lines": 335,
+      "bytes": 18067,
+      "headings": 18,
+      "codeBlocks": 6,
+      "tables": 7,
+      "details": 0,
+      "formulas": 7,
+      "renderedBytes": 103757,
+      "firstHeading": "18. 循环神经网络：RNN、LSTM 与双向状态",
+      "lastHeading": "参考来源",
+      "status": "passed"
+    },
+    {
+      "id": "19",
+      "source": "19-ctc-loss/README.md",
+      "sha256": "13dbb846b8cd3adf4936e2e6eb4f7166f96ecab92caed2b65b25b8f1b1502ac8",
+      "lines": 480,
+      "bytes": 23763,
+      "headings": 29,
+      "codeBlocks": 10,
+      "tables": 9,
+      "details": 0,
+      "formulas": 13,
+      "renderedBytes": 100423,
+      "firstHeading": "19. CTC：对齐、损失、梯度与字符串解码",
+      "lastHeading": "参考来源与核验",
+      "status": "passed"
+    },
+    {
+      "id": "20",
+      "source": "20-crnn/README.md",
+      "sha256": "124281434e1b9e1a2e45fb5b73b8e387e9c33fe6c4ef634ad0ae24192cd2d32a",
+      "lines": 476,
+      "bytes": 28563,
+      "headings": 36,
+      "codeBlocks": 10,
+      "tables": 7,
+      "details": 0,
+      "formulas": 9,
+      "renderedBytes": 101431,
+      "firstHeading": "20. CRNN：把 CNN、双向 LSTM 与 CTC 训练成一条链",
+      "lastHeading": "参考来源",
+      "status": "passed"
+    },
+    {
+      "id": "21",
+      "source": "21-attention/README.md",
+      "sha256": "df7d29b02a91580d570c9839931ec8f626af0abe876f23e66ae22ec610aebd74",
+      "lines": 397,
+      "bytes": 21646,
+      "headings": 30,
+      "codeBlocks": 8,
+      "tables": 7,
+      "details": 1,
+      "formulas": 11,
+      "renderedBytes": 97622,
+      "firstHeading": "21. Attention：从匹配、加权到可训练的对齐",
+      "lastHeading": "一手参考",
+      "status": "passed"
+    },
+    {
+      "id": "22",
+      "source": "22-text-detection-networks/README.md",
+      "sha256": "5b022716bbe98dad44b3cf077a57bdc41691fe013d86296fbc21ffcdcaa44421",
+      "lines": 441,
+      "bytes": 26440,
+      "headings": 36,
+      "codeBlocks": 12,
+      "tables": 6,
+      "details": 1,
+      "formulas": 9,
+      "renderedBytes": 93811,
+      "firstHeading": "22. 文本检测网络：EAST、DBNet 与可检查的后处理",
+      "lastHeading": "一手参考",
+      "status": "passed"
+    },
+    {
+      "id": "23",
+      "source": "23-transformer-ocr/README.md",
+      "sha256": "e716a66852bc415de0a913b1c7839acd5ee4a4b23ff809ee85cd79e2bbd5613d",
+      "lines": 468,
+      "bytes": 31056,
+      "headings": 43,
+      "codeBlocks": 8,
+      "tables": 4,
+      "details": 1,
+      "formulas": 11,
+      "renderedBytes": 118230,
+      "firstHeading": "23. Transformer OCR：位置、多头、图像块与自回归识别",
+      "lastHeading": "一手参考",
+      "status": "passed"
+    },
+    {
+      "id": "24",
+      "source": "24-post-processing/README.md",
+      "sha256": "c2d1b3bd6ab2828a257a4a15555d4a9c80e05458ab75c201a26e53fed579646d",
+      "lines": 862,
+      "bytes": 51953,
+      "headings": 45,
+      "codeBlocks": 18,
+      "tables": 17,
+      "details": 14,
+      "formulas": 16,
+      "renderedBytes": 143500,
+      "firstHeading": "24. 后处理与独立评估",
+      "lastHeading": "16. 旧课颗粒度对标与落实",
+      "status": "passed"
+    },
+    {
+      "id": "25",
+      "source": "25-ocr-engine/README.md",
+      "sha256": "d8ea751ae7307ac376d34c208ec61204a7bd7b00cd6793fcfc245acca8108b31",
+      "lines": 590,
+      "bytes": 43681,
+      "headings": 40,
+      "codeBlocks": 18,
+      "tables": 14,
+      "details": 1,
+      "formulas": 0,
+      "renderedBytes": 61487,
+      "firstHeading": "25. OCR 引擎整合：从照片到完整数字串",
+      "lastHeading": "参考与实现边界",
+      "status": "passed"
+    },
+    {
+      "id": "26",
+      "source": "26-validation/README.md",
+      "sha256": "051116c84ba30447170ffe3e0fedb477f41be108ad11303cc7de8263a0d75ee4",
+      "lines": 627,
+      "bytes": 48334,
+      "headings": 46,
+      "codeBlocks": 21,
+      "tables": 15,
+      "details": 1,
+      "formulas": 0,
+      "renderedBytes": 68667,
+      "firstHeading": "26. 实战验证：让OCR结果可测量、可复核、可重演",
+      "lastHeading": "参考来源",
+      "status": "passed"
+    }
+  ],
+  "links": [
+    {
+      "page": "01-image-fundamentals/README.md",
+      "kind": "external",
+      "href": "https://html.spec.whatwg.org/multipage/canvas.html#pixel-manipulation",
+      "original": "https://html.spec.whatwg.org/multipage/canvas.html#pixel-manipulation"
+    },
+    {
+      "page": "01-image-fundamentals/README.md",
+      "kind": "external",
+      "href": "https://www.w3.org/TR/WCAG22/relative-luminance.html",
+      "original": "https://www.w3.org/TR/WCAG22/relative-luminance.html"
+    },
+    {
+      "page": "02-js-image-basics/README.md",
+      "kind": "external",
+      "href": "https://html.spec.whatwg.org/multipage/canvas.html#pixel-manipulation",
+      "original": "https://html.spec.whatwg.org/multipage/canvas.html#pixel-manipulation"
+    },
+    {
+      "page": "02-js-image-basics/README.md",
+      "kind": "external",
+      "href": "https://tc39.es/ecma262/2023/multipage/abstract-operations.html#sec-touint8clamp",
+      "original": "https://tc39.es/ecma262/2023/multipage/abstract-operations.html#sec-touint8clamp"
+    },
+    {
+      "page": "03-grayscale/README.md",
+      "kind": "external",
+      "href": "https://www.itu.int/rec/R-REC-BT.601-7-201103-I/en",
+      "original": "https://www.itu.int/rec/R-REC-BT.601-7-201103-I/en"
+    },
+    {
+      "page": "03-grayscale/README.md",
+      "kind": "external",
+      "href": "https://www.w3.org/TR/WCAG22/relative-luminance.html",
+      "original": "https://www.w3.org/TR/WCAG22/relative-luminance.html"
+    },
+    {
+      "page": "03-grayscale/README.md",
+      "kind": "external",
+      "href": "https://www.w3.org/Graphics/Color/srgb",
+      "original": "https://www.w3.org/Graphics/Color/srgb"
+    },
+    {
+      "page": "04-binarization/README.md",
+      "kind": "external",
+      "href": "https://doi.org/10.1109/TSMC.1979.4310076",
+      "original": "https://doi.org/10.1109/TSMC.1979.4310076"
+    },
+    {
+      "page": "04-binarization/README.md",
+      "kind": "external",
+      "href": "https://docs.opencv.org/4.x/d7/d4d/tutorial_py_thresholding.html",
+      "original": "https://docs.opencv.org/4.x/d7/d4d/tutorial_py_thresholding.html"
+    },
+    {
+      "page": "05-denoising/README.md",
+      "kind": "external",
+      "href": "https://docs.opencv.org/4.x/d4/d86/group__imgproc__filter.html",
+      "original": "https://docs.opencv.org/4.x/d4/d86/group__imgproc__filter.html"
+    },
+    {
+      "page": "05-denoising/README.md",
+      "kind": "external",
+      "href": "https://docs.opencv.org/4.x/d5/dc4/tutorial_video_input_psnr_ssim.html",
+      "original": "https://docs.opencv.org/4.x/d5/dc4/tutorial_video_input_psnr_ssim.html"
+    },
+    {
+      "page": "11-feature-extraction/README.md",
+      "kind": "external",
+      "href": "https://docs.opencv.org/4.x/d3/dc0/group__imgproc__shape.html",
+      "original": "https://docs.opencv.org/4.x/d3/dc0/group__imgproc__shape.html"
+    },
+    {
+      "page": "11-feature-extraction/README.md",
+      "kind": "external",
+      "href": "https://lear.inrialpes.fr/people/triggs/pubs/Dalal-cvpr05.pdf",
+      "original": "https://lear.inrialpes.fr/people/triggs/pubs/Dalal-cvpr05.pdf"
+    },
+    {
+      "page": "11-feature-extraction/README.md",
+      "kind": "external",
+      "href": "https://scikit-learn.org/stable/modules/preprocessing.html",
+      "original": "https://scikit-learn.org/stable/modules/preprocessing.html"
+    },
+    {
+      "page": "11-feature-extraction/README.md",
+      "kind": "external",
+      "href": "https://docs.opencv.org/4.x/d8/d23/classcv_1_1Moments.html",
+      "original": "https://docs.opencv.org/4.x/d8/d23/classcv_1_1Moments.html"
+    },
+    {
+      "page": "11-feature-extraction/README.md",
+      "kind": "external",
+      "href": "https://docs.opencv.org/4.x/d3/dc0/group__imgproc__shape.html",
+      "original": "https://docs.opencv.org/4.x/d3/dc0/group__imgproc__shape.html"
+    },
+    {
+      "page": "11-feature-extraction/README.md",
+      "kind": "external",
+      "href": "https://lear.inrialpes.fr/people/triggs/pubs/Dalal-cvpr05.pdf",
+      "original": "https://lear.inrialpes.fr/people/triggs/pubs/Dalal-cvpr05.pdf"
+    },
+    {
+      "page": "11-feature-extraction/README.md",
+      "kind": "external",
+      "href": "https://scikit-learn.org/stable/modules/preprocessing.html",
+      "original": "https://scikit-learn.org/stable/modules/preprocessing.html"
+    },
+    {
+      "page": "12-template-matching/README.md",
+      "kind": "external",
+      "href": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.pearsonr.html",
+      "original": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.pearsonr.html"
+    },
+    {
+      "page": "13-knn-classifier/README.md",
+      "kind": "external",
+      "href": "https://scikit-learn.org/stable/common_pitfalls.html#data-leakage",
+      "original": "https://scikit-learn.org/stable/common_pitfalls.html#data-leakage"
+    },
+    {
+      "page": "14-neural-network-basics/README.md",
+      "kind": "external",
+      "href": "https://docs.pytorch.org/docs/2.14/generated/torch.nn.BCEWithLogitsLoss.html",
+      "original": "https://docs.pytorch.org/docs/2.14/generated/torch.nn.BCEWithLogitsLoss.html"
+    },
+    {
+      "page": "14-neural-network-basics/README.md",
+      "kind": "external",
+      "href": "https://proceedings.mlr.press/v9/glorot10a.html",
+      "original": "https://proceedings.mlr.press/v9/glorot10a.html"
+    },
+    {
+      "page": "14-neural-network-basics/README.md",
+      "kind": "external",
+      "href": "https://arxiv.org/abs/1502.01852",
+      "original": "https://arxiv.org/abs/1502.01852"
+    },
+    {
+      "page": "14-neural-network-basics/README.md",
+      "kind": "external",
+      "href": "https://www.nature.com/articles/323533a0",
+      "original": "https://www.nature.com/articles/323533a0"
+    },
+    {
+      "page": "14-neural-network-basics/README.md",
+      "kind": "external",
+      "href": "https://proceedings.mlr.press/v9/glorot10a.html",
+      "original": "https://proceedings.mlr.press/v9/glorot10a.html"
+    },
+    {
+      "page": "14-neural-network-basics/README.md",
+      "kind": "external",
+      "href": "https://arxiv.org/abs/1502.01852",
+      "original": "https://arxiv.org/abs/1502.01852"
+    },
+    {
+      "page": "14-neural-network-basics/README.md",
+      "kind": "external",
+      "href": "https://docs.pytorch.org/docs/2.14/generated/torch.nn.BCEWithLogitsLoss.html",
+      "original": "https://docs.pytorch.org/docs/2.14/generated/torch.nn.BCEWithLogitsLoss.html"
+    },
+    {
+      "page": "15-cnn-basics/README.md",
+      "kind": "external",
+      "href": "https://docs.pytorch.org/docs/2.14/generated/torch.nn.Conv2d.html",
+      "original": "https://docs.pytorch.org/docs/2.14/generated/torch.nn.Conv2d.html"
+    },
+    {
+      "page": "15-cnn-basics/README.md",
+      "kind": "external",
+      "href": "https://docs.pytorch.org/docs/2.14/generated/torch.nn.MaxPool2d.html",
+      "original": "https://docs.pytorch.org/docs/2.14/generated/torch.nn.MaxPool2d.html"
+    },
+    {
+      "page": "15-cnn-basics/README.md",
+      "kind": "external",
+      "href": "https://leon.bottou.org/publications/pdf/ieee-1998.pdf",
+      "original": "https://leon.bottou.org/publications/pdf/ieee-1998.pdf"
+    },
+    {
+      "page": "15-cnn-basics/README.md",
+      "kind": "external",
+      "href": "https://bottou.org/papers/lecun-98h",
+      "original": "https://bottou.org/papers/lecun-98h"
+    },
+    {
+      "page": "15-cnn-basics/README.md",
+      "kind": "external",
+      "href": "https://bottou.org/papers/lecun-98h",
+      "original": "https://bottou.org/papers/lecun-98h"
+    },
+    {
+      "page": "15-cnn-basics/README.md",
+      "kind": "external",
+      "href": "https://leon.bottou.org/publications/pdf/ieee-1998.pdf",
+      "original": "https://leon.bottou.org/publications/pdf/ieee-1998.pdf"
+    },
+    {
+      "page": "15-cnn-basics/README.md",
+      "kind": "external",
+      "href": "https://docs.pytorch.org/docs/2.14/generated/torch.nn.Conv2d.html",
+      "original": "https://docs.pytorch.org/docs/2.14/generated/torch.nn.Conv2d.html"
+    },
+    {
+      "page": "15-cnn-basics/README.md",
+      "kind": "external",
+      "href": "https://docs.pytorch.org/docs/2.14/generated/torch.nn.MaxPool2d.html",
+      "original": "https://docs.pytorch.org/docs/2.14/generated/torch.nn.MaxPool2d.html"
+    },
+    {
+      "page": "16-tensorflowjs-intro/README.md",
+      "kind": "lab",
+      "href": "/labs/16-tensorflowjs-intro/index.html",
+      "source": "16-tensorflowjs-intro/index.html",
+      "original": "http://127.0.0.1:4173/16-tensorflowjs-intro/"
+    },
+    {
+      "page": "16-tensorflowjs-intro/README.md",
+      "kind": "external",
+      "href": "https://www.tensorflow.org/js/guide/tensors_operations",
+      "original": "https://www.tensorflow.org/js/guide/tensors_operations"
+    },
+    {
+      "page": "16-tensorflowjs-intro/README.md",
+      "kind": "external",
+      "href": "https://www.tensorflow.org/js/guide/models_and_layers",
+      "original": "https://www.tensorflow.org/js/guide/models_and_layers"
+    },
+    {
+      "page": "16-tensorflowjs-intro/README.md",
+      "kind": "external",
+      "href": "https://www.tensorflow.org/js/guide/train_models",
+      "original": "https://www.tensorflow.org/js/guide/train_models"
+    },
+    {
+      "page": "16-tensorflowjs-intro/README.md",
+      "kind": "external",
+      "href": "https://www.tensorflow.org/js/guide/save_load",
+      "original": "https://www.tensorflow.org/js/guide/save_load"
+    },
+    {
+      "page": "16-tensorflowjs-intro/README.md",
+      "kind": "external",
+      "href": "https://www.tensorflow.org/js/guide/platform_environment",
+      "original": "https://www.tensorflow.org/js/guide/platform_environment"
+    },
+    {
+      "page": "16-tensorflowjs-intro/README.md",
+      "kind": "external",
+      "href": "https://arxiv.org/abs/1901.05350",
+      "original": "https://arxiv.org/abs/1901.05350"
+    },
+    {
+      "page": "16-tensorflowjs-intro/README.md",
+      "kind": "external",
+      "href": "https://github.com/tensorflow/tfjs/blob/tfjs-v4.22.0/tfjs-layers/src/engine/training.ts",
+      "original": "https://github.com/tensorflow/tfjs/blob/tfjs-v4.22.0/tfjs-layers/src/engine/training.ts"
+    },
+    {
+      "page": "17-cnn-classifier/README.md",
+      "kind": "external",
+      "href": "https://github.com/cvdfoundation/mnist",
+      "original": "https://github.com/cvdfoundation/mnist"
+    },
+    {
+      "page": "17-cnn-classifier/README.md",
+      "kind": "external",
+      "href": "https://keras.io/api/datasets/mnist/",
+      "original": "https://keras.io/api/datasets/mnist/"
+    },
+    {
+      "page": "17-cnn-classifier/README.md",
+      "kind": "external",
+      "href": "https://github.com/tensorflow/tfjs/blob/tfjs-v4.22.0/tfjs-layers/src/losses.ts",
+      "original": "https://github.com/tensorflow/tfjs/blob/tfjs-v4.22.0/tfjs-layers/src/losses.ts"
+    },
+    {
+      "page": "17-cnn-classifier/README.md",
+      "kind": "external",
+      "href": "https://github.com/tensorflow/tfjs/blob/tfjs-v4.22.0/tfjs-core/src/ops/losses/softmax_cross_entropy.ts",
+      "original": "https://github.com/tensorflow/tfjs/blob/tfjs-v4.22.0/tfjs-core/src/ops/losses/softmax_cross_entropy.ts"
+    },
+    {
+      "page": "17-cnn-classifier/README.md",
+      "kind": "external",
+      "href": "https://github.com/tensorflow/tfjs/blob/tfjs-v4.22.0/tfjs-layers/src/backend/common.ts",
+      "original": "https://github.com/tensorflow/tfjs/blob/tfjs-v4.22.0/tfjs-layers/src/backend/common.ts"
+    },
+    {
+      "page": "17-cnn-classifier/README.md",
+      "kind": "external",
+      "href": "https://github.com/tensorflow/tfjs/blob/tfjs-v4.22.0/tfjs-backend-webgl/src/backend_webgl.ts",
+      "original": "https://github.com/tensorflow/tfjs/blob/tfjs-v4.22.0/tfjs-backend-webgl/src/backend_webgl.ts"
+    },
+    {
+      "page": "17-cnn-classifier/README.md",
+      "kind": "external",
+      "href": "https://github.com/tensorflow/tfjs/blob/tfjs-v4.22.0/tfjs-core/src/ops/dropout.ts",
+      "original": "https://github.com/tensorflow/tfjs/blob/tfjs-v4.22.0/tfjs-core/src/ops/dropout.ts"
+    },
+    {
+      "page": "17-cnn-classifier/README.md",
+      "kind": "lab",
+      "href": "/labs/17-cnn-classifier/index.html",
+      "source": "17-cnn-classifier/index.html",
+      "original": "http://127.0.0.1:4173/17-cnn-classifier/"
+    },
+    {
+      "page": "17-cnn-classifier/README.md",
+      "kind": "lab",
+      "href": "/labs/17-cnn-classifier/train.html",
+      "source": "17-cnn-classifier/train.html",
+      "original": "train.html"
+    },
+    {
+      "page": "17-cnn-classifier/README.md",
+      "kind": "external",
+      "href": "https://github.com/cvdfoundation/mnist",
+      "original": "https://github.com/cvdfoundation/mnist"
+    },
+    {
+      "page": "17-cnn-classifier/README.md",
+      "kind": "external",
+      "href": "https://keras.io/api/datasets/mnist/",
+      "original": "https://keras.io/api/datasets/mnist/"
+    },
+    {
+      "page": "17-cnn-classifier/README.md",
+      "kind": "external",
+      "href": "https://leon.bottou.org/papers/lecun-98h",
+      "original": "https://leon.bottou.org/papers/lecun-98h"
+    },
+    {
+      "page": "17-cnn-classifier/README.md",
+      "kind": "external",
+      "href": "https://www.tensorflow.org/js/tutorials/training/handwritten_digit_cnn",
+      "original": "https://www.tensorflow.org/js/tutorials/training/handwritten_digit_cnn"
+    },
+    {
+      "page": "17-cnn-classifier/README.md",
+      "kind": "external",
+      "href": "https://www.tensorflow.org/js/guide/train_models",
+      "original": "https://www.tensorflow.org/js/guide/train_models"
+    },
+    {
+      "page": "17-cnn-classifier/README.md",
+      "kind": "external",
+      "href": "https://www.tensorflow.org/js/guide/save_load",
+      "original": "https://www.tensorflow.org/js/guide/save_load"
+    },
+    {
+      "page": "17-cnn-classifier/README.md",
+      "kind": "external",
+      "href": "https://arxiv.org/abs/1412.6980",
+      "original": "https://arxiv.org/abs/1412.6980"
+    },
+    {
+      "page": "17-cnn-classifier/README.md",
+      "kind": "external",
+      "href": "https://jmlr.org/papers/v15/srivastava14a.html",
+      "original": "https://jmlr.org/papers/v15/srivastava14a.html"
+    },
+    {
+      "page": "18-rnn-basics/README.md",
+      "kind": "external",
+      "href": "https://www.bioinf.jku.at/software/lstm/",
+      "original": "https://www.bioinf.jku.at/software/lstm/"
+    },
+    {
+      "page": "18-rnn-basics/README.md",
+      "kind": "external",
+      "href": "https://www.cs.toronto.edu/~graves/nn_2005.pdf",
+      "original": "https://www.cs.toronto.edu/~graves/nn_2005.pdf"
+    },
+    {
+      "page": "18-rnn-basics/README.md",
+      "kind": "external",
+      "href": "https://github.com/tensorflow/tfjs/blob/tfjs-v4.22.0/tfjs-layers/src/layers/recurrent.ts",
+      "original": "https://github.com/tensorflow/tfjs/blob/tfjs-v4.22.0/tfjs-layers/src/layers/recurrent.ts"
+    },
+    {
+      "page": "18-rnn-basics/README.md",
+      "kind": "external",
+      "href": "https://www.cs.toronto.edu/~graves/nn_2005.pdf",
+      "original": "https://www.cs.toronto.edu/~graves/nn_2005.pdf"
+    },
+    {
+      "page": "18-rnn-basics/README.md",
+      "kind": "external",
+      "href": "https://www.bioinf.jku.at/software/lstm/",
+      "original": "https://www.bioinf.jku.at/software/lstm/"
+    },
+    {
+      "page": "18-rnn-basics/README.md",
+      "kind": "external",
+      "href": "https://www.cs.toronto.edu/~graves/nn_2005.pdf",
+      "original": "https://www.cs.toronto.edu/~graves/nn_2005.pdf"
+    },
+    {
+      "page": "18-rnn-basics/README.md",
+      "kind": "external",
+      "href": "https://js.tensorflow.org/api/latest/#layers.lstm",
+      "original": "https://js.tensorflow.org/api/latest/#layers.lstm"
+    },
+    {
+      "page": "19-ctc-loss/README.md",
+      "kind": "external",
+      "href": "https://www.cs.toronto.edu/~graves/icml_2006.pdf",
+      "original": "https://www.cs.toronto.edu/~graves/icml_2006.pdf"
+    },
+    {
+      "page": "19-ctc-loss/README.md",
+      "kind": "external",
+      "href": "https://github.com/tensorflow/tfjs/blob/tfjs-v4.22.0/tfjs-core/src/ops/log_softmax.ts",
+      "original": "https://github.com/tensorflow/tfjs/blob/tfjs-v4.22.0/tfjs-core/src/ops/log_softmax.ts"
+    },
+    {
+      "page": "19-ctc-loss/README.md",
+      "kind": "external",
+      "href": "https://www.tensorflow.org/js/guide/custom_ops_kernels_gradients",
+      "original": "https://www.tensorflow.org/js/guide/custom_ops_kernels_gradients"
+    },
+    {
+      "page": "19-ctc-loss/README.md",
+      "kind": "external",
+      "href": "https://www.cs.toronto.edu/~graves/icml_2006.pdf",
+      "original": "https://www.cs.toronto.edu/~graves/icml_2006.pdf"
+    },
+    {
+      "page": "19-ctc-loss/README.md",
+      "kind": "external",
+      "href": "https://www.cs.toronto.edu/~graves/phd.pdf",
+      "original": "https://www.cs.toronto.edu/~graves/phd.pdf"
+    },
+    {
+      "page": "19-ctc-loss/README.md",
+      "kind": "external",
+      "href": "https://www.tensorflow.org/js/guide/custom_ops_kernels_gradients",
+      "original": "https://www.tensorflow.org/js/guide/custom_ops_kernels_gradients"
+    },
+    {
+      "page": "19-ctc-loss/README.md",
+      "kind": "external",
+      "href": "https://js.tensorflow.org/api/latest/#customGrad",
+      "original": "https://js.tensorflow.org/api/latest/#customGrad"
+    },
+    {
+      "page": "20-crnn/README.md",
+      "kind": "external",
+      "href": "https://arxiv.org/abs/1507.05717",
+      "original": "https://arxiv.org/abs/1507.05717"
+    },
+    {
+      "page": "20-crnn/README.md",
+      "kind": "external",
+      "href": "https://papers.nips.cc/paper/2016/file/c8067ad1937f728f51288b3eb986afaa-Paper.pdf",
+      "original": "https://papers.nips.cc/paper/2016/file/c8067ad1937f728f51288b3eb986afaa-Paper.pdf"
+    },
+    {
+      "page": "20-crnn/README.md",
+      "kind": "external",
+      "href": "https://www.tensorflow.org/js/guide/custom_ops_kernels_gradients",
+      "original": "https://www.tensorflow.org/js/guide/custom_ops_kernels_gradients"
+    },
+    {
+      "page": "20-crnn/README.md",
+      "kind": "external",
+      "href": "https://js.tensorflow.org/api/latest/#tidy",
+      "original": "https://js.tensorflow.org/api/latest/#tidy"
+    },
+    {
+      "page": "20-crnn/README.md",
+      "kind": "external",
+      "href": "https://arxiv.org/abs/1507.05717",
+      "original": "https://arxiv.org/abs/1507.05717"
+    },
+    {
+      "page": "20-crnn/README.md",
+      "kind": "external",
+      "href": "https://arxiv.org/html/1507.05717v1",
+      "original": "https://arxiv.org/html/1507.05717v1"
+    },
+    {
+      "page": "20-crnn/README.md",
+      "kind": "external",
+      "href": "https://www.cs.toronto.edu/~graves/icml_2006.pdf",
+      "original": "https://www.cs.toronto.edu/~graves/icml_2006.pdf"
+    },
+    {
+      "page": "20-crnn/README.md",
+      "kind": "external",
+      "href": "https://js.tensorflow.org/api/latest/#conv2d",
+      "original": "https://js.tensorflow.org/api/latest/#conv2d"
+    },
+    {
+      "page": "20-crnn/README.md",
+      "kind": "external",
+      "href": "https://js.tensorflow.org/api/latest/#avgPool",
+      "original": "https://js.tensorflow.org/api/latest/#avgPool"
+    },
+    {
+      "page": "20-crnn/README.md",
+      "kind": "external",
+      "href": "https://js.tensorflow.org/api/latest/#variableGrads",
+      "original": "https://js.tensorflow.org/api/latest/#variableGrads"
+    },
+    {
+      "page": "20-crnn/README.md",
+      "kind": "external",
+      "href": "https://www.tensorflow.org/js/guide/custom_ops_kernels_gradients",
+      "original": "https://www.tensorflow.org/js/guide/custom_ops_kernels_gradients"
+    },
+    {
+      "page": "20-crnn/README.md",
+      "kind": "external",
+      "href": "https://js.tensorflow.org/api/latest/#customGrad",
+      "original": "https://js.tensorflow.org/api/latest/#customGrad"
+    },
+    {
+      "page": "21-attention/README.md",
+      "kind": "external",
+      "href": "https://arxiv.org/abs/1409.0473",
+      "original": "https://arxiv.org/abs/1409.0473"
+    },
+    {
+      "page": "21-attention/README.md",
+      "kind": "external",
+      "href": "https://arxiv.org/html/1706.03762v7",
+      "original": "https://arxiv.org/html/1706.03762v7"
+    },
+    {
+      "page": "21-attention/README.md",
+      "kind": "page",
+      "href": "/22-text-detection-networks/",
+      "source": "22-text-detection-networks/README.md",
+      "original": "../22-text-detection-networks/README.md"
+    },
+    {
+      "page": "21-attention/README.md",
+      "kind": "external",
+      "href": "https://arxiv.org/abs/1409.0473",
+      "original": "https://arxiv.org/abs/1409.0473"
+    },
+    {
+      "page": "21-attention/README.md",
+      "kind": "external",
+      "href": "https://arxiv.org/html/1706.03762v7",
+      "original": "https://arxiv.org/html/1706.03762v7"
+    },
+    {
+      "page": "22-text-detection-networks/README.md",
+      "kind": "external",
+      "href": "https://arxiv.org/html/1704.03155v2",
+      "original": "https://arxiv.org/html/1704.03155v2"
+    },
+    {
+      "page": "22-text-detection-networks/README.md",
+      "kind": "external",
+      "href": "https://arxiv.org/html/1911.08947v2",
+      "original": "https://arxiv.org/html/1911.08947v2"
+    },
+    {
+      "page": "22-text-detection-networks/README.md",
+      "kind": "external",
+      "href": "https://github.com/MhLiao/DB/blob/master/decoders/seg_detector.py",
+      "original": "https://github.com/MhLiao/DB/blob/master/decoders/seg_detector.py"
+    },
+    {
+      "page": "22-text-detection-networks/README.md",
+      "kind": "external",
+      "href": "https://github.com/MhLiao/DB/blob/master/structure/representers/seg_detector_representer.py",
+      "original": "https://github.com/MhLiao/DB/blob/master/structure/representers/seg_detector_representer.py"
+    },
+    {
+      "page": "22-text-detection-networks/README.md",
+      "kind": "external",
+      "href": "https://docs.opencv.org/4.13.0/d4/d43/tutorial_dnn_text_spotting.html",
+      "original": "https://docs.opencv.org/4.13.0/d4/d43/tutorial_dnn_text_spotting.html"
+    },
+    {
+      "page": "22-text-detection-networks/README.md",
+      "kind": "page",
+      "href": "/23-transformer-ocr/",
+      "source": "23-transformer-ocr/README.md",
+      "original": "../23-transformer-ocr/README.md"
+    },
+    {
+      "page": "22-text-detection-networks/README.md",
+      "kind": "external",
+      "href": "https://arxiv.org/html/1704.03155v2",
+      "original": "https://arxiv.org/html/1704.03155v2"
+    },
+    {
+      "page": "22-text-detection-networks/README.md",
+      "kind": "external",
+      "href": "https://arxiv.org/html/1911.08947v2",
+      "original": "https://arxiv.org/html/1911.08947v2"
+    },
+    {
+      "page": "22-text-detection-networks/README.md",
+      "kind": "external",
+      "href": "https://github.com/MhLiao/DB/blob/master/decoders/seg_detector.py",
+      "original": "https://github.com/MhLiao/DB/blob/master/decoders/seg_detector.py"
+    },
+    {
+      "page": "22-text-detection-networks/README.md",
+      "kind": "external",
+      "href": "https://github.com/MhLiao/DB/blob/master/structure/representers/seg_detector_representer.py",
+      "original": "https://github.com/MhLiao/DB/blob/master/structure/representers/seg_detector_representer.py"
+    },
+    {
+      "page": "22-text-detection-networks/README.md",
+      "kind": "external",
+      "href": "https://docs.opencv.org/4.13.0/d4/d43/tutorial_dnn_text_spotting.html",
+      "original": "https://docs.opencv.org/4.13.0/d4/d43/tutorial_dnn_text_spotting.html"
+    },
+    {
+      "page": "23-transformer-ocr/README.md",
+      "kind": "external",
+      "href": "https://arxiv.org/html/2010.11929v2",
+      "original": "https://arxiv.org/html/2010.11929v2"
+    },
+    {
+      "page": "23-transformer-ocr/README.md",
+      "kind": "external",
+      "href": "https://arxiv.org/html/1706.03762v7",
+      "original": "https://arxiv.org/html/1706.03762v7"
+    },
+    {
+      "page": "23-transformer-ocr/README.md",
+      "kind": "external",
+      "href": "https://arxiv.org/html/1706.03762v7",
+      "original": "https://arxiv.org/html/1706.03762v7"
+    },
+    {
+      "page": "23-transformer-ocr/README.md",
+      "kind": "external",
+      "href": "https://arxiv.org/html/2010.11929v2",
+      "original": "https://arxiv.org/html/2010.11929v2"
+    },
+    {
+      "page": "23-transformer-ocr/README.md",
+      "kind": "external",
+      "href": "https://arxiv.org/html/2109.10282v2",
+      "original": "https://arxiv.org/html/2109.10282v2"
+    },
+    {
+      "page": "23-transformer-ocr/README.md",
+      "kind": "external",
+      "href": "https://huggingface.co/docs/transformers/model_doc/trocr",
+      "original": "https://huggingface.co/docs/transformers/model_doc/trocr"
+    },
+    {
+      "page": "23-transformer-ocr/README.md",
+      "kind": "external",
+      "href": "https://www.paddleocr.ai/main/en/version3.x/algorithm/PP-OCRv5/PP-OCRv5.html",
+      "original": "https://www.paddleocr.ai/main/en/version3.x/algorithm/PP-OCRv5/PP-OCRv5.html"
+    },
+    {
+      "page": "23-transformer-ocr/README.md",
+      "kind": "page",
+      "href": "/24-post-processing/",
+      "source": "24-post-processing/README.md",
+      "original": "../24-post-processing/README.md"
+    },
+    {
+      "page": "23-transformer-ocr/README.md",
+      "kind": "external",
+      "href": "https://arxiv.org/html/1706.03762v7",
+      "original": "https://arxiv.org/html/1706.03762v7"
+    },
+    {
+      "page": "23-transformer-ocr/README.md",
+      "kind": "external",
+      "href": "https://arxiv.org/html/2010.11929v2",
+      "original": "https://arxiv.org/html/2010.11929v2"
+    },
+    {
+      "page": "23-transformer-ocr/README.md",
+      "kind": "external",
+      "href": "https://arxiv.org/html/2109.10282v2",
+      "original": "https://arxiv.org/html/2109.10282v2"
+    },
+    {
+      "page": "23-transformer-ocr/README.md",
+      "kind": "external",
+      "href": "https://huggingface.co/docs/transformers/model_doc/trocr",
+      "original": "https://huggingface.co/docs/transformers/model_doc/trocr"
+    },
+    {
+      "page": "23-transformer-ocr/README.md",
+      "kind": "external",
+      "href": "https://www.paddleocr.ai/main/en/version3.x/algorithm/PP-OCRv5/PP-OCRv5.html",
+      "original": "https://www.paddleocr.ai/main/en/version3.x/algorithm/PP-OCRv5/PP-OCRv5.html"
+    },
+    {
+      "page": "24-post-processing/README.md",
+      "kind": "lab",
+      "href": "/labs/24-post-processing/index.html",
+      "source": "24-post-processing/index.html",
+      "original": "http://127.0.0.1:4173/24-post-processing/"
+    },
+    {
+      "page": "24-post-processing/README.md",
+      "kind": "external",
+      "href": "https://nlp.stanford.edu/IR-book/html/htmledition/edit-distance-1.html",
+      "original": "https://nlp.stanford.edu/IR-book/html/htmledition/edit-distance-1.html"
+    },
+    {
+      "page": "24-post-processing/README.md",
+      "kind": "external",
+      "href": "https://dl.acm.org/doi/10.1145/321796.321811",
+      "original": "https://dl.acm.org/doi/10.1145/321796.321811"
+    },
+    {
+      "page": "24-post-processing/README.md",
+      "kind": "external",
+      "href": "https://tsapps.nist.gov/publication/get_pdf.cfm?pub_id=934557",
+      "original": "https://tsapps.nist.gov/publication/get_pdf.cfm?pub_id=934557"
+    },
+    {
+      "page": "24-post-processing/README.md",
+      "kind": "external",
+      "href": "https://aclanthology.org/C90-2036/",
+      "original": "https://aclanthology.org/C90-2036/"
+    },
+    {
+      "page": "24-post-processing/README.md",
+      "kind": "external",
+      "href": "https://web.stanford.edu/~jurafsky/slp3/3.pdf",
+      "original": "https://web.stanford.edu/~jurafsky/slp3/3.pdf"
+    },
+    {
+      "page": "24-post-processing/README.md",
+      "kind": "external",
+      "href": "https://proceedings.mlr.press/v70/guo17a.html",
+      "original": "https://proceedings.mlr.press/v70/guo17a.html"
+    },
+    {
+      "page": "24-post-processing/README.md",
+      "kind": "asset",
+      "href": "/labs/24-post-processing/browser-qa-results.json",
+      "source": "24-post-processing/browser-qa-results.json",
+      "original": "browser-qa-results.json"
+    },
+    {
+      "page": "24-post-processing/README.md",
+      "kind": "asset",
+      "href": "/labs/24-post-processing/browser-qa-desktop.png",
+      "source": "24-post-processing/browser-qa-desktop.png",
+      "original": "browser-qa-desktop.png"
+    },
+    {
+      "page": "24-post-processing/README.md",
+      "kind": "external",
+      "href": "https://dl.acm.org/doi/10.1145/321796.321811",
+      "original": "https://dl.acm.org/doi/10.1145/321796.321811"
+    },
+    {
+      "page": "24-post-processing/README.md",
+      "kind": "external",
+      "href": "https://nlp.stanford.edu/IR-book/html/htmledition/edit-distance-1.html",
+      "original": "https://nlp.stanford.edu/IR-book/html/htmledition/edit-distance-1.html"
+    },
+    {
+      "page": "24-post-processing/README.md",
+      "kind": "external",
+      "href": "https://aclanthology.org/C90-2036/",
+      "original": "https://aclanthology.org/C90-2036/"
+    },
+    {
+      "page": "24-post-processing/README.md",
+      "kind": "external",
+      "href": "https://web.stanford.edu/~jurafsky/slp3/3.pdf",
+      "original": "https://web.stanford.edu/~jurafsky/slp3/3.pdf"
+    },
+    {
+      "page": "24-post-processing/README.md",
+      "kind": "external",
+      "href": "https://tsapps.nist.gov/publication/get_pdf.cfm?pub_id=934557",
+      "original": "https://tsapps.nist.gov/publication/get_pdf.cfm?pub_id=934557"
+    },
+    {
+      "page": "24-post-processing/README.md",
+      "kind": "external",
+      "href": "https://proceedings.mlr.press/v70/guo17a.html",
+      "original": "https://proceedings.mlr.press/v70/guo17a.html"
+    },
+    {
+      "page": "25-ocr-engine/README.md",
+      "kind": "lab",
+      "href": "/labs/25-ocr-engine/index.html",
+      "source": "25-ocr-engine/index.html",
+      "original": "index.html"
+    },
+    {
+      "page": "25-ocr-engine/README.md",
+      "kind": "asset",
+      "href": "/labs/25-ocr-engine/index.js",
+      "source": "25-ocr-engine/index.js",
+      "original": "index.js"
+    },
+    {
+      "page": "25-ocr-engine/README.md",
+      "kind": "external",
+      "href": "https://ieeexplore.ieee.org/document/4310076",
+      "original": "https://ieeexplore.ieee.org/document/4310076"
+    },
+    {
+      "page": "25-ocr-engine/README.md",
+      "kind": "external",
+      "href": "https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html",
+      "original": "https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html"
+    },
+    {
+      "page": "25-ocr-engine/README.md",
+      "kind": "external",
+      "href": "https://proceedings.mlr.press/v70/guo17a.html",
+      "original": "https://proceedings.mlr.press/v70/guo17a.html"
+    },
+    {
+      "page": "25-ocr-engine/README.md",
+      "kind": "asset",
+      "href": "/labs/17-cnn-classifier/model/training-report.json",
+      "source": "17-cnn-classifier/model/training-report.json",
+      "original": "../17-cnn-classifier/model/training-report.json"
+    },
+    {
+      "page": "25-ocr-engine/README.md",
+      "kind": "external",
+      "href": "https://www.tensorflow.org/js/guide/save_load",
+      "original": "https://www.tensorflow.org/js/guide/save_load"
+    },
+    {
+      "page": "25-ocr-engine/README.md",
+      "kind": "lab",
+      "href": "/labs/25-ocr-engine/index.html",
+      "source": "25-ocr-engine/index.html",
+      "original": "http://127.0.0.1:4173/25-ocr-engine/"
+    },
+    {
+      "page": "25-ocr-engine/README.md",
+      "kind": "page",
+      "href": "/17-cnn-classifier/",
+      "source": "17-cnn-classifier/README.md",
+      "original": "../17-cnn-classifier/README.md"
+    },
+    {
+      "page": "25-ocr-engine/README.md",
+      "kind": "page",
+      "href": "/docs/SHARING_GUIDE.html",
+      "source": "docs/SHARING_GUIDE.md",
+      "original": "../docs/SHARING_GUIDE.md"
+    },
+    {
+      "page": "25-ocr-engine/README.md",
+      "kind": "page",
+      "href": "/26-validation/",
+      "source": "26-validation/README.md",
+      "original": "../26-validation/README.md"
+    },
+    {
+      "page": "25-ocr-engine/README.md",
+      "kind": "external",
+      "href": "https://ieeexplore.ieee.org/document/4310076",
+      "original": "https://ieeexplore.ieee.org/document/4310076"
+    },
+    {
+      "page": "25-ocr-engine/README.md",
+      "kind": "external",
+      "href": "https://www.tensorflow.org/js/guide/save_load",
+      "original": "https://www.tensorflow.org/js/guide/save_load"
+    },
+    {
+      "page": "25-ocr-engine/README.md",
+      "kind": "external",
+      "href": "https://js.tensorflow.org/api/latest/",
+      "original": "https://js.tensorflow.org/api/latest/"
+    },
+    {
+      "page": "25-ocr-engine/README.md",
+      "kind": "external",
+      "href": "https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html",
+      "original": "https://html.spec.whatwg.org/multipage/imagebitmap-and-animations.html"
+    },
+    {
+      "page": "25-ocr-engine/README.md",
+      "kind": "external",
+      "href": "https://proceedings.mlr.press/v70/guo17a.html",
+      "original": "https://proceedings.mlr.press/v70/guo17a.html"
+    },
+    {
+      "page": "25-ocr-engine/README.md",
+      "kind": "asset",
+      "href": "/labs/17-cnn-classifier/model/training-report.json",
+      "source": "17-cnn-classifier/model/training-report.json",
+      "original": "../17-cnn-classifier/model/training-report.json"
+    },
+    {
+      "page": "25-ocr-engine/README.md",
+      "kind": "asset",
+      "href": "/labs/shared/25-ocr-engine/index.js",
+      "source": "shared/25-ocr-engine/index.js",
+      "original": "../shared/25-ocr-engine/index.js"
+    },
+    {
+      "page": "26-validation/README.md",
+      "kind": "lab",
+      "href": "/labs/26-validation/index.html",
+      "source": "26-validation/index.html",
+      "original": "index.html"
+    },
+    {
+      "page": "26-validation/README.md",
+      "kind": "asset",
+      "href": "/labs/26-validation/index.js",
+      "source": "26-validation/index.js",
+      "original": "index.js"
+    },
+    {
+      "page": "26-validation/README.md",
+      "kind": "asset",
+      "href": "/labs/17-cnn-classifier/model/training-report.json",
+      "source": "17-cnn-classifier/model/training-report.json",
+      "original": "../17-cnn-classifier/model/training-report.json"
+    },
+    {
+      "page": "26-validation/README.md",
+      "kind": "asset",
+      "href": "/labs/26-validation/development-report.json",
+      "source": "26-validation/development-report.json",
+      "original": "development-report.json"
+    },
+    {
+      "page": "26-validation/README.md",
+      "kind": "asset",
+      "href": "/labs/26-validation/test-report.json",
+      "source": "26-validation/test-report.json",
+      "original": "test-report.json"
+    },
+    {
+      "page": "26-validation/README.md",
+      "kind": "asset",
+      "href": "/labs/26-validation/test-freeze.json",
+      "source": "26-validation/test-freeze.json",
+      "original": "test-freeze.json"
+    },
+    {
+      "page": "26-validation/README.md",
+      "kind": "asset",
+      "href": "/labs/26-validation/test-manifest.json",
+      "source": "26-validation/test-manifest.json",
+      "original": "test-manifest.json"
+    },
+    {
+      "page": "26-validation/README.md",
+      "kind": "external",
+      "href": "https://scikit-learn.org/stable/common_pitfalls.html",
+      "original": "https://scikit-learn.org/stable/common_pitfalls.html"
+    },
+    {
+      "page": "26-validation/README.md",
+      "kind": "external",
+      "href": "https://scikit-learn.org/stable/modules/cross_validation.html#group-k-fold",
+      "original": "https://scikit-learn.org/stable/modules/cross_validation.html#group-k-fold"
+    },
+    {
+      "page": "26-validation/README.md",
+      "kind": "external",
+      "href": "https://github.com/cvdfoundation/mnist",
+      "original": "https://github.com/cvdfoundation/mnist"
+    },
+    {
+      "page": "26-validation/README.md",
+      "kind": "external",
+      "href": "https://lightning.ai/docs/torchmetrics/latest/text/char_error_rate.html",
+      "original": "https://lightning.ai/docs/torchmetrics/latest/text/char_error_rate.html"
+    },
+    {
+      "page": "26-validation/README.md",
+      "kind": "lab",
+      "href": "/labs/26-validation/index.html",
+      "source": "26-validation/index.html",
+      "original": "http://127.0.0.1:4173/26-validation/"
+    },
+    {
+      "page": "26-validation/README.md",
+      "kind": "lab",
+      "href": "/labs/25-ocr-engine/index.html",
+      "source": "25-ocr-engine/index.html",
+      "original": "http://127.0.0.1:4173/25-ocr-engine/"
+    },
+    {
+      "page": "26-validation/README.md",
+      "kind": "external",
+      "href": "https://sharp.pixelplumbing.com/api-operation/#rotate",
+      "original": "https://sharp.pixelplumbing.com/api-operation/#rotate"
+    },
+    {
+      "page": "26-validation/README.md",
+      "kind": "page",
+      "href": "/docs/SHARING_GUIDE.html",
+      "source": "docs/SHARING_GUIDE.md",
+      "original": "../docs/SHARING_GUIDE.md"
+    },
+    {
+      "page": "26-validation/README.md",
+      "kind": "external",
+      "href": "https://github.com/cvdfoundation/mnist",
+      "original": "https://github.com/cvdfoundation/mnist"
+    },
+    {
+      "page": "26-validation/README.md",
+      "kind": "external",
+      "href": "https://scikit-learn.org/stable/common_pitfalls.html",
+      "original": "https://scikit-learn.org/stable/common_pitfalls.html"
+    },
+    {
+      "page": "26-validation/README.md",
+      "kind": "external",
+      "href": "https://scikit-learn.org/stable/modules/cross_validation.html#group-k-fold",
+      "original": "https://scikit-learn.org/stable/modules/cross_validation.html#group-k-fold"
+    },
+    {
+      "page": "26-validation/README.md",
+      "kind": "external",
+      "href": "https://lightning.ai/docs/torchmetrics/latest/text/char_error_rate.html",
+      "original": "https://lightning.ai/docs/torchmetrics/latest/text/char_error_rate.html"
+    },
+    {
+      "page": "26-validation/README.md",
+      "kind": "external",
+      "href": "https://sharp.pixelplumbing.com/api-operation/#rotate",
+      "original": "https://sharp.pixelplumbing.com/api-operation/#rotate"
+    },
+    {
+      "page": "26-validation/README.md",
+      "kind": "asset",
+      "href": "/labs/shared/24-post-processing/index.js",
+      "source": "shared/24-post-processing/index.js",
+      "original": "../shared/24-post-processing/index.js"
+    },
+    {
+      "page": "26-validation/README.md",
+      "kind": "asset",
+      "href": "/labs/shared/26-validation/index.js",
+      "source": "shared/26-validation/index.js",
+      "original": "../shared/26-validation/index.js"
+    },
+    {
+      "page": "26-validation/README.md",
+      "kind": "asset",
+      "href": "/labs/17-cnn-classifier/model/training-report.json",
+      "source": "17-cnn-classifier/model/training-report.json",
+      "original": "../17-cnn-classifier/model/training-report.json"
+    },
+    {
+      "page": "26-validation/README.md",
+      "kind": "asset",
+      "href": "/labs/26-validation/development-report.json",
+      "source": "26-validation/development-report.json",
+      "original": "development-report.json"
+    },
+    {
+      "page": "26-validation/README.md",
+      "kind": "asset",
+      "href": "/labs/26-validation/test-report.json",
+      "source": "26-validation/test-report.json",
+      "original": "test-report.json"
+    },
+    {
+      "page": "26-validation/README.md",
+      "kind": "asset",
+      "href": "/labs/26-validation/test-freeze.json",
+      "source": "26-validation/test-freeze.json",
+      "original": "test-freeze.json"
+    }
+  ],
+  "searches": [
+    {
+      "query": "类间方差",
+      "terms": [
+        "类间方差"
+      ],
+      "totalSectionMatches": 9,
+      "expected": "/04-binarization/",
+      "hits": [
+        {
+          "route": "/04-binarization/#类间方差公式解读",
+          "heading": "类间方差公式解读",
+          "bodyMatch": true
+        },
+        {
+          "route": "/04-binarization/#为什么类间方差最大化是最优的",
+          "heading": "为什么类间方差最大化是最优的？",
+          "bodyMatch": true
+        },
+        {
+          "route": "/04-binarization/#类间方差的直观理解",
+          "heading": "类间方差的直观理解",
+          "bodyMatch": true
+        },
+        {
+          "route": "/04-binarization/#直方图视角",
+          "heading": "直方图视角",
+          "bodyMatch": true
+        },
+        {
+          "route": "/04-binarization/#自测问题",
+          "heading": "自测问题",
+          "bodyMatch": true
+        },
+        {
+          "route": "/25-ocr-engine/#_3-1-固定阈值与-otsu-的精确边界",
+          "heading": "3.1 固定阈值与 Otsu 的精确边界",
+          "bodyMatch": true
+        },
+        {
+          "route": "/25-ocr-engine/#参考与实现边界",
+          "heading": "参考与实现边界",
+          "bodyMatch": true
+        },
+        {
+          "route": "/04-binarization/#具体计算示例",
+          "heading": "具体计算示例",
+          "bodyMatch": true
+        },
+        {
+          "route": "/25-ocr-engine/#_13-自测问题与答案",
+          "heading": "13. 自测问题与答案",
+          "bodyMatch": true
+        }
+      ]
+    },
+    {
+      "query": "梯度消失",
+      "terms": [
+        "梯度消失"
+      ],
+      "totalSectionMatches": 2,
+      "expected": "/18-rnn-basics/",
+      "hits": [
+        {
+          "route": "/18-rnn-basics/#知识点与三个入口对应",
+          "heading": "知识点与三个入口对应",
+          "bodyMatch": true
+        },
+        {
+          "route": "/18-rnn-basics/#_4-lstm-让记忆以加法更新",
+          "heading": "4. LSTM：让记忆以加法更新",
+          "bodyMatch": true
+        }
+      ]
+    },
+    {
+      "query": "CTC",
+      "terms": [
+        "CTC"
+      ],
+      "totalSectionMatches": 42,
+      "expected": "/19-ctc-loss/",
+      "hits": [
+        {
+          "route": "/19-ctc-loss/#_6-原理、三个主文件与运行对应",
+          "heading": "6. 原理、三个主文件与运行对应",
+          "bodyMatch": true
+        },
+        {
+          "route": "/23-transformer-ocr/#_9-与crnn-ctc及paddleocr的比较",
+          "heading": "9. 与CRNN/CTC及PaddleOCR的比较",
+          "bodyMatch": true
+        },
+        {
+          "route": "/20-crnn/#_5-ctc-与真实端到端梯度",
+          "heading": "5. CTC 与真实端到端梯度",
+          "bodyMatch": false
+        },
+        {
+          "route": "/19-ctc-loss/#_4-后向、后验与可微-ctc",
+          "heading": "4. 后向、后验与可微 CTC",
+          "bodyMatch": false
+        },
+        {
+          "route": "/19-ctc-loss/",
+          "heading": "CTC：对齐、损失、梯度与字符串解码",
+          "bodyMatch": false
+        },
+        {
+          "route": "/20-crnn/",
+          "heading": "CRNN：把 CNN、双向 LSTM 与 CTC 训练成一条链",
+          "bodyMatch": false
+        },
+        {
+          "route": "/19-ctc-loss/#_4-3-tensorflow-js-的真实支持与实现边界",
+          "heading": "4.3 TensorFlow.js 的真实支持与实现边界",
+          "bodyMatch": true
+        },
+        {
+          "route": "/20-crnn/#_5-3-两级梯度核验",
+          "heading": "5.3 两级梯度核验",
+          "bodyMatch": true
+        },
+        {
+          "route": "/19-ctc-loss/#_4-4-真实小实验和验证",
+          "heading": "4.4 真实小实验和验证",
+          "bodyMatch": true
+        },
+        {
+          "route": "/20-crnn/#_6-3-已完成的真实训练结果",
+          "heading": "6.3 已完成的真实训练结果",
+          "bodyMatch": true
+        },
+        {
+          "route": "/19-ctc-loss/#学习目标与-ocr-中的位置",
+          "heading": "学习目标与 OCR 中的位置",
+          "bodyMatch": true
+        },
+        {
+          "route": "/19-ctc-loss/#参考来源与核验",
+          "heading": "参考来源与核验",
+          "bodyMatch": true
+        }
+      ]
+    },
+    {
+      "query": "blank",
+      "terms": [
+        "blank"
+      ],
+      "totalSectionMatches": 33,
+      "expected": "/19-ctc-loss/",
+      "hits": [
+        {
+          "route": "/19-ctc-loss/#_3-1-为什么要插入-blank-状态",
+          "heading": "3.1 为什么要插入 blank 状态",
+          "bodyMatch": true
+        },
+        {
+          "route": "/19-ctc-loss/#_1-从字符标签到路径-为什么需要-blank",
+          "heading": "1. 从字符标签到路径：为什么需要 blank",
+          "bodyMatch": false
+        },
+        {
+          "route": "/19-ctc-loss/#_5-3-为什么每个前缀需要两个分数",
+          "heading": "5.3 为什么每个前缀需要两个分数",
+          "bodyMatch": true
+        },
+        {
+          "route": "/19-ctc-loss/#_2-2-两帧一字符的手算",
+          "heading": "2.2 两帧一字符的手算",
+          "bodyMatch": true
+        },
+        {
+          "route": "/19-ctc-loss/#_5-2-一个贪婪失败、beam成功的手算",
+          "heading": "5.2 一个贪婪失败、beam成功的手算",
+          "bodyMatch": true
+        },
+        {
+          "route": "/19-ctc-loss/#_3-3-连续重复-00-的完整小表",
+          "heading": "3.3 连续重复 的完整小表",
+          "bodyMatch": true
+        },
+        {
+          "route": "/19-ctc-loss/#_3-2-三种来源与跳跃条件",
+          "heading": "3.2 三种来源与跳跃条件",
+          "bodyMatch": true
+        },
+        {
+          "route": "/19-ctc-loss/#_1-2-折叠函数-b-的两个步骤",
+          "heading": "1.2 折叠函数 B 的两个步骤",
+          "bodyMatch": true
+        },
+        {
+          "route": "/19-ctc-loss/#_1-1-逐帧交叉熵缺少监督对象",
+          "heading": "1.1 逐帧交叉熵缺少监督对象",
+          "bodyMatch": true
+        },
+        {
+          "route": "/19-ctc-loss/#_6-原理、三个主文件与运行对应",
+          "heading": "6. 原理、三个主文件与运行对应",
+          "bodyMatch": true
+        },
+        {
+          "route": "/19-ctc-loss/#_8-自测与答案",
+          "heading": "8. 自测与答案",
+          "bodyMatch": true
+        },
+        {
+          "route": "/19-ctc-loss/#_1-3-重复数字需要多少时间步",
+          "heading": "1.3 重复数字需要多少时间步",
+          "bodyMatch": true
+        }
+      ]
+    }
+  ],
+  "checks": [
+    "01 /: literal code, headings, details, tables, math and Vue template",
+    "01 /ocr/: literal code, headings, details, tables, math and Vue template",
+    "02 /: literal code, headings, details, tables, math and Vue template",
+    "02 /ocr/: literal code, headings, details, tables, math and Vue template",
+    "03 /: literal code, headings, details, tables, math and Vue template",
+    "03 /ocr/: literal code, headings, details, tables, math and Vue template",
+    "04 /: literal code, headings, details, tables, math and Vue template",
+    "04 /ocr/: literal code, headings, details, tables, math and Vue template",
+    "05 /: literal code, headings, details, tables, math and Vue template",
+    "05 /ocr/: literal code, headings, details, tables, math and Vue template",
+    "06 /: literal code, headings, details, tables, math and Vue template",
+    "06 /ocr/: literal code, headings, details, tables, math and Vue template",
+    "07 /: literal code, headings, details, tables, math and Vue template",
+    "07 /ocr/: literal code, headings, details, tables, math and Vue template",
+    "08 /: literal code, headings, details, tables, math and Vue template",
+    "08 /ocr/: literal code, headings, details, tables, math and Vue template",
+    "09 /: literal code, headings, details, tables, math and Vue template",
+    "09 /ocr/: literal code, headings, details, tables, math and Vue template",
+    "10 /: literal code, headings, details, tables, math and Vue template",
+    "10 /ocr/: literal code, headings, details, tables, math and Vue template",
+    "11 /: literal code, headings, details, tables, math and Vue template",
+    "11 /ocr/: literal code, headings, details, tables, math and Vue template",
+    "12 /: literal code, headings, details, tables, math and Vue template",
+    "12 /ocr/: literal code, headings, details, tables, math and Vue template",
+    "13 /: literal code, headings, details, tables, math and Vue template",
+    "13 /ocr/: literal code, headings, details, tables, math and Vue template",
+    "14 /: literal code, headings, details, tables, math and Vue template",
+    "14 /ocr/: literal code, headings, details, tables, math and Vue template",
+    "15 /: literal code, headings, details, tables, math and Vue template",
+    "15 /ocr/: literal code, headings, details, tables, math and Vue template",
+    "16 /: literal code, headings, details, tables, math and Vue template",
+    "16 /ocr/: literal code, headings, details, tables, math and Vue template",
+    "17 /: literal code, headings, details, tables, math and Vue template",
+    "17 /ocr/: literal code, headings, details, tables, math and Vue template",
+    "18 /: literal code, headings, details, tables, math and Vue template",
+    "18 /ocr/: literal code, headings, details, tables, math and Vue template",
+    "19 /: literal code, headings, details, tables, math and Vue template",
+    "19 /ocr/: literal code, headings, details, tables, math and Vue template",
+    "20 /: literal code, headings, details, tables, math and Vue template",
+    "20 /ocr/: literal code, headings, details, tables, math and Vue template",
+    "21 /: literal code, headings, details, tables, math and Vue template",
+    "21 /ocr/: literal code, headings, details, tables, math and Vue template",
+    "22 /: literal code, headings, details, tables, math and Vue template",
+    "22 /ocr/: literal code, headings, details, tables, math and Vue template",
+    "23 /: literal code, headings, details, tables, math and Vue template",
+    "23 /ocr/: literal code, headings, details, tables, math and Vue template",
+    "24 /: literal code, headings, details, tables, math and Vue template",
+    "24 /ocr/: literal code, headings, details, tables, math and Vue template",
+    "25 /: literal code, headings, details, tables, math and Vue template",
+    "25 /ocr/: literal code, headings, details, tables, math and Vue template",
+    "26 /: literal code, headings, details, tables, math and Vue template",
+    "26 /ocr/: literal code, headings, details, tables, math and Vue template",
+    "/: link classification and base",
+    "/ocr/: link classification and base",
+    "bracket/dollar, matrix, aligned, cases, details, ASCII, code fixture",
+    "editing page 1 preserves pages 10–19 in the search index",
+    "full body search: 类间方差",
+    "full body search: 梯度消失",
+    "full body search: CTC",
+    "full body search: blank",
+    "Chinese UI and explicit page scope",
+    "real Otsu search snippet displays quotes as text",
+    "decode HTML entity text exactly once without changing IDs or plain fields",
+    "Vue search text keeps highlighting and escapes decoded markup"
+  ],
+  "hotReload": {
+    "beforeDocuments": 871,
+    "afterDocuments": 871,
+    "status": "passed"
+  },
+  "searchText": {
+    "quotedExcerpt": "类间方差衡量的是：前景均值和背景均值之间的\"距离\"有多大。",
+    "decodedText": "类间方差 \"距离\" '单引号' \"十六进制\" & &quot; <img src=x onerror=alert(1)> <script>alert(1)</script>",
+    "safeSnippetHtml": "<div><mark>类间方差</mark> &quot;距离&quot; &#39;单引号&#39; &quot;十六进制&quot; &amp; &amp;quot; &lt;img src=x onerror=alert(1)&gt; &lt;script&gt;alert(1)&lt;/script&gt;</div>",
+    "status": "passed"
+  }
+}

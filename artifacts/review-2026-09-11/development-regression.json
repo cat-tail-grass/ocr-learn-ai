@@ -1,0 +1,1952 @@
+{
+  "createdAt": "2026-09-11T11:18:51.550Z",
+  "purpose": "修复后开发集回归；非独立测试、非实拍，未训练或选参",
+  "config": {
+    "pipelineVersion": "ocr-photo-v2-2026-09-11",
+    "thresholdMethod": "otsu",
+    "autoDeskew": true,
+    "correctionAngle": 0,
+    "denoise": false,
+    "preprocessingId": "dark-rgba-bbox20-centroid-v1"
+  },
+  "modelId": "ocr-mnist-cnn-v1-9c7b0b8e8224",
+  "weightsSha256": "9c7b0b8e8224d188ddc38bcaf680dd032753441d6b3413870e7722a457fed90c",
+  "historicalSummary": {
+    "microCER": 0.015625,
+    "exactMatchAccuracy": 0.9166666666666666
+  },
+  "summary": {
+    "totalSamples": 12,
+    "evaluatedSamples": 12,
+    "pendingSamples": 0,
+    "excludedSamples": 0,
+    "failedSamples": 0,
+    "totalTruthCharacters": 64,
+    "substitutions": 1,
+    "deletions": 0,
+    "insertions": 0,
+    "totalErrors": 1,
+    "microCER": 0.015625,
+    "exactMatches": 11,
+    "exactMatchAccuracy": 0.9166666666666666,
+    "records": [
+      {
+        "id": "development-1",
+        "imageId": "c95cc2fcaa6044548643845aadf003ca4d5e1b21b31c5f0b19bd69a113a94438",
+        "truth": "001208",
+        "prediction": "001208",
+        "status": "ok",
+        "sampleKind": "synthetic-mnist",
+        "modelId": "ocr-mnist-cnn-v1-9c7b0b8e8224",
+        "config": {
+          "pipelineVersion": "ocr-photo-v2-2026-09-11",
+          "thresholdMethod": "otsu",
+          "autoDeskew": true,
+          "correctionAngle": 0,
+          "denoise": false,
+          "preprocessingId": "dark-rgba-bbox20-centroid-v1"
+        },
+        "error": null,
+        "correctionAngle": 0,
+        "boxes": [
+          {
+            "x": 52,
+            "y": 44,
+            "width": 45,
+            "height": 57
+          },
+          {
+            "x": 135,
+            "y": 47,
+            "width": 55,
+            "height": 57
+          },
+          {
+            "x": 226,
+            "y": 47,
+            "width": 48,
+            "height": 57
+          },
+          {
+            "x": 314,
+            "y": 49,
+            "width": 57,
+            "height": 41
+          },
+          {
+            "x": 406,
+            "y": 44,
+            "width": 41,
+            "height": 57
+          },
+          {
+            "x": 485,
+            "y": 47,
+            "width": 55,
+            "height": 57
+          }
+        ],
+        "elapsedMs": 111,
+        "exclusionReason": "",
+        "rawPrediction": "001208",
+        "disposition": "evaluated",
+        "included": true,
+        "failed": false,
+        "truthLength": 6,
+        "distance": 0,
+        "substitutions": 0,
+        "deletions": 0,
+        "insertions": 0,
+        "cer": 0,
+        "exactMatch": true,
+        "alignment": [
+          {
+            "operation": "M",
+            "truth": "0",
+            "prediction": "0",
+            "truthIndex": 0,
+            "predictionIndex": 0
+          },
+          {
+            "operation": "M",
+            "truth": "0",
+            "prediction": "0",
+            "truthIndex": 1,
+            "predictionIndex": 1
+          },
+          {
+            "operation": "M",
+            "truth": "1",
+            "prediction": "1",
+            "truthIndex": 2,
+            "predictionIndex": 2
+          },
+          {
+            "operation": "M",
+            "truth": "2",
+            "prediction": "2",
+            "truthIndex": 3,
+            "predictionIndex": 3
+          },
+          {
+            "operation": "M",
+            "truth": "0",
+            "prediction": "0",
+            "truthIndex": 4,
+            "predictionIndex": 4
+          },
+          {
+            "operation": "M",
+            "truth": "8",
+            "prediction": "8",
+            "truthIndex": 5,
+            "predictionIndex": 5
+          }
+        ]
+      },
+      {
+        "id": "development-2",
+        "imageId": "180b8f75a170f96d51de3b1d673dd98712c08030e122af572695ed055a0e8bba",
+        "truth": "112233",
+        "prediction": "112233",
+        "status": "ok",
+        "sampleKind": "synthetic-mnist",
+        "modelId": "ocr-mnist-cnn-v1-9c7b0b8e8224",
+        "config": {
+          "pipelineVersion": "ocr-photo-v2-2026-09-11",
+          "thresholdMethod": "otsu",
+          "autoDeskew": true,
+          "correctionAngle": 0,
+          "denoise": false,
+          "preprocessingId": "dark-rgba-bbox20-centroid-v1"
+        },
+        "error": null,
+        "correctionAngle": 4,
+        "boxes": [
+          {
+            "x": 70,
+            "y": 60,
+            "width": 12,
+            "height": 57
+          },
+          {
+            "x": 156,
+            "y": 61,
+            "width": 19,
+            "height": 58
+          },
+          {
+            "x": 229,
+            "y": 67,
+            "width": 57,
+            "height": 42
+          },
+          {
+            "x": 314,
+            "y": 58,
+            "width": 50,
+            "height": 58
+          },
+          {
+            "x": 408,
+            "y": 60,
+            "width": 40,
+            "height": 57
+          },
+          {
+            "x": 491,
+            "y": 61,
+            "width": 45,
+            "height": 58
+          }
+        ],
+        "elapsedMs": 99,
+        "exclusionReason": "",
+        "rawPrediction": "112233",
+        "disposition": "evaluated",
+        "included": true,
+        "failed": false,
+        "truthLength": 6,
+        "distance": 0,
+        "substitutions": 0,
+        "deletions": 0,
+        "insertions": 0,
+        "cer": 0,
+        "exactMatch": true,
+        "alignment": [
+          {
+            "operation": "M",
+            "truth": "1",
+            "prediction": "1",
+            "truthIndex": 0,
+            "predictionIndex": 0
+          },
+          {
+            "operation": "M",
+            "truth": "1",
+            "prediction": "1",
+            "truthIndex": 1,
+            "predictionIndex": 1
+          },
+          {
+            "operation": "M",
+            "truth": "2",
+            "prediction": "2",
+            "truthIndex": 2,
+            "predictionIndex": 2
+          },
+          {
+            "operation": "M",
+            "truth": "2",
+            "prediction": "2",
+            "truthIndex": 3,
+            "predictionIndex": 3
+          },
+          {
+            "operation": "M",
+            "truth": "3",
+            "prediction": "3",
+            "truthIndex": 4,
+            "predictionIndex": 4
+          },
+          {
+            "operation": "M",
+            "truth": "3",
+            "prediction": "3",
+            "truthIndex": 5,
+            "predictionIndex": 5
+          }
+        ]
+      },
+      {
+        "id": "development-3",
+        "imageId": "5f1d5cb0c75aa9d90f4bccee9940c1c5d3f5e3883822745c5cfa29d8c05e62af",
+        "truth": "987654",
+        "prediction": "987659",
+        "status": "ok",
+        "sampleKind": "synthetic-mnist",
+        "modelId": "ocr-mnist-cnn-v1-9c7b0b8e8224",
+        "config": {
+          "pipelineVersion": "ocr-photo-v2-2026-09-11",
+          "thresholdMethod": "otsu",
+          "autoDeskew": true,
+          "correctionAngle": 0,
+          "denoise": false,
+          "preprocessingId": "dark-rgba-bbox20-centroid-v1"
+        },
+        "error": null,
+        "correctionAngle": 0,
+        "boxes": [
+          {
+            "x": 50,
+            "y": 47,
+            "width": 40,
+            "height": 56
+          },
+          {
+            "x": 139,
+            "y": 49,
+            "width": 54,
+            "height": 58
+          },
+          {
+            "x": 219,
+            "y": 55,
+            "width": 51,
+            "height": 58
+          },
+          {
+            "x": 314,
+            "y": 38,
+            "width": 56,
+            "height": 57
+          },
+          {
+            "x": 401,
+            "y": 50,
+            "width": 57,
+            "height": 56
+          },
+          {
+            "x": 495,
+            "y": 53,
+            "width": 29,
+            "height": 57
+          }
+        ],
+        "elapsedMs": 50,
+        "exclusionReason": "",
+        "rawPrediction": "987659",
+        "disposition": "evaluated",
+        "included": true,
+        "failed": false,
+        "truthLength": 6,
+        "distance": 1,
+        "substitutions": 1,
+        "deletions": 0,
+        "insertions": 0,
+        "cer": 0.16666666666666666,
+        "exactMatch": false,
+        "alignment": [
+          {
+            "operation": "M",
+            "truth": "9",
+            "prediction": "9",
+            "truthIndex": 0,
+            "predictionIndex": 0
+          },
+          {
+            "operation": "M",
+            "truth": "8",
+            "prediction": "8",
+            "truthIndex": 1,
+            "predictionIndex": 1
+          },
+          {
+            "operation": "M",
+            "truth": "7",
+            "prediction": "7",
+            "truthIndex": 2,
+            "predictionIndex": 2
+          },
+          {
+            "operation": "M",
+            "truth": "6",
+            "prediction": "6",
+            "truthIndex": 3,
+            "predictionIndex": 3
+          },
+          {
+            "operation": "M",
+            "truth": "5",
+            "prediction": "5",
+            "truthIndex": 4,
+            "predictionIndex": 4
+          },
+          {
+            "operation": "S",
+            "truth": "4",
+            "prediction": "9",
+            "truthIndex": 5,
+            "predictionIndex": 5
+          }
+        ]
+      },
+      {
+        "id": "development-4",
+        "imageId": "91942932ec2f3aea34195cf9e6b1b3543b8d8d0af403b247be814f899368aa5e",
+        "truth": "305",
+        "prediction": "305",
+        "status": "ok",
+        "sampleKind": "synthetic-mnist",
+        "modelId": "ocr-mnist-cnn-v1-9c7b0b8e8224",
+        "config": {
+          "pipelineVersion": "ocr-photo-v2-2026-09-11",
+          "thresholdMethod": "otsu",
+          "autoDeskew": true,
+          "correctionAngle": 0,
+          "denoise": false,
+          "preprocessingId": "dark-rgba-bbox20-centroid-v1"
+        },
+        "error": null,
+        "correctionAngle": 0,
+        "boxes": [
+          {
+            "x": 53,
+            "y": 46,
+            "width": 43,
+            "height": 58
+          },
+          {
+            "x": 132,
+            "y": 47,
+            "width": 57,
+            "height": 56
+          },
+          {
+            "x": 237,
+            "y": 49,
+            "width": 29,
+            "height": 58
+          }
+        ],
+        "elapsedMs": 28,
+        "exclusionReason": "",
+        "rawPrediction": "305",
+        "disposition": "evaluated",
+        "included": true,
+        "failed": false,
+        "truthLength": 3,
+        "distance": 0,
+        "substitutions": 0,
+        "deletions": 0,
+        "insertions": 0,
+        "cer": 0,
+        "exactMatch": true,
+        "alignment": [
+          {
+            "operation": "M",
+            "truth": "3",
+            "prediction": "3",
+            "truthIndex": 0,
+            "predictionIndex": 0
+          },
+          {
+            "operation": "M",
+            "truth": "0",
+            "prediction": "0",
+            "truthIndex": 1,
+            "predictionIndex": 1
+          },
+          {
+            "operation": "M",
+            "truth": "5",
+            "prediction": "5",
+            "truthIndex": 2,
+            "predictionIndex": 2
+          }
+        ]
+      },
+      {
+        "id": "development-5",
+        "imageId": "ee04f8bf38f28dfb02aac507868fdf7282b98eef6f5f753a2c963c73b7148620",
+        "truth": "00011",
+        "prediction": "00011",
+        "status": "ok",
+        "sampleKind": "synthetic-mnist",
+        "modelId": "ocr-mnist-cnn-v1-9c7b0b8e8224",
+        "config": {
+          "pipelineVersion": "ocr-photo-v2-2026-09-11",
+          "thresholdMethod": "otsu",
+          "autoDeskew": true,
+          "correctionAngle": 0,
+          "denoise": false,
+          "preprocessingId": "dark-rgba-bbox20-centroid-v1"
+        },
+        "error": null,
+        "correctionAngle": 3,
+        "boxes": [
+          {
+            "x": 54,
+            "y": 54,
+            "width": 48,
+            "height": 57
+          },
+          {
+            "x": 150,
+            "y": 54,
+            "width": 33,
+            "height": 57
+          },
+          {
+            "x": 235,
+            "y": 60,
+            "width": 39,
+            "height": 57
+          },
+          {
+            "x": 338,
+            "y": 54,
+            "width": 10,
+            "height": 57
+          },
+          {
+            "x": 412,
+            "y": 57,
+            "width": 32,
+            "height": 57
+          }
+        ],
+        "elapsedMs": 50,
+        "exclusionReason": "",
+        "rawPrediction": "00011",
+        "disposition": "evaluated",
+        "included": true,
+        "failed": false,
+        "truthLength": 5,
+        "distance": 0,
+        "substitutions": 0,
+        "deletions": 0,
+        "insertions": 0,
+        "cer": 0,
+        "exactMatch": true,
+        "alignment": [
+          {
+            "operation": "M",
+            "truth": "0",
+            "prediction": "0",
+            "truthIndex": 0,
+            "predictionIndex": 0
+          },
+          {
+            "operation": "M",
+            "truth": "0",
+            "prediction": "0",
+            "truthIndex": 1,
+            "predictionIndex": 1
+          },
+          {
+            "operation": "M",
+            "truth": "0",
+            "prediction": "0",
+            "truthIndex": 2,
+            "predictionIndex": 2
+          },
+          {
+            "operation": "M",
+            "truth": "1",
+            "prediction": "1",
+            "truthIndex": 3,
+            "predictionIndex": 3
+          },
+          {
+            "operation": "M",
+            "truth": "1",
+            "prediction": "1",
+            "truthIndex": 4,
+            "predictionIndex": 4
+          }
+        ]
+      },
+      {
+        "id": "development-6",
+        "imageId": "d64a05d61c2854532bd2d44258c197f0b25d741393c4d1edbd22dd4ce79c21a3",
+        "truth": "70890",
+        "prediction": "70890",
+        "status": "ok",
+        "sampleKind": "synthetic-mnist",
+        "modelId": "ocr-mnist-cnn-v1-9c7b0b8e8224",
+        "config": {
+          "pipelineVersion": "ocr-photo-v2-2026-09-11",
+          "thresholdMethod": "otsu",
+          "autoDeskew": true,
+          "correctionAngle": 0,
+          "denoise": false,
+          "preprocessingId": "dark-rgba-bbox20-centroid-v1"
+        },
+        "error": null,
+        "correctionAngle": 0,
+        "boxes": [
+          {
+            "x": 50,
+            "y": 50,
+            "width": 39,
+            "height": 57
+          },
+          {
+            "x": 132,
+            "y": 48,
+            "width": 57,
+            "height": 54
+          },
+          {
+            "x": 231,
+            "y": 50,
+            "width": 45,
+            "height": 57
+          },
+          {
+            "x": 314,
+            "y": 46,
+            "width": 43,
+            "height": 58
+          },
+          {
+            "x": 396,
+            "y": 49,
+            "width": 57,
+            "height": 51
+          }
+        ],
+        "elapsedMs": 63,
+        "exclusionReason": "",
+        "rawPrediction": "70890",
+        "disposition": "evaluated",
+        "included": true,
+        "failed": false,
+        "truthLength": 5,
+        "distance": 0,
+        "substitutions": 0,
+        "deletions": 0,
+        "insertions": 0,
+        "cer": 0,
+        "exactMatch": true,
+        "alignment": [
+          {
+            "operation": "M",
+            "truth": "7",
+            "prediction": "7",
+            "truthIndex": 0,
+            "predictionIndex": 0
+          },
+          {
+            "operation": "M",
+            "truth": "0",
+            "prediction": "0",
+            "truthIndex": 1,
+            "predictionIndex": 1
+          },
+          {
+            "operation": "M",
+            "truth": "8",
+            "prediction": "8",
+            "truthIndex": 2,
+            "predictionIndex": 2
+          },
+          {
+            "operation": "M",
+            "truth": "9",
+            "prediction": "9",
+            "truthIndex": 3,
+            "predictionIndex": 3
+          },
+          {
+            "operation": "M",
+            "truth": "0",
+            "prediction": "0",
+            "truthIndex": 4,
+            "predictionIndex": 4
+          }
+        ]
+      },
+      {
+        "id": "development-7",
+        "imageId": "6a827978f3c7a6c21756a1042a6f559ef9a02ecdf6682cfa2b3ee9f3bc5e2d6d",
+        "truth": "24680",
+        "prediction": "24680",
+        "status": "ok",
+        "sampleKind": "synthetic-mnist",
+        "modelId": "ocr-mnist-cnn-v1-9c7b0b8e8224",
+        "config": {
+          "pipelineVersion": "ocr-photo-v2-2026-09-11",
+          "thresholdMethod": "otsu",
+          "autoDeskew": true,
+          "correctionAngle": 0,
+          "denoise": false,
+          "preprocessingId": "dark-rgba-bbox20-centroid-v1"
+        },
+        "error": null,
+        "correctionAngle": 0,
+        "boxes": [
+          {
+            "x": 53,
+            "y": 41,
+            "width": 43,
+            "height": 57
+          },
+          {
+            "x": 143,
+            "y": 47,
+            "width": 31,
+            "height": 57
+          },
+          {
+            "x": 234,
+            "y": 41,
+            "width": 35,
+            "height": 58
+          },
+          {
+            "x": 308,
+            "y": 45,
+            "width": 57,
+            "height": 55
+          },
+          {
+            "x": 401,
+            "y": 44,
+            "width": 51,
+            "height": 57
+          }
+        ],
+        "elapsedMs": 45,
+        "exclusionReason": "",
+        "rawPrediction": "24680",
+        "disposition": "evaluated",
+        "included": true,
+        "failed": false,
+        "truthLength": 5,
+        "distance": 0,
+        "substitutions": 0,
+        "deletions": 0,
+        "insertions": 0,
+        "cer": 0,
+        "exactMatch": true,
+        "alignment": [
+          {
+            "operation": "M",
+            "truth": "2",
+            "prediction": "2",
+            "truthIndex": 0,
+            "predictionIndex": 0
+          },
+          {
+            "operation": "M",
+            "truth": "4",
+            "prediction": "4",
+            "truthIndex": 1,
+            "predictionIndex": 1
+          },
+          {
+            "operation": "M",
+            "truth": "6",
+            "prediction": "6",
+            "truthIndex": 2,
+            "predictionIndex": 2
+          },
+          {
+            "operation": "M",
+            "truth": "8",
+            "prediction": "8",
+            "truthIndex": 3,
+            "predictionIndex": 3
+          },
+          {
+            "operation": "M",
+            "truth": "0",
+            "prediction": "0",
+            "truthIndex": 4,
+            "predictionIndex": 4
+          }
+        ]
+      },
+      {
+        "id": "development-8",
+        "imageId": "2b02b1f55d27419eef60310d1838fbc4d151cf0ae7b27a6eda32179ffdb0d013",
+        "truth": "13579",
+        "prediction": "13579",
+        "status": "ok",
+        "sampleKind": "synthetic-mnist",
+        "modelId": "ocr-mnist-cnn-v1-9c7b0b8e8224",
+        "config": {
+          "pipelineVersion": "ocr-photo-v2-2026-09-11",
+          "thresholdMethod": "otsu",
+          "autoDeskew": true,
+          "correctionAngle": 0,
+          "denoise": false,
+          "preprocessingId": "dark-rgba-bbox20-centroid-v1"
+        },
+        "error": null,
+        "correctionAngle": 4,
+        "boxes": [
+          {
+            "x": 66,
+            "y": 57,
+            "width": 24,
+            "height": 58
+          },
+          {
+            "x": 140,
+            "y": 55,
+            "width": 52,
+            "height": 58
+          },
+          {
+            "x": 238,
+            "y": 63,
+            "width": 34,
+            "height": 57
+          },
+          {
+            "x": 323,
+            "y": 55,
+            "width": 38,
+            "height": 58
+          },
+          {
+            "x": 419,
+            "y": 62,
+            "width": 24,
+            "height": 57
+          }
+        ],
+        "elapsedMs": 35,
+        "exclusionReason": "",
+        "rawPrediction": "13579",
+        "disposition": "evaluated",
+        "included": true,
+        "failed": false,
+        "truthLength": 5,
+        "distance": 0,
+        "substitutions": 0,
+        "deletions": 0,
+        "insertions": 0,
+        "cer": 0,
+        "exactMatch": true,
+        "alignment": [
+          {
+            "operation": "M",
+            "truth": "1",
+            "prediction": "1",
+            "truthIndex": 0,
+            "predictionIndex": 0
+          },
+          {
+            "operation": "M",
+            "truth": "3",
+            "prediction": "3",
+            "truthIndex": 1,
+            "predictionIndex": 1
+          },
+          {
+            "operation": "M",
+            "truth": "5",
+            "prediction": "5",
+            "truthIndex": 2,
+            "predictionIndex": 2
+          },
+          {
+            "operation": "M",
+            "truth": "7",
+            "prediction": "7",
+            "truthIndex": 3,
+            "predictionIndex": 3
+          },
+          {
+            "operation": "M",
+            "truth": "9",
+            "prediction": "9",
+            "truthIndex": 4,
+            "predictionIndex": 4
+          }
+        ]
+      },
+      {
+        "id": "development-9",
+        "imageId": "ec2a00a6d9383f5f3f0f81e67b66053097eaa0f0648b656ccbf1cb6b88dc9cf3",
+        "truth": "90009",
+        "prediction": "90009",
+        "status": "ok",
+        "sampleKind": "synthetic-mnist",
+        "modelId": "ocr-mnist-cnn-v1-9c7b0b8e8224",
+        "config": {
+          "pipelineVersion": "ocr-photo-v2-2026-09-11",
+          "thresholdMethod": "otsu",
+          "autoDeskew": true,
+          "correctionAngle": 0,
+          "denoise": false,
+          "preprocessingId": "dark-rgba-bbox20-centroid-v1"
+        },
+        "error": null,
+        "correctionAngle": 0,
+        "boxes": [
+          {
+            "x": 53,
+            "y": 47,
+            "width": 39,
+            "height": 57
+          },
+          {
+            "x": 141,
+            "y": 47,
+            "width": 45,
+            "height": 57
+          },
+          {
+            "x": 226,
+            "y": 47,
+            "width": 45,
+            "height": 57
+          },
+          {
+            "x": 314,
+            "y": 41,
+            "width": 50,
+            "height": 57
+          },
+          {
+            "x": 403,
+            "y": 49,
+            "width": 48,
+            "height": 58
+          }
+        ],
+        "elapsedMs": 33,
+        "exclusionReason": "",
+        "rawPrediction": "90009",
+        "disposition": "evaluated",
+        "included": true,
+        "failed": false,
+        "truthLength": 5,
+        "distance": 0,
+        "substitutions": 0,
+        "deletions": 0,
+        "insertions": 0,
+        "cer": 0,
+        "exactMatch": true,
+        "alignment": [
+          {
+            "operation": "M",
+            "truth": "9",
+            "prediction": "9",
+            "truthIndex": 0,
+            "predictionIndex": 0
+          },
+          {
+            "operation": "M",
+            "truth": "0",
+            "prediction": "0",
+            "truthIndex": 1,
+            "predictionIndex": 1
+          },
+          {
+            "operation": "M",
+            "truth": "0",
+            "prediction": "0",
+            "truthIndex": 2,
+            "predictionIndex": 2
+          },
+          {
+            "operation": "M",
+            "truth": "0",
+            "prediction": "0",
+            "truthIndex": 3,
+            "predictionIndex": 3
+          },
+          {
+            "operation": "M",
+            "truth": "9",
+            "prediction": "9",
+            "truthIndex": 4,
+            "predictionIndex": 4
+          }
+        ]
+      },
+      {
+        "id": "development-10",
+        "imageId": "0c64a4d1edbc29d8ecada7bc455370fb37b46aa9ba27d3872f9f379a84a6a470",
+        "truth": "101010",
+        "prediction": "101010",
+        "status": "ok",
+        "sampleKind": "synthetic-mnist",
+        "modelId": "ocr-mnist-cnn-v1-9c7b0b8e8224",
+        "config": {
+          "pipelineVersion": "ocr-photo-v2-2026-09-11",
+          "thresholdMethod": "otsu",
+          "autoDeskew": true,
+          "correctionAngle": 0,
+          "denoise": false,
+          "preprocessingId": "dark-rgba-bbox20-centroid-v1"
+        },
+        "error": null,
+        "correctionAngle": 0,
+        "boxes": [
+          {
+            "x": 64,
+            "y": 44,
+            "width": 23,
+            "height": 57
+          },
+          {
+            "x": 136,
+            "y": 44,
+            "width": 53,
+            "height": 57
+          },
+          {
+            "x": 243,
+            "y": 44,
+            "width": 16,
+            "height": 57
+          },
+          {
+            "x": 311,
+            "y": 41,
+            "width": 57,
+            "height": 54
+          },
+          {
+            "x": 408,
+            "y": 47,
+            "width": 37,
+            "height": 57
+          },
+          {
+            "x": 487,
+            "y": 50,
+            "width": 57,
+            "height": 57
+          }
+        ],
+        "elapsedMs": 26,
+        "exclusionReason": "",
+        "rawPrediction": "101010",
+        "disposition": "evaluated",
+        "included": true,
+        "failed": false,
+        "truthLength": 6,
+        "distance": 0,
+        "substitutions": 0,
+        "deletions": 0,
+        "insertions": 0,
+        "cer": 0,
+        "exactMatch": true,
+        "alignment": [
+          {
+            "operation": "M",
+            "truth": "1",
+            "prediction": "1",
+            "truthIndex": 0,
+            "predictionIndex": 0
+          },
+          {
+            "operation": "M",
+            "truth": "0",
+            "prediction": "0",
+            "truthIndex": 1,
+            "predictionIndex": 1
+          },
+          {
+            "operation": "M",
+            "truth": "1",
+            "prediction": "1",
+            "truthIndex": 2,
+            "predictionIndex": 2
+          },
+          {
+            "operation": "M",
+            "truth": "0",
+            "prediction": "0",
+            "truthIndex": 3,
+            "predictionIndex": 3
+          },
+          {
+            "operation": "M",
+            "truth": "1",
+            "prediction": "1",
+            "truthIndex": 4,
+            "predictionIndex": 4
+          },
+          {
+            "operation": "M",
+            "truth": "0",
+            "prediction": "0",
+            "truthIndex": 5,
+            "predictionIndex": 5
+          }
+        ]
+      },
+      {
+        "id": "development-11",
+        "imageId": "1276df28a37e2fde8a06125175432a5ee2b27438759533e56962361fa9f04ca0",
+        "truth": "827364",
+        "prediction": "827364",
+        "status": "ok",
+        "sampleKind": "synthetic-mnist",
+        "modelId": "ocr-mnist-cnn-v1-9c7b0b8e8224",
+        "config": {
+          "pipelineVersion": "ocr-photo-v2-2026-09-11",
+          "thresholdMethod": "otsu",
+          "autoDeskew": true,
+          "correctionAngle": 0,
+          "denoise": false,
+          "preprocessingId": "dark-rgba-bbox20-centroid-v1"
+        },
+        "error": null,
+        "correctionAngle": 3,
+        "boxes": [
+          {
+            "x": 56,
+            "y": 59,
+            "width": 51,
+            "height": 57
+          },
+          {
+            "x": 130,
+            "y": 58,
+            "width": 57,
+            "height": 54
+          },
+          {
+            "x": 227,
+            "y": 68,
+            "width": 43,
+            "height": 57
+          },
+          {
+            "x": 330,
+            "y": 59,
+            "width": 25,
+            "height": 57
+          },
+          {
+            "x": 403,
+            "y": 56,
+            "width": 49,
+            "height": 58
+          },
+          {
+            "x": 493,
+            "y": 65,
+            "width": 46,
+            "height": 57
+          }
+        ],
+        "elapsedMs": 36,
+        "exclusionReason": "",
+        "rawPrediction": "827364",
+        "disposition": "evaluated",
+        "included": true,
+        "failed": false,
+        "truthLength": 6,
+        "distance": 0,
+        "substitutions": 0,
+        "deletions": 0,
+        "insertions": 0,
+        "cer": 0,
+        "exactMatch": true,
+        "alignment": [
+          {
+            "operation": "M",
+            "truth": "8",
+            "prediction": "8",
+            "truthIndex": 0,
+            "predictionIndex": 0
+          },
+          {
+            "operation": "M",
+            "truth": "2",
+            "prediction": "2",
+            "truthIndex": 1,
+            "predictionIndex": 1
+          },
+          {
+            "operation": "M",
+            "truth": "7",
+            "prediction": "7",
+            "truthIndex": 2,
+            "predictionIndex": 2
+          },
+          {
+            "operation": "M",
+            "truth": "3",
+            "prediction": "3",
+            "truthIndex": 3,
+            "predictionIndex": 3
+          },
+          {
+            "operation": "M",
+            "truth": "6",
+            "prediction": "6",
+            "truthIndex": 4,
+            "predictionIndex": 4
+          },
+          {
+            "operation": "M",
+            "truth": "4",
+            "prediction": "4",
+            "truthIndex": 5,
+            "predictionIndex": 5
+          }
+        ]
+      },
+      {
+        "id": "development-12",
+        "imageId": "c9dd695495f17da331feb1fab1cf724fc2793928be59a84e67e8935d9e12d326",
+        "truth": "556677",
+        "prediction": "556677",
+        "status": "ok",
+        "sampleKind": "synthetic-mnist",
+        "modelId": "ocr-mnist-cnn-v1-9c7b0b8e8224",
+        "config": {
+          "pipelineVersion": "ocr-photo-v2-2026-09-11",
+          "thresholdMethod": "otsu",
+          "autoDeskew": true,
+          "correctionAngle": 0,
+          "denoise": false,
+          "preprocessingId": "dark-rgba-bbox20-centroid-v1"
+        },
+        "error": null,
+        "correctionAngle": 0,
+        "boxes": [
+          {
+            "x": 52,
+            "y": 44,
+            "width": 57,
+            "height": 55
+          },
+          {
+            "x": 141,
+            "y": 58,
+            "width": 57,
+            "height": 40
+          },
+          {
+            "x": 229,
+            "y": 41,
+            "width": 45,
+            "height": 58
+          },
+          {
+            "x": 311,
+            "y": 35,
+            "width": 55,
+            "height": 58
+          },
+          {
+            "x": 396,
+            "y": 52,
+            "width": 57,
+            "height": 58
+          },
+          {
+            "x": 492,
+            "y": 55,
+            "width": 41,
+            "height": 58
+          }
+        ],
+        "elapsedMs": 24,
+        "exclusionReason": "",
+        "rawPrediction": "556677",
+        "disposition": "evaluated",
+        "included": true,
+        "failed": false,
+        "truthLength": 6,
+        "distance": 0,
+        "substitutions": 0,
+        "deletions": 0,
+        "insertions": 0,
+        "cer": 0,
+        "exactMatch": true,
+        "alignment": [
+          {
+            "operation": "M",
+            "truth": "5",
+            "prediction": "5",
+            "truthIndex": 0,
+            "predictionIndex": 0
+          },
+          {
+            "operation": "M",
+            "truth": "5",
+            "prediction": "5",
+            "truthIndex": 1,
+            "predictionIndex": 1
+          },
+          {
+            "operation": "M",
+            "truth": "6",
+            "prediction": "6",
+            "truthIndex": 2,
+            "predictionIndex": 2
+          },
+          {
+            "operation": "M",
+            "truth": "6",
+            "prediction": "6",
+            "truthIndex": 3,
+            "predictionIndex": 3
+          },
+          {
+            "operation": "M",
+            "truth": "7",
+            "prediction": "7",
+            "truthIndex": 4,
+            "predictionIndex": 4
+          },
+          {
+            "operation": "M",
+            "truth": "7",
+            "prediction": "7",
+            "truthIndex": 5,
+            "predictionIndex": 5
+          }
+        ]
+      }
+    ]
+  },
+  "realPhotoCount": 0,
+  "tensorsBefore": 0,
+  "tensorsAfter": 0,
+  "records": [
+    {
+      "id": "development-1",
+      "imageId": "c95cc2fcaa6044548643845aadf003ca4d5e1b21b31c5f0b19bd69a113a94438",
+      "truth": "001208",
+      "prediction": "001208",
+      "status": "ok",
+      "sampleKind": "synthetic-mnist",
+      "modelId": "ocr-mnist-cnn-v1-9c7b0b8e8224",
+      "config": {
+        "pipelineVersion": "ocr-photo-v2-2026-09-11",
+        "thresholdMethod": "otsu",
+        "autoDeskew": true,
+        "correctionAngle": 0,
+        "denoise": false,
+        "preprocessingId": "dark-rgba-bbox20-centroid-v1"
+      },
+      "error": null,
+      "correctionAngle": 0,
+      "boxes": [
+        {
+          "x": 52,
+          "y": 44,
+          "width": 45,
+          "height": 57
+        },
+        {
+          "x": 135,
+          "y": 47,
+          "width": 55,
+          "height": 57
+        },
+        {
+          "x": 226,
+          "y": 47,
+          "width": 48,
+          "height": 57
+        },
+        {
+          "x": 314,
+          "y": 49,
+          "width": 57,
+          "height": 41
+        },
+        {
+          "x": 406,
+          "y": 44,
+          "width": 41,
+          "height": 57
+        },
+        {
+          "x": 485,
+          "y": 47,
+          "width": 55,
+          "height": 57
+        }
+      ],
+      "elapsedMs": 111
+    },
+    {
+      "id": "development-2",
+      "imageId": "180b8f75a170f96d51de3b1d673dd98712c08030e122af572695ed055a0e8bba",
+      "truth": "112233",
+      "prediction": "112233",
+      "status": "ok",
+      "sampleKind": "synthetic-mnist",
+      "modelId": "ocr-mnist-cnn-v1-9c7b0b8e8224",
+      "config": {
+        "pipelineVersion": "ocr-photo-v2-2026-09-11",
+        "thresholdMethod": "otsu",
+        "autoDeskew": true,
+        "correctionAngle": 0,
+        "denoise": false,
+        "preprocessingId": "dark-rgba-bbox20-centroid-v1"
+      },
+      "error": null,
+      "correctionAngle": 4,
+      "boxes": [
+        {
+          "x": 70,
+          "y": 60,
+          "width": 12,
+          "height": 57
+        },
+        {
+          "x": 156,
+          "y": 61,
+          "width": 19,
+          "height": 58
+        },
+        {
+          "x": 229,
+          "y": 67,
+          "width": 57,
+          "height": 42
+        },
+        {
+          "x": 314,
+          "y": 58,
+          "width": 50,
+          "height": 58
+        },
+        {
+          "x": 408,
+          "y": 60,
+          "width": 40,
+          "height": 57
+        },
+        {
+          "x": 491,
+          "y": 61,
+          "width": 45,
+          "height": 58
+        }
+      ],
+      "elapsedMs": 99
+    },
+    {
+      "id": "development-3",
+      "imageId": "5f1d5cb0c75aa9d90f4bccee9940c1c5d3f5e3883822745c5cfa29d8c05e62af",
+      "truth": "987654",
+      "prediction": "987659",
+      "status": "ok",
+      "sampleKind": "synthetic-mnist",
+      "modelId": "ocr-mnist-cnn-v1-9c7b0b8e8224",
+      "config": {
+        "pipelineVersion": "ocr-photo-v2-2026-09-11",
+        "thresholdMethod": "otsu",
+        "autoDeskew": true,
+        "correctionAngle": 0,
+        "denoise": false,
+        "preprocessingId": "dark-rgba-bbox20-centroid-v1"
+      },
+      "error": null,
+      "correctionAngle": 0,
+      "boxes": [
+        {
+          "x": 50,
+          "y": 47,
+          "width": 40,
+          "height": 56
+        },
+        {
+          "x": 139,
+          "y": 49,
+          "width": 54,
+          "height": 58
+        },
+        {
+          "x": 219,
+          "y": 55,
+          "width": 51,
+          "height": 58
+        },
+        {
+          "x": 314,
+          "y": 38,
+          "width": 56,
+          "height": 57
+        },
+        {
+          "x": 401,
+          "y": 50,
+          "width": 57,
+          "height": 56
+        },
+        {
+          "x": 495,
+          "y": 53,
+          "width": 29,
+          "height": 57
+        }
+      ],
+      "elapsedMs": 50
+    },
+    {
+      "id": "development-4",
+      "imageId": "91942932ec2f3aea34195cf9e6b1b3543b8d8d0af403b247be814f899368aa5e",
+      "truth": "305",
+      "prediction": "305",
+      "status": "ok",
+      "sampleKind": "synthetic-mnist",
+      "modelId": "ocr-mnist-cnn-v1-9c7b0b8e8224",
+      "config": {
+        "pipelineVersion": "ocr-photo-v2-2026-09-11",
+        "thresholdMethod": "otsu",
+        "autoDeskew": true,
+        "correctionAngle": 0,
+        "denoise": false,
+        "preprocessingId": "dark-rgba-bbox20-centroid-v1"
+      },
+      "error": null,
+      "correctionAngle": 0,
+      "boxes": [
+        {
+          "x": 53,
+          "y": 46,
+          "width": 43,
+          "height": 58
+        },
+        {
+          "x": 132,
+          "y": 47,
+          "width": 57,
+          "height": 56
+        },
+        {
+          "x": 237,
+          "y": 49,
+          "width": 29,
+          "height": 58
+        }
+      ],
+      "elapsedMs": 28
+    },
+    {
+      "id": "development-5",
+      "imageId": "ee04f8bf38f28dfb02aac507868fdf7282b98eef6f5f753a2c963c73b7148620",
+      "truth": "00011",
+      "prediction": "00011",
+      "status": "ok",
+      "sampleKind": "synthetic-mnist",
+      "modelId": "ocr-mnist-cnn-v1-9c7b0b8e8224",
+      "config": {
+        "pipelineVersion": "ocr-photo-v2-2026-09-11",
+        "thresholdMethod": "otsu",
+        "autoDeskew": true,
+        "correctionAngle": 0,
+        "denoise": false,
+        "preprocessingId": "dark-rgba-bbox20-centroid-v1"
+      },
+      "error": null,
+      "correctionAngle": 3,
+      "boxes": [
+        {
+          "x": 54,
+          "y": 54,
+          "width": 48,
+          "height": 57
+        },
+        {
+          "x": 150,
+          "y": 54,
+          "width": 33,
+          "height": 57
+        },
+        {
+          "x": 235,
+          "y": 60,
+          "width": 39,
+          "height": 57
+        },
+        {
+          "x": 338,
+          "y": 54,
+          "width": 10,
+          "height": 57
+        },
+        {
+          "x": 412,
+          "y": 57,
+          "width": 32,
+          "height": 57
+        }
+      ],
+      "elapsedMs": 50
+    },
+    {
+      "id": "development-6",
+      "imageId": "d64a05d61c2854532bd2d44258c197f0b25d741393c4d1edbd22dd4ce79c21a3",
+      "truth": "70890",
+      "prediction": "70890",
+      "status": "ok",
+      "sampleKind": "synthetic-mnist",
+      "modelId": "ocr-mnist-cnn-v1-9c7b0b8e8224",
+      "config": {
+        "pipelineVersion": "ocr-photo-v2-2026-09-11",
+        "thresholdMethod": "otsu",
+        "autoDeskew": true,
+        "correctionAngle": 0,
+        "denoise": false,
+        "preprocessingId": "dark-rgba-bbox20-centroid-v1"
+      },
+      "error": null,
+      "correctionAngle": 0,
+      "boxes": [
+        {
+          "x": 50,
+          "y": 50,
+          "width": 39,
+          "height": 57
+        },
+        {
+          "x": 132,
+          "y": 48,
+          "width": 57,
+          "height": 54
+        },
+        {
+          "x": 231,
+          "y": 50,
+          "width": 45,
+          "height": 57
+        },
+        {
+          "x": 314,
+          "y": 46,
+          "width": 43,
+          "height": 58
+        },
+        {
+          "x": 396,
+          "y": 49,
+          "width": 57,
+          "height": 51
+        }
+      ],
+      "elapsedMs": 63
+    },
+    {
+      "id": "development-7",
+      "imageId": "6a827978f3c7a6c21756a1042a6f559ef9a02ecdf6682cfa2b3ee9f3bc5e2d6d",
+      "truth": "24680",
+      "prediction": "24680",
+      "status": "ok",
+      "sampleKind": "synthetic-mnist",
+      "modelId": "ocr-mnist-cnn-v1-9c7b0b8e8224",
+      "config": {
+        "pipelineVersion": "ocr-photo-v2-2026-09-11",
+        "thresholdMethod": "otsu",
+        "autoDeskew": true,
+        "correctionAngle": 0,
+        "denoise": false,
+        "preprocessingId": "dark-rgba-bbox20-centroid-v1"
+      },
+      "error": null,
+      "correctionAngle": 0,
+      "boxes": [
+        {
+          "x": 53,
+          "y": 41,
+          "width": 43,
+          "height": 57
+        },
+        {
+          "x": 143,
+          "y": 47,
+          "width": 31,
+          "height": 57
+        },
+        {
+          "x": 234,
+          "y": 41,
+          "width": 35,
+          "height": 58
+        },
+        {
+          "x": 308,
+          "y": 45,
+          "width": 57,
+          "height": 55
+        },
+        {
+          "x": 401,
+          "y": 44,
+          "width": 51,
+          "height": 57
+        }
+      ],
+      "elapsedMs": 45
+    },
+    {
+      "id": "development-8",
+      "imageId": "2b02b1f55d27419eef60310d1838fbc4d151cf0ae7b27a6eda32179ffdb0d013",
+      "truth": "13579",
+      "prediction": "13579",
+      "status": "ok",
+      "sampleKind": "synthetic-mnist",
+      "modelId": "ocr-mnist-cnn-v1-9c7b0b8e8224",
+      "config": {
+        "pipelineVersion": "ocr-photo-v2-2026-09-11",
+        "thresholdMethod": "otsu",
+        "autoDeskew": true,
+        "correctionAngle": 0,
+        "denoise": false,
+        "preprocessingId": "dark-rgba-bbox20-centroid-v1"
+      },
+      "error": null,
+      "correctionAngle": 4,
+      "boxes": [
+        {
+          "x": 66,
+          "y": 57,
+          "width": 24,
+          "height": 58
+        },
+        {
+          "x": 140,
+          "y": 55,
+          "width": 52,
+          "height": 58
+        },
+        {
+          "x": 238,
+          "y": 63,
+          "width": 34,
+          "height": 57
+        },
+        {
+          "x": 323,
+          "y": 55,
+          "width": 38,
+          "height": 58
+        },
+        {
+          "x": 419,
+          "y": 62,
+          "width": 24,
+          "height": 57
+        }
+      ],
+      "elapsedMs": 35
+    },
+    {
+      "id": "development-9",
+      "imageId": "ec2a00a6d9383f5f3f0f81e67b66053097eaa0f0648b656ccbf1cb6b88dc9cf3",
+      "truth": "90009",
+      "prediction": "90009",
+      "status": "ok",
+      "sampleKind": "synthetic-mnist",
+      "modelId": "ocr-mnist-cnn-v1-9c7b0b8e8224",
+      "config": {
+        "pipelineVersion": "ocr-photo-v2-2026-09-11",
+        "thresholdMethod": "otsu",
+        "autoDeskew": true,
+        "correctionAngle": 0,
+        "denoise": false,
+        "preprocessingId": "dark-rgba-bbox20-centroid-v1"
+      },
+      "error": null,
+      "correctionAngle": 0,
+      "boxes": [
+        {
+          "x": 53,
+          "y": 47,
+          "width": 39,
+          "height": 57
+        },
+        {
+          "x": 141,
+          "y": 47,
+          "width": 45,
+          "height": 57
+        },
+        {
+          "x": 226,
+          "y": 47,
+          "width": 45,
+          "height": 57
+        },
+        {
+          "x": 314,
+          "y": 41,
+          "width": 50,
+          "height": 57
+        },
+        {
+          "x": 403,
+          "y": 49,
+          "width": 48,
+          "height": 58
+        }
+      ],
+      "elapsedMs": 33
+    },
+    {
+      "id": "development-10",
+      "imageId": "0c64a4d1edbc29d8ecada7bc455370fb37b46aa9ba27d3872f9f379a84a6a470",
+      "truth": "101010",
+      "prediction": "101010",
+      "status": "ok",
+      "sampleKind": "synthetic-mnist",
+      "modelId": "ocr-mnist-cnn-v1-9c7b0b8e8224",
+      "config": {
+        "pipelineVersion": "ocr-photo-v2-2026-09-11",
+        "thresholdMethod": "otsu",
+        "autoDeskew": true,
+        "correctionAngle": 0,
+        "denoise": false,
+        "preprocessingId": "dark-rgba-bbox20-centroid-v1"
+      },
+      "error": null,
+      "correctionAngle": 0,
+      "boxes": [
+        {
+          "x": 64,
+          "y": 44,
+          "width": 23,
+          "height": 57
+        },
+        {
+          "x": 136,
+          "y": 44,
+          "width": 53,
+          "height": 57
+        },
+        {
+          "x": 243,
+          "y": 44,
+          "width": 16,
+          "height": 57
+        },
+        {
+          "x": 311,
+          "y": 41,
+          "width": 57,
+          "height": 54
+        },
+        {
+          "x": 408,
+          "y": 47,
+          "width": 37,
+          "height": 57
+        },
+        {
+          "x": 487,
+          "y": 50,
+          "width": 57,
+          "height": 57
+        }
+      ],
+      "elapsedMs": 26
+    },
+    {
+      "id": "development-11",
+      "imageId": "1276df28a37e2fde8a06125175432a5ee2b27438759533e56962361fa9f04ca0",
+      "truth": "827364",
+      "prediction": "827364",
+      "status": "ok",
+      "sampleKind": "synthetic-mnist",
+      "modelId": "ocr-mnist-cnn-v1-9c7b0b8e8224",
+      "config": {
+        "pipelineVersion": "ocr-photo-v2-2026-09-11",
+        "thresholdMethod": "otsu",
+        "autoDeskew": true,
+        "correctionAngle": 0,
+        "denoise": false,
+        "preprocessingId": "dark-rgba-bbox20-centroid-v1"
+      },
+      "error": null,
+      "correctionAngle": 3,
+      "boxes": [
+        {
+          "x": 56,
+          "y": 59,
+          "width": 51,
+          "height": 57
+        },
+        {
+          "x": 130,
+          "y": 58,
+          "width": 57,
+          "height": 54
+        },
+        {
+          "x": 227,
+          "y": 68,
+          "width": 43,
+          "height": 57
+        },
+        {
+          "x": 330,
+          "y": 59,
+          "width": 25,
+          "height": 57
+        },
+        {
+          "x": 403,
+          "y": 56,
+          "width": 49,
+          "height": 58
+        },
+        {
+          "x": 493,
+          "y": 65,
+          "width": 46,
+          "height": 57
+        }
+      ],
+      "elapsedMs": 36
+    },
+    {
+      "id": "development-12",
+      "imageId": "c9dd695495f17da331feb1fab1cf724fc2793928be59a84e67e8935d9e12d326",
+      "truth": "556677",
+      "prediction": "556677",
+      "status": "ok",
+      "sampleKind": "synthetic-mnist",
+      "modelId": "ocr-mnist-cnn-v1-9c7b0b8e8224",
+      "config": {
+        "pipelineVersion": "ocr-photo-v2-2026-09-11",
+        "thresholdMethod": "otsu",
+        "autoDeskew": true,
+        "correctionAngle": 0,
+        "denoise": false,
+        "preprocessingId": "dark-rgba-bbox20-centroid-v1"
+      },
+      "error": null,
+      "correctionAngle": 0,
+      "boxes": [
+        {
+          "x": 52,
+          "y": 44,
+          "width": 57,
+          "height": 55
+        },
+        {
+          "x": 141,
+          "y": 58,
+          "width": 57,
+          "height": 40
+        },
+        {
+          "x": 229,
+          "y": 41,
+          "width": 45,
+          "height": 58
+        },
+        {
+          "x": 311,
+          "y": 35,
+          "width": 55,
+          "height": 58
+        },
+        {
+          "x": 396,
+          "y": 52,
+          "width": 57,
+          "height": 58
+        },
+        {
+          "x": 492,
+          "y": 55,
+          "width": 41,
+          "height": 58
+        }
+      ],
+      "elapsedMs": 24
+    }
+  ]
+}

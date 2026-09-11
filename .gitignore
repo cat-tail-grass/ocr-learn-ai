@@ -1,1 +1,21 @@
-node_modules
+node_modules/
+**/bundle.js
+**/bundle.js.LEGAL.txt
+.DS_Store
+artifacts/browser/
+.vuepress/.cache/
+.vuepress/.temp/
+.vuepress/dist*/
+.vuepress/public/labs/
+artifacts/vuepress-integration/baseline/tracked.patch
+artifacts/vuepress-integration/baseline/git-status.txt
+artifacts/vuepress-integration/**/*.png
+artifacts/vuepress-integration/**/*-commands.jsonl
+# 保留最终验收摘要；排障过程仍留在本地，不重复提交整页快照。
+artifacts/vuepress-integration/D/dev-root/
+artifacts/vuepress-integration/D/dev-root-attempt1/
+artifacts/vuepress-integration/D/dev-root-pass/
+artifacts/vuepress-integration/D/dev-root-flows/
+artifacts/vuepress-integration/D/dev-root-flows-complete/
+artifacts/vuepress-integration/D/dev-root-search/
+artifacts/vuepress-integration/D/dev-root-search-keyboard/

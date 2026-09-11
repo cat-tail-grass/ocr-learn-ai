@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>17 · CNN 手写数字分类器</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22%3E%3Crect width=%2264%22 height=%2264%22 rx=%2214%22 fill=%22%23126451%22/%3E%3Ctext x=%2232%22 y=%2246%22 text-anchor=%22middle%22 font-size=%2244%22 fill=%22white%22 font-family=%22sans-serif%22%3EO%3C/text%3E%3C/svg%3E"><link rel="stylesheet" href="../shared/course.css">
+  <style>#input{width:280px;max-width:100%;touch-action:none}#prepared{width:140px;height:140px;image-rendering:pixelated}.canvases{display:flex;gap:2rem;flex-wrap:wrap}.feature-gallery{display:flex;flex-wrap:wrap;gap:16px}.feature-gallery figure{margin:0}.feature-gallery canvas{image-rendering:pixelated}.feature-gallery figcaption{font-size:12px}#confusion td,#confusion th{padding:6px;font-variant-numeric:tabular-nums}</style>
+</head><body>
+<nav class="course-nav" aria-label="课程导航"><a href="../../" data-course-catalog><strong>OCR / 学习实验室</strong></a><div class="links"><a href="../../17-cnn-classifier/" data-course-doc="17-cnn-classifier">返回本章讲义</a><a href="../../" data-course-catalog>课程目录</a><a href="../25-ocr-engine/index.html" data-course-lab="25-ocr-engine">照片识别</a><a href="../26-validation/index.html" data-course-lab="26-validation">评估记录</a></div></nav><main>
+<header><p class="eyebrow">第 17 章 · 本项目自主训练的 CNN</p><h1>一个数字，十个类别</h1>
+<p class="lead">导入单字符图片、在画布手写，或运行独立验证样本。对照统一输入、真实卷积激活和候选分数。整串照片请使用第 25 章。</p></header>
+<section class="card"><h2>1 · 输入与统一预处理</h2>
+<div class="canvases"><div><p>浅底深色单数字</p><canvas id="input" width="280" height="280" aria-label="单数字手写画布；键盘用户可使用验证样本或文件输入"></canvas></div>
+<div><p>模型输入可视化（28×28）</p><canvas id="prepared" width="28" height="28" aria-label="归一化数字预览"></canvas></div></div>
+<div class="controls"><button id="clear" type="button" class="secondary">清空</button><button id="sample" type="button">下一个验证样本</button><button id="classify" type="button">识别单数字</button></div>
+<div class="controls"><label for="file">导入单字符图片</label><input type="file" id="file" accept="image/*">
+<label for="angle">输入扰动角度</label><select id="angle"><option value="0">0°</option><option value="8">+8°</option><option value="-8">−8°</option><option value="20">+20°：超出训练增强</option></select></div>
+<p id="preprocessing" class="note">等待输入。</p><p>内置样本保留原始 28×28 字节，放大画布仅供展示。旋转后也使用相同的裁剪、比例缩放与重心居中。</p>
+</section>
+<section class="card"><h2>2 · 两层真正学到的卷积响应</h2><p>每层显示前四个通道；每张特征图单独按最大值缩放亮度，并标明实际数值范围。亮区是该通道的强响应，不能把一个通道直接等同于某个类别。</p><div id="features" class="grid"></div></section>
+<section class="card"><h2>3 · 十类分数与推理状态</h2><div class="grid"><div id="probabilities"></div><pre id="output" role="status" aria-live="polite"></pre></div><p>空白输入明确拒识；非数字和严重分割错误仍可能高分。反复预测的张量数应保持稳定。</p></section>
+<section class="card"><h2>4 · 已完成训练的真实曲线与独立测试</h2><p id="report-summary" role="status">正在读取真实报告……</p><canvas id="training-curve" width="680" height="270" aria-label="五轮训练与验证交叉熵曲线"></canvas>
+<p>仅用验证损失选择 checkpoint，全部 5 轮结束后才测 t10k。矩阵行是真实类别、列是预测；绿色对角线为正确，橙色格为错误。此处展示冻结报告，不依据页面操作修改测试结果。</p><div class="table-wrap"><table id="confusion" aria-label="MNIST 完整测试集混淆矩阵"></table></div>
+<details><summary>实验与思考</summary><p>先比较 0°、±8°，再尝试 +20°。观察哪些响应和候选分数变化；这个变化不构成新的照片准确率测量。清空再识别，应显示空白状态。</p></details>
+<p><a href="./model/training-report.json">完整真实报告</a> · <a href="../../17-cnn-classifier/" data-course-doc="17-cnn-classifier">架构、公式与自测</a> · <a href="./train.html">重新训练实验</a></p></section>
+<section class="card"><h2>5 · 核对损失梯度与 Dropout 掩码</h2>
+<p>理想 softmax 交叉熵的 logits 梯度为 p−y。TF.js 4.22 的 Layers 概率损失会裁剪概率，极端输入下不再等价。此对照使用三类小向量。</p>
+<div class="controls"><label for="loss-case">数值案例</label><select id="loss-case"><option value="normal">普通：[2,1,0]，真类 0</option><option value="extreme">极端：[1000,−1000,0]，真类 1</option></select><button id="compare-numerics" type="button">计算损失与掩码对照</button></div>
+<pre id="numeric-result" role="status" aria-live="polite">选择案例并计算。</pre>
+<p class="note">已保存模型训练时使用固定 Dropout seed，同形状批次重复掩码；历史成绩保持原样。新建模型默认每次重新采样，固定初始化种子不保证 Dropout 跨跑逐位复现；推理都关闭 Dropout。</p></section>
+</main><script src="../shared/course.js"></script><script src="bundle.js"></script></body></html>

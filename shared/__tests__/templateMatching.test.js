@@ -121,8 +121,8 @@ describe('normalizedCrossCorrelation', () => {
         const a = [5, 5, 5, 5];
         const b = [3, 3, 3, 3];
         const result = normalizedCrossCorrelation(a, b);
-        // 两个常量向量，方差都为 0，应该返回 1
-        expect(result).toBe(1);
+        // 方差为0时NCC未定义；API选择0哨兵，不能声称完全正相关。
+        expect(result).toBe(0);
     });
     
     test('长度不一致应该抛出错误', () => {

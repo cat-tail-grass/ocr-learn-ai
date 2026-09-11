@@ -1,0 +1,31 @@
+{
+  "description": "仅用于界面与评分测试的受控记录，不是模型或实拍成绩",
+  "records": [
+    {
+      "id": "unknown-source",
+      "experimentId": "theory-review",
+      "modelId": "controlled-records",
+      "prediction": "001",
+      "truth": "001"
+    },
+    {
+      "id": "explicit-photo",
+      "imageId": "controlled-photo",
+      "experimentId": "theory-review",
+      "modelId": "controlled-records",
+      "sampleKind": "photo",
+      "prediction": "",
+      "truth": "305",
+      "status": "failed"
+    },
+    {
+      "id": "synthetic",
+      "imageId": "controlled-synthetic",
+      "experimentId": "theory-review",
+      "modelId": "controlled-records",
+      "sampleKind": "synthetic-mnist",
+      "prediction": "0010",
+      "truth": "00110"
+    }
+  ]
+}

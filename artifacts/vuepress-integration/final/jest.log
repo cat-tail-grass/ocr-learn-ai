@@ -1,0 +1,828 @@
+npm warn Unknown user config "always-auth" (//r.npm.zaihui.com.cn/:always-auth). This will stop working in the next major version of npm.
+
+> ocr-learning@1.0.0 test
+> jest --runInBand --json --outputFile=artifacts/vuepress-integration/final/jest-results.json
+
+PASS shared/__tests__/11-13-correctnessRegression.test.js
+  11: moments, raster limits, preprocessing and HOG
+    ✓ large translations must not corrupt third central moments by cancellation (2784 ms)
+    ✓ three-pixel L agrees with hand moments and normalized Hu values (1 ms)
+    ✓ Hu is invariant to grid-preserving rotation; reflection flips only h7 (1 ms)
+    ✓ raster square scale change is not exact Hu invariance
+    ✓ thin nonempty character must survive crop-and-center (19 ms)
+    ✓ explicit zero std uses the documented constant-feature convention (1 ms)
+    ✓ HOG uses center differences, half-open hard bins, and magnitude votes (1 ms)
+  12: distances and scores
+    ✓ constant NCC uses zero sentinel, never perfect correlation
+    ✓ softmax requires positive finite temperature and preserves distant relative scores (17 ms)
+    ✓ HOG feature choice must not silently return combined features (5 ms)
+    ✓ empty image is rejected before matching and empty evaluation stays finite (6 ms)
+  13: honest splitting and parameter boundaries
+    ✓ split ratios 0 and 1 respect the declared endpoints; NaN is invalid (5 ms)
+    ✓ related augmented samples stay together with groupBy (1 ms)
+    ✓ invalid K and empty validation cannot silently choose a model (1 ms)
+    ✓ vote tie uses mean distance; odd K can still tie in multiclass
+    ✓ lower rejection threshold is stricter even when vote share is 100% (1 ms)
+    ✓ explicit confusion label order is retained and unknown labels are rejected
+  11–13: actual HTML algorithm parity
+    ✓ 11 browser statistical/Hu/combined features equal the Node module (11 ms)
+    ✓ 12 browser uses the same crop, Hu, feature dimensions and correlation (13 ms)
+    ✓ 13 browser uses the same feature pipeline and tie rule (11 ms)
+
+  console.warn
+    
+    ============================
+    Hi, looks like you are running TensorFlow.js in Node.js. To speed things up dramatically, install our node backend, visit https://github.com/tensorflow/tfjs-node for more details. 
+    ============================
+
+      at Object.warn (tfjs-core/src/log.ts:22:17)
+      at MathBackendCPU.write (tfjs-backend-cpu/src/backend_cpu.ts:58:22)
+      at Engine.makeTensor (tfjs-core/src/engine.ts:815:28)
+      at makeTensor (tfjs-core/src/ops/tensor_ops_util.ts:86:17)
+      at Object.tensor3d (tfjs-core/src/ops/tensor3d.ts:65:10)
+      at tensor3d (shared/20-crnn/index.js:197:41)
+      at Object.gradientCheck (shared/__tests__/crnn.test.js:22:16)
+
+PASS shared/__tests__/crnn.test.js
+  第20章真正的CNN + BiLSTM + CTC
+    ✓ 宽度决定时间轴且池化向下取整 (13 ms)
+    ✓ 合成种子复现，重复字符串保留；非法图像拒绝 (3 ms)
+    ✓ CTC梯度有限差分误差小于1e-5 (173 ms)
+    ✓ 端到端梯度经过CNN和两个LSTM，并核对卷积参数有限差分 (86 ms)
+    ✓ 导出重载预测相同；预测不读取truth或labels；释放无泄漏 (13 ms)
+    ✓ 少量真实全模型更新使CTC损失下降且卷积权重改变 (2932 ms)
+
+PASS shared/__tests__/review06-10-correctness.test.js
+  06 集合形态学与亮度残差
+    ✓ 黑前景腐蚀/膨胀须操作文字，不操作白背景 (1 ms)
+    ✓ 非对称B中心+右邻居，膨胀向右；开运算不能向左平移
+    ✓ 矩形核1×3须使用独立高宽与锚点
+    ✓ 闭运算中间扩边，贴边前景不能消失 (1 ms)
+    ✓ 3×3圆盘与十字一致；二值帽输出白残差 (1 ms)
+  07 角度/坐标/边界
+    ✓ 零角nearest逐像素恒等，覆盖所有边界和1×1 (1 ms)
+    ✓ 零角bilinear逐像素恒等，覆盖所有边界和1×1
+    ✓ 正90°视觉逆时针，绕像素网格中心
+    ✓ 双线性边界逐tap使用指定背景 (1 ms)
+    ✓ 模拟7°后直接用检测角校正且方差增加 (1140 ms)
+    ✓ 模拟-7°后直接用检测角校正且方差增加 (1172 ms)
+    ✓ 细化不越过搜索界限；空白不凭空转向 (133 ms)
+    ✓ 霍夫角度总票数恒定，峰值能区分方向 (18 ms)
+  08 梯度方向与滞后连通
+    ✓ NMS按y向下的45°比较对角邻居 (1 ms)
+    ✓ NMS按y向下的135°比较对角邻居
+    ✓ NMS按y向下的-45°比较对角邻居
+    ✓ NMS按y向下的-135°比较对角邻居
+    ✓ Sobel手算270/70、方向14.53°，不是错的外积分解
+    ✓ 边界强点可带动多跳弱边缘，孤立弱点舍弃
+    ✓ 低阈值0不把平坦背景接成满幅边缘 (3 ms)
+  09 连通性独立穷举和讲义算例
+    ✓ 3×3的全部512种二值图，4/8连通分区均等于独立BFS (56 ms)
+    ✓ 斜桥Two-Pass例子为8连通1域/4连通3域，几何量可手算 (1 ms)
+    ✓ 拒绝无效连通性，不能静默当成4连通 (12 ms)
+  10 投影边界、筛选与阅读顺序
+    ✓ 末行/末列单像素区域正确闭合 (1 ms)
+    ✓ 带非零x/y偏移的字符分割返回全图坐标
+    ✓ 候选筛选必须影响最终字符且保留洞 (1 ms)
+    ✓ RLSA仅填两端包夹且≤阈值的间隙，水平/垂直一致
+    ✓ 先分行再排序，所有输入排列给出同一顺序
+
+PASS shared/__tests__/review25Integration.test.js
+  第25章跨模块修复后的识别契约
+    ✓ 两个方向的已知倾斜都施加相反校正，保留原字符框 (566 ms)
+    ✓ 大裁剪中的细小前景经缩放消失时拒绝推理，不输出伪数字 (29 ms)
+
+  console.warn
+    
+    ============================
+    Hi, looks like you are running TensorFlow.js in Node.js. To speed things up dramatically, install our node backend, visit https://github.com/tensorflow/tfjs-node for more details. 
+    ============================
+
+      at Object.warn (tfjs-core/src/log.ts:22:17)
+      at MathBackendCPU.write (tfjs-backend-cpu/src/backend_cpu.ts:58:22)
+      at Engine.makeTensor (tfjs-core/src/engine.ts:815:28)
+      at makeTensor (tfjs-core/src/ops/tensor_ops_util.ts:86:17)
+      at Object.tensor2d (tfjs-core/src/ops/tensor2d.ts:65:10)
+      at tensor2d (shared/16-tensorflowjs-intro/index.js:5:18)
+      at tfjs-core/src/engine.ts:469:20
+      at Engine.scopedRun (tfjs-core/src/engine.ts:480:19)
+      at Engine.tidy (tfjs-core/src/engine.ts:467:17)
+      at Object.tidy (tfjs-core/src/globals.ts:192:17)
+      at tidy (shared/16-tensorflowjs-intro/index.js:4:13)
+      at Object.tensorArithmetic (shared/__tests__/tensorflowjsIntro.test.js:17:10)
+
+PASS shared/__tests__/tensorflowjsIntro.test.js
+  ✓ 区分矩阵乘法/逐元素乘法，广播和真实自动微分 (5 ms)
+  ✓ 框架真实训练收敛、序列化保留权重、反复推理不泄露张量 (77 ms)
+  ✓ 拒绝无效训练参数与非有限推理值 (5 ms)
+  ✓ 1轮fit日志保留更新前MSE=3，最终参数的重新评估为2.26 (1 ms)
+  ✓ 异步训练回调失败后，模型、外部优化器和训练数据都释放 (175 ms)
+  ✓ 自动微分第一步与手算梯度、不同学习率严格对应 (1 ms)
+
+  console.warn
+    
+    ============================
+    Hi, looks like you are running TensorFlow.js in Node.js. To speed things up dramatically, install our node backend, visit https://github.com/tensorflow/tfjs-node for more details. 
+    ============================
+
+      at Object.warn (tfjs-core/src/log.ts:22:17)
+      at MathBackendCPU.write (tfjs-backend-cpu/src/backend_cpu.ts:58:22)
+      at Engine.makeTensor (tfjs-core/src/engine.ts:815:28)
+      at TensorBuffer.toTensor (tfjs-core/src/tensor.ts:158:24)
+      at randomUniform_ (tfjs-core/src/ops/random_uniform.ts:58:14)
+      at Object.randomUniform__op [as randomUniform] (tfjs-core/src/ops/operation.ts:51:28)
+      at GlorotUniform.randomUniform [as apply] (tfjs-layers/src/initializers.ts:355:14)
+      at Conv2D.Layer.addWeight (tfjs-layers/src/engine/topology.ts:1288:35)
+      at Conv2D.Conv.build (tfjs-layers/src/layers/convolutional.ts:548:24)
+      at tfjs-layers/src/engine/topology.ts:981:14
+      at nameScope (tfjs-layers/src/common.ts:48:20)
+      at Conv2D.Layer.apply (tfjs-layers/src/engine/topology.ts:967:12)
+      at Sequential.add (tfjs-layers/src/models.ts:491:15)
+      at add (shared/17-cnn-classifier/index.js:239:9)
+      at Object.createDigitModel (shared/__tests__/cnnDigitClassifier.test.js:118:13)
+
+PASS shared/__tests__/cnnDigitClassifier.test.js
+  ✓ 白图与完全透明的黑图必须为空白，不交给分类器胡猜 (3 ms)
+  ✓ 原图非空但强下采样丢光墨迹时拒识，保留bbox并跳过重心除零/模型 (11 ms)
+  ✓ 数据准备不能把空白图带数字标签继续送入训练 (9 ms)
+  ✓ 不同画布边距上的同一数字得到同一输入，瘦数字不拉成正方形 (8 ms)
+  ✓ 训练数据走与照片推理完全一致的极性、灰度和裁剪函数 (4 ms)
+  ✓ 强度重心约在图心，透明度先与白背景合成 (2 ms)
+  ✓ 零角度增强恒等；有限旋转保持有效输入；拒绝不合理增强 (13 ms)
+  ✓ 模型维度和参数数正确，预测概率归一、重复推理张量不累积 (121 ms)
+  ✓ 划分固定种子可复现、训练验证互斥、原始样本索引完整 (1 ms)
+  ✓ IDX 严格读取大端魔数和长度，拒绝截断、错误标签 (1 ms)
+  ✓ 混淆矩阵行是真实类别，准确率和每类指标分母可手算 (1 ms)
+  ✓ 拒绝尺寸、像素值和选项异常，而不是静默返回伪输入
+  ✓ 真实卷积激活检查保持形状、有限值且不释放原模型或积累张量 (19 ms)
+  ✓ 新建模型的实际Dropout层每次训练重新采样，推理恒等且不积累张量 (7 ms)
+  ✓ 只有显式legacy配置重放历史固定掩码，非法策略在建模前拒绝 (1 ms)
+  ✓ 普通交叉熵对齐p-y，极端概率裁剪会失去该梯度，融合logits损失仍为2000 (5 ms)
+
+PASS shared/__tests__/deskewing.test.js
+  投影直方图计算
+    ✓ calculateHorizontalProjection 基本功能
+    ✓ calculateVerticalProjection 基本功能
+    ✓ calculateHorizontalProjection 文本行图像
+  方差计算
+    ✓ calculateProjectionVariance 均匀分布
+    ✓ calculateProjectionVariance 有变化的分布 (1 ms)
+    ✓ calculateProjectionVariance 空数组
+    ✓ 方差与峰谷分布的关系
+  双线性插值
+    ✓ bilinearInterpolate 整数坐标
+    ✓ bilinearInterpolate 小数坐标
+    ✓ bilinearInterpolate 边缘过渡
+  图像旋转
+    ✓ rotateImage 0度
+    ✓ rotateImage 90度
+    ✓ rotateImage 使用不同插值方法 (1 ms)
+    ✓ rotateImage 自定义背景色
+  倾斜检测
+    ✓ detectSkewAngle 水平文本 (14 ms)
+    ✓ detectSkewAngle 返回方差 (32 ms)
+    ✓ detectSkewAngle 细化搜索 (43 ms)
+  完整倾斜校正
+    ✓ deskew 基本功能 (33 ms)
+    ✓ deskew 返回正确尺寸 (34 ms)
+  边界情况
+    ✓ 处理全黑图像
+    ✓ 处理全白图像
+    ✓ 处理小图像 (1 ms)
+
+PASS shared/__tests__/neuralNetworkBasics.test.js
+  第14章：手写 MLP 的数学正确性
+    ✓ 极端 logit 的 sigmoid 和 BCE 保持有限，正负类别对称
+    ✓ 无隐藏层的 logistic 梯度直接对照 p-y、(p-y)x
+    ✓ 完整单样本算例的前向、全部参数梯度、更新后损失 (1 ms)
+    ✓ 多隐藏层 sigmoid 对所有参数做中心差分，检查不修改模型 (1 ms)
+    ✓ 多隐藏层 tanh 对所有参数做中心差分，检查不修改模型 (1 ms)
+    ✓ 多隐藏层 relu 对所有参数做中心差分，检查不修改模型
+    ✓ 对样本取平均；重复整个批次不改变损失和梯度 (1 ms)
+    ✓ 下降一步确实减小同一个目标，backward 不修改参数 (1 ms)
+    ✓ XOR 是真实学习结果且相同种子完全复现 (144 ms)
+    ✓ ReLU 在零点使用约定的 0，sigmoid 的最大导数为 0.25
+    ✓ 更新异常时不会留下半更新状态 (8 ms)
+    ✓ 拒绝无效输入 0 (1 ms)
+    ✓ 拒绝无效输入 1
+    ✓ 拒绝无效输入 2 (2 ms)
+    ✓ 拒绝无效输入 3
+    ✓ 拒绝无效输入 4 (1 ms)
+    ✓ 拒绝无效输入 5
+    ✓ 拒绝无效输入 6
+    ✓ 拒绝无效输入 7 (1 ms)
+    ✓ 拒绝无效输入 8
+    ✓ 拒绝无效输入 9
+
+PASS shared/__tests__/templateMatching.test.js
+  normalizedCrossCorrelation
+    ✓ 相同向量的相关系数应该为 1
+    ✓ 完全负相关的向量应该接近 -1
+    ✓ 无相关的向量应该接近 0
+    ✓ 常量向量应该处理正确 (1 ms)
+    ✓ 长度不一致应该抛出错误 (9 ms)
+  calculateDistance
+    ✓ 欧氏距离应该正确计算 (1 ms)
+    ✓ 曼哈顿距离应该正确计算
+    ✓ 余弦距离应该正确计算
+    ✓ 相关距离应该正确计算
+    ✓ 默认使用欧氏距离
+  createTemplate
+    ✓ 应该正确创建模板 (4 ms)
+    ✓ 不同特征类型应该产生不同维度
+    ✓ 相同图像应该产生相同特征 (8 ms)
+  buildTemplateLibrary
+    ✓ 应该正确构建模板库 (9 ms)
+    ✓ 空样本应该返回空库
+  matchTemplate
+    ✓ 应该返回排序后的结果 (3 ms)
+    ✓ 相同图像的距离应该最小 (2 ms)
+  calculateConfidence
+    ✓ 应该为每个结果添加置信度 (1 ms)
+    ✓ Softmax 置信度总和应该为 1
+    ✓ 距离最小的应该有最高置信度
+    ✓ 空数组应该返回空数组
+  TemplateMatcher
+    基本操作
+      ✓ 应该能创建空的匹配器
+      ✓ 应该能添加模板
+      ✓ 应该能从图像添加模板 (3 ms)
+      ✓ 应该能清空模板库
+      ✓ 应该能删除指定类别
+    识别功能
+      ✓ 应该正确识别相同图像 (3 ms)
+      ✓ 应该返回候选结果 (3 ms)
+      ✓ 空模板库应该拒绝识别
+    拒绝阈值
+      ✓ 超过阈值应该拒绝
+      ✓ 不设阈值时不拒绝
+    导入导出
+      ✓ 应该能正确导出和导入
+    批量识别
+      ✓ 应该能批量识别 (13 ms)
+  集成测试
+    ✓ 完整的识别流程 (29 ms)
+
+PASS shared/__tests__/edgeDetection.test.js
+  卷积核创建
+    ✓ createSobelKernelX 正确形状
+    ✓ createSobelKernelY 正确形状
+    ✓ createPrewittKernelX 正确形状 (1 ms)
+    ✓ createPrewittKernelY 正确形状
+  梯度计算
+    ✓ computeGradient 返回正确结构 (2 ms)
+    ✓ computeGradient 检测垂直边缘 (1 ms)
+    ✓ computeGradient 梯度幅值 (1 ms)
+  Sobel 边缘检测
+    ✓ sobelEdgeDetection 基本功能 (4 ms)
+    ✓ sobelEdgeDetection 检测边缘 (4 ms)
+    ✓ sobelEdgeDetection 归一化 (8 ms)
+  Prewitt 边缘检测
+    ✓ prewittEdgeDetection 基本功能 (4 ms)
+    ✓ prewittEdgeDetection 与 Sobel 类似结果 (8 ms)
+  非极大值抑制
+    ✓ nonMaxSuppression 细化边缘
+  双阈值检测
+    ✓ doubleThreshold 分类正确
+  边缘连接
+    ✓ hysteresisTracking 连接弱边缘 (1 ms)
+  Canny 边缘检测
+    ✓ cannyEdgeDetection 基本功能 (10 ms)
+    ✓ cannyEdgeDetection 返回中间步骤 (11 ms)
+    ✓ cannyEdgeDetection 检测边缘 (10 ms)
+    ✓ cannyEdgeDetection 参数调整 (20 ms)
+    ✓ cannyEdgeDetection 高斯参数 (16 ms)
+  边界情况
+    ✓ 处理全黑图像 (2 ms)
+    ✓ 处理全白图像 (1 ms)
+    ✓ 处理小图像
+
+PASS shared/__tests__/ocrEngine.test.js
+  照片数字串 pipeline
+    ✓ 积分图均值阈值与第04章朴素算法在边缘及不同窗口一致 (22 ms)
+    ✓ 数字上下断笔仍按同一列投影区域分组，孤立噪点被去除 (10 ms)
+    ✓ 完整流程保留前导零和连续重复数字；预测器不接收答案 (14 ms)
+    ✓ 白纸和透明底图不调用分类器 (2 ms)
+    ✓ 施加已知相反校正角后，倾斜行仍分成五个数字 (36 ms)
+    ✓ 校验图像、窗口和预测器结果，错误不伪造成数字 (18 ms)
+
+PASS shared/__tests__/postProcessing.test.js
+  Levenshtein 最小距离和完整对齐
+    ✓ "1203" → "123" 的 S/D/I
+    ✓ "12" → "122" 的 S/D/I (1 ms)
+    ✓ "12" → "19" 的 S/D/I
+    ✓ "305" → "" 的 S/D/I
+    ✓ "" → "007" 的 S/D/I
+    ✓ "" → "" 的 S/D/I
+    ✓ "00110" → "00110" 的 S/D/I (1 ms)
+    ✓ "00110" → "0110" 的 S/D/I
+    ✓ "1" → "1111" 的 S/D/I
+    ✓ "kitten" → "sitting" 的 S/D/I
+    ✓ "🔢1" → "🔢2" 的 S/D/I
+    ✓ 回溯平局先替换，12 → 21 固定为两次替换
+    ✓ 对角线非最优而删除与插入平局时，回溯优先删除 (1 ms)
+    ✓ 重复字符先从尾部匹配，固定删除第一个0
+    ✓ 对齐坐标是码点索引，字面连字符不是缺口，大小写/空白不归一化
+    ✓ 表的维度、初始化与独立手算结果一致
+    ✓ 短二进制串穷举与独立图最短路参考值一致，并能按操作重建两端 (60 ms)
+    ✓ 拒绝非字符串和超过教学内存上限的输入 (12 ms)
+  独立数字串评估与分母
+    ✓ 聚合microCER而非逐图均值，整串按照片计数
+    ✓ 失败、空预测、前导零、重复数字及CER大于100% (1 ms)
+    ✓ 无标签三种形式均待标注；排除优先且保留理由、原始记录和元数据
+    ✓ 空数组无分母为null；JSON可序列化且不产生NaN
+    ✓ status不会替代字符串比较；部分失败保留部分原始预测
+    ✓ 数字真值、预测不强制转数字，不清理空白或非数字幻觉 (1 ms)
+    ✓ 逐图S/D/I之和等于聚合，样本三种去向互斥且完整
+    ✓ 拒绝无效记录 null
+    ✓ 拒绝无效记录 {}
+    ✓ 拒绝无效记录 [null]
+    ✓ 拒绝无效记录 [null]
+    ✓ 拒绝无效记录 [{"truth":110}]
+    ✓ 拒绝无效记录 [{"truth":" 12"}]
+    ✓ 拒绝无效记录 [{"truth":"１２"}]
+    ✓ 拒绝无效记录 [{"prediction":12}]
+    ✓ 拒绝无效记录 [{"status":null}] (1 ms)
+    ✓ 拒绝无效记录 [{"exclusionReason":true}]
+    ✓ 拒绝无效记录 [{"id":null}]
+  WER和有明确限制的bigram词典实验
+    ✓ WER用词作单位，不是空格数字的CER
+    ✓ add-one数值可复核：7种后继词，the后book=3/10、back=2/10 (1 ms)
+    ✓ 同编辑距离候选可被上下文重排，禁用语言权重恢复字典序
+    ✓ 检查接口暴露实际计数和归一化项；改变alpha有可解释结果
+    ✓ 保护任意数字和词典内单词，候选不可用时不编造
+    ✓ 非法语料、平滑、字典和评分参数均报错 (1 ms)
+  置信度拒识保留分母
+    ✓ 整串拒识保留原预测，等于阈值允许通过
+    ✓ 拒识后CER从1/5变为3/5，照片分母仍为2 (1 ms)
+    ✓ 高模型得分也可能错误 (1 ms)
+    ✓ 拒绝错误维度、非概率、稀疏分数和无效阈值 (1 ms)
+
+PASS shared/__tests__/attention21.test.js
+  21 Attention: independently check arithmetic, masks and reverse derivatives
+    ✓ known softmax and rectangular matrix product (1 ms)
+    ✓ non-square cross attention: weights sum to one and weighted values match by hand
+    ✓ temperature changes distribution and causal mask zeros forbidden keys (1 ms)
+    ✓ causal future K/V perturbation cannot alter preceding output
+    ✓ Q/K/V gradients match central differences, masked=false (2 ms)
+    ✓ Q/K/V gradients match central differences, masked=true (1 ms)
+    ✓ additive attention uses a tanh hidden score and supports different query/key widths (1 ms)
+    ✓ query-only optimization measurably reduces objective, deterministic (17 ms)
+    ✓ rejects malformed inputs, fully masked rows and numerical overflow (9 ms)
+    ✓ missing entries cannot become implicit masked positions or softmax probabilities (1 ms)
+    ✓ a finite negative score overflowing during scaling cannot masquerade as a mask
+    ✓ a dominant softmax weight rounded to one keeps the analytic tail gradient (1 ms)
+
+  console.warn
+    
+    ============================
+    Hi, looks like you are running TensorFlow.js in Node.js. To speed things up dramatically, install our node backend, visit https://github.com/tensorflow/tfjs-node for more details. 
+    ============================
+
+      at Object.warn (tfjs-core/src/log.ts:22:17)
+      at MathBackendCPU.write (tfjs-backend-cpu/src/backend_cpu.ts:58:22)
+      at Engine.makeTensor (tfjs-core/src/engine.ts:815:28)
+      at makeTensor (tfjs-core/src/ops/tensor_ops_util.ts:86:17)
+      at Object.tensor (tfjs-core/src/ops/tensor.ts:208:10)
+      at tensor (shared/20-crnn/index.js:80:55)
+      at tfjs-core/src/engine.ts:469:20
+      at Engine.scopedRun (tfjs-core/src/engine.ts:480:19)
+      at Engine.tidy (tfjs-core/src/engine.ts:467:17)
+      at Object.tidy (tfjs-core/src/globals.ts:192:17)
+      at tidy (shared/20-crnn/index.js:80:29)
+      at weight (shared/20-crnn/index.js:82:5)
+      at Object.createTinyCrnn (shared/__tests__/20-crnn-regression.test.js:9:56)
+
+PASS shared/__tests__/20-crnn-regression.test.js
+  20 本轮独立正确性回归（不训练）
+    ✓ 批量列序与两方向LSTM和独立数组实现一致 (20 ms)
+    ✓ 无效权重 alphabet 在任何变量赋值前被拒绝 (13 ms)
+    ✓ 无效权重 float32-overflow 在任何变量赋值前被拒绝 (5 ms)
+    ✓ 无效权重 sparse-values 在任何变量赋值前被拒绝 (4 ms)
+
+PASS shared/__tests__/featureExtraction.test.js
+  extractPixelFeatures
+    ✓ 应该正确提取像素特征 (1 ms)
+    ✓ 二值模式应该返回 0 和 1
+    ✓ 不归一化应该返回原始像素值
+  extractStatisticalFeatures
+    ✓ 应该正确计算统计特征
+    ✓ 空白图像应该有正确的统计值
+    ✓ 全黑图像应该有正确的统计值 (1 ms)
+  statisticalFeaturesToVector
+    ✓ 应该返回正确长度的向量
+  calculateRawMoment
+    ✓ M00 应该等于前景像素数
+    ✓ 空白图像的矩应该为 0
+  calculateCentralMoments
+    ✓ 应该正确计算中心矩 (1 ms)
+    ✓ 一阶中心矩应该为 0
+  calculateHuMoments
+    ✓ 应该返回 7 个 Hu 矩 (1 ms)
+    ✓ 空白图像应该返回全零 (1 ms)
+    ✓ 相似形状应该有相似的 Hu 矩 (3 ms)
+  logTransformHuMoments
+    ✓ 应该正确进行对数变换
+  extractProjectionFeatures
+    ✓ 应该正确计算投影特征
+    ✓ 十字形状的中心投影应该最大
+    ✓ 归一化后最大值应该为 1
+  extractZoneFeatures
+    ✓ 应该返回正确长度的特征
+    ✓ 特征值应该在 [0, 1] 范围内
+    ✓ 空白图像应该返回全零 (1 ms)
+  computeImageGradients
+    ✓ 应该返回正确尺寸的梯度数组
+    ✓ 边界像素的梯度应该为 0
+  extractHOGFeatures
+    ✓ 应该返回非空特征向量 (1 ms)
+    ✓ 图像太小时应该返回空数组
+    ✓ 特征值应该是有效数字 (22 ms)
+  normalizeFeatures
+    ✓ L2 归一化后向量模长应该为 1
+    ✓ Min-Max 归一化后值应该在 [0, 1] 范围
+    ✓ Z-Score 归一化后均值应该接近 0
+    ✓ 空数组应该返回空数组
+  resizeImage
+    ✓ 应该正确缩放图像尺寸
+    ✓ 放大图像也应该工作
+  getBoundingBox
+    ✓ 应该返回正确的边界框 (1 ms)
+    ✓ 空白图像应该返回完整图像尺寸
+  cropAndCenter
+    ✓ 应该返回正确尺寸的图像
+  extractCombinedFeatures
+    ✓ 应该返回组合特征 (3 ms)
+    ✓ 可以配置要提取的特征类型
+    ✓ 包含 HOG 时应该有更多特征 (6 ms)
+  euclideanDistance
+    ✓ 应该正确计算欧氏距离
+    ✓ 相同向量的距离应该为 0
+    ✓ 长度不一致应该抛出错误 (16 ms)
+  cosineSimilarity
+    ✓ 相同向量的相似度应该为 1
+    ✓ 正交向量的相似度应该为 0
+    ✓ 相反向量的相似度应该为 -1
+  manhattanDistance
+    ✓ 应该正确计算曼哈顿距离 (1 ms)
+    ✓ 相同向量的距离应该为 0
+
+  console.warn
+    
+    ============================
+    Hi, looks like you are running TensorFlow.js in Node.js. To speed things up dramatically, install our node backend, visit https://github.com/tensorflow/tfjs-node for more details. 
+    ============================
+
+      at Object.warn (tfjs-core/src/log.ts:22:17)
+      at MathBackendCPU.write (tfjs-backend-cpu/src/backend_cpu.ts:58:22)
+      at Engine.makeTensor (tfjs-core/src/engine.ts:815:28)
+      at Object.zeros (tfjs-core/src/ops/zeros.ts:47:17)
+      at Object.zeros (shared/__tests__/ctcLoss.test.js:75:25)
+
+PASS shared/__tests__/ctcLoss.test.js
+  第19章 CTC
+    ✓ 先合并连续重复再移除blank，保留blank隔开的重复 (1 ms)
+    ✓ 两帧单字有三条路径，总概率0.76 (1 ms)
+    ✓ 四帧DP与独立全路径枚举一致：[]
+    ✓ 四帧DP与独立全路径枚举一致：[1] (1 ms)
+    ✓ 四帧DP与独立全路径枚举一致：[2]
+    ✓ 四帧DP与独立全路径枚举一致：[1, 1]
+    ✓ 四帧DP与独立全路径枚举一致：[1, 2]
+    ✓ 四帧DP与独立全路径枚举一致：[2, 1]
+    ✓ 四帧DP与独立全路径枚举一致：[1, 2, 1] (1 ms)
+    ✓ 四帧DP与独立全路径枚举一致：[2, 2, 2]
+    ✓ 相邻重复必须多一帧；不可能路径概率0、loss无穷，训练明确拒绝 (10 ms)
+    ✓ 全blank、零概率及极端logits不会产生NaN
+    ✓ beam聚合所有对齐：blank是最佳单路径但不是最佳字符串 (8 ms)
+    ✓ 足够宽的prefix beam与完整分布逐项一致，包括重复数字
+    ✓ 解析logits梯度与中心差分一致：[1, 1] (1 ms)
+    ✓ 解析logits梯度与中心差分一致：[1, 2] (1 ms)
+    ✓ 解析logits梯度与中心差分一致：[]
+    ✓ blank可以使用非零索引，类别0仍能作为正常输出 (1 ms)
+    ✓ customGrad支持批平均、上游系数，优化真实logits后CTC下降 (11 ms)
+    ✓ 非法概率、标签、blank、长度、beam宽度和枚举量报错 (2 ms)
+
+PASS shared/__tests__/textDetection22.test.js
+  22 DB operation and explicitly limited geometry post-processing
+    ✓ DB equality, sign, saturation and analytical derivative
+    ✓ DB + BCE chain derivative w.r.t. p matches finite difference (1 ms)
+    ✓ DB + BCE chain derivative w.r.t. t matches finite difference
+    ✓ four-neighbor components, exclusive bounds, component score and area rejection
+    ✓ separate score map filters apparent DB activation and expansion clips to map (1 ms)
+    ✓ IoU from continuous exclusive geometry and stable NMS without input mutation
+    ✓ EAST distances do not get multiplied by stride, with clockwise pi/2 rotation
+    ✓ undo padding then scaling; fully padded boxes become null (1 ms)
+    ✓ synthetic experiment produces two retained regions on default P (23 ms)
+    ✓ rejects invalid maps, geometry, scores and thresholds (10 ms)
+    ✓ DB tails keep symmetric nonzero gradients when positive sigmoid rounds to one
+    ✓ sparse probability maps cannot generate fake NaN-scored detections
+    ✓ IoU remains one for identical large finite-area boxes and rejects unrepresentable areas (1 ms)
+
+PASS shared/__tests__/transformer23.test.js
+  23 Transformer math and model boundaries
+    ✓ patch layout follows HWC and row-major patch ordering (1 ms)
+    ✓ sin/cos pairs use same frequency; offset and odd dimension are defined (1 ms)
+    ✓ separate heads really use separate channels, concatenation and Wo
+    ✓ layerNorm normalizes channels per token including constant rows (1 ms)
+    ✓ README FFN hand calculation includes ReLU and both linear layers
+    ✓ user pixels change embeddings, invalid grayscale rejected, blank is finite (13 ms)
+    ✓ encoder is permutation equivariant without positions; fixed-position addition breaks that identity (2 ms)
+    ✓ full decoder block does not leak future teacher tokens, cross length differs (2 ms)
+    ✓ greedy decoder preserves zero/repeated token ids and stops at EOS
+    ✓ both demo patch sizes and head counts have finite outputs (8 ms)
+    ✓ rejects shape mismatch, implicit crop, invalid normalization and generation (3 ms)
+    ✓ a missing first logit cannot force ID zero instead of the actual EOS maximum
+
+  console.warn
+    
+    ============================
+    Hi, looks like you are running TensorFlow.js in Node.js. To speed things up dramatically, install our node backend, visit https://github.com/tensorflow/tfjs-node for more details. 
+    ============================
+
+      at Object.warn (tfjs-core/src/log.ts:22:17)
+      at MathBackendCPU.write (tfjs-backend-cpu/src/backend_cpu.ts:58:22)
+      at MathBackendCPU.makeTensorInfo (tfjs-backend-cpu/src/backend_cpu.ts:90:20)
+      at Object.fill [as kernelFunc] (tfjs-backend-cpu/src/kernels/Fill.ts:31:18)
+      at kernelFunc (tfjs-core/src/engine.ts:647:22)
+      at tfjs-core/src/engine.ts:713:23
+      at Engine.scopedRun (tfjs-core/src/engine.ts:480:19)
+      at Engine.runKernelFunc (tfjs-core/src/engine.ts:709:10)
+      at Engine.runKernel (tfjs-core/src/engine.ts:554:17)
+      at Object.fill (tfjs-core/src/ops/fill.ts:47:17)
+      at Object.fill (shared/__tests__/19-ctc-regression.test.js:25:22)
+
+PASS shared/__tests__/19-ctc-regression.test.js
+  19 本轮独立正确性回归
+    ✓ logits共同平移 1000000000000 后概率/损失/梯度不变 (1 ms)
+    ✓ logits共同平移 10000000000000000 后概率/损失/梯度不变
+    ✓ logits共同平移 -10000000000000000 后概率/损失/梯度不变
+    ✓ 不同帧的大偏移和可精确表示的类间差值，保持重复目标的梯度 (1 ms)
+    ✓ customGrad同样保留大偏移下批平均与上游缩放 (3 ms)
+    ✓ 前后向后验与独立路径累加一致：非零blank、空目标、重复目标 (2 ms)
+    ✓ 稀疏概率、logits、路径和目标必须报错，不能返回possible=true且loss=NaN (8 ms)
+
+PASS shared/__tests__/cnnBasics.test.js
+  第15章：卷积、池化与简单 CNN
+    ✓ 非对称核验证互相关不翻核 (1 ms)
+    ✓ 跨输入通道求和，每个输出通道单独核和一个偏置
+    ✓ stride/padding 和非整除输出采用 floor，矩形支持高宽分别设置
+    ✓ 参数共享不随分辨率改变参数数，输出尺寸影响计算量
+    ✓ 共享核和重叠窗口梯度按路径累加 (1 ms)
+    ✓ 多通道、双输出、矩形核、stride/padding 的所有输入/权重/偏置梯度通过数值差分 (5 ms)
+    ✓ 卷积权重梯度能实际降低平方损失
+    ✓ 池化逐通道，负输入的 max 不能初始化为零，边缘不足窗口时丢弃
+    ✓ 最大池化重叠和并列按确定规则反传；平均池化均分再累加 (1 ms)
+    ✓ flatten 的 CHW 次序、dense 维度和稳定 softmax
+    ✓ 固定权重 CNN 对 vertical 的整条前向
+    ✓ 固定权重 CNN 对 horizontal 的整条前向 (1 ms)
+    ✓ 拒绝无效输入 0 (10 ms)
+    ✓ 拒绝无效输入 1 (1 ms)
+    ✓ 拒绝无效输入 2
+    ✓ 拒绝无效输入 3
+    ✓ 拒绝无效输入 4 (1 ms)
+    ✓ 拒绝无效输入 5
+    ✓ 拒绝无效输入 6
+    ✓ 拒绝无效输入 7
+    ✓ 拒绝无效输入 8
+    ✓ 拒绝无效输入 9
+    ✓ 拒绝无效输入 10
+    ✓ 拒绝无效输入 11
+
+PASS shared/__tests__/knnClassifier.test.js
+  calculateDistance
+    ✓ 欧氏距离应该正确
+    ✓ 曼哈顿距离应该正确
+    ✓ 余弦距离应该正确 (1 ms)
+  getKNearestNeighbors
+    ✓ 应返回距离最近的 K 个邻居
+    ✓ k 超过训练集大小时应自动截断
+    ✓ 空训练集应返回空数组
+  voteByNeighbors
+    ✓ 普通投票应返回多数类别
+    ✓ 加权投票应偏向更近的样本 (1 ms)
+    ✓ 空邻居列表应返回空结果
+  splitTrainTest
+    ✓ 应返回训练集和测试集
+    ✓ 相同 seed 应得到相同结果
+  评估辅助函数
+    ✓ calculateAccuracy 应正确计算准确率
+    ✓ buildConfusionMatrix 应正确统计 (1 ms)
+  createKNNSample / buildKNNDataset
+    ✓ 应正确从图像创建样本 (1 ms)
+    ✓ 应批量构建数据集 (1 ms)
+  KNNClassifier
+    ✓ 应能从图像训练并正确识别 (2 ms)
+    ✓ 应能添加样本并返回统计信息
+    ✓ 空训练集预测应拒绝
+    ✓ 设置拒绝阈值后，远距离样本应被拒绝
+    ✓ evaluate 应返回准确率和混淆矩阵 (3 ms)
+    ✓ tuneK 与 evaluateKValues 应返回最优 K (6 ms)
+    ✓ 导出导入后应保持样本数量
+
+PASS shared/__tests__/correctness01-05.test.js
+  01–03 pixel and grayscale definitions
+    ✓ fractional coordinates must not read/write another channel
+    ✓ gray example is 159 and alpha is not a brightness channel
+    ✓ even sample median averages the two central observations
+    ✓ unknown channel cannot silently leave a color image unchanged (7 ms)
+  04 Otsu and local threshold counterexamples
+    ✓ class boundary includes t, including t=0
+    ✓ between-class variance is probability weighted and scale invariant (1 ms)
+    ✓ adaptive equality is white and edge neighborhoods are cropped
+    ✓ local threshold preserves alpha just as fixed threshold does
+    ✓ invalid local neighborhoods must not silently change size (2 ms)
+  05 filters, noise and measurement
+    ✓ asymmetric kernel distinguishes convolution from correlation
+    ✓ mean rounds 1085/9 to 121 and median is 105 (1 ms)
+    ✓ linear smoothers preserve a constant with replicate boundaries and alpha
+    ✓ zero Gaussian noise is identity even on RGB and the RNG endpoint zero
+    ✓ density one visits every pixel even when the RNG repeats (1 ms)
+    ✓ zero sigma kernel cannot produce a silently black image (2 ms)
+
+PASS shared/__tests__/review26Evaluation.test.js
+  第26章独立样本与来源复核
+    ✓ 缺省来源与明确实拍必须分组；不能因缺字段新增实拍成绩 (1 ms)
+    ✓ 清单在推理前拒绝重复id、同源id及等价路径 (6 ms)
+    ✓ 错误真值、无效路径和非字符串来源不能进入批量评分 (3 ms)
+    ✓ 来源缺失保留为unknown，合法清单不改写前导零或原对象
+    ✓ 已有两份合成清单符合严格校验，仍明确为合成来源 (1 ms)
+
+PASS shared/__tests__/denoising.test.js
+  滤波核创建
+    ✓ createMeanKernel 3x3
+    ✓ createMeanKernel 偶数自动变奇数
+    ✓ createGaussianKernel 3x3
+    ✓ createGaussianKernel sigma 影响
+  卷积操作
+    ✓ convolve 使用单位核 (1 ms)
+    ✓ convolve 边界处理
+  滤波算法
+    ✓ meanFilter 平滑效果
+    ✓ gaussianFilter 平滑效果
+    ✓ medianFilter 去除椒盐噪声 (1 ms)
+    ✓ medianFilter 保留边缘
+  噪声添加
+    ✓ addGaussianNoise 添加噪声 (1 ms)
+    ✓ addGaussianNoise 值在有效范围内 (3 ms)
+    ✓ addSaltPepperNoise 添加噪声
+    ✓ addSaltPepperNoise 噪声密度 (4 ms)
+  边界情况
+    ✓ 处理 1x1 图像
+    ✓ 处理核大小为 1
+
+PASS shared/__tests__/textLocalization.test.js
+  RLSA 游程平滑算法
+    ✓ horizontalRLSA 应该连接水平方向的近距离前景像素
+    ✓ horizontalRLSA 不应该连接超过阈值距离的像素
+    ✓ verticalRLSA 应该连接垂直方向的近距离前景像素
+    ✓ RLSA 阈值为0时不应该改变图像
+  区域筛选
+    ✓ filterCandidateCharacters 应该过滤面积过小的区域
+    ✓ filterCandidateCharacters 应该过滤面积过大的区域
+    ✓ filterCandidateCharacters 应该过滤宽高比异常的区域
+    ✓ filterCandidateCharacters 应该过滤填充率过低的区域
+  文字行检测
+    ✓ detectTextLines 应该检测到多行文字 (2 ms)
+    ✓ detectTextLines 应该返回正确的行位置 (1 ms)
+    ✓ detectTextLines 应该忽略过矮的行
+  字符分割
+    ✓ segmentCharacters 应该分割出多个字符 (1 ms)
+    ✓ segmentCharacters 返回的字符应该有正确的位置
+  字符排序
+    ✓ sortCharacters 应该按从左到右、从上到下排序
+    ✓ sortCharacters 空数组应该返回空数组 (1 ms)
+    ✓ sortCharacters 单个字符应该正确返回
+  区域分组
+    ✓ groupRegionsIntoLines 应该按行分组区域
+    ✓ groupRegionsIntoLines 空数组应该返回空数组
+  辅助函数
+    ✓ extractLineImage 应该正确提取行区域
+    ✓ extractLineImage 应该添加边距 (1 ms)
+    ✓ calculateRegionStats 应该计算正确的统计信息
+    ✓ calculateRegionStats 空数组应该返回0
+  完整流程
+    ✓ localizeText 应该返回完整的定位结果 (3 ms)
+    ✓ localizeText 统计信息应该正确 (2 ms)
+
+PASS shared/__tests__/core.test.js
+  MockImageData
+    ✓ 创建空白图像数据 (1 ms)
+    ✓ 默认填充白色
+    ✓ 从现有数据创建
+  像素访问函数
+    ✓ getPixel 获取像素值
+    ✓ getPixel 边界外返回黑色透明
+    ✓ setPixel 设置像素值 (1 ms)
+    ✓ setPixel 边界外忽略
+    ✓ setPixel 默认 alpha 为 255
+    ✓ getGray 计算灰度值
+  图像数据操作
+    ✓ cloneImageData 深拷贝
+    ✓ createImageData 指定颜色
+    ✓ createImageData 默认白色 (1 ms)
+  像素遍历函数
+    ✓ forEachPixel 遍历所有像素
+    ✓ forEachPixel 不返回值时保持原像素
+    ✓ forEachPixelXY 提供坐标信息
+  颜色转换函数
+    ✓ rgbToHex 转换正确
+    ✓ rgbToHex 处理边界值
+    ✓ hexToRgb 转换正确
+    ✓ hexToRgb 处理简写格式
+    ✓ rgbToGray 加权计算
+    ✓ rgbToHsv 转换正确
+  工具函数
+    ✓ clamp 限制值范围 (1 ms)
+    ✓ lerp 线性插值
+  向后兼容性
+    ✓ 通过 imageUtils.js 导入 (5 ms)
+    ✓ 通过 index.js 导入
+
+PASS shared/__tests__/rnnBasics.test.js
+  第18章 RNN / LSTM
+    ✓ 共享权重逐步展开，首帧与第二帧可手算 (1 ms)
+    ✓ 双向输出按原时间位置拼接；改未来只影响反向首帧
+    ✓ LSTM 三个门、候选、中间 cell 和输出分别符合独立手算 (1 ms)
+    ✓ 灵敏度符合有限差分，并包含消失、爆炸、饱和反例
+    ✓ 空序列保留初始状态，不修改输入
+    ✓ 拒绝非法维度、非有限输入与非法初始状态 (7 ms)
+
+PASS shared/__tests__/18-rnn-regression.test.js
+  18 本轮独立正确性回归
+    ✓ 二维非对称循环矩阵的雅可比是 diag(1-h²) Whᵀ (1 ms)
+    ✓ 两维LSTM三门与候选的顺序，包含非零历史h/c
+    ✓ 拒绝缺项数组：不能让有限数值校验漏过空槽并产生NaN (7 ms)
+
+PASS shared/__tests__/validationRecords.test.js
+  现场评估记录
+    ✓ 保存再读取保留前导零；补标注不修改原始预测 (2 ms)
+    ✓ 同一图片同轮重试不能充当新样本或覆盖首次预测 (4 ms)
+    ✓ 按模型、输入类型和预处理配置隔离实验，不混合合成与实拍成绩
+    ✓ 有效照片空预测计入失败；待标注不进入分母
+
+PASS shared/__tests__/morphology.test.js
+  结构元素创建
+    ✓ createStructuringElement rect
+    ✓ createStructuringElement cross (1 ms)
+    ✓ createStructuringElement ellipse
+    ✓ createStructuringElement 偶数变奇数
+  腐蚀操作
+    ✓ erode 缩小前景
+    ✓ erode 去除小噪点
+  膨胀操作
+    ✓ dilate 扩大前景
+    ✓ dilate 填补空洞
+  开运算和闭运算
+    ✓ morphOpen 去除噪点
+    ✓ morphClose 填补空洞 (1 ms)
+  形态学梯度
+    ✓ morphGradient 提取边缘
+  顶帽和黑帽变换
+    ✓ topHat 提取亮点
+    ✓ blackHat 提取暗点
+  边界情况
+    ✓ 处理全黑图像 (1 ms)
+    ✓ 处理全白图像
+
+PASS shared/__tests__/binarization.test.js
+  固定阈值二值化
+    ✓ binarizeFixed 基本功能 (1 ms)
+    ✓ binarizeFixed 阈值为 0
+    ✓ binarizeFixed 阈值为 256 (1 ms)
+  Otsu 二值化
+    ✓ calculateOtsuThreshold 双峰分布
+    ✓ calculateOtsuThreshold 空直方图
+    ✓ binarizeOtsu 完整流程 (1 ms)
+  自适应阈值二值化
+    ✓ binarizeAdaptive 基本功能
+    ✓ binarizeAdaptive 参数调整
+  边界情况
+    ✓ 处理纯白图像
+    ✓ 处理纯黑图像
+
+PASS shared/__tests__/grayscale.test.js
+  灰度化算法
+    ✓ grayscaleWeighted 加权灰度化 (1 ms)
+    ✓ grayscaleAverage 平均值灰度化
+    ✓ grayscaleMax 最大值灰度化
+    ✓ grayscaleMin 最小值灰度化 (1 ms)
+    ✓ grayscaleSingleChannel 单通道灰度化
+  直方图计算
+    ✓ calculateHistogram 统计正确
+    ✓ calculateHistogramStats 统计信息正确
+    ✓ calculateHistogramStats 中位数计算
+  边界情况
+    ✓ 处理 1x1 图像 (1 ms)
+    ✓ 处理全黑图像
+
+PASS shared/__tests__/ocrPreprocessingRegression.test.js
+  照片预处理边界回归
+    ✓ Otsu 保留精确黑白图的黑色笔画（阈值分组边界一致）
+    ✓ 纯白输入仍为空白，纯黑输入仍为黑色 (1 ms)
+
+Test Suites: 33 passed, 33 total
+Tests:       525 passed, 525 total
+Snapshots:   0 total
+Time:        11.91 s
+Ran all test suites.
+Test results written to: artifacts/vuepress-integration/final/jest-results.json

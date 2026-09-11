@@ -1,0 +1,241 @@
+{
+  "schemaVersion": 1,
+  "mode": "test",
+  "description": "真实 MNIST 字迹的合成数字行；非手机实拍，不代表实拍照片成绩",
+  "source": "https://github.com/cvdfoundation/mnist",
+  "writerIsolation": "MNIST IDX 不含逐样本书写者标识；遵循官方分区，不能据此证明每行书写者隔离",
+  "rows": [
+    {
+      "id": "test-1",
+      "path": "fixtures/test-01.png",
+      "truth": "001208",
+      "sourcePart": "t10k",
+      "sourceIndices": [
+        3,
+        10,
+        2,
+        1,
+        13,
+        61
+      ],
+      "transform": {
+        "angle": 0,
+        "shadow": 0
+      },
+      "imageId": "17f27f1d33b5ba63c9fd81b5fbffccd6d3918516aa4c57e415587694b632d4ca",
+      "sampleKind": "synthetic-mnist"
+    },
+    {
+      "id": "test-2",
+      "path": "fixtures/test-02.png",
+      "truth": "112233",
+      "sourcePart": "t10k",
+      "sourceIndices": [
+        5,
+        14,
+        35,
+        38,
+        18,
+        30
+      ],
+      "transform": {
+        "angle": 3,
+        "shadow": 0
+      },
+      "imageId": "526870e1028f38b8d1064dcdd08329db9d199eb223ff32a9da5734a6f996df8f",
+      "sampleKind": "synthetic-mnist"
+    },
+    {
+      "id": "test-3",
+      "path": "fixtures/test-03.png",
+      "truth": "987654",
+      "sourcePart": "t10k",
+      "sourceIndices": [
+        7,
+        84,
+        0,
+        11,
+        8,
+        4
+      ],
+      "transform": {
+        "angle": 0,
+        "shadow": 0.2
+      },
+      "imageId": "2e54aaa4a5c9e8a84b34ecaf27a3a6a9706efd56bcbbfc81216b38152b350bd0",
+      "sampleKind": "synthetic-mnist"
+    },
+    {
+      "id": "test-4",
+      "path": "fixtures/test-04.png",
+      "truth": "305",
+      "sourcePart": "t10k",
+      "sourceIndices": [
+        32,
+        25,
+        15
+      ],
+      "transform": {
+        "angle": 0,
+        "shadow": 0
+      },
+      "imageId": "76e64b16149019b8f8924219df7dd40e48c2205d5fea35034a21d7e995841ab7",
+      "sampleKind": "synthetic-mnist"
+    },
+    {
+      "id": "test-5",
+      "path": "fixtures/test-05.png",
+      "truth": "00011",
+      "sourcePart": "t10k",
+      "sourceIndices": [
+        28,
+        55,
+        69,
+        29,
+        31
+      ],
+      "transform": {
+        "angle": 3,
+        "shadow": 0
+      },
+      "imageId": "44c640ebc1ffd77b348ea57bfb16b2492a14919ef5788eefdafc45767bd34acb",
+      "sampleKind": "synthetic-mnist"
+    },
+    {
+      "id": "test-6",
+      "path": "fixtures/test-06.png",
+      "truth": "70890",
+      "sourcePart": "t10k",
+      "sourceIndices": [
+        17,
+        71,
+        110,
+        9,
+        101
+      ],
+      "transform": {
+        "angle": 0,
+        "shadow": 0.2
+      },
+      "imageId": "2ddfbdb33467f7ea65ebdc651ddbcb800b94d26aaaf503d0c83459e1b9d43d69",
+      "sampleKind": "synthetic-mnist"
+    },
+    {
+      "id": "test-7",
+      "path": "fixtures/test-07.png",
+      "truth": "24680",
+      "sourcePart": "t10k",
+      "sourceIndices": [
+        43,
+        6,
+        21,
+        128,
+        126
+      ],
+      "transform": {
+        "angle": 0,
+        "shadow": 0
+      },
+      "imageId": "04ca59baf3697bebf899ce6745efc839d0ae894ecfae4bb0e7f4f7592279baf4",
+      "sampleKind": "synthetic-mnist"
+    },
+    {
+      "id": "test-8",
+      "path": "fixtures/test-08.png",
+      "truth": "13579",
+      "sourcePart": "t10k",
+      "sourceIndices": [
+        37,
+        44,
+        23,
+        26,
+        12
+      ],
+      "transform": {
+        "angle": 3,
+        "shadow": 0
+      },
+      "imageId": "90b7ccb13a3f3f01c6b36cff0365ab3f9e3052363c55b7e175c9cebf41a68912",
+      "sampleKind": "synthetic-mnist"
+    },
+    {
+      "id": "test-9",
+      "path": "fixtures/test-09.png",
+      "truth": "90009",
+      "sourcePart": "t10k",
+      "sourceIndices": [
+        16,
+        136,
+        148,
+        157,
+        20
+      ],
+      "transform": {
+        "angle": 0,
+        "shadow": 0.2
+      },
+      "imageId": "ed44764a28732374d61948b1293792ab7098523e30494aee33911533549c1625",
+      "sampleKind": "synthetic-mnist"
+    },
+    {
+      "id": "test-10",
+      "path": "fixtures/test-10.png",
+      "truth": "101010",
+      "sourcePart": "t10k",
+      "sourceIndices": [
+        39,
+        183,
+        40,
+        188,
+        46,
+        192
+      ],
+      "transform": {
+        "angle": 0,
+        "shadow": 0
+      },
+      "imageId": "35b01b5240d0004808e555c03cfab2abe8fe87d986508b3f56bdde6bb5d18778",
+      "sampleKind": "synthetic-mnist"
+    },
+    {
+      "id": "test-11",
+      "path": "fixtures/test-11.png",
+      "truth": "827364",
+      "sourcePart": "t10k",
+      "sourceIndices": [
+        134,
+        47,
+        34,
+        51,
+        22,
+        19
+      ],
+      "transform": {
+        "angle": 3,
+        "shadow": 0
+      },
+      "imageId": "11c8353153b43fd2b8abaee1f8fb1bcc88f5d76f14a722af16be35415419f5c7",
+      "sampleKind": "synthetic-mnist"
+    },
+    {
+      "id": "test-12",
+      "path": "fixtures/test-12.png",
+      "truth": "556677",
+      "sourcePart": "t10k",
+      "sourceIndices": [
+        45,
+        52,
+        50,
+        54,
+        36,
+        41
+      ],
+      "transform": {
+        "angle": 0,
+        "shadow": 0.2
+      },
+      "imageId": "e66ccd6dbe2f9ad7821e1e64dc6b32b22a78c2ef022a9e6eb750fc0d2fefad96",
+      "sampleKind": "synthetic-mnist"
+    }
+  ]
+}

@@ -24,7 +24,7 @@
 
 ### 1. Canvas 元素
 
-Canvas（画布）是 HTML5 提供的绑图容器，可以通过 JavaScript 动态绑制图形和处理图像。
+Canvas（画布）是 HTML5 提供的绘图容器，可以通过 JavaScript 动态绘制图形和处理图像。
 
 ```html
 <!-- 创建 Canvas 元素 -->
@@ -39,7 +39,7 @@ const ctx = canvas.getContext('2d');
 
 ### 2. CanvasRenderingContext2D
 
-2D 渲染上下文是 Canvas 的核心 API，提供了所有绑图和图像操作方法。
+2D 渲染上下文是 Canvas 的核心 API，提供了所有绘图和图像操作方法。
 
 | 方法 | 作用 |
 |------|------|
@@ -50,7 +50,7 @@ const ctx = canvas.getContext('2d');
 
 ### 3. ImageData 对象
 
-ImageData 是像素数据的容器，包含三个属性：
+ImageData 是像素数据的容器，本课程使用默认 8-bit RGBA，主要读取以下三个属性（不是完整 API 列表）：
 
 ```javascript
 const imageData = ctx.getImageData(0, 0, width, height);
@@ -68,16 +68,19 @@ console.log(imageData.data);   // Uint8ClampedArray，存储 RGBA 值
 
 ### 4. Uint8ClampedArray
 
-ImageData.data 是一个特殊的类型数组：
+本章默认 rgba-unorm8 的 ImageData.data 是一个类型数组：
 - **Uint8** = 无符号8位整数（0-255）
-- **Clamped** = 自动截断，超出范围会被限制（-10 → 0，300 → 255）
+- **Clamped** = 饱和限幅，超出范围会被限制（-10 → 0，300 → 255）
 
 ```javascript
 const arr = new Uint8ClampedArray(4);
 arr[0] = 300;  // 实际存储 255（自动截断）
 arr[1] = -10;  // 实际存储 0（自动截断）
-arr[2] = 128;  // 正常存储 128
+arr[2] = 128.5; // 舍入至 128：恰好 .5 时取相邻偶数
+arr[3] = 129.5; // 舍入至 130，不是向下取整
 ```
+
+小数按最近整数舍入，平局取偶数；`Math.round(128.5)` 则为 129。限幅处理颜色数值，不会替你检查坐标、图像尺寸和邻域边界。
 
 ### 5. 像素遍历模式
 
@@ -187,11 +190,20 @@ Canvas API 是我们 OCR 引擎的基础设施：
 
 ## 可复用模块
 
-本章将创建以下可复用模块，放入 `shared/` 目录：
+共享实现位于 `shared/core`，`shared/imageUtils.js` 是兼容入口。实际提供 `MockImageData`、`getPixel`、`setPixel`、`cloneImageData`、`forEachPixel`、`forEachPixelXY`；本项目没有 `ImageLoader` 或 `PixelProcessor` 类。
 
-1. **ImageLoader** - 图像加载工具类
-2. **PixelProcessor** - 像素处理基础类
-3. **常用工具函数** - getPixel、setPixel、cloneImageData 等
+- `forEachPixel(image, (pixel, index) => patch)` 的 index 是 RGBA 数组起点（0、4、8…）。
+- `forEachPixelXY(image, (pixel, x, y, index) => patch)` 额外给出坐标；返回新图像，未返回的通道保持原值。
+- `getPixel` 对非整数/越界坐标返回透明黑；`setPixel` 忽略这类写入，不会把 `(width,0)` 误当作下一行首像素。
+- `cloneImageData` 深拷贝数据；`new MockImageData(data,w,h)` 则引用传入的数组，不自动深拷贝。
+
+### Canvas 边界与 Alpha
+
+新建 Canvas / 原生 ImageData 为透明黑 `(0,0,0,0)`。Node 模拟容器默认白色不透明，是课程约定。ImageData 的 RGB 是非预乘通道；保留 alpha 的反色或通道操作不会让透明背景变成不透明背景。本章保留上传图的透明度，03–05 的 OCR 演示则先画白底再加载图像。
+
+`putImageData` 按像素写入，不使用当前变换、`globalAlpha` 或合成运算；`drawImage` 才按绘制状态合成。CSS 调整 canvas 的显示大小不会改变其像素矩阵，鼠标坐标必须按显示尺寸换算；重设 canvas 的 width/height 会清空图像和绘制状态。
+
+远程图片需要服务器允许 CORS，并在设置 src 前设置 `img.crossOrigin='anonymous'`，否则画入后可能无法 getImageData / 导出。上传文件和内置样例不依赖跨域服务。PNG 保留透明度，JPEG 不支持 alpha，应明确背景后导出。
 
 ---
 
@@ -200,7 +212,7 @@ Canvas API 是我们 OCR 引擎的基础设施：
 学完本章后，你应该能回答以下问题：
 
 1. 如何获取 Canvas 元素的 2D 渲染上下文？
-2. ImageData.data 数组中，第 100 个像素的蓝色通道在哪个索引位置？
+2. ImageData.data 数组中，编号 100 的像素（从 0 开始）的蓝色通道在哪个索引位置？
 3. Uint8ClampedArray 和普通数组有什么区别？
 4. 如何将处理后的 Canvas 导出为 PNG 图片？
 
@@ -209,7 +221,7 @@ Canvas API 是我们 OCR 引擎的基础设施：
 
 1. `canvas.getContext('2d')`
 2. 索引 = 100 × 4 + 2 = 402
-3. Uint8ClampedArray 会自动将值限制在 0-255 范围内
+3. 固定长度、每元素一字节，饱和限幅到 0–255；小数按最近整数舍入，平局取偶数。
 4. `canvas.toDataURL('image/png')` 或 `canvas.toBlob()`
 
 </details>
@@ -219,3 +231,21 @@ Canvas API 是我们 OCR 引擎的基础设施：
 ## 下一步
 
 学完本章后，继续学习 **03. 灰度化**，开始第一个实际的图像预处理操作！
+
+
+## 三种产物对应与依赖
+
+| 知识点 | 文档位置 | HTML 实验 | Node 实验/函数 |
+|---|---|---|---|
+| ImageData/舍入 | 核心概念3/4 | 内置样例、像素读数 | 演示1/2 |
+| 遍历/通道/修改 | 核心概念5、可复用模块 | 通道、反色、亮度、恢复 | 演示3–5/7 |
+| 加载/导出/alpha | 核心概念6、Canvas边界 | 上传/拖放、导出 | 演示6（API说明） |
+
+在项目根目录首次运行 `npm install`。Node 示例直接运行 `node 02-js-image-basics/index.js`，不触发模型训练。浏览器可运行 `npm run build` 后 `npm start`，访问 `http://127.0.0.1:4173/02-js-image-basics/`；已构建的页面也可本地打开。
+
+02–05 的 `browser.js` 调用共享模块，构建为同目录 `bundle.js`；HTML 只保留交互和展示，算法步骤请对照共享源文件。
+
+## 参考来源
+
+- [WHATWG Canvas 像素操作](https://html.spec.whatwg.org/multipage/canvas.html#pixel-manipulation)
+- [ECMAScript ToUint8Clamp](https://tc39.es/ecma262/2023/multipage/abstract-operations.html#sec-touint8clamp)

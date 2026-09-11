@@ -1,0 +1,70 @@
+{
+  "date": "2026-09-11",
+  "reviewer": "F",
+  "session": "ocr-review-F-20260911",
+  "url": "http://127.0.0.1:4186/23-transformer-ocr/",
+  "checks": [
+    {
+      "data": "图像 4×8×1 → 8×4 patches → 8×4 tokens；2 头，每头 2 维；cross attention = 3×8",
+      "name": "default-patch-and-cross-shape",
+      "pass": true
+    },
+    {
+      "data": "Q01.00000.00000.0000",
+      "name": "causal-first-row",
+      "pass": true
+    },
+    {
+      "data": [
+        [
+          -3.9647160142729265,
+          -2.2062388629313916,
+          -0.324293201434497,
+          3.284978037831074
+        ],
+        [
+          -3.9647160142729265,
+          -2.2062388629313916,
+          -0.324293201434497,
+          3.284978037831074
+        ]
+      ],
+      "name": "no-mask-no-position-identical-repeated-queries",
+      "pass": true
+    },
+    {
+      "data": [
+        [
+          -3.763549891143639,
+          -1.323289761846686,
+          -0.20297519211148196,
+          3.218445115219126
+        ],
+        [
+          -3.9647160142729265,
+          -2.2062388629313916,
+          -0.324293201434497,
+          3.284978037831074
+        ]
+      ],
+      "name": "causal-prefix-changes-repeated-context",
+      "pass": true
+    },
+    {
+      "data": "图像 4×8×1 → 2×16 patches → 2×4 tokens；4 头，每头 1 维；cross attention = 3×2",
+      "name": "patch4-head4-cross-shape",
+      "pass": true
+    },
+    {
+      "data": "图像 4×8×1 → 2×16 patches → 2×4 tokens；4 头，每头 1 维；cross attention = 3×2",
+      "name": "blank-input-finite",
+      "pass": true
+    },
+    {
+      "data": "输入有误：请输入4行8列的像素矩阵",
+      "name": "invalid-clears-old-output",
+      "pass": true
+    }
+  ],
+  "bundleSHA256": "1d7f26595207f9543c04acf83071fc5b1f4c2b908918e3fa8414be023042836a"
+}

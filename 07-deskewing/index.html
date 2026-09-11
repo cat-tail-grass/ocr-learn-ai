@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>07. 倾斜校正 - OCR 学习项目</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22%3E%3Crect width=%2264%22 height=%2264%22 rx=%2214%22 fill=%22%23126451%22/%3E%3Ctext x=%2232%22 y=%2246%22 text-anchor=%22middle%22 font-size=%2244%22 fill=%22white%22 font-family=%22sans-serif%22%3EO%3C/text%3E%3C/svg%3E">
     <style>
         * {
             margin: 0;
@@ -375,8 +376,10 @@
             }
         }
     </style>
+    <script src="../shared/course.js" defer></script>
 </head>
 <body>
+<nav class="course-nav" aria-label="课程导航"><a href="../../" data-course-catalog><strong>OCR / 学习实验室</strong></a><div class="links"><a href="../../07-deskewing/" data-course-doc="07-deskewing">返回本章讲义</a><a href="../../" data-course-catalog>课程目录</a><a href="../25-ocr-engine/index.html" data-course-lab="25-ocr-engine">照片识别</a><a href="../26-validation/index.html" data-course-lab="26-validation">评估记录</a></div></nav>
     <div class="container">
         <h1>📐 07. 倾斜校正</h1>
         <p class="subtitle">Deskewing / Skew Correction - 矫正文档倾斜，提高 OCR 识别准确率</p>
@@ -440,7 +443,7 @@
                 
                 <!-- 角度-方差曲线 -->
                 <div class="projection-wrapper" style="margin-top: 20px;">
-                    <h4>角度-方差曲线 (最佳角度: <span id="bestAngleDisplay">-</span>°)</h4>
+                    <h4><span id="scoreType">校正角—投影方差</span> (最佳校正角: <span id="bestAngleDisplay">-</span>°)</h4>
                     <canvas id="varianceChart" width="700" height="150"></canvas>
                 </div>
             </div>
@@ -462,7 +465,7 @@
                 
                 <!-- 模拟倾斜角度 -->
                 <div class="control-group">
-                    <label>模拟倾斜角度</label>
+                    <label>模拟倾斜角度（正值视觉逆时针）</label>
                     <div class="slider-container">
                         <input type="range" id="skewAngle" min="-15" max="15" value="5" step="0.5" onchange="applySkew()">
                         <span class="value-display" id="skewAngleValue">5°</span>
@@ -524,13 +527,13 @@
                 
                 <!-- 结果信息 -->
                 <div class="info-card">
-                    <h3>检测结果</h3>
+                    <h3>检测结果</h3><div class="info-row"><span class="info-label">实际检测算法</span><span class="info-value" id="infoMethod">-</span></div>
                     <div class="info-row">
                         <span class="info-label">模拟倾斜角度</span>
                         <span class="info-value" id="infoSkewAngle">-</span>
                     </div>
                     <div class="info-row">
-                        <span class="info-label">检测到的角度</span>
+                        <span class="info-label">可直接应用的校正角</span>
                         <span class="info-value" id="infoDetectedAngle">-</span>
                     </div>
                     <div class="info-row">
@@ -563,16 +566,21 @@
                         当文档水平时，文字行形成明显的峰谷，方差最大。
                         <br><br>
                         <strong>霍夫变换：</strong>检测图像中的直线，统计直线的主方向，
-                        偏离水平的角度即为倾斜角度。
+                        法线角θ减90°得到可直接应用的校正角；每个角度比较最大ρ票数。搜索评分是启发式，复杂版面/无行结构不保证有效。
                     </p>
                 </div>
             </div>
         </div>
     </div>
     
+    <script src="bundle.js"></script>
     <script>
+        const { rotateImage, bilinearInterpolate, calculateHorizontalProjection, calculateProjectionVariance, detectSkewAngle, detectSkewAngleByHough } = LessonAlgorithms;
+
         // ==================== 全局变量 ====================
         let originalImageData = null;
+        let isSynthetic = true;
+        let detecting = false;
         let binaryImageData = null;
         let skewedImageData = null;
         let selectedAlgorithm = 'projection';
@@ -588,6 +596,7 @@
          * 创建示例文档图像
          */
         function createSampleImage() {
+            isSynthetic = true;
             updateStep(1);
             
             const canvas = document.getElementById('originalCanvas');
@@ -642,6 +651,7 @@
          * 加载用户上传的图片
          */
         function loadImage(event) {
+            isSynthetic = false;
             updateStep(1);
             
             const file = event.target.files[0];
@@ -678,71 +688,11 @@
          * 二值化处理
          */
         function binarize() {
-            updateStep(2);
-            
-            const canvas = document.getElementById('binaryCanvas');
-            const ctx = canvas.getContext('2d');
-            const width = originalImageData.width;
-            const height = originalImageData.height;
-            
-            // 创建二值图像
-            const binaryData = new ImageData(width, height);
-            
-            // 先灰度化
-            const grayData = [];
-            for (let i = 0; i < originalImageData.data.length; i += 4) {
-                const r = originalImageData.data[i];
-                const g = originalImageData.data[i + 1];
-                const b = originalImageData.data[i + 2];
-                const gray = Math.round(0.299 * r + 0.587 * g + 0.114 * b);
-                grayData.push(gray);
-            }
-            
-            // 计算 Otsu 阈值
-            const histogram = new Array(256).fill(0);
-            grayData.forEach(g => histogram[g]++);
-            
-            const total = grayData.length;
-            let sum = 0;
-            for (let i = 0; i < 256; i++) sum += i * histogram[i];
-            
-            let sumB = 0, wB = 0;
-            let maxVariance = 0, threshold = 128;
-            
-            for (let t = 0; t < 256; t++) {
-                wB += histogram[t];
-                if (wB === 0) continue;
-                
-                const wF = total - wB;
-                if (wF === 0) break;
-                
-                sumB += t * histogram[t];
-                const mB = sumB / wB;
-                const mF = (sum - sumB) / wF;
-                
-                const variance = wB * wF * (mB - mF) * (mB - mF);
-                if (variance > maxVariance) {
-                    maxVariance = variance;
-                    threshold = t;
-                }
-            }
-            
-            // 应用二值化
-            for (let i = 0; i < grayData.length; i++) {
-                const binary = grayData[i] < threshold ? 0 : 255;
-                const idx = i * 4;
-                binaryData.data[idx] = binary;
-                binaryData.data[idx + 1] = binary;
-                binaryData.data[idx + 2] = binary;
-                binaryData.data[idx + 3] = 255;
-            }
-            
-            binaryImageData = binaryData;
-            ctx.putImageData(binaryData, 0, 0);
-            
-            // 应用倾斜
-            applySkew();
-        }
+    updateStep(2);
+    binaryImageData = LessonAlgorithms.binarizeOtsu(LessonAlgorithms.grayscaleWeighted(originalImageData)).imageData;
+    document.getElementById('binaryCanvas').getContext('2d').putImageData(binaryImageData, 0, 0);
+    applySkew();
+}
         
         /**
          * 应用倾斜
@@ -766,126 +716,13 @@
             updateProjection('skewedProjection', skewedImageData, 'skewedVariance');
         }
         
-        /**
-         * 旋转图像
-         */
-        function rotateImage(imageData, angleDegrees, interpolation = 'bilinear') {
-            const { width, height, data } = imageData;
-            const result = new ImageData(width, height);
-            
-            // 填充白色背景
-            for (let i = 0; i < result.data.length; i += 4) {
-                result.data[i] = 255;
-                result.data[i + 1] = 255;
-                result.data[i + 2] = 255;
-                result.data[i + 3] = 255;
-            }
-            
-            const cx = width / 2;
-            const cy = height / 2;
-            const angleRad = -angleDegrees * Math.PI / 180;
-            const cosA = Math.cos(angleRad);
-            const sinA = Math.sin(angleRad);
-            
-            for (let y = 0; y < height; y++) {
-                for (let x = 0; x < width; x++) {
-                    const dx = x - cx;
-                    const dy = y - cy;
-                    
-                    const srcX = dx * cosA + dy * sinA + cx;
-                    const srcY = -dx * sinA + dy * cosA + cy;
-                    
-                    if (srcX >= 0 && srcX < width - 1 && srcY >= 0 && srcY < height - 1) {
-                        let pixelValue;
-                        
-                        if (interpolation === 'bilinear') {
-                            pixelValue = bilinearInterpolate(imageData, srcX, srcY);
-                        } else {
-                            const nearestX = Math.round(srcX);
-                            const nearestY = Math.round(srcY);
-                            const idx = (nearestY * width + nearestX) * 4;
-                            pixelValue = data[idx];
-                        }
-                        
-                        const dstIdx = (y * width + x) * 4;
-                        result.data[dstIdx] = pixelValue;
-                        result.data[dstIdx + 1] = pixelValue;
-                        result.data[dstIdx + 2] = pixelValue;
-                        result.data[dstIdx + 3] = 255;
-                    }
-                }
-            }
-            
-            return result;
-        }
         
-        /**
-         * 双线性插值
-         */
-        function bilinearInterpolate(imageData, x, y) {
-            const { width, data } = imageData;
-            
-            const x1 = Math.floor(x);
-            const x2 = x1 + 1;
-            const y1 = Math.floor(y);
-            const y2 = y1 + 1;
-            
-            const xFrac = x - x1;
-            const yFrac = y - y1;
-            
-            const idx11 = (y1 * width + x1) * 4;
-            const idx12 = (y1 * width + x2) * 4;
-            const idx21 = (y2 * width + x1) * 4;
-            const idx22 = (y2 * width + x2) * 4;
-            
-            const q11 = data[idx11];
-            const q12 = data[idx12];
-            const q21 = data[idx21];
-            const q22 = data[idx22];
-            
-            const r1 = q11 * (1 - xFrac) + q12 * xFrac;
-            const r2 = q21 * (1 - xFrac) + q22 * xFrac;
-            
-            return Math.round(r1 * (1 - yFrac) + r2 * yFrac);
-        }
         
-        /**
-         * 计算水平投影
-         */
-        function calculateHorizontalProjection(imageData) {
-            const { width, height, data } = imageData;
-            const projection = new Array(height).fill(0);
-            
-            for (let y = 0; y < height; y++) {
-                let blackCount = 0;
-                for (let x = 0; x < width; x++) {
-                    const idx = (y * width + x) * 4;
-                    if (data[idx] < 128) {
-                        blackCount++;
-                    }
-                }
-                projection[y] = blackCount;
-            }
-            
-            return projection;
-        }
         
-        /**
-         * 计算投影方差
-         */
-        function calculateProjectionVariance(projection) {
-            const n = projection.length;
-            if (n === 0) return 0;
-            
-            const mean = projection.reduce((a, b) => a + b, 0) / n;
-            let variance = 0;
-            for (let i = 0; i < n; i++) {
-                const diff = projection[i] - mean;
-                variance += diff * diff;
-            }
-            
-            return variance / n;
-        }
+
+
+
+
         
         /**
          * 更新投影直方图
@@ -925,11 +762,13 @@
          * 检测并校正
          */
         async function detectAndCorrect() {
+            if (detecting) return;
             if (!skewedImageData) {
                 alert('请先加载图像');
                 return;
             }
             
+            detecting = true;
             updateStep(4);
             showProgress(true);
             
@@ -940,62 +779,17 @@
             const interpolation = document.getElementById('interpolation').value;
             const simulatedAngle = parseFloat(document.getElementById('skewAngle').value);
             
-            // 存储所有角度-方差结果
-            const results = [];
-            let bestAngle = 0;
-            let maxVariance = 0;
-            
-            // 粗搜索
-            const angles = [];
-            for (let a = -searchRange; a <= searchRange; a += searchStep) {
-                angles.push(a);
-            }
-            
-            for (let i = 0; i < angles.length; i++) {
-                const angle = angles[i];
-                
-                // 更新进度
-                updateProgress((i / angles.length) * 50);
-                await sleep(1); // 让 UI 有机会更新
-                
-                const rotated = rotateImage(skewedImageData, angle, 'nearest');
-                const projection = calculateHorizontalProjection(rotated);
-                const variance = calculateProjectionVariance(projection);
-                
-                results.push({ angle, variance });
-                
-                if (variance > maxVariance) {
-                    maxVariance = variance;
-                    bestAngle = angle;
-                }
-            }
-            
-            // 细化搜索
-            const refineStep = 0.1;
-            for (let a = bestAngle - searchStep; a <= bestAngle + searchStep; a += refineStep) {
-                if (Math.abs(a - bestAngle) < 0.001) continue;
-                
-                updateProgress(50 + ((a - (bestAngle - searchStep)) / (searchStep * 2)) * 30);
-                await sleep(1);
-                
-                const rotated = rotateImage(skewedImageData, a, 'nearest');
-                const projection = calculateHorizontalProjection(rotated);
-                const variance = calculateProjectionVariance(projection);
-                
-                results.push({ angle: a, variance });
-                
-                if (variance > maxVariance) {
-                    maxVariance = variance;
-                    bestAngle = a;
-                }
-            }
-            
-            updateProgress(80);
-            
-            // 应用校正
-            const correctionAngle = -bestAngle;
+            await sleep(1); // 先让浏览器显示计算状态。
+            const options = { minAngle: -searchRange, maxAngle: searchRange, step: searchStep, thetaStep: searchStep, refine: true };
+            const detection = selectedAlgorithm === 'hough'
+                ? detectSkewAngleByHough(skewedImageData, options) : detectSkewAngle(skewedImageData, options);
+            const bestAngle = detection.angle;
+            // 共用曲线绘制器；霍夫分数是最大ρ票数，不冒称投影方差。
+            const results = detection.allResults.map(r => ({ angle: r.angle, variance: r.variance ?? r.peak }));
+            const correctionAngle = bestAngle;
             const correctedImage = rotateImage(skewedImageData, correctionAngle, interpolation);
-            
+            document.getElementById('scoreType').textContent = selectedAlgorithm === 'hough' ? '校正角—霍夫峰值票数' : '校正角—投影方差';
+            document.getElementById('infoMethod').textContent = selectedAlgorithm === 'hough' ? '霍夫峰值法' : '投影方差法';
             // 显示校正后的图像
             const canvas = document.getElementById('correctedCanvas');
             const ctx = canvas.getContext('2d');
@@ -1024,6 +818,7 @@
                 duration
             });
             
+            detecting = false;
             updateStep(5);
             
             setTimeout(() => showProgress(false), 500);
@@ -1033,6 +828,7 @@
          * 绘制角度-方差曲线
          */
         function drawVarianceChart(results, bestAngle) {
+            if (!results.length) results = [{angle: 0, variance: 0}];
             const canvas = document.getElementById('varianceChart');
             const ctx = canvas.getContext('2d');
             const width = canvas.width;
@@ -1101,12 +897,12 @@
             ctx.textAlign = 'center';
             ctx.fillText(`${minAngle.toFixed(1)}°`, padding, height - 10);
             ctx.fillText(`${maxAngle.toFixed(1)}°`, width - padding, height - 10);
-            ctx.fillText('角度', width / 2, height - 10);
+            ctx.fillText('校正角 (°)', width / 2, height - 10);
             
             ctx.save();
             ctx.translate(15, height / 2);
             ctx.rotate(-Math.PI / 2);
-            ctx.fillText('方差', 0, 0);
+            ctx.fillText(selectedAlgorithm === 'hough' ? '票数' : '方差', 0, 0);
             ctx.restore();
             
             document.getElementById('bestAngleDisplay').textContent = bestAngle.toFixed(2);
@@ -1119,17 +915,17 @@
             document.getElementById('infoSkewAngle').textContent = info.simulatedAngle.toFixed(2) + '°';
             document.getElementById('infoDetectedAngle').textContent = info.detectedAngle.toFixed(2) + '°';
             
-            const error = Math.abs(info.detectedAngle - info.simulatedAngle);
+            const error = Math.abs(info.detectedAngle + info.simulatedAngle);
             const errorSpan = document.getElementById('infoError');
-            errorSpan.textContent = error.toFixed(2) + '°';
+            errorSpan.textContent = isSynthetic ? error.toFixed(2) + '°' : '上传图无真实角度标注';
             errorSpan.className = 'info-value ' + (error < 1 ? 'positive' : 'negative');
             
             document.getElementById('infoSkewedVar').textContent = info.skewedVar.toFixed(0);
             document.getElementById('infoCorrectedVar').textContent = info.correctedVar.toFixed(0);
             
-            const improvement = ((info.correctedVar / info.skewedVar - 1) * 100).toFixed(1);
+            const improvement = info.skewedVar > 0 ? ((info.correctedVar / info.skewedVar - 1) * 100).toFixed(1) : null;
             const improvementSpan = document.getElementById('infoImprovement');
-            improvementSpan.textContent = (improvement > 0 ? '+' : '') + improvement + '%';
+            improvementSpan.textContent = improvement === null ? '不适用（原方差为0）' : (improvement > 0 ? '+' : '') + improvement + '%';
             improvementSpan.className = 'info-value ' + (improvement > 0 ? 'positive' : 'negative');
             
             document.getElementById('infoTime').textContent = info.duration.toFixed(0) + 'ms';

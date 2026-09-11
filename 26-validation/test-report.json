@@ -1,0 +1,1436 @@
+{
+  "createdAt": "2026-09-08T12:12:15.251Z",
+  "modelId": "ocr-mnist-cnn-v1-9c7b0b8e8224",
+  "mode": "test",
+  "description": "真实 MNIST 字迹的合成数字行；非手机实拍，不代表实拍照片成绩",
+  "startedAt": "2026-09-08T12:12:14.762Z",
+  "experimentId": "test-frozen-v1",
+  "pipelineId": "9ee08e3a5e4f3e9fe267d4c0c79adbf199caf1db02625b0bb7b578cd43e625cb",
+  "config": {
+    "thresholdMethod": "otsu",
+    "autoDeskew": true,
+    "correctionAngle": 0,
+    "denoise": false,
+    "preprocessingId": "dark-rgba-bbox20-centroid-v1"
+  },
+  "summary": {
+    "totalSamples": 12,
+    "evaluatedSamples": 12,
+    "pendingSamples": 0,
+    "excludedSamples": 0,
+    "failedSamples": 0,
+    "totalTruthCharacters": 64,
+    "substitutions": 0,
+    "deletions": 0,
+    "insertions": 0,
+    "totalErrors": 0,
+    "microCER": 0,
+    "exactMatches": 12,
+    "exactMatchAccuracy": 1,
+    "records": [
+      {
+        "id": "test-1",
+        "imageId": "17f27f1d33b5ba63c9fd81b5fbffccd6d3918516aa4c57e415587694b632d4ca",
+        "filename": "fixtures/test-01.png",
+        "truth": "001208",
+        "prediction": "001208",
+        "status": "ok",
+        "error": null,
+        "sampleKind": "synthetic-mnist",
+        "sourcePart": "t10k",
+        "sourceIndices": [
+          3,
+          10,
+          2,
+          1,
+          13,
+          61
+        ],
+        "modelId": "ocr-mnist-cnn-v1-9c7b0b8e8224",
+        "pipelineId": "9ee08e3a5e4f3e9fe267d4c0c79adbf199caf1db02625b0bb7b578cd43e625cb",
+        "experimentId": "test-frozen-v1",
+        "config": {
+          "thresholdMethod": "otsu",
+          "autoDeskew": true,
+          "correctionAngle": 0,
+          "denoise": false,
+          "preprocessingId": "dark-rgba-bbox20-centroid-v1"
+        },
+        "exclusionReason": "",
+        "elapsedMs": 73,
+        "boxes": [
+          {
+            "x": 52,
+            "y": 41,
+            "width": 46,
+            "height": 57
+          },
+          {
+            "x": 139,
+            "y": 44,
+            "width": 47,
+            "height": 57
+          },
+          {
+            "x": 240,
+            "y": 47,
+            "width": 21,
+            "height": 57
+          },
+          {
+            "x": 318,
+            "y": 38,
+            "width": 55,
+            "height": 57
+          },
+          {
+            "x": 405,
+            "y": 47,
+            "width": 43,
+            "height": 57
+          },
+          {
+            "x": 484,
+            "y": 52,
+            "width": 57,
+            "height": 46
+          }
+        ],
+        "correctionAngle": 0,
+        "warnings": [],
+        "rawPrediction": "001208",
+        "disposition": "evaluated",
+        "included": true,
+        "failed": false,
+        "truthLength": 6,
+        "distance": 0,
+        "substitutions": 0,
+        "deletions": 0,
+        "insertions": 0,
+        "cer": 0,
+        "exactMatch": true,
+        "alignment": [
+          {
+            "operation": "M",
+            "truth": "0",
+            "prediction": "0",
+            "truthIndex": 0,
+            "predictionIndex": 0
+          },
+          {
+            "operation": "M",
+            "truth": "0",
+            "prediction": "0",
+            "truthIndex": 1,
+            "predictionIndex": 1
+          },
+          {
+            "operation": "M",
+            "truth": "1",
+            "prediction": "1",
+            "truthIndex": 2,
+            "predictionIndex": 2
+          },
+          {
+            "operation": "M",
+            "truth": "2",
+            "prediction": "2",
+            "truthIndex": 3,
+            "predictionIndex": 3
+          },
+          {
+            "operation": "M",
+            "truth": "0",
+            "prediction": "0",
+            "truthIndex": 4,
+            "predictionIndex": 4
+          },
+          {
+            "operation": "M",
+            "truth": "8",
+            "prediction": "8",
+            "truthIndex": 5,
+            "predictionIndex": 5
+          }
+        ]
+      },
+      {
+        "id": "test-2",
+        "imageId": "526870e1028f38b8d1064dcdd08329db9d199eb223ff32a9da5734a6f996df8f",
+        "filename": "fixtures/test-02.png",
+        "truth": "112233",
+        "prediction": "112233",
+        "status": "ok",
+        "error": null,
+        "sampleKind": "synthetic-mnist",
+        "sourcePart": "t10k",
+        "sourceIndices": [
+          5,
+          14,
+          35,
+          38,
+          18,
+          30
+        ],
+        "modelId": "ocr-mnist-cnn-v1-9c7b0b8e8224",
+        "pipelineId": "9ee08e3a5e4f3e9fe267d4c0c79adbf199caf1db02625b0bb7b578cd43e625cb",
+        "experimentId": "test-frozen-v1",
+        "config": {
+          "thresholdMethod": "otsu",
+          "autoDeskew": true,
+          "correctionAngle": 0,
+          "denoise": false,
+          "preprocessingId": "dark-rgba-bbox20-centroid-v1"
+        },
+        "exclusionReason": "",
+        "elapsedMs": 63,
+        "boxes": [
+          {
+            "x": 68,
+            "y": 63,
+            "width": 22,
+            "height": 57
+          },
+          {
+            "x": 158,
+            "y": 61,
+            "width": 14,
+            "height": 58
+          },
+          {
+            "x": 226,
+            "y": 63,
+            "width": 53,
+            "height": 57
+          },
+          {
+            "x": 322,
+            "y": 55,
+            "width": 47,
+            "height": 58
+          },
+          {
+            "x": 402,
+            "y": 58,
+            "width": 58,
+            "height": 55
+          },
+          {
+            "x": 496,
+            "y": 64,
+            "width": 39,
+            "height": 57
+          }
+        ],
+        "correctionAngle": 4,
+        "warnings": [],
+        "rawPrediction": "112233",
+        "disposition": "evaluated",
+        "included": true,
+        "failed": false,
+        "truthLength": 6,
+        "distance": 0,
+        "substitutions": 0,
+        "deletions": 0,
+        "insertions": 0,
+        "cer": 0,
+        "exactMatch": true,
+        "alignment": [
+          {
+            "operation": "M",
+            "truth": "1",
+            "prediction": "1",
+            "truthIndex": 0,
+            "predictionIndex": 0
+          },
+          {
+            "operation": "M",
+            "truth": "1",
+            "prediction": "1",
+            "truthIndex": 1,
+            "predictionIndex": 1
+          },
+          {
+            "operation": "M",
+            "truth": "2",
+            "prediction": "2",
+            "truthIndex": 2,
+            "predictionIndex": 2
+          },
+          {
+            "operation": "M",
+            "truth": "2",
+            "prediction": "2",
+            "truthIndex": 3,
+            "predictionIndex": 3
+          },
+          {
+            "operation": "M",
+            "truth": "3",
+            "prediction": "3",
+            "truthIndex": 4,
+            "predictionIndex": 4
+          },
+          {
+            "operation": "M",
+            "truth": "3",
+            "prediction": "3",
+            "truthIndex": 5,
+            "predictionIndex": 5
+          }
+        ]
+      },
+      {
+        "id": "test-3",
+        "imageId": "2e54aaa4a5c9e8a84b34ecaf27a3a6a9706efd56bcbbfc81216b38152b350bd0",
+        "filename": "fixtures/test-03.png",
+        "truth": "987654",
+        "prediction": "987654",
+        "status": "ok",
+        "error": null,
+        "sampleKind": "synthetic-mnist",
+        "sourcePart": "t10k",
+        "sourceIndices": [
+          7,
+          84,
+          0,
+          11,
+          8,
+          4
+        ],
+        "modelId": "ocr-mnist-cnn-v1-9c7b0b8e8224",
+        "pipelineId": "9ee08e3a5e4f3e9fe267d4c0c79adbf199caf1db02625b0bb7b578cd43e625cb",
+        "experimentId": "test-frozen-v1",
+        "config": {
+          "thresholdMethod": "otsu",
+          "autoDeskew": true,
+          "correctionAngle": 0,
+          "denoise": false,
+          "preprocessingId": "dark-rgba-bbox20-centroid-v1"
+        },
+        "exclusionReason": "",
+        "elapsedMs": 30,
+        "boxes": [
+          {
+            "x": 56,
+            "y": 47,
+            "width": 43,
+            "height": 57
+          },
+          {
+            "x": 139,
+            "y": 47,
+            "width": 49,
+            "height": 57
+          },
+          {
+            "x": 226,
+            "y": 56,
+            "width": 45,
+            "height": 57
+          },
+          {
+            "x": 316,
+            "y": 38,
+            "width": 47,
+            "height": 57
+          },
+          {
+            "x": 398,
+            "y": 45,
+            "width": 58,
+            "height": 56
+          },
+          {
+            "x": 492,
+            "y": 50,
+            "width": 41,
+            "height": 57
+          }
+        ],
+        "correctionAngle": 0,
+        "warnings": [],
+        "rawPrediction": "987654",
+        "disposition": "evaluated",
+        "included": true,
+        "failed": false,
+        "truthLength": 6,
+        "distance": 0,
+        "substitutions": 0,
+        "deletions": 0,
+        "insertions": 0,
+        "cer": 0,
+        "exactMatch": true,
+        "alignment": [
+          {
+            "operation": "M",
+            "truth": "9",
+            "prediction": "9",
+            "truthIndex": 0,
+            "predictionIndex": 0
+          },
+          {
+            "operation": "M",
+            "truth": "8",
+            "prediction": "8",
+            "truthIndex": 1,
+            "predictionIndex": 1
+          },
+          {
+            "operation": "M",
+            "truth": "7",
+            "prediction": "7",
+            "truthIndex": 2,
+            "predictionIndex": 2
+          },
+          {
+            "operation": "M",
+            "truth": "6",
+            "prediction": "6",
+            "truthIndex": 3,
+            "predictionIndex": 3
+          },
+          {
+            "operation": "M",
+            "truth": "5",
+            "prediction": "5",
+            "truthIndex": 4,
+            "predictionIndex": 4
+          },
+          {
+            "operation": "M",
+            "truth": "4",
+            "prediction": "4",
+            "truthIndex": 5,
+            "predictionIndex": 5
+          }
+        ]
+      },
+      {
+        "id": "test-4",
+        "imageId": "76e64b16149019b8f8924219df7dd40e48c2205d5fea35034a21d7e995841ab7",
+        "filename": "fixtures/test-04.png",
+        "truth": "305",
+        "prediction": "305",
+        "status": "ok",
+        "error": null,
+        "sampleKind": "synthetic-mnist",
+        "sourcePart": "t10k",
+        "sourceIndices": [
+          32,
+          25,
+          15
+        ],
+        "modelId": "ocr-mnist-cnn-v1-9c7b0b8e8224",
+        "pipelineId": "9ee08e3a5e4f3e9fe267d4c0c79adbf199caf1db02625b0bb7b578cd43e625cb",
+        "experimentId": "test-frozen-v1",
+        "config": {
+          "thresholdMethod": "otsu",
+          "autoDeskew": true,
+          "correctionAngle": 0,
+          "denoise": false,
+          "preprocessingId": "dark-rgba-bbox20-centroid-v1"
+        },
+        "exclusionReason": "",
+        "elapsedMs": 25,
+        "boxes": [
+          {
+            "x": 52,
+            "y": 44,
+            "width": 41,
+            "height": 57
+          },
+          {
+            "x": 135,
+            "y": 44,
+            "width": 55,
+            "height": 57
+          },
+          {
+            "x": 230,
+            "y": 47,
+            "width": 47,
+            "height": 57
+          }
+        ],
+        "correctionAngle": 0,
+        "warnings": [],
+        "rawPrediction": "305",
+        "disposition": "evaluated",
+        "included": true,
+        "failed": false,
+        "truthLength": 3,
+        "distance": 0,
+        "substitutions": 0,
+        "deletions": 0,
+        "insertions": 0,
+        "cer": 0,
+        "exactMatch": true,
+        "alignment": [
+          {
+            "operation": "M",
+            "truth": "3",
+            "prediction": "3",
+            "truthIndex": 0,
+            "predictionIndex": 0
+          },
+          {
+            "operation": "M",
+            "truth": "0",
+            "prediction": "0",
+            "truthIndex": 1,
+            "predictionIndex": 1
+          },
+          {
+            "operation": "M",
+            "truth": "5",
+            "prediction": "5",
+            "truthIndex": 2,
+            "predictionIndex": 2
+          }
+        ]
+      },
+      {
+        "id": "test-5",
+        "imageId": "44c640ebc1ffd77b348ea57bfb16b2492a14919ef5788eefdafc45767bd34acb",
+        "filename": "fixtures/test-05.png",
+        "truth": "00011",
+        "prediction": "00011",
+        "status": "ok",
+        "error": null,
+        "sampleKind": "synthetic-mnist",
+        "sourcePart": "t10k",
+        "sourceIndices": [
+          28,
+          55,
+          69,
+          29,
+          31
+        ],
+        "modelId": "ocr-mnist-cnn-v1-9c7b0b8e8224",
+        "pipelineId": "9ee08e3a5e4f3e9fe267d4c0c79adbf199caf1db02625b0bb7b578cd43e625cb",
+        "experimentId": "test-frozen-v1",
+        "config": {
+          "thresholdMethod": "otsu",
+          "autoDeskew": true,
+          "correctionAngle": 0,
+          "denoise": false,
+          "preprocessingId": "dark-rgba-bbox20-centroid-v1"
+        },
+        "exclusionReason": "",
+        "elapsedMs": 39,
+        "boxes": [
+          {
+            "x": 59,
+            "y": 57,
+            "width": 39,
+            "height": 57
+          },
+          {
+            "x": 150,
+            "y": 60,
+            "width": 34,
+            "height": 57
+          },
+          {
+            "x": 226,
+            "y": 65,
+            "width": 58,
+            "height": 46
+          },
+          {
+            "x": 331,
+            "y": 54,
+            "width": 16,
+            "height": 57
+          },
+          {
+            "x": 422,
+            "y": 60,
+            "width": 16,
+            "height": 57
+          }
+        ],
+        "correctionAngle": 3,
+        "warnings": [
+          "有区域明显偏宽，可能存在数字粘连，请检查分割框。"
+        ],
+        "rawPrediction": "00011",
+        "disposition": "evaluated",
+        "included": true,
+        "failed": false,
+        "truthLength": 5,
+        "distance": 0,
+        "substitutions": 0,
+        "deletions": 0,
+        "insertions": 0,
+        "cer": 0,
+        "exactMatch": true,
+        "alignment": [
+          {
+            "operation": "M",
+            "truth": "0",
+            "prediction": "0",
+            "truthIndex": 0,
+            "predictionIndex": 0
+          },
+          {
+            "operation": "M",
+            "truth": "0",
+            "prediction": "0",
+            "truthIndex": 1,
+            "predictionIndex": 1
+          },
+          {
+            "operation": "M",
+            "truth": "0",
+            "prediction": "0",
+            "truthIndex": 2,
+            "predictionIndex": 2
+          },
+          {
+            "operation": "M",
+            "truth": "1",
+            "prediction": "1",
+            "truthIndex": 3,
+            "predictionIndex": 3
+          },
+          {
+            "operation": "M",
+            "truth": "1",
+            "prediction": "1",
+            "truthIndex": 4,
+            "predictionIndex": 4
+          }
+        ]
+      },
+      {
+        "id": "test-6",
+        "imageId": "2ddfbdb33467f7ea65ebdc651ddbcb800b94d26aaaf503d0c83459e1b9d43d69",
+        "filename": "fixtures/test-06.png",
+        "truth": "70890",
+        "prediction": "70890",
+        "status": "ok",
+        "error": null,
+        "sampleKind": "synthetic-mnist",
+        "sourcePart": "t10k",
+        "sourceIndices": [
+          17,
+          71,
+          110,
+          9,
+          101
+        ],
+        "modelId": "ocr-mnist-cnn-v1-9c7b0b8e8224",
+        "pipelineId": "9ee08e3a5e4f3e9fe267d4c0c79adbf199caf1db02625b0bb7b578cd43e625cb",
+        "experimentId": "test-frozen-v1",
+        "config": {
+          "thresholdMethod": "otsu",
+          "autoDeskew": true,
+          "correctionAngle": 0,
+          "denoise": false,
+          "preprocessingId": "dark-rgba-bbox20-centroid-v1"
+        },
+        "exclusionReason": "",
+        "elapsedMs": 29,
+        "boxes": [
+          {
+            "x": 46,
+            "y": 49,
+            "width": 48,
+            "height": 58
+          },
+          {
+            "x": 138,
+            "y": 44,
+            "width": 51,
+            "height": 57
+          },
+          {
+            "x": 228,
+            "y": 47,
+            "width": 42,
+            "height": 57
+          },
+          {
+            "x": 315,
+            "y": 49,
+            "width": 48,
+            "height": 58
+          },
+          {
+            "x": 404,
+            "y": 47,
+            "width": 47,
+            "height": 57
+          }
+        ],
+        "correctionAngle": 0,
+        "warnings": [],
+        "rawPrediction": "70890",
+        "disposition": "evaluated",
+        "included": true,
+        "failed": false,
+        "truthLength": 5,
+        "distance": 0,
+        "substitutions": 0,
+        "deletions": 0,
+        "insertions": 0,
+        "cer": 0,
+        "exactMatch": true,
+        "alignment": [
+          {
+            "operation": "M",
+            "truth": "7",
+            "prediction": "7",
+            "truthIndex": 0,
+            "predictionIndex": 0
+          },
+          {
+            "operation": "M",
+            "truth": "0",
+            "prediction": "0",
+            "truthIndex": 1,
+            "predictionIndex": 1
+          },
+          {
+            "operation": "M",
+            "truth": "8",
+            "prediction": "8",
+            "truthIndex": 2,
+            "predictionIndex": 2
+          },
+          {
+            "operation": "M",
+            "truth": "9",
+            "prediction": "9",
+            "truthIndex": 3,
+            "predictionIndex": 3
+          },
+          {
+            "operation": "M",
+            "truth": "0",
+            "prediction": "0",
+            "truthIndex": 4,
+            "predictionIndex": 4
+          }
+        ]
+      },
+      {
+        "id": "test-7",
+        "imageId": "04ca59baf3697bebf899ce6745efc839d0ae894ecfae4bb0e7f4f7592279baf4",
+        "filename": "fixtures/test-07.png",
+        "truth": "24680",
+        "prediction": "24680",
+        "status": "ok",
+        "error": null,
+        "sampleKind": "synthetic-mnist",
+        "sourcePart": "t10k",
+        "sourceIndices": [
+          43,
+          6,
+          21,
+          128,
+          126
+        ],
+        "modelId": "ocr-mnist-cnn-v1-9c7b0b8e8224",
+        "pipelineId": "9ee08e3a5e4f3e9fe267d4c0c79adbf199caf1db02625b0bb7b578cd43e625cb",
+        "experimentId": "test-frozen-v1",
+        "config": {
+          "thresholdMethod": "otsu",
+          "autoDeskew": true,
+          "correctionAngle": 0,
+          "denoise": false,
+          "preprocessingId": "dark-rgba-bbox20-centroid-v1"
+        },
+        "exclusionReason": "",
+        "elapsedMs": 25,
+        "boxes": [
+          {
+            "x": 47,
+            "y": 42,
+            "width": 57,
+            "height": 49
+          },
+          {
+            "x": 138,
+            "y": 47,
+            "width": 49,
+            "height": 57
+          },
+          {
+            "x": 234,
+            "y": 44,
+            "width": 33,
+            "height": 57
+          },
+          {
+            "x": 315,
+            "y": 46,
+            "width": 43,
+            "height": 58
+          },
+          {
+            "x": 396,
+            "y": 45,
+            "width": 57,
+            "height": 53
+          }
+        ],
+        "correctionAngle": 0,
+        "warnings": [],
+        "rawPrediction": "24680",
+        "disposition": "evaluated",
+        "included": true,
+        "failed": false,
+        "truthLength": 5,
+        "distance": 0,
+        "substitutions": 0,
+        "deletions": 0,
+        "insertions": 0,
+        "cer": 0,
+        "exactMatch": true,
+        "alignment": [
+          {
+            "operation": "M",
+            "truth": "2",
+            "prediction": "2",
+            "truthIndex": 0,
+            "predictionIndex": 0
+          },
+          {
+            "operation": "M",
+            "truth": "4",
+            "prediction": "4",
+            "truthIndex": 1,
+            "predictionIndex": 1
+          },
+          {
+            "operation": "M",
+            "truth": "6",
+            "prediction": "6",
+            "truthIndex": 2,
+            "predictionIndex": 2
+          },
+          {
+            "operation": "M",
+            "truth": "8",
+            "prediction": "8",
+            "truthIndex": 3,
+            "predictionIndex": 3
+          },
+          {
+            "operation": "M",
+            "truth": "0",
+            "prediction": "0",
+            "truthIndex": 4,
+            "predictionIndex": 4
+          }
+        ]
+      },
+      {
+        "id": "test-8",
+        "imageId": "90b7ccb13a3f3f01c6b36cff0365ab3f9e3052363c55b7e175c9cebf41a68912",
+        "filename": "fixtures/test-08.png",
+        "truth": "13579",
+        "prediction": "13579",
+        "status": "ok",
+        "error": null,
+        "sampleKind": "synthetic-mnist",
+        "sourcePart": "t10k",
+        "sourceIndices": [
+          37,
+          44,
+          23,
+          26,
+          12
+        ],
+        "modelId": "ocr-mnist-cnn-v1-9c7b0b8e8224",
+        "pipelineId": "9ee08e3a5e4f3e9fe267d4c0c79adbf199caf1db02625b0bb7b578cd43e625cb",
+        "experimentId": "test-frozen-v1",
+        "config": {
+          "thresholdMethod": "otsu",
+          "autoDeskew": true,
+          "correctionAngle": 0,
+          "denoise": false,
+          "preprocessingId": "dark-rgba-bbox20-centroid-v1"
+        },
+        "exclusionReason": "",
+        "elapsedMs": 37,
+        "boxes": [
+          {
+            "x": 70,
+            "y": 60,
+            "width": 13,
+            "height": 57
+          },
+          {
+            "x": 147,
+            "y": 58,
+            "width": 32,
+            "height": 58
+          },
+          {
+            "x": 233,
+            "y": 62,
+            "width": 49,
+            "height": 58
+          },
+          {
+            "x": 312,
+            "y": 64,
+            "width": 45,
+            "height": 57
+          },
+          {
+            "x": 411,
+            "y": 62,
+            "width": 38,
+            "height": 58
+          }
+        ],
+        "correctionAngle": 4,
+        "warnings": [],
+        "rawPrediction": "13579",
+        "disposition": "evaluated",
+        "included": true,
+        "failed": false,
+        "truthLength": 5,
+        "distance": 0,
+        "substitutions": 0,
+        "deletions": 0,
+        "insertions": 0,
+        "cer": 0,
+        "exactMatch": true,
+        "alignment": [
+          {
+            "operation": "M",
+            "truth": "1",
+            "prediction": "1",
+            "truthIndex": 0,
+            "predictionIndex": 0
+          },
+          {
+            "operation": "M",
+            "truth": "3",
+            "prediction": "3",
+            "truthIndex": 1,
+            "predictionIndex": 1
+          },
+          {
+            "operation": "M",
+            "truth": "5",
+            "prediction": "5",
+            "truthIndex": 2,
+            "predictionIndex": 2
+          },
+          {
+            "operation": "M",
+            "truth": "7",
+            "prediction": "7",
+            "truthIndex": 3,
+            "predictionIndex": 3
+          },
+          {
+            "operation": "M",
+            "truth": "9",
+            "prediction": "9",
+            "truthIndex": 4,
+            "predictionIndex": 4
+          }
+        ]
+      },
+      {
+        "id": "test-9",
+        "imageId": "ed44764a28732374d61948b1293792ab7098523e30494aee33911533549c1625",
+        "filename": "fixtures/test-09.png",
+        "truth": "90009",
+        "prediction": "90009",
+        "status": "ok",
+        "error": null,
+        "sampleKind": "synthetic-mnist",
+        "sourcePart": "t10k",
+        "sourceIndices": [
+          16,
+          136,
+          148,
+          157,
+          20
+        ],
+        "modelId": "ocr-mnist-cnn-v1-9c7b0b8e8224",
+        "pipelineId": "9ee08e3a5e4f3e9fe267d4c0c79adbf199caf1db02625b0bb7b578cd43e625cb",
+        "experimentId": "test-frozen-v1",
+        "config": {
+          "thresholdMethod": "otsu",
+          "autoDeskew": true,
+          "correctionAngle": 0,
+          "denoise": false,
+          "preprocessingId": "dark-rgba-bbox20-centroid-v1"
+        },
+        "exclusionReason": "",
+        "elapsedMs": 29,
+        "boxes": [
+          {
+            "x": 52,
+            "y": 47,
+            "width": 41,
+            "height": 57
+          },
+          {
+            "x": 146,
+            "y": 44,
+            "width": 34,
+            "height": 57
+          },
+          {
+            "x": 231,
+            "y": 47,
+            "width": 40,
+            "height": 57
+          },
+          {
+            "x": 321,
+            "y": 42,
+            "width": 36,
+            "height": 56
+          },
+          {
+            "x": 407,
+            "y": 50,
+            "width": 41,
+            "height": 57
+          }
+        ],
+        "correctionAngle": 0,
+        "warnings": [],
+        "rawPrediction": "90009",
+        "disposition": "evaluated",
+        "included": true,
+        "failed": false,
+        "truthLength": 5,
+        "distance": 0,
+        "substitutions": 0,
+        "deletions": 0,
+        "insertions": 0,
+        "cer": 0,
+        "exactMatch": true,
+        "alignment": [
+          {
+            "operation": "M",
+            "truth": "9",
+            "prediction": "9",
+            "truthIndex": 0,
+            "predictionIndex": 0
+          },
+          {
+            "operation": "M",
+            "truth": "0",
+            "prediction": "0",
+            "truthIndex": 1,
+            "predictionIndex": 1
+          },
+          {
+            "operation": "M",
+            "truth": "0",
+            "prediction": "0",
+            "truthIndex": 2,
+            "predictionIndex": 2
+          },
+          {
+            "operation": "M",
+            "truth": "0",
+            "prediction": "0",
+            "truthIndex": 3,
+            "predictionIndex": 3
+          },
+          {
+            "operation": "M",
+            "truth": "9",
+            "prediction": "9",
+            "truthIndex": 4,
+            "predictionIndex": 4
+          }
+        ]
+      },
+      {
+        "id": "test-10",
+        "imageId": "35b01b5240d0004808e555c03cfab2abe8fe87d986508b3f56bdde6bb5d18778",
+        "filename": "fixtures/test-10.png",
+        "truth": "101010",
+        "prediction": "101010",
+        "status": "ok",
+        "error": null,
+        "sampleKind": "synthetic-mnist",
+        "sourcePart": "t10k",
+        "sourceIndices": [
+          39,
+          183,
+          40,
+          188,
+          46,
+          192
+        ],
+        "modelId": "ocr-mnist-cnn-v1-9c7b0b8e8224",
+        "pipelineId": "9ee08e3a5e4f3e9fe267d4c0c79adbf199caf1db02625b0bb7b578cd43e625cb",
+        "experimentId": "test-frozen-v1",
+        "config": {
+          "thresholdMethod": "otsu",
+          "autoDeskew": true,
+          "correctionAngle": 0,
+          "denoise": false,
+          "preprocessingId": "dark-rgba-bbox20-centroid-v1"
+        },
+        "exclusionReason": "",
+        "elapsedMs": 30,
+        "boxes": [
+          {
+            "x": 66,
+            "y": 41,
+            "width": 18,
+            "height": 57
+          },
+          {
+            "x": 135,
+            "y": 44,
+            "width": 56,
+            "height": 57
+          },
+          {
+            "x": 244,
+            "y": 47,
+            "width": 8,
+            "height": 57
+          },
+          {
+            "x": 315,
+            "y": 44,
+            "width": 53,
+            "height": 57
+          },
+          {
+            "x": 413,
+            "y": 44,
+            "width": 28,
+            "height": 57
+          },
+          {
+            "x": 486,
+            "y": 47,
+            "width": 53,
+            "height": 57
+          }
+        ],
+        "correctionAngle": 0,
+        "warnings": [],
+        "rawPrediction": "101010",
+        "disposition": "evaluated",
+        "included": true,
+        "failed": false,
+        "truthLength": 6,
+        "distance": 0,
+        "substitutions": 0,
+        "deletions": 0,
+        "insertions": 0,
+        "cer": 0,
+        "exactMatch": true,
+        "alignment": [
+          {
+            "operation": "M",
+            "truth": "1",
+            "prediction": "1",
+            "truthIndex": 0,
+            "predictionIndex": 0
+          },
+          {
+            "operation": "M",
+            "truth": "0",
+            "prediction": "0",
+            "truthIndex": 1,
+            "predictionIndex": 1
+          },
+          {
+            "operation": "M",
+            "truth": "1",
+            "prediction": "1",
+            "truthIndex": 2,
+            "predictionIndex": 2
+          },
+          {
+            "operation": "M",
+            "truth": "0",
+            "prediction": "0",
+            "truthIndex": 3,
+            "predictionIndex": 3
+          },
+          {
+            "operation": "M",
+            "truth": "1",
+            "prediction": "1",
+            "truthIndex": 4,
+            "predictionIndex": 4
+          },
+          {
+            "operation": "M",
+            "truth": "0",
+            "prediction": "0",
+            "truthIndex": 5,
+            "predictionIndex": 5
+          }
+        ]
+      },
+      {
+        "id": "test-11",
+        "imageId": "11c8353153b43fd2b8abaee1f8fb1bcc88f5d76f14a722af16be35415419f5c7",
+        "filename": "fixtures/test-11.png",
+        "truth": "827364",
+        "prediction": "827364",
+        "status": "ok",
+        "error": null,
+        "sampleKind": "synthetic-mnist",
+        "sourcePart": "t10k",
+        "sourceIndices": [
+          134,
+          47,
+          34,
+          51,
+          22,
+          19
+        ],
+        "modelId": "ocr-mnist-cnn-v1-9c7b0b8e8224",
+        "pipelineId": "9ee08e3a5e4f3e9fe267d4c0c79adbf199caf1db02625b0bb7b578cd43e625cb",
+        "experimentId": "test-frozen-v1",
+        "config": {
+          "thresholdMethod": "otsu",
+          "autoDeskew": true,
+          "correctionAngle": 0,
+          "denoise": false,
+          "preprocessingId": "dark-rgba-bbox20-centroid-v1"
+        },
+        "exclusionReason": "",
+        "elapsedMs": 42,
+        "boxes": [
+          {
+            "x": 60,
+            "y": 62,
+            "width": 38,
+            "height": 59
+          },
+          {
+            "x": 146,
+            "y": 56,
+            "width": 42,
+            "height": 57
+          },
+          {
+            "x": 232,
+            "y": 68,
+            "width": 44,
+            "height": 58
+          },
+          {
+            "x": 311,
+            "y": 61,
+            "width": 58,
+            "height": 50
+          },
+          {
+            "x": 408,
+            "y": 54,
+            "width": 44,
+            "height": 57
+          },
+          {
+            "x": 499,
+            "y": 62,
+            "width": 34,
+            "height": 56
+          }
+        ],
+        "correctionAngle": 4,
+        "warnings": [],
+        "rawPrediction": "827364",
+        "disposition": "evaluated",
+        "included": true,
+        "failed": false,
+        "truthLength": 6,
+        "distance": 0,
+        "substitutions": 0,
+        "deletions": 0,
+        "insertions": 0,
+        "cer": 0,
+        "exactMatch": true,
+        "alignment": [
+          {
+            "operation": "M",
+            "truth": "8",
+            "prediction": "8",
+            "truthIndex": 0,
+            "predictionIndex": 0
+          },
+          {
+            "operation": "M",
+            "truth": "2",
+            "prediction": "2",
+            "truthIndex": 1,
+            "predictionIndex": 1
+          },
+          {
+            "operation": "M",
+            "truth": "7",
+            "prediction": "7",
+            "truthIndex": 2,
+            "predictionIndex": 2
+          },
+          {
+            "operation": "M",
+            "truth": "3",
+            "prediction": "3",
+            "truthIndex": 3,
+            "predictionIndex": 3
+          },
+          {
+            "operation": "M",
+            "truth": "6",
+            "prediction": "6",
+            "truthIndex": 4,
+            "predictionIndex": 4
+          },
+          {
+            "operation": "M",
+            "truth": "4",
+            "prediction": "4",
+            "truthIndex": 5,
+            "predictionIndex": 5
+          }
+        ]
+      },
+      {
+        "id": "test-12",
+        "imageId": "e66ccd6dbe2f9ad7821e1e64dc6b32b22a78c2ef022a9e6eb750fc0d2fefad96",
+        "filename": "fixtures/test-12.png",
+        "truth": "556677",
+        "prediction": "556677",
+        "status": "ok",
+        "error": null,
+        "sampleKind": "synthetic-mnist",
+        "sourcePart": "t10k",
+        "sourceIndices": [
+          45,
+          52,
+          50,
+          54,
+          36,
+          41
+        ],
+        "modelId": "ocr-mnist-cnn-v1-9c7b0b8e8224",
+        "pipelineId": "9ee08e3a5e4f3e9fe267d4c0c79adbf199caf1db02625b0bb7b578cd43e625cb",
+        "experimentId": "test-frozen-v1",
+        "config": {
+          "thresholdMethod": "otsu",
+          "autoDeskew": true,
+          "correctionAngle": 0,
+          "denoise": false,
+          "preprocessingId": "dark-rgba-bbox20-centroid-v1"
+        },
+        "exclusionReason": "",
+        "elapsedMs": 28,
+        "boxes": [
+          {
+            "x": 55,
+            "y": 44,
+            "width": 40,
+            "height": 57
+          },
+          {
+            "x": 138,
+            "y": 49,
+            "width": 55,
+            "height": 53
+          },
+          {
+            "x": 234,
+            "y": 44,
+            "width": 33,
+            "height": 57
+          },
+          {
+            "x": 313,
+            "y": 38,
+            "width": 58,
+            "height": 57
+          },
+          {
+            "x": 394,
+            "y": 52,
+            "width": 51,
+            "height": 58
+          },
+          {
+            "x": 492,
+            "y": 55,
+            "width": 41,
+            "height": 58
+          }
+        ],
+        "correctionAngle": 0,
+        "warnings": [],
+        "rawPrediction": "556677",
+        "disposition": "evaluated",
+        "included": true,
+        "failed": false,
+        "truthLength": 6,
+        "distance": 0,
+        "substitutions": 0,
+        "deletions": 0,
+        "insertions": 0,
+        "cer": 0,
+        "exactMatch": true,
+        "alignment": [
+          {
+            "operation": "M",
+            "truth": "5",
+            "prediction": "5",
+            "truthIndex": 0,
+            "predictionIndex": 0
+          },
+          {
+            "operation": "M",
+            "truth": "5",
+            "prediction": "5",
+            "truthIndex": 1,
+            "predictionIndex": 1
+          },
+          {
+            "operation": "M",
+            "truth": "6",
+            "prediction": "6",
+            "truthIndex": 2,
+            "predictionIndex": 2
+          },
+          {
+            "operation": "M",
+            "truth": "6",
+            "prediction": "6",
+            "truthIndex": 3,
+            "predictionIndex": 3
+          },
+          {
+            "operation": "M",
+            "truth": "7",
+            "prediction": "7",
+            "truthIndex": 4,
+            "predictionIndex": 4
+          },
+          {
+            "operation": "M",
+            "truth": "7",
+            "prediction": "7",
+            "truthIndex": 5,
+            "predictionIndex": 5
+          }
+        ]
+      }
+    ]
+  },
+  "realPhotoCount": 0
+}

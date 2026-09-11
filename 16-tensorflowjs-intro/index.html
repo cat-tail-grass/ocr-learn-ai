@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>16 · TensorFlow.js 入门</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22%3E%3Crect width=%2264%22 height=%2264%22 rx=%2214%22 fill=%22%23126451%22/%3E%3Ctext x=%2232%22 y=%2246%22 text-anchor=%22middle%22 font-size=%2244%22 fill=%22white%22 font-family=%22sans-serif%22%3EO%3C/text%3E%3C/svg%3E"><link rel="stylesheet" href="../shared/course.css">
+</head>
+<body>
+<nav class="course-nav" aria-label="课程导航"><a href="../../" data-course-catalog><strong>OCR / 学习实验室</strong></a><div class="links"><a href="../../16-tensorflowjs-intro/" data-course-doc="16-tensorflowjs-intro">返回本章讲义</a><a href="../../" data-course-catalog>课程目录</a><a href="../25-ocr-engine/index.html" data-course-lab="25-ocr-engine">照片识别</a><a href="../26-validation/index.html" data-course-lab="26-validation">评估记录</a></div></nav><main>
+  <header><p class="eyebrow">第 16 章 · 从公式到框架</p><h1>看见张量的计算与生命周期</h1>
+  <p class="lead">用 5 个合成点学习 y = 2x + 1，再保存至内存、重新加载并连续推理 100 次。真实手写数字训练见第 17 章。</p></header>
+  <section class="card"><h2>1 · 输入、训练参数与第一步更新</h2>
+    <p>输入 x=[−1,−0.5,0,0.5,1]，标签 y=[−1,0,1,2,3]。Dense(1)，w=b=0，MSE，SGD。批次外检查 x=2，解析答案为 5。</p>
+    <div class="controls"><label for="epochs">训练轮数</label><select id="epochs"><option value="20">20 轮</option><option value="120" selected>120 轮</option></select>
+    <label for="learning-rate">学习率 η</label><select id="learning-rate"><option value="0.01">0.01：小步更新</option><option value="0.1" selected>0.1：默认</option><option value="0.8">0.8：观察振荡后收敛</option></select>
+    <button id="run" type="button">运行完整实验</button><button id="reset" type="button" class="secondary">恢复默认</button></div>
+    <p id="gradient" class="note">运行后显示真实自动微分的第一步。</p>
+  </section>
+  <section class="card"><h2>2 · 训练过程与训练前后对照</h2>
+    <div class="grid"><div><h3>真实损失曲线</h3><canvas id="loss" width="680" height="250" aria-label="MSE 随训练轮数变化"></canvas></div>
+    <div><h3>原始点与学到的直线</h3><canvas id="fit" width="680" height="250" aria-label="训练点、初始预测与最终预测比较"></canvas></div></div>
+    <p>先用 20 轮、η=0.01，再改成 120 轮、η=0.1。所有实验从同一零初值重新开始。曲线是每轮更新前的批次损失；下方 finalModelLoss 用最终权重重新评估。样本外预测只是解析回归实验，不是 OCR 测试成绩。</p>
+  </section>
+  <section class="card"><h2>3 · 矩阵、广播和自动微分</h2><p>A=[[1,2],[3,4]]，B=[[2,0],[1,2]]。product 是 AB；elementwise 是逐元素乘积；broadcast 是 A+[10,20]；gradient 是 ΣA² 对 A 的导数。</p><div id="arithmetic" class="grid"></div></section>
+  <section class="card"><h2>4 · 保存加载、输出与资源自检</h2><pre id="output" role="status" aria-live="polite">点击运行查看训练结果、权重维度和 100 次推理前后张量数量。</pre>
+    <p>保存/加载为内存 IOHandler 闭环；Node 入口另外写入磁盘文件。返回普通数组使临时 Tensor 可释放。</p>
+    <details><summary>观察题</summary><p>为什么矩阵乘法与逐元素乘法的结果不同？为何降低学习率后同样轮数可能尚未接近 5？100 次推理是否保持张量数稳定？</p></details>
+    <p><a href="../../16-tensorflowjs-intro/" data-course-doc="16-tensorflowjs-intro">阅读本章公式、接口与自测</a> · <a href="../17-cnn-classifier/index.html">下一章：真实 CNN 分类器</a></p>
+  </section>
+</main><script src="../shared/course.js"></script><script src="bundle.js"></script></body></html>

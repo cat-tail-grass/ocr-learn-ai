@@ -1,0 +1,17 @@
+
+============================
+Hi, looks like you are running TensorFlow.js in Node.js. To speed things up dramatically, install our node backend, visit https://github.com/tensorflow/tfjs-node for more details. 
+============================
+development-1: 001208 / 001208
+development-2: 112233 / 112233
+development-3: 987659 / 987654
+development-4: 305 / 305
+development-5: 00011 / 00011
+development-6: 70890 / 70890
+development-7: 24680 / 24680
+development-8: 13579 / 13579
+development-9: 90009 / 90009
+development-10: 101010 / 101010
+development-11: 827364 / 827364
+development-12: 556677 / 556677
+{"microCER":0.015625,"exactMatchAccuracy":0.9166666666666666,"tensorsBefore":0,"tensorsAfter":0}

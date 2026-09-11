@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>26 · 手写数字串实战评估</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22%3E%3Crect width=%2264%22 height=%2264%22 rx=%2214%22 fill=%22%23126451%22/%3E%3Ctext x=%2232%22 y=%2246%22 text-anchor=%22middle%22 font-size=%2244%22 fill=%22white%22 font-family=%22sans-serif%22%3EO%3C/text%3E%3C/svg%3E">
+    <link rel="stylesheet" href="../shared/course.css" />
+    <style>
+      .summary-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 16px;
+      }
+      .summary-grid .card {
+        margin: 0;
+      }
+      .records input {
+        width: 145px;
+      }
+      .records td {
+        min-width: 80px;
+      }
+      .digits-text {
+        font:
+          500 1.1rem ui-monospace,
+          monospace;
+        white-space: pre-wrap;
+        overflow-wrap: anywhere;
+      }
+      .empty {
+        padding: 36px;
+        text-align: center;
+        border: 1px dashed #b3c7bb;
+        background: #fff;
+        border-radius: 12px;
+        color: var(--muted);
+      }
+      .op {
+        display: inline-flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 3px 8px;
+        margin: 3px;
+        border-radius: 4px;
+        font:
+          500 1rem ui-monospace,
+          monospace;
+        background: #e7eee8;
+      }
+      .op.S {
+        background: #ffe1dc;
+      }
+      .op.D {
+        background: #fff0c7;
+      }
+      .op.I {
+        background: #deeafd;
+      }
+      .op small {
+        font-size: 0.65rem;
+        color: #67756c;
+      }
+      @media (max-width: 800px) {
+        .summary-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+<nav class="course-nav" aria-label="课程导航"><a href="../../" data-course-catalog><strong>OCR / 学习实验室</strong></a><div class="links"><a href="../../26-validation/" data-course-doc="26-validation">返回本章讲义</a><a href="../../" data-course-catalog>课程目录</a><a href="../25-ocr-engine/index.html" data-course-lab="25-ocr-engine">照片识别</a><a href="../26-validation/index.html" data-course-lab="26-validation">评估记录</a></div></nav>
+    <script src="../shared/course.js"></script>
+    <main>
+      <div class="eyebrow">26 / Measure what happened</div>
+      <h1>每一张照片，都留在结果里。</h1>
+      <p class="lead">
+        对照真实书写内容，分别观察字符错误和整串正确率。模型、处理配置、样本类型与实验轮次分开统计。
+      </p>
+      <div class="actions">
+        <a class="button" href="../25-ocr-engine/index.html">识别下一张照片</a
+        ><button id="export" class="secondary">导出全部记录</button
+        ><label for="import">导入记录 JSON</label
+        ><input id="import" type="file" accept="application/json,.json" />
+      </div>
+      <div id="status" class="status" role="status" aria-live="polite">
+        读取本机评估记录…
+      </div>
+      <section class="card">
+        <label for="group">选择实验组</label
+        ><select id="group"></select>
+        <p id="groupInfo" class="hint"></p>
+      </section>
+      <div id="empty" class="empty" hidden>
+        还没有评估记录。请在识别页导入照片、运行识别并保存结果。
+      </div>
+      <div id="summary" class="summary-grid" hidden>
+        <div class="card metric">
+          <small>字符错误率 CER</small><strong id="cer">—</strong
+          ><span id="cerFraction" class="hint"></span>
+        </div>
+        <div class="card metric">
+          <small>整串完全正确率</small><strong id="exact">—</strong
+          ><span id="exactFraction" class="hint"></span>
+        </div>
+        <div class="card metric">
+          <small>已标注有效样本</small><strong id="count">0</strong
+          ><span id="failures" class="hint"></span>
+        </div>
+        <div class="card metric">
+          <small>替换 / 漏字 / 多字</small><strong id="errors">0 / 0 / 0</strong
+          ><span id="pending" class="hint"></span>
+        </div>
+      </div>
+      <section class="card">
+        <h2>逐图核对</h2>
+        <p class="hint">
+          补充正确答案只改变评分，保留原始预测。有效照片识别失败仍计入分母；排除样本需要明确原因。
+        </p>
+        <div class="table-wrap">
+          <table class="records">
+            <thead>
+              <tr>
+                <th>照片 / 来源</th>
+                <th>原始预测</th>
+                <th>正确答案</th>
+                <th>排除理由（可选）</th>
+                <th>评分</th>
+                <th>操作</th>
+              </tr>
+            </thead>
+            <tbody id="rows"></tbody>
+          </table>
+        </div>
+      </section>
+      <section class="card">
+        <h2>编辑距离对齐</h2>
+        <p class="hint">
+          选择一张已标注照片查看对齐。上行为正确答案，下行为预测；M 匹配、S
+          替换、D 漏字、I 多字。
+        </p>
+        <div id="alignment"></div>
+      </section>
+      <section class="card">
+        <h2>怎样理解这些数字？</h2>
+        <p>
+          <code>CER = (替换 + 删除 + 插入) / 真实字符总数</code
+          >。多个样本按总字符数汇总，额外插入很多数字时可超过 100%。
+        </p>
+        <p>
+          <code>整串完全正确率 = 完全一致的照片数 / 有标签有效照片数</code
+          >。模型置信度不参与这两个分母，也不代表实际准确率。
+        </p>
+        <p class="note">
+          本机记录保存在当前浏览器。请在分享结束后导出 JSON。MNIST
+          拼接样例属于合成流程实验，不能代替同事现场实拍照片的评估。
+        </p>
+        <a href="../../26-validation/" data-course-doc="26-validation">本章讲义与验证流程</a>
+      </section>
+    </main>
+    <script src="bundle.js"></script>
+  </body>
+</html>

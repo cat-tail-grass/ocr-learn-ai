@@ -114,27 +114,16 @@ function calculateProjectionVariance(projection) {
  * @param {number} y - Y坐标（可以是小数）
  * @returns {number} 插值后的灰度值
  */
-function bilinearInterpolate(imageData, x, y) {
-    const x1 = Math.floor(x);
-    const x2 = x1 + 1;
-    const y1 = Math.floor(y);
-    const y2 = y1 + 1;
-    
-    const xFrac = x - x1;
-    const yFrac = y - y1;
-    
-    // 获取四个角点的像素值
-    const q11 = getPixel(imageData, x1, y1).r;
-    const q12 = getPixel(imageData, x2, y1).r;
-    const q21 = getPixel(imageData, x1, y2).r;
-    const q22 = getPixel(imageData, x2, y2).r;
-    
-    // 水平方向插值
-    const r1 = q11 * (1 - xFrac) + q12 * xFrac;
-    const r2 = q21 * (1 - xFrac) + q22 * xFrac;
-    
-    // 垂直方向插值
-    return Math.round(r1 * (1 - yFrac) + r2 * yFrac);
+function bilinearInterpolate(imageData, x, y, backgroundColor = 255) {
+    const x1 = Math.floor(x), y1 = Math.floor(y);
+    const u = x - x1, v = y - y1;
+    // 常量背景逐采样点处理；最右/最下整数像素不会因邻居越界而丢失。
+    const sample = (sx, sy) => sx >= 0 && sx < imageData.width && sy >= 0 && sy < imageData.height
+        ? imageData.data[(sy * imageData.width + sx) * 4] : backgroundColor;
+    return Math.round(
+        sample(x1, y1) * (1 - u) * (1 - v) + sample(x1 + 1, y1) * u * (1 - v) +
+        sample(x1, y1 + 1) * (1 - u) * v + sample(x1 + 1, y1 + 1) * u * v
+    );
 }
 
 /**
@@ -147,58 +136,46 @@ function bilinearInterpolate(imageData, x, y) {
  * - 逆变换：从目标图像坐标计算源图像坐标
  * 
  * 旋转公式（逆变换）：
- * srcX = (dstX - cx) * cos(θ) + (dstY - cy) * sin(θ) + cx
- * srcY = -(dstX - cx) * sin(θ) + (dstY - cy) * cos(θ) + cy
+ * srcX = (dstX - cx) * cos(θ) - (dstY - cy) * sin(θ) + cx
+ * srcY = (dstX - cx) * sin(θ) + (dstY - cy) * cos(θ) + cy
  * 
- * @param {ImageData|MockImageData} imageData - 原始图像数据
+ * @param {ImageData|MockImageData} imageData - 灰度/二值图像；输出尺寸固定，旋转可能裁剪
  * @param {number} angleDegrees - 旋转角度（度），正值为逆时针
  * @param {string} interpolation - 插值方法：'nearest' 或 'bilinear'（默认）
  * @param {number} backgroundColor - 背景填充颜色（默认255白色）
  * @returns {MockImageData} 旋转后的图像数据
  */
 function rotateImage(imageData, angleDegrees, interpolation = 'bilinear', backgroundColor = 255) {
+    if (!Number.isFinite(angleDegrees)) throw new RangeError('旋转角度必须有限');
+    if (!['nearest', 'bilinear'].includes(interpolation)) throw new RangeError('未知插值方法');
     const { width, height } = imageData;
     const result = createImageData(width, height, backgroundColor, backgroundColor, backgroundColor);
-    
-    // 图像中心点
-    const cx = width / 2;
-    const cy = height / 2;
-    
-    // 将角度转换为弧度（负号是因为使用逆变换）
-    const angleRadians = -angleDegrees * Math.PI / 180;
-    const cosA = Math.cos(angleRadians);
-    const sinA = Math.sin(angleRadians);
-    
-    // 对每个目标像素，计算其在源图像中的位置
+    // 整数坐标表示像素中心。偶数宽高时，图像中心位于两个像素之间。
+    const cx = (width - 1) / 2;
+    const cy = (height - 1) / 2;
+    const radians = angleDegrees * Math.PI / 180;
+    const cosA = Math.cos(radians), sinA = Math.sin(radians);
+    // y向下，正角视觉逆时针；下面是该正向变换的逆变换。
     for (let y = 0; y < height; y++) {
         for (let x = 0; x < width; x++) {
-            // 相对于中心的坐标
-            const dx = x - cx;
-            const dy = y - cy;
-            
-            // 应用逆旋转变换
-            const srcX = dx * cosA + dy * sinA + cx;
-            const srcY = -dx * sinA + dy * cosA + cy;
-            
-            // 检查是否在源图像范围内
-            if (srcX >= 0 && srcX < width - 1 && srcY >= 0 && srcY < height - 1) {
-                let pixelValue;
-                
-                if (interpolation === 'bilinear') {
-                    pixelValue = bilinearInterpolate(imageData, srcX, srcY);
-                } else {
-                    // 最近邻插值
-                    const nearestX = Math.round(srcX);
-                    const nearestY = Math.round(srcY);
-                    const pixel = getPixel(imageData, nearestX, nearestY);
-                    pixelValue = pixel.r;
+            const dx = x - cx, dy = y - cy;
+            let sx = dx * cosA - dy * sinA + cx;
+            let sy = dx * sinA + dy * cosA + cy;
+            // 消除90°倍数附近的浮点误差，保持整数映射。
+            if (Math.abs(sx - Math.round(sx)) < 1e-10) sx = Math.round(sx);
+            if (Math.abs(sy - Math.round(sy)) < 1e-10) sy = Math.round(sy);
+            let value = backgroundColor;
+            if (interpolation === 'bilinear') {
+                value = bilinearInterpolate(imageData, sx, sy, backgroundColor);
+            } else {
+                const nx = Math.round(sx), ny = Math.round(sy);
+                if (nx >= 0 && nx < width && ny >= 0 && ny < height) {
+                    value = imageData.data[(ny * width + nx) * 4];
                 }
-                
-                setPixel(result, x, y, pixelValue, pixelValue, pixelValue);
             }
+            setPixel(result, x, y, value, value, value);
         }
     }
-    
     return result;
 }
 
@@ -208,7 +185,7 @@ function rotateImage(imageData, angleDegrees, interpolation = 'bilinear', backgr
  * 原理说明：
  * - 将图像旋转不同角度
  * - 对每个角度计算水平投影的方差
- * - 方差最大的角度即为倾斜角度
+ * - 方差最大的试转角是校正角；倾斜角是它的相反数
  * - 先粗搜索，再细化搜索以提高精度
  * 
  * @param {ImageData|MockImageData} imageData - 二值图像数据
@@ -221,49 +198,37 @@ function rotateImage(imageData, angleDegrees, interpolation = 'bilinear', backgr
  * @returns {{angle: number, variance: number}} 检测结果
  */
 function detectSkewAngle(imageData, options = {}) {
-    const {
-        minAngle = -15,
-        maxAngle = 15,
-        step = 1,
-        refine = true,
-        refineStep = 0.1
-    } = options;
-    
-    let bestAngle = 0;
-    let maxVariance = 0;
-    
-    // 粗搜索
-    for (let angle = minAngle; angle <= maxAngle; angle += step) {
+    const { minAngle = -15, maxAngle = 15, step = 1, refine = true, refineStep = 0.1 } = options;
+    validateAngleSearch(minAngle, maxAngle, step);
+    if (!Number.isFinite(refineStep) || refineStep <= 0) throw new RangeError('细化步长必须为正数');
+    let bestAngle = Math.min(maxAngle, Math.max(minAngle, 0));
+    let maxVariance = -Infinity;
+    const allResults = [];
+    const evaluate = angle => {
         const rotated = rotateImage(imageData, angle, 'nearest');
-        const projection = calculateHorizontalProjection(rotated);
-        const variance = calculateProjectionVariance(projection);
-        
-        if (variance > maxVariance) {
+        const variance = calculateProjectionVariance(calculateHorizontalProjection(rotated));
+        allResults.push({ angle, variance });
+        // 相同分数时优先较小旋转，空白图不任意旋转到搜索边界。
+        if (variance > maxVariance + 1e-9 ||
+            (Math.abs(variance - maxVariance) <= 1e-9 && Math.abs(angle) < Math.abs(bestAngle))) {
             maxVariance = variance;
             bestAngle = angle;
         }
+    };
+    const foregroundCount = calculateHorizontalProjection(imageData).reduce((a, b) => a + b, 0);
+    if (foregroundCount === 0 || foregroundCount === imageData.width * imageData.height) {
+        return { angle: 0, correctionAngle: 0, skewAngle: 0, variance: 0, allResults: [], informative: false };
     }
-    
-    // 细化搜索
+    for (const angle of angleGrid(minAngle, maxAngle, step)) evaluate(angle);
+    if (minAngle <= 0 && maxAngle >= 0) evaluate(0);
     if (refine && step > refineStep) {
-        const refineMin = bestAngle - step;
-        const refineMax = bestAngle + step;
-        
-        for (let angle = refineMin; angle <= refineMax; angle += refineStep) {
-            if (Math.abs(angle - bestAngle) < 0.001) continue;
-            
-            const rotated = rotateImage(imageData, angle, 'nearest');
-            const projection = calculateHorizontalProjection(rotated);
-            const variance = calculateProjectionVariance(projection);
-            
-            if (variance > maxVariance) {
-                maxVariance = variance;
-                bestAngle = angle;
-            }
-        }
+        const coarseBest = bestAngle; // 固定细化区间，不能随循环更新漂移。
+        const lo = Math.max(minAngle, coarseBest - step);
+        const hi = Math.min(maxAngle, coarseBest + step);
+        for (const angle of angleGrid(lo, hi, refineStep)) evaluate(angle);
     }
-    
-    return { angle: bestAngle, variance: maxVariance };
+    return { angle: bestAngle, correctionAngle: bestAngle, skewAngle: -bestAngle,
+        variance: maxVariance, allResults: allResults.sort((a, b) => a.angle - b.angle), informative: true };
 }
 
 /**
@@ -281,26 +246,84 @@ function detectSkewAngle(imageData, options = {}) {
  * @returns {{imageData: MockImageData, angle: number, correctionAngle: number}} 校正结果
  */
 function deskew(imageData, options = {}) {
-    const { interpolation = 'bilinear' } = options;
-    
-    // 检测倾斜角度
-    const detection = detectSkewAngle(imageData, options);
-    
-    // 校正方向与倾斜方向相反
-    const correctionAngle = -detection.angle;
-    
-    // 旋转图像
+    const { interpolation = 'bilinear', method = 'projection' } = options;
+    if (!['projection', 'hough'].includes(method)) throw new RangeError('未知检测方法');
+    const detection = method === 'hough'
+        ? detectSkewAngleByHough(imageData, options) : detectSkewAngle(imageData, options);
+    // detection.angle已经是尝试旋转得到的校正角，不再取负。
+    const correctionAngle = detection.angle;
     const correctedImage = rotateImage(imageData, correctionAngle, interpolation);
-    
-    return {
-        imageData: correctedImage,
-        angle: detection.angle,
-        correctionAngle: correctionAngle,
-        variance: detection.variance
-    };
+    return { imageData: correctedImage, angle: correctionAngle, correctionAngle,
+        skewAngle: -correctionAngle, variance: detection.variance, method, detectionResult: detection };
+}
+
+function validateAngleSearch(minAngle, maxAngle, step) {
+    if (![minAngle, maxAngle, step].every(Number.isFinite) || minAngle > maxAngle || step <= 0) {
+        throw new RangeError('搜索区间须有限且minAngle≤maxAngle，步长须为正数');
+    }
+}
+
+function angleGrid(min, max, step) {
+    const values = [];
+    const count = Math.floor((max - min) / step + 1e-9);
+    for (let i = 0; i <= count; i++) values.push(Number((min + i * step).toFixed(10)));
+    if (Math.abs(values[values.length - 1] - max) > 1e-9) values.push(max);
+    return values;
+}
+
+/** 标准ρ-θ投票；θ是y向下坐标中的法线角，ρ为带符号距离。 */
+function houghTransform(imageData, options = {}) {
+    const { thetaStep = 1, rhoStep = 1 } = options;
+    if (![thetaStep, rhoStep].every(v => Number.isFinite(v) && v > 0)) throw new RangeError('霍夫步长须为正数');
+    const { width, height } = imageData;
+    const diagonal = Math.hypot(width - 1, height - 1);
+    const rhoRadius = Math.ceil(diagonal / rhoStep);
+    const thetas = angleGrid(0, 180, thetaStep).filter(theta => theta < 180);
+    const accumulator = thetas.map(() => new Uint32Array(2 * rhoRadius + 1));
+    const trig = thetas.map(t => [Math.cos(t * Math.PI / 180), Math.sin(t * Math.PI / 180)]);
+    for (let y = 0; y < height; y++) {
+        for (let x = 0; x < width; x++) {
+            if (imageData.data[(y * width + x) * 4] >= 128) continue;
+            for (let t = 0; t < thetas.length; t++) {
+                const rho = x * trig[t][0] + y * trig[t][1];
+                accumulator[t][Math.round(rho / rhoStep) + rhoRadius]++;
+            }
+        }
+    }
+    return { accumulator, thetas, thetaStep, rhoStep, diagonal, rhoRadius };
+}
+
+/**
+ * 教学简化：取每个法线角上的最大ρ票数，而不是所有ρ票数之和。
+ * 每个点在每个角度都投一票，所以总和恒等于前景数，不能检测方向。
+ * 正视觉逆时针的校正角c=θ−90°；只在水平附近搜索。
+ */
+function detectSkewAngleByHough(imageData, options = {}) {
+    const { minAngle = -15, maxAngle = 15, thetaStep = options.step ?? 1 } = options;
+    validateAngleSearch(minAngle, maxAngle, thetaStep);
+    if (minAngle <= -90 || maxAngle >= 90) throw new RangeError('霍夫校正角搜索须在(-90,90)内');
+    const hough = houghTransform(imageData, { ...options, thetaStep });
+    const allResults = [];
+    let best = null;
+    for (let t = 0; t < hough.thetas.length; t++) {
+        const theta = hough.thetas[t], angle = theta - 90;
+        if (angle < minAngle || angle > maxAngle) continue;
+        let peak = 0;
+        for (const count of hough.accumulator[t]) peak = Math.max(peak, count);
+        const candidate = { angle, theta, peak };
+        allResults.push(candidate);
+        if (!best || peak > best.peak || (peak === best.peak && Math.abs(angle) < Math.abs(best.angle))) best = candidate;
+    }
+    if (!best) throw new RangeError('当前霍夫步长在搜索区间内没有采样角');
+    const informative = best.peak > 0;
+    const angle = informative ? best.angle : 0;
+    return { angle, correctionAngle: angle, skewAngle: -angle, detectedTheta: best.theta,
+        peak: best.peak, allResults, informative };
 }
 
 module.exports = {
+    houghTransform,
+    detectSkewAngleByHough,
     calculateHorizontalProjection,
     calculateVerticalProjection,
     calculateProjectionVariance,

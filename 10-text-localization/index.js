@@ -13,236 +13,13 @@
  * cd 10-text-localization && node index.js
  */
 
-// 引入共享模块
-const { MockImageData, createImageData, cloneImageData } = require('../shared/core/imageData');
+// 核心算法与HTML共用shared实现；下文保留可直接运行的逐步实验。
+const { createImageData, cloneImageData } = require('../shared/core/imageData');
 const { getPixel, setPixel } = require('../shared/core/pixelAccess');
-const { forEachPixelXY } = require('../shared/core/pixelIterator');
+const { horizontalRLSA, verticalRLSA, filterCandidateCharacters, detectTextLines, groupRegionsIntoLines, segmentCharacters, segmentCharactersByCC, sortCharacters, extractLineImage, calculateRegionStats, maskCandidateRegions, localizeText } = require('../shared/10-text-localization');
 const { calculateHorizontalProjection, calculateVerticalProjection } = require('../shared/07-deskewing');
-const { labelConnectedComponents, extractRegionProperties, colorizeLabels } = require('../shared/09-connected-components');
+const { labelConnectedComponents, extractRegionProperties } = require('../shared/09-connected-components');
 
-// ==================== RLSA 算法实现 ====================
-
-/**
- * 水平 RLSA（游程平滑算法）
- * 
- * 原理解释：
- * - 扫描每一行，记录前景像素的位置
- * - 如果两个前景像素之间的背景间隔 ≤ 阈值，则填充为前景
- * - 效果是将水平方向上接近的前景区域连接起来
- * 
- * @param {ImageData|MockImageData} imageData - 二值图像
- * @param {number} threshold - 连接阈值
- * @returns {MockImageData} 处理后的图像
- */
-function horizontalRLSA(imageData, threshold) {
-    const { width, height } = imageData;
-    const result = cloneImageData(imageData);
-    
-    console.log(`  执行水平 RLSA，阈值 = ${threshold}`);
-    
-    // 逐行处理
-    for (let y = 0; y < height; y++) {
-        let lastForegroundX = -threshold - 1;
-        
-        for (let x = 0; x < width; x++) {
-            const pixel = getPixel(result, x, y);
-            
-            if (pixel.r < 128) { // 前景像素
-                const gap = x - lastForegroundX - 1;
-                
-                // 填充间隔
-                if (gap > 0 && gap <= threshold) {
-                    for (let i = lastForegroundX + 1; i < x; i++) {
-                        setPixel(result, i, y, 0, 0, 0);
-                    }
-                }
-                
-                lastForegroundX = x;
-            }
-        }
-    }
-    
-    return result;
-}
-
-/**
- * 垂直 RLSA
- * 
- * @param {ImageData|MockImageData} imageData - 二值图像
- * @param {number} threshold - 连接阈值
- * @returns {MockImageData} 处理后的图像
- */
-function verticalRLSA(imageData, threshold) {
-    const { width, height } = imageData;
-    const result = cloneImageData(imageData);
-    
-    console.log(`  执行垂直 RLSA，阈值 = ${threshold}`);
-    
-    // 逐列处理
-    for (let x = 0; x < width; x++) {
-        let lastForegroundY = -threshold - 1;
-        
-        for (let y = 0; y < height; y++) {
-            const pixel = getPixel(result, x, y);
-            
-            if (pixel.r < 128) { // 前景像素
-                const gap = y - lastForegroundY - 1;
-                
-                // 填充间隔
-                if (gap > 0 && gap <= threshold) {
-                    for (let i = lastForegroundY + 1; i < y; i++) {
-                        setPixel(result, x, i, 0, 0, 0);
-                    }
-                }
-                
-                lastForegroundY = y;
-            }
-        }
-    }
-    
-    return result;
-}
-
-// ==================== 投影分析 ====================
-
-/**
- * 检测文字行
- * 
- * @param {ImageData|MockImageData} imageData - 二值图像
- * @param {object} options - 配置选项
- * @returns {object[]} 文字行边界框数组
- */
-function detectTextLines(imageData, options = {}) {
-    const { minLineHeight = 8, projectionThreshold = 0.05 } = options;
-    const { width, height } = imageData;
-    
-    // 计算水平投影
-    const projection = calculateHorizontalProjection(imageData);
-    
-    // 计算阈值
-    const maxProjection = Math.max(...projection);
-    const threshold = maxProjection * projectionThreshold;
-    
-    console.log(`  投影最大值: ${maxProjection}, 阈值: ${threshold.toFixed(2)}`);
-    
-    // 检测行区域
-    const lines = [];
-    let inLine = false;
-    let lineStart = 0;
-    
-    for (let y = 0; y < height; y++) {
-        if (!inLine && projection[y] > threshold) {
-            inLine = true;
-            lineStart = y;
-        } else if (inLine && (projection[y] <= threshold || y === height - 1)) {
-            inLine = false;
-            const lineEnd = y === height - 1 && projection[y] > threshold ? y + 1 : y;
-            const lineHeight = lineEnd - lineStart;
-            
-            if (lineHeight >= minLineHeight) {
-                lines.push({
-                    x: 0,
-                    y: lineStart,
-                    width: width,
-                    height: lineHeight
-                });
-            }
-        }
-    }
-    
-    return lines;
-}
-
-/**
- * 分割字符
- * 
- * @param {ImageData|MockImageData} imageData - 原始图像
- * @param {object} lineRegion - 行边界框
- * @param {object} options - 配置选项
- * @returns {object[]} 字符边界框数组
- */
-function segmentCharacters(imageData, lineRegion, options = {}) {
-    const { minCharWidth = 3, gapThreshold = 0.0 } = options;
-    const { x: lineX, y: lineY, width: lineWidth, height: lineHeight } = lineRegion;
-    
-    // 计算垂直投影
-    const projection = new Array(lineWidth).fill(0);
-    
-    for (let dx = 0; dx < lineWidth; dx++) {
-        for (let dy = 0; dy < lineHeight; dy++) {
-            const x = lineX + dx;
-            const y = lineY + dy;
-            
-            if (x >= 0 && x < imageData.width && y >= 0 && y < imageData.height) {
-                const pixel = getPixel(imageData, x, y);
-                if (pixel.r < 128) {
-                    projection[dx]++;
-                }
-            }
-        }
-    }
-    
-    // 检测字符边界
-    const characters = [];
-    let inChar = false;
-    let charStart = 0;
-    
-    const maxProjection = Math.max(...projection);
-    const threshold = maxProjection * gapThreshold;
-    
-    for (let x = 0; x < lineWidth; x++) {
-        if (!inChar && projection[x] > threshold) {
-            inChar = true;
-            charStart = x;
-        } else if (inChar && (projection[x] <= threshold || x === lineWidth - 1)) {
-            inChar = false;
-            const charEnd = x === lineWidth - 1 && projection[x] > threshold ? x + 1 : x;
-            const charWidth = charEnd - charStart;
-            
-            if (charWidth >= minCharWidth) {
-                characters.push({
-                    x: lineX + charStart,
-                    y: lineY,
-                    width: charWidth,
-                    height: lineHeight
-                });
-            }
-        }
-    }
-    
-    return characters;
-}
-
-/**
- * 排序字符
- * 
- * @param {object[]} characters - 字符边界框数组
- * @returns {object[]} 排序后的字符
- */
-function sortCharacters(characters) {
-    if (characters.length === 0) return [];
-    
-    const avgHeight = characters.reduce((sum, c) => sum + c.height, 0) / characters.length;
-    const lineThreshold = avgHeight * 0.5;
-    
-    return [...characters].sort((a, b) => {
-        const centerA = a.y + a.height / 2;
-        const centerB = b.y + b.height / 2;
-        
-        if (Math.abs(centerA - centerB) <= lineThreshold) {
-            return a.x - b.x;
-        }
-        return centerA - centerB;
-    });
-}
-
-// ==================== 测试数据生成 ====================
-
-/**
- * 创建模拟文字图像
- * 
- * 生成一个包含多行文字的测试图像
- */
 function createTextImage() {
     const width = 100;
     const height = 60;
@@ -420,13 +197,14 @@ function main() {
     });
     console.log(`  筛选后保留 ${candidateRegions.length} 个候选字符区域`);
     
+    const filteredImage = maskCandidateRegions(imageData, candidateRegions);
     // 投影分析
     console.log('\n【步骤 4】投影分析检测文字行');
-    const projection = calculateHorizontalProjection(imageData);
+    const projection = calculateHorizontalProjection(filteredImage);
     printProjection(projection, '水平投影');
     
     // 检测文字行
-    const lines = detectTextLines(imageData, { minLineHeight: 5, projectionThreshold: 0.05 });
+    const lines = detectTextLines(filteredImage, { minLineHeight: 5, projectionThreshold: 0.05 });
     console.log(`\n  检测到 ${lines.length} 行文字：`);
     lines.forEach((line, i) => {
         console.log(`    第 ${i + 1} 行: y=${line.y}, height=${line.height}`);
@@ -443,7 +221,7 @@ function main() {
         const vertProj = new Array(line.width).fill(0);
         for (let x = 0; x < line.width; x++) {
             for (let y = line.y; y < line.y + line.height; y++) {
-                const pixel = getPixel(imageData, x, y);
+                const pixel = getPixel(filteredImage, line.x + x, y);
                 if (pixel.r < 128) {
                     vertProj[x]++;
                 }
@@ -455,7 +233,7 @@ function main() {
         console.log(`    垂直投影非零位置数: ${nonZero.length}`);
         
         // 分割字符
-        const chars = segmentCharacters(imageData, line, { minCharWidth: 3, gapThreshold: 0.0 });
+        const chars = segmentCharacters(filteredImage, line, { minCharWidth: 3, gapThreshold: 0.0 });
         console.log(`    分割出 ${chars.length} 个字符：`);
         chars.forEach((c, j) => {
             console.log(`      字符 ${j + 1}: x=${c.x}-${c.x + c.width}, width=${c.width}`);
@@ -484,6 +262,12 @@ function main() {
     console.log(`  RLSA 后连通域数量: ${rlsaLabels}（原来: ${numLabels}）`);
     console.log('  同一行的字符被连接成一个文字块');
     
+    console.log('【步骤8】投影末端与候选筛选边界');
+    const lastPixel = createImageData(3,3,255,255,255);
+    setPixel(lastPixel,2,2,0,0,0);
+    console.log('末行单像素行：',detectTextLines(lastPixel,{minLineHeight:1,projectionThreshold:0}));
+    console.log('末列单像素字：',segmentCharacters(lastPixel,{x:0,y:0,width:3,height:3},{minCharWidth:1,gapThreshold:0}));
+    console.log('minArea过滤全部时，最终字符数量：',localizeText(imageData,{minArea:100000}).characters.length);
     // 总结
     console.log('\n' + '='.repeat(60));
     console.log('总结');
@@ -508,4 +292,4 @@ function main() {
 }
 
 // 运行主函数
-main();
+if (require.main === module) main();

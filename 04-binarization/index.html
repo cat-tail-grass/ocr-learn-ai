@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>04. 二值化 - OCR 学习</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22%3E%3Crect width=%2264%22 height=%2264%22 rx=%2214%22 fill=%22%23126451%22/%3E%3Ctext x=%2232%22 y=%2246%22 text-anchor=%22middle%22 font-size=%2244%22 fill=%22white%22 font-family=%22sans-serif%22%3EO%3C/text%3E%3C/svg%3E">
     <style>
         * {
             margin: 0;
@@ -307,8 +308,10 @@
             margin: 15px 0;
         }
     </style>
+    <script src="../shared/course.js" defer></script>
 </head>
 <body>
+<nav class="course-nav" aria-label="课程导航"><a href="../../" data-course-catalog><strong>OCR / 学习实验室</strong></a><div class="links"><a href="../../04-binarization/" data-course-doc="04-binarization">返回本章讲义</a><a href="../../" data-course-catalog>课程目录</a><a href="../25-ocr-engine/index.html" data-course-lab="25-ocr-engine">照片识别</a><a href="../26-validation/index.html" data-course-lab="26-validation">评估记录</a></div></nav>
     <div class="container">
         <h1>⚫⚪ 04. 二值化 (Binarization)</h1>
         
@@ -609,7 +612,9 @@
         </div>
     </div>
 
+    <script src="./bundle.js"></script>
     <script>
+        const { binarizeFixed, binarizeAdaptive, calculateOtsuThreshold, grayscaleWeighted, calculateHistogram, binarizeOtsu } = window.OCRLesson04;
         /**
          * 04. 二值化 - 交互式演示
          * 
@@ -631,161 +636,27 @@
         
         // ==================== 灰度化函数 ====================
         
-        function grayscaleWeighted(imageData) {
-            const result = new ImageData(
-                new Uint8ClampedArray(imageData.data),
-                imageData.width,
-                imageData.height
-            );
-            const data = result.data;
-            
-            for (let i = 0; i < data.length; i += 4) {
-                const gray = Math.round(
-                    0.299 * data[i] + 0.587 * data[i + 1] + 0.114 * data[i + 2]
-                );
-                data[i] = gray;
-                data[i + 1] = gray;
-                data[i + 2] = gray;
-            }
-            
-            return result;
-        }
         
         // ==================== 二值化函数 ====================
         
         /**
          * 固定阈值二值化
          */
-        function binarizeFixed(imageData, threshold) {
-            const result = new ImageData(
-                new Uint8ClampedArray(imageData.data),
-                imageData.width,
-                imageData.height
-            );
-            const data = result.data;
-            
-            for (let i = 0; i < data.length; i += 4) {
-                const gray = data[i];
-                const binary = gray >= threshold ? 255 : 0;
-                data[i] = binary;
-                data[i + 1] = binary;
-                data[i + 2] = binary;
-            }
-            
-            return result;
-        }
         
         /**
          * 计算 Otsu 阈值
          */
-        function calculateOtsuThreshold(histogram) {
-            const total = histogram.reduce((a, b) => a + b, 0);
-            if (total === 0) return 128;
-            
-            let sum = 0;
-            for (let i = 0; i < 256; i++) {
-                sum += i * histogram[i];
-            }
-            
-            let sumB = 0, wB = 0, wF = 0;
-            let maxVariance = 0, threshold = 0;
-            let varianceAtThreshold = 0;
-            let wBAtThreshold = 0;  // 保存最优阈值时的前景权重
-            
-            for (let t = 0; t < 256; t++) {
-                wB += histogram[t];
-                if (wB === 0) continue;
-                
-                wF = total - wB;
-                if (wF === 0) break;
-                
-                sumB += t * histogram[t];
-                const mB = sumB / wB;
-                const mF = (sum - sumB) / wF;
-                
-                const variance = wB * wF * (mB - mF) * (mB - mF);
-                
-                if (variance > maxVariance) {
-                    maxVariance = variance;
-                    threshold = t;
-                    varianceAtThreshold = variance;
-                    wBAtThreshold = wB;  // 记录最优阈值时的 wB
-                }
-            }
-            
-            return { threshold, variance: varianceAtThreshold, wB: wBAtThreshold, wF: total - wBAtThreshold, total };
-        }
         
         /**
          * Otsu 二值化
          */
-        function binarizeOtsu(imageData, histogram) {
-            const result = calculateOtsuThreshold(histogram);
-            const binaryImage = binarizeFixed(imageData, result.threshold);
-            return { imageData: binaryImage, ...result };
-        }
         
         /**
          * 自适应阈值二值化
          */
-        function binarizeAdaptive(imageData, blockSize, C) {
-            const { width, height, data } = imageData;
-            const result = new ImageData(
-                new Uint8ClampedArray(data),
-                width,
-                height
-            );
-            const resultData = result.data;
-            
-            const halfBlock = Math.floor(blockSize / 2);
-            
-            // 使用积分图加速（简化版本，直接计算邻域均值）
-            for (let y = 0; y < height; y++) {
-                for (let x = 0; x < width; x++) {
-                    // 计算邻域均值
-                    let sum = 0, count = 0;
-                    
-                    for (let dy = -halfBlock; dy <= halfBlock; dy++) {
-                        for (let dx = -halfBlock; dx <= halfBlock; dx++) {
-                            const nx = x + dx;
-                            const ny = y + dy;
-                            
-                            if (nx >= 0 && nx < width && ny >= 0 && ny < height) {
-                                const idx = (ny * width + nx) * 4;
-                                sum += data[idx];
-                                count++;
-                            }
-                        }
-                    }
-                    
-                    const mean = sum / count;
-                    const threshold = mean - C;
-                    
-                    const idx = (y * width + x) * 4;
-                    const gray = data[idx];
-                    const binary = gray >= threshold ? 255 : 0;
-                    
-                    resultData[idx] = binary;
-                    resultData[idx + 1] = binary;
-                    resultData[idx + 2] = binary;
-                }
-            }
-            
-            return result;
-        }
         
         // ==================== 直方图函数 ====================
         
-        function calculateHistogram(imageData) {
-            const histogram = new Array(256).fill(0);
-            const data = imageData.data;
-            
-            for (let i = 0; i < data.length; i += 4) {
-                histogram[data[i]]++;
-            }
-            
-            return histogram;
-        }
         
         function drawHistogram(histogram, canvas, threshold = null) {
             const ctx = canvas.getContext('2d');
@@ -854,8 +725,8 @@
             
             if (width > maxSize || height > maxSize) {
                 const ratio = Math.min(maxSize / width, maxSize / height);
-                width = Math.round(width * ratio);
-                height = Math.round(height * ratio);
+                width = Math.max(1, Math.round(width * ratio));
+                height = Math.max(1, Math.round(height * ratio));
             }
             
             // 原图
@@ -863,6 +734,8 @@
             originalCanvas.width = width;
             originalCanvas.height = height;
             const originalCtx = originalCanvas.getContext('2d');
+            originalCtx.fillStyle = '#fff';
+            originalCtx.fillRect(0, 0, width, height); // OCR输入先合成白底
             originalCtx.drawImage(img, 0, 0, width, height);
             originalImageData = originalCtx.getImageData(0, 0, width, height);
             
@@ -1055,8 +928,10 @@
             reader.onload = (e) => {
                 const img = new Image();
                 img.onload = () => processImage(img);
+                img.onerror = () => alert('无法解码该图片，请选择有效的PNG/JPEG');
                 img.src = e.target.result;
             };
+            reader.onerror = () => alert('读取图片失败，请重试');
             reader.readAsDataURL(file);
         }
         

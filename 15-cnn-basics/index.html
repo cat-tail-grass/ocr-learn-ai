@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>15 · CNN 基础 — 卷积、通道与参数共享</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22%3E%3Crect width=%2264%22 height=%2264%22 rx=%2214%22 fill=%22%23126451%22/%3E%3Ctext x=%2232%22 y=%2246%22 text-anchor=%22middle%22 font-size=%2244%22 fill=%22white%22 font-family=%22sans-serif%22%3EO%3C/text%3E%3C/svg%3E">
+    <link rel="stylesheet" href="../shared/course.css">
+    <script src="../shared/course.js" defer></script><script src="./bundle.js" defer></script>
+    <style>.maps{display:flex;gap:18px;flex-wrap:wrap}.feature-map{max-width:100%;overflow:auto}.feature-map table{width:auto;border-collapse:separate;border-spacing:2px}.feature-map td{min-width:38px;padding:6px;text-align:center;border:0;color:#18352b;font:12px ui-monospace,monospace}.feature-map caption{font-size:.85rem;text-align:left;padding:8px 0}.stage{margin:24px 0}.pipeline-shape{overflow-wrap:anywhere;font-weight:650}</style>
+</head>
+<body>
+<nav class="course-nav" aria-label="课程导航"><a href="../../" data-course-catalog><strong>OCR / 学习实验室</strong></a><div class="links"><a href="../../15-cnn-basics/" data-course-doc="15-cnn-basics">返回本章讲义</a><a href="../../" data-course-catalog>课程目录</a><a href="../25-ocr-engine/index.html" data-course-lab="25-ocr-engine">照片识别</a><a href="../26-validation/index.html" data-course-lab="26-validation">评估记录</a></div></nav>
+<main>
+    <div class="eyebrow">15 / 让同一组权重走过整幅图像</div>
+    <h1>从滑动窗口到 CNN</h1>
+    <p class="lead">改变通道数、步幅和填充，查看每张特征图的实际数值。卷积使用互相关约定：卷积核不翻转，输入采用 CHW 排列。</p>
+    <section class="card">
+        <h2>1. 卷积工作台</h2>
+        <div class="controls">
+            <label>图案<select id="orientation"><option value="vertical">竖线</option><option value="horizontal">横线</option></select></label>
+            <label>笔画位置<select id="position"><option value="0">0（边缘）</option><option value="1">1</option><option value="2" selected>2</option><option value="3">3</option><option value="4">4</option><option value="5">5（边缘）</option></select></label>
+            <label>输入通道<select id="channels"><option value="1">1</option><option value="2">2（第二通道全 1）</option></select></label>
+            <label>步幅<select id="stride"><option value="1">1</option><option value="2">2</option></select></label>
+            <label>零填充<select id="padding"><option value="0">0</option><option value="1">1</option></select></label>
+            <label>池化<select id="pool-mode"><option value="max">最大池化</option><option value="average">平均池化</option></select></label>
+        </div>
+        <details><summary>编辑 6×6 输入矩阵（0为背景、1为笔画）</summary>
+            <p>可输入 0 到 1 的灰度值，观察模糊笔画、断笔或其他图案的响应；第二通道仍由上方选项控制。</p>
+            <label for="matrix-input">输入矩阵 JSON</label><textarea id="matrix-input" rows="8" style="width:100%" spellcheck="false"></textarea>
+            <div class="actions"><button id="apply-matrix">应用矩阵</button><button id="blank" class="secondary">清为空白</button><button id="restore" class="secondary">恢复当前线条预设</button></div>
+        </details>
+        <p id="status" class="status" role="status" aria-live="polite">正在加载卷积实验…</p>
+        <p class="note">始终有 2 个输出通道。第二输入通道使用全 1 图像，其两个核切片均为 1/9；它在无填充的每个窗口贡献 1，在零填充边缘贡献变少。偏置为 0。池化窗口和步幅均为 2，不填充。</p>
+        <p id="shape" class="pipeline-shape"></p>
+        <p id="parameters"></p>
+        <div class="stage"><h3>输入 / C × H × W</h3><div id="input-maps" class="maps"></div></div>
+        <div class="stage"><h3>核切片 / 每个输出通道跨全部输入通道</h3><div id="kernel-maps" class="maps"></div></div>
+        <div class="stage"><h3>互相关输出 / 保留正负值</h3><div id="conv-maps" class="maps"></div></div>
+        <div class="stage"><h3>ReLU / 负值置 0</h3><div id="relu-maps" class="maps"></div></div>
+        <div class="stage"><h3>逐通道池化 / 不混合通道</h3><div id="pool-maps" class="maps"></div></div>
+        <details><summary>同一输入上的卷积训练梯度</summary><p>人为定义 L=ΣY，因此上游梯度全为 1。以下 dL/dK 和 dL/db 由共享模块反向计算；这里只演示局部导数，并未训练整个 CNN。</p><pre id="gradient"></pre></details>
+    </section>
+    <section class="card">
+        <h2>2. 38 个手工参数的完整前向</h2>
+        <p>使用上方图案或自定义输入的第一个通道；结构固定为 1×6×6 → Conv 2×4×4 → ReLU → MaxPool 2×2×2 → Flatten 8 → Dense 2 → Softmax。此处固定单输入通道、卷积步幅 1、填充 0、最大池化，与工作台的其他设置无关。</p>
+        <pre id="cnn-result"></pre>
+        <p class="note">权重是人为设置的竖线/横线探测器，输出是模型得分。未使用标签训练，也没有真实手写测试；移到边缘可能丢失响应，空输入会得到相同得分。请不要把此实验当成数字分类器。</p>
+    </section>
+    <section class="card">
+        <h2>图像梯度与训练梯度</h2>
+        <p>Sobel 的 ∂I/∂x、∂I/∂y 描述亮度沿图像坐标的变化。反向传播的 ∂L/∂K 描述损失随卷积权重的变化，∂L/∂X 描述损失随输入的变化。它们的自变量和用途不同。</p>
+        <p><a href="../../15-cnn-basics/" data-course-doc="15-cnn-basics">阅读公式、LeNet 原论文、自测和答案</a> · <a href="../14-neural-network-basics/index.html">返回第 14 章</a></p>
+    </section>
+    <noscript><p>此实验需要启用 JavaScript。Node.js 版本见 README。</p></noscript>
+</main>
+</body>
+</html>

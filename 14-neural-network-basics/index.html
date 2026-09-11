@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>14 · 神经网络基础 — 看见参数如何学习</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22%3E%3Crect width=%2264%22 height=%2264%22 rx=%2214%22 fill=%22%23126451%22/%3E%3Ctext x=%2232%22 y=%2246%22 text-anchor=%22middle%22 font-size=%2244%22 fill=%22white%22 font-family=%22sans-serif%22%3EO%3C/text%3E%3C/svg%3E">
+    <link rel="stylesheet" href="../shared/course.css">
+    <script src="../shared/course.js" defer></script>
+    <script src="./bundle.js" defer></script>
+    <style>.plot-pair{display:grid;grid-template-columns:1fr 1fr;gap:24px}.plot-pair canvas{width:100%}.number-control{width:105px}#prediction-table td{font-variant-numeric:tabular-nums}@media(max-width:720px){.plot-pair{grid-template-columns:1fr}}</style>
+</head>
+<body>
+<nav class="course-nav" aria-label="课程导航"><a href="../../" data-course-catalog><strong>OCR / 学习实验室</strong></a><div class="links"><a href="../../14-neural-network-basics/" data-course-doc="14-neural-network-basics">返回本章讲义</a><a href="../../" data-course-catalog>课程目录</a><a href="../25-ocr-engine/index.html" data-course-lab="25-ocr-engine">照片识别</a><a href="../26-validation/index.html" data-course-lab="26-validation">评估记录</a></div></nav>
+<main>
+    <div class="eyebrow">14 / 从预测误差到参数更新</div>
+    <h1>让 17 个参数学会 XOR</h1>
+    <p class="lead">先用数值差分检查反向传播，再观察模型把四个真值点分开。所有数值来自现场计算；这里的拟合率仅衡量这四个点。</p>
+    <section class="card">
+        <h2>1. 选择模型，然后训练</h2>
+        <div class="controls">
+            <label>结构<select id="architecture"><option value="hidden">2 → 4 → 1</option><option value="linear">2 → 1（无隐藏层对照）</option></select></label>
+            <label>隐藏层激活<select id="activation"><option value="tanh">tanh</option><option value="sigmoid">Sigmoid</option><option value="relu">ReLU</option></select></label>
+            <label>种子<input class="number-control" id="seed" type="number" value="42" min="0" max="4294967295" step="1" required></label>
+            <label>学习率<input class="number-control" id="learning-rate" type="number" value="0.5" min="0.001" max="10" step="any" required></label>
+        </div>
+        <div class="actions">
+            <button id="reset" class="secondary">按配置重置</button>
+            <button id="check" class="secondary">检查全部参数梯度</button>
+            <label>差分 ε<select id="epsilon"><option value="0.01">10⁻²</option><option value="0.00001" selected>10⁻⁵</option><option value="0.00000001">10⁻⁸</option></select></label>
+            <button id="step">训练 1 次</button>
+            <button id="train">训练 5,000 次</button>
+            <button id="stop" class="secondary" disabled>停止</button>
+        </div>
+        <p id="status" class="status" role="status" aria-live="polite">正在加载本章实验…</p>
+        <p class="note">结构、激活、种子在“重置”时生效，学习率在下一次训练时生效。每次更新使用全部 4 个点的平均梯度。ReLU 的零点不可导，数值检查跨越零点可能不通过；优先用默认 tanh 核验实现。</p>
+        <div class="plot-pair">
+            <div><h3>平均二元交叉熵</h3><canvas id="loss-plot" width="540" height="320" role="img" aria-label="训练损失曲线，下方文字给出最新损失"></canvas></div>
+            <div><h3>预测 P(y=1)</h3><canvas id="decision-plot" width="400" height="320" role="img" aria-label="二维输入空间的预测热图：绿色趋近1，浅色趋近0；四个点标出真值"></canvas></div>
+        </div>
+        <p class="hint">热图横轴 x₁、纵轴 x₂，范围为 −0.25 到 1.25。真值只定义在四个角点；中间颜色是模型延拓的预测，没有额外真实标签。</p>
+        <div class="table-wrap"><table><caption>四个训练点的初始与实时输出（阈值 0.5）</caption><thead><tr><th>输入</th><th>真值</th><th>初始 P(y=1)</th><th>当前 P(y=1)</th><th>预测</th></tr></thead><tbody id="prediction-table"></tbody></table></div>
+        <details><summary>检查梯度的逐参数结果</summary><pre id="gradient-report">点击“检查全部参数梯度”。</pre></details>
+    </section>
+    <section class="card">
+        <h2>输入与激活探针</h2>
+        <p>调节输入，观察当前训练模型每层的加权和 z、激活 a 与输出概率。这里没有对应标签，不计算准确率。</p>
+        <div class="controls"><label>x₁<input id="probe-x1" class="number-control" type="number" min="-2" max="2" step="any" value="0" required></label><label>x₂<input id="probe-x2" class="number-control" type="number" min="-2" max="2" step="any" value="1" required></label><button id="probe">计算当前输入</button></div>
+        <pre id="probe-output"></pre>
+        <label>独立激活输入 z<input id="activation-z" type="range" min="-8" max="8" step="0.1" value="0"></label>
+        <div class="table-wrap"><table><caption id="activation-caption">激活值与导数</caption><thead><tr><th>激活</th><th>f(z)</th><th>f′(z)</th></tr></thead><tbody id="activation-values"></tbody></table></div>
+        <p class="hint">滑到两端观察 Sigmoid/tanh 饱和；ReLU 在 z=0 的导数采用实现约定0。</p>
+    </section>
+    <section class="card">
+        <h2>2. 跟踪一个样本的一次更新</h2>
+        <p>这是独立的固定 2 → 2 → 1 Sigmoid 算例：x=[1,2]、y=1、η=0.1。与上方训练模型分开展示，便于对照 README 手算。</p>
+        <pre id="trace"></pre>
+    </section>
+    <section class="card">
+        <h2>带着三个问题观察</h2>
+        <ol><li>没有隐藏层时，一条直线能否把两种 XOR 标签分开？</li><li>数值梯度接近零时，为什么要同时看绝对误差和相对误差？</li><li>拟合率已经达到 100%，为什么交叉熵还能继续下降？</li></ol>
+        <p><a href="../../14-neural-network-basics/" data-course-doc="14-neural-network-basics">阅读完整讲解、自测答案和论文来源</a> · <a href="../15-cnn-basics/index.html">继续第 15 章：CNN 基础</a></p>
+    </section>
+    <noscript><p>此实验需要启用 JavaScript。也可按 README 运行 Node.js 版本。</p></noscript>
+</main>
+</body>
+</html>

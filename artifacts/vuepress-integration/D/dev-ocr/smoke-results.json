@@ -1,0 +1,212 @@
+{
+  "timestamp": "2026-09-11T12:54:35.890Z",
+  "url": "http://127.0.0.1:4176/ocr/",
+  "checks": [
+    {
+      "name": "base homepage has eight stages and 26 chapters",
+      "pass": true
+    },
+    {
+      "name": "04-binarization/: direct refresh loads actual page",
+      "pass": true,
+      "detail": {
+        "url": "http://127.0.0.1:4176/ocr/04-binarization/",
+        "h1": "04. 二值化 (Binarization / Thresholding)"
+      }
+    },
+    {
+      "name": "04-binarization/: every internal link keeps base",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "04-binarization/: runtime resources keep base and succeed",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "04-binarization/: experiment route uses base",
+      "pass": true,
+      "detail": "http://127.0.0.1:4176/ocr/labs/04-binarization/index.html"
+    },
+    {
+      "name": "11-feature-extraction/: direct refresh loads actual page",
+      "pass": true,
+      "detail": {
+        "url": "http://127.0.0.1:4176/ocr/11-feature-extraction/",
+        "h1": "11. 特征提取基础 (Feature Extraction)"
+      }
+    },
+    {
+      "name": "11-feature-extraction/: every internal link keeps base",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "11-feature-extraction/: runtime resources keep base and succeed",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "11-feature-extraction/: experiment route uses base",
+      "pass": true,
+      "detail": "http://127.0.0.1:4176/ocr/labs/11-feature-extraction/index.html"
+    },
+    {
+      "name": "17-cnn-classifier/: direct refresh loads actual page",
+      "pass": true,
+      "detail": {
+        "url": "http://127.0.0.1:4176/ocr/17-cnn-classifier/",
+        "h1": "17. CNN 字符分类器：真实训练、统一输入与独立评估"
+      }
+    },
+    {
+      "name": "17-cnn-classifier/: every internal link keeps base",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "17-cnn-classifier/: runtime resources keep base and succeed",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "17-cnn-classifier/: experiment route uses base",
+      "pass": true,
+      "detail": "http://127.0.0.1:4176/ocr/labs/17-cnn-classifier/index.html"
+    },
+    {
+      "name": "25-ocr-engine/: direct refresh loads actual page",
+      "pass": true,
+      "detail": {
+        "url": "http://127.0.0.1:4176/ocr/25-ocr-engine/",
+        "h1": "25. OCR 引擎整合：从照片到完整数字串"
+      }
+    },
+    {
+      "name": "25-ocr-engine/: every internal link keeps base",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "25-ocr-engine/: runtime resources keep base and succeed",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "25-ocr-engine/: experiment route uses base",
+      "pass": true,
+      "detail": "http://127.0.0.1:4176/ocr/labs/25-ocr-engine/index.html"
+    },
+    {
+      "name": "labs/11-feature-extraction/index.html: direct refresh loads actual page",
+      "pass": true,
+      "detail": {
+        "url": "http://127.0.0.1:4176/ocr/labs/11-feature-extraction/index.html",
+        "h1": "📊 第11章：特征提取基础"
+      }
+    },
+    {
+      "name": "labs/11-feature-extraction/index.html: every internal link keeps base",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "labs/11-feature-extraction/index.html: runtime resources keep base and succeed",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "labs/17-cnn-classifier/index.html: direct refresh loads actual page",
+      "pass": true,
+      "detail": {
+        "url": "http://127.0.0.1:4176/ocr/labs/17-cnn-classifier/index.html",
+        "h1": "一个数字，十个类别"
+      }
+    },
+    {
+      "name": "labs/17-cnn-classifier/index.html: every internal link keeps base",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "labs/17-cnn-classifier/index.html: runtime resources keep base and succeed",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "labs/20-crnn/index.html: direct refresh loads actual page",
+      "pass": true,
+      "detail": {
+        "url": "http://127.0.0.1:4176/ocr/labs/20-crnn/index.html",
+        "h1": "20 · 从整行像素训练到字符串"
+      }
+    },
+    {
+      "name": "labs/20-crnn/index.html: every internal link keeps base",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "labs/20-crnn/index.html: runtime resources keep base and succeed",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "labs/25-ocr-engine/index.html: direct refresh loads actual page",
+      "pass": true,
+      "detail": {
+        "url": "http://127.0.0.1:4176/ocr/labs/25-ocr-engine/index.html",
+        "h1": "识别照片里的手写数字串"
+      }
+    },
+    {
+      "name": "labs/25-ocr-engine/index.html: every internal link keeps base",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "labs/25-ocr-engine/index.html: runtime resources keep base and succeed",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "labs/26-validation/index.html: direct refresh loads actual page",
+      "pass": true,
+      "detail": {
+        "url": "http://127.0.0.1:4176/ocr/labs/26-validation/index.html",
+        "h1": "每一张照片，都留在结果里。"
+      }
+    },
+    {
+      "name": "labs/26-validation/index.html: every internal link keeps base",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "labs/26-validation/index.html: runtime resources keep base and succeed",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "subpath mobile course fits viewport",
+      "pass": true
+    },
+    {
+      "name": "26 documents, 26 labs, 78 manifest assets and observed modules return HTTP success",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "no browser runtime or console errors",
+      "pass": true,
+      "detail": {
+        "errors": [],
+        "consoleErrors": []
+      }
+    }
+  ],
+  "passed": 35,
+  "failed": 0,
+  "httpCount": 291
+}

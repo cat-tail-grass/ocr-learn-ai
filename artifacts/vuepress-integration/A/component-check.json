@@ -1,0 +1,31 @@
+{
+  "checkedAt": "2026-09-11T12:22:07.101Z",
+  "vueVersion": "3.5.42",
+  "results": [
+    {
+      "file": ".vuepress/components/CourseLayout.vue",
+      "script": "PASS",
+      "template": "PASS",
+      "nodeOnlyImports": "none"
+    },
+    {
+      "file": ".vuepress/components/CourseCatalog.vue",
+      "script": "PASS",
+      "template": "PASS",
+      "nodeOnlyImports": "none"
+    },
+    {
+      "file": ".vuepress/components/CourseToc.vue",
+      "script": "PASS",
+      "template": "PASS",
+      "nodeOnlyImports": "none"
+    },
+    {
+      "file": ".vuepress/styles/course.css",
+      "parse": "PASS"
+    },
+    {
+      "themeLayout": "file:///Users/wuxiuran/project/ocr-learn-ai/node_modules/@vuepress/theme-default/dist/client/layouts/Layout.vue"
+    }
+  ]
+}

@@ -9,9 +9,16 @@
  * 模板匹配是最直观的字符识别方法，通过与标准模板比对来识别字符。
  */
 
-const { cloneImageData, createImageData } = require('../core');
+(function (root, factory) {
+    if (typeof module === 'object' && module.exports) {
+        module.exports = factory(require('../11-feature-extraction'));
+    } else {
+        root.OCRTemplates = factory(root.OCRFeatures);
+    }
+})(typeof globalThis !== 'undefined' ? globalThis : this, function (featureExtraction) {
 const {
     extractPixelFeatures,
+    extractHOGFeatures,
     extractStatisticalFeatures,
     statisticalFeaturesToVector,
     calculateHuMoments,
@@ -25,7 +32,7 @@ const {
     resizeImage,
     cropAndCenter,
     normalizeFeatures
-} = require('../11-feature-extraction');
+} = featureExtraction;
 
 // ==================== 相似度度量 ====================
 
@@ -71,11 +78,11 @@ function normalizedCrossCorrelation(a, b) {
     
     // 避免除以零
     if (stdA === 0 || stdB === 0) {
-        // 如果一个向量是常量，检查它们是否相同
-        return varA === 0 && varB === 0 ? 1 : 0;
+        // Pearson/NCC 此时未定义。教学接口返回 0 占位，对应相关距离 1；不是完全相关。
+        return 0;
     }
     
-    return covar / (n * stdA * stdB);
+    return Math.max(-1, Math.min(1, covar / (n * stdA * stdB)));
 }
 
 /**
@@ -99,7 +106,7 @@ function calculateDistance(a, b, metric = 'euclidean') {
             // 相关距离 = 1 - 相关系数
             return 1 - normalizedCrossCorrelation(a, b);
         default:
-            return euclideanDistance(a, b);
+            throw new Error(`未知距离度量: ${metric}`);
     }
 }
 
@@ -168,8 +175,11 @@ function createTemplate(imageData, label, options = {}) {
             features = extractZoneFeatures(processed, 4);
             break;
             
+        case 'hog':
+            features = extractHOGFeatures(processed);
+            break;
+
         case 'combined':
-        default:
             // 组合特征（推荐）
             const combined = extractCombinedFeatures(processed, {
                 includePixels: false,
@@ -181,6 +191,8 @@ function createTemplate(imageData, label, options = {}) {
             });
             features = combined.all;
             break;
+        default:
+            throw new Error(`未知特征类型: ${featureType}`);
     }
     
     return {
@@ -254,10 +266,10 @@ function matchTemplate(features, templateLibrary, options = {}) {
 }
 
 /**
- * 计算置信度
+ * 计算匹配相对分数（沿用 confidence 字段名，不代表校准的正确概率）
  * 
  * 原理说明：
- * 基于距离计算匹配的置信度，可以使用多种方法：
+ * 基于距离计算候选间相对分数；远离所有模板时仍可能很高。可以使用多种方法：
  * - 简单方法：confidence = 1 - distance / maxDistance
  * - Softmax：使用指数函数归一化
  * 
@@ -272,6 +284,8 @@ function calculateConfidence(results, options = {}) {
     } = options;
     
     if (results.length === 0) return [];
+    if (!Number.isFinite(temperature) || temperature <= 0) throw new Error('temperature 必须是有限正数');
+    if (results.some(r => !Number.isFinite(r.distance) || r.distance < 0)) throw new Error('distance 必须是有限非负数');
     
     if (method === 'simple') {
         // 简单方法：基于最大距离归一化
@@ -319,6 +333,7 @@ class TemplateMatcher {
             distanceMetric: 'euclidean',   // 距离度量方法
             featureType: 'combined',        // 特征类型
             imageSize: 28,                  // 归一化尺寸
+            padding: 0.1,                  // 外接框居中的边距
             rejectThreshold: null,          // 拒绝阈值（null 表示不拒绝）
             aggregation: 'min',             // 多模板聚合方式
             ...options
@@ -338,7 +353,8 @@ class TemplateMatcher {
         this.templates.get(label).push({
             label,
             features,
-            featureType: this.options.featureType
+            featureType: this.options.featureType,
+            padding: this.options.padding
         });
     }
     
@@ -351,7 +367,8 @@ class TemplateMatcher {
     addTemplateFromImage(imageData, label) {
         const template = createTemplate(imageData, label, {
             targetSize: this.options.imageSize,
-            featureType: this.options.featureType
+            featureType: this.options.featureType,
+            padding: this.options.padding
         });
         
         if (!this.templates.has(label)) {
@@ -448,10 +465,14 @@ class TemplateMatcher {
      * @returns {object} 识别结果
      */
     recognizeFromImage(imageData) {
+        if (extractStatisticalFeatures(imageData).foregroundCount === 0) {
+            return { label: null, distance: Infinity, confidence: 0, rejected: true, reason: '图像没有前景字符', candidates: [] };
+        }
         // 创建临时模板以提取特征
         const temp = createTemplate(imageData, '', {
             targetSize: this.options.imageSize,
-            featureType: this.options.featureType
+            featureType: this.options.featureType,
+            padding: this.options.padding
         });
         
         return this.recognize(temp.features);
@@ -538,14 +559,13 @@ function recognizeCharacter(imageData, matcher) {
 }
 
 /**
- * 快速创建数字模板库
+ * 创建空数字匹配器（调用者需要提供模板）
  * 
  * 原理说明：
- * 使用程序生成标准数字 0-9 的模板，用于演示和测试。
- * 实际应用中应使用真实的字符图像。
+ * 本函数仅创建配置好的空匹配器，不生成数字；用 addTemplatesFromImages 添加样本。
  * 
  * @param {object} options - 配置选项
- * @returns {TemplateMatcher} 预填充的模板匹配器
+ * @returns {TemplateMatcher} 空模板匹配器
  */
 function createDigitMatcher(options = {}) {
     const matcher = new TemplateMatcher(options);
@@ -591,7 +611,7 @@ function evaluateMatcher(matcher, testSet) {
         
         // 更新混淆矩阵
         const actual = sample.label;
-        const predicted = result.label || 'REJECTED';
+        const predicted = result.rejected ? 'REJECTED' : result.label;
         
         if (!confusionMatrix[actual]) {
             confusionMatrix[actual] = {};
@@ -605,14 +625,14 @@ function evaluateMatcher(matcher, testSet) {
         correct,
         rejected,
         errors: errors.length,
-        accuracy: correct / testSet.length,
+        accuracy: testSet.length > 0 ? correct / testSet.length : 0,
         confusionMatrix,
         errorDetails: errors
     };
 }
 
 // 导出所有函数
-module.exports = {
+return {
     // 相似度度量
     normalizedCrossCorrelation,
     calculateDistance,
@@ -633,3 +653,5 @@ module.exports = {
     createDigitMatcher,
     evaluateMatcher
 };
+
+});

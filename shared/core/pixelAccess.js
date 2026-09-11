@@ -13,7 +13,7 @@
  * 原理说明：
  * - 使用公式 index = (y * width + x) * 4 计算一维数组索引
  * - 返回 RGBA 对象
- * - 边界外返回黑色透明像素
+ * - 非整数或边界外坐标返回黑色透明像素
  * 
  * @param {ImageData|MockImageData} imageData - 图像数据
  * @param {number} x - X 坐标
@@ -22,7 +22,8 @@
  */
 function getPixel(imageData, x, y) {
     // 边界检查
-    if (x < 0 || x >= imageData.width || y < 0 || y >= imageData.height) {
+    if (!Number.isInteger(x) || !Number.isInteger(y) ||
+        x < 0 || x >= imageData.width || y < 0 || y >= imageData.height) {
         return { r: 0, g: 0, b: 0, a: 0 };
     }
     
@@ -43,7 +44,7 @@ function getPixel(imageData, x, y) {
  * 原理说明：
  * - 使用相同的索引计算公式
  * - Uint8ClampedArray 会自动将值限制在 0-255
- * - 边界外的设置会被忽略
+ * - 非整数或边界外坐标的设置会被忽略
  * 
  * @param {ImageData|MockImageData} imageData - 图像数据
  * @param {number} x - X 坐标
@@ -55,7 +56,8 @@ function getPixel(imageData, x, y) {
  */
 function setPixel(imageData, x, y, r, g, b, a = 255) {
     // 边界检查
-    if (x < 0 || x >= imageData.width || y < 0 || y >= imageData.height) {
+    if (!Number.isInteger(x) || !Number.isInteger(y) ||
+        x < 0 || x >= imageData.width || y < 0 || y >= imageData.height) {
         return;
     }
     
@@ -74,7 +76,7 @@ function setPixel(imageData, x, y, r, g, b, a = 255) {
  * 原理说明：
  * - 使用加权公式将 RGB 转换为灰度值
  * - Gray = 0.299R + 0.587G + 0.114B
- * - 权重基于人眼对不同颜色的敏感度（ITU-R BT.601 标准）
+ * - 借用 BT.601 的 luma 系数直接加权编码 RGB；这是快速近似，不是线性光亮度
  * 
  * @param {ImageData|MockImageData} imageData - 图像数据
  * @param {number} x - X 坐标

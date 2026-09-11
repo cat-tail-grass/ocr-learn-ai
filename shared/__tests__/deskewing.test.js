@@ -272,8 +272,9 @@ describe('完整倾斜校正', () => {
         expect(result.correctionAngle).toBeDefined();
         expect(result.variance).toBeDefined();
         
-        // 校正角度应该与检测角度相反
-        expect(result.correctionAngle).toBe(-result.angle);
+        // angle是可直接应用的校正角；skewAngle才是输入倾斜角。
+        expect(result.correctionAngle).toBe(result.angle);
+        expect(result.skewAngle).toBe(-result.angle);
     });
     
     test('deskew 返回正确尺寸', () => {

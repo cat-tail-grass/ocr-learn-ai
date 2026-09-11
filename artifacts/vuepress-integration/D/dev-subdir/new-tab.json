@@ -1,0 +1,63 @@
+{
+  "tabsBefore": {
+    "lifecycle": {
+      "effectiveLaunch": {
+        "browserLaunched": true,
+        "engine": "chrome",
+        "launchHash": 11677035664275012000
+      },
+      "launched": false,
+      "relaunchedBrowser": false,
+      "restartedBackground": false,
+      "restoreStatus": "not_configured",
+      "reused": true,
+      "saveStatus": "not_attempted"
+    },
+    "tabs": [
+      {
+        "active": true,
+        "label": null,
+        "tabId": "t1",
+        "targetId": "C55A0C172569CC7BEF765A4015868558",
+        "title": "127.0.0.1:4176/ocr/04-binarization/",
+        "type": "page",
+        "url": "http://127.0.0.1:4176/ocr/04-binarization/"
+      }
+    ]
+  },
+  "tabsAfter": {
+    "lifecycle": {
+      "effectiveLaunch": {
+        "browserLaunched": true,
+        "engine": "chrome",
+        "launchHash": 11677035664275012000
+      },
+      "launched": false,
+      "relaunchedBrowser": false,
+      "restartedBackground": false,
+      "restoreStatus": "not_configured",
+      "reused": true,
+      "saveStatus": "not_attempted"
+    },
+    "tabs": [
+      {
+        "active": false,
+        "label": null,
+        "tabId": "t1",
+        "targetId": "C55A0C172569CC7BEF765A4015868558",
+        "title": "127.0.0.1:4176/ocr/04-binarization/",
+        "type": "page",
+        "url": "http://127.0.0.1:4176/ocr/04-binarization/"
+      },
+      {
+        "active": true,
+        "label": null,
+        "tabId": "t2",
+        "targetId": "B05300DFCFED296466D2565D8D0F1D03",
+        "title": "127.0.0.1:4176/ocr/labs/04-binarization/index.html",
+        "type": "page",
+        "url": "http://127.0.0.1:4176/ocr/labs/04-binarization/index.html"
+      }
+    ]
+  }
+}

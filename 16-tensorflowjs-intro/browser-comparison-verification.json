@@ -1,0 +1,47 @@
+{
+  "backend": "webgl",
+  "version": "4.22.0",
+  "epochs": 20,
+  "learningRate": 0.01,
+  "learned": {
+    "weight": 0.3641861081123352,
+    "bias": 0.33239197731018066
+  },
+  "inputs": [
+    -2,
+    0,
+    2
+  ],
+  "expected": [
+    -3,
+    1,
+    5
+  ],
+  "reloadedPredictions": [
+    -0.39598023891448975,
+    0.33239197731018066,
+    1.060764193534851
+  ],
+  "serializedWeights": [
+    {
+      "name": "dense_Dense1/kernel",
+      "shape": [
+        1,
+        1
+      ],
+      "dtype": "float32"
+    },
+    {
+      "name": "dense_Dense1/bias",
+      "shape": [
+        1
+      ],
+      "dtype": "float32"
+    }
+  ],
+  "inferenceLoops": 100,
+  "tensorsBefore": 5,
+  "tensorsAfter": 5,
+  "baseline": 0,
+  "tensorsAfterDispose": 0
+}

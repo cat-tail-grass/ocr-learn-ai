@@ -1,0 +1,1300 @@
+[
+  {
+    "slug": "01-image-fundamentals",
+    "canvases": 1,
+    "controls": 5,
+    "links": [
+      {
+        "href": "http://127.0.0.1:4173/",
+        "text": "OCR / 学习实验室"
+      },
+      {
+        "href": "http://127.0.0.1:4173/01-image-fundamentals/",
+        "text": "返回本章讲义"
+      },
+      {
+        "href": "http://127.0.0.1:4173/",
+        "text": "课程目录"
+      },
+      {
+        "href": "http://127.0.0.1:4173/labs/25-ocr-engine/index.html",
+        "text": "照片识别"
+      },
+      {
+        "href": "http://127.0.0.1:4173/labs/26-validation/index.html",
+        "text": "评估记录"
+      }
+    ],
+    "overlay": false,
+    "resources": [
+      {
+        "status": 200,
+        "url": "http://127.0.0.1:4173/labs/shared/course.js"
+      }
+    ],
+    "text": "OCR / 学习实验室\n返回本章讲义\n课程目录\n照片识别\n评估记录\n🖼️ 01. 数字图像基础\n📚 核心概念\n🔲 像素 (Pixel)\n\n图像的最小组成单位，每个像素包含颜色信息。一张图像由成千上万个像素组成。\n\n📐 分辨率 (Resolution)\n\n图像的尺寸，用 宽度×高度 表示。例如 1920×1080 表示有约200万个像素。\n\n🎨 RGB 色彩空间\n\n每个像素由红(R)、绿(G)、蓝(B)三个通道组成，每个通道取值 0-255。\n\n📊 矩阵表示\n\n图像在计算机中以矩阵形式存储，可以通过数组访问每个像素的值。\n\n🎯 像素可视化演示\n\n点击任意像素查看其 RGB 值\n\n(0,0)\n(1,0)\n(2,0)\n(3,0)\n(4,0)\n(5,0)\n(6,0)\n(7,0)\n(0,1)\n(1,1)\n(2,1)\n(3,1)\n(4,1)\n(5,1)\n(6,1)\n(7,1)\n(0,2)\n(1,2)\n(2,2)\n(3,2)\n(4,2)\n(5,2)\n(6,2)\n(7,2)\n(0,3)\n(",
+    "title": "01. 数字图像基础 - OCR 学习",
+    "url": "http://127.0.0.1:4173/labs/01-image-fundamentals/index.html"
+  },
+  {
+    "slug": "02-js-image-basics",
+    "canvases": 4,
+    "controls": 15,
+    "links": [
+      {
+        "href": "http://127.0.0.1:4173/",
+        "text": "OCR / 学习实验室"
+      },
+      {
+        "href": "http://127.0.0.1:4173/02-js-image-basics/",
+        "text": "返回本章讲义"
+      },
+      {
+        "href": "http://127.0.0.1:4173/",
+        "text": "课程目录"
+      },
+      {
+        "href": "http://127.0.0.1:4173/labs/25-ocr-engine/index.html",
+        "text": "照片识别"
+      },
+      {
+        "href": "http://127.0.0.1:4173/labs/26-validation/index.html",
+        "text": "评估记录"
+      }
+    ],
+    "overlay": false,
+    "resources": [
+      {
+        "status": 200,
+        "url": "http://127.0.0.1:4173/labs/shared/course.js"
+      },
+      {
+        "status": 200,
+        "url": "http://127.0.0.1:4173/labs/02-js-image-basics/bundle.js"
+      }
+    ],
+    "text": "OCR / 学习实验室\n返回本章讲义\n课程目录\n照片识别\n评估记录\n🎨 02. JavaScript 图像处理基础\n📚 Canvas API 核心概念\n\nCanvas 是 HTML5 提供的绘图容器，通过 JavaScript 可以进行图形绘制和图像处理。 对于 OCR 项目，Canvas 是我们操作图像像素的核心工具。\n\n\n// 核心 API 一览\n\n// 1. 获取 Canvas 和上下文\nconst canvas = document.getElementById('myCanvas');\nconst ctx = canvas.getContext('2d');\n\n// 2. 绘制图片到 Canvas\nctx.drawImage(img, 0, 0);\n\n// 3. 获取像素数据\nconst imageData = ctx.getImageData(0, 0, width, height);\n\n// 4. 修改像素后写回\nctx.putImageData(imageData, ",
+    "title": "02. JavaScript 图像处理基础 - OCR 学习",
+    "url": "http://127.0.0.1:4173/labs/02-js-image-basics/index.html"
+  },
+  {
+    "slug": "03-grayscale",
+    "canvases": 9,
+    "controls": 1,
+    "links": [
+      {
+        "href": "http://127.0.0.1:4173/",
+        "text": "OCR / 学习实验室"
+      },
+      {
+        "href": "http://127.0.0.1:4173/03-grayscale/",
+        "text": "返回本章讲义"
+      },
+      {
+        "href": "http://127.0.0.1:4173/",
+        "text": "课程目录"
+      },
+      {
+        "href": "http://127.0.0.1:4173/labs/25-ocr-engine/index.html",
+        "text": "照片识别"
+      },
+      {
+        "href": "http://127.0.0.1:4173/labs/26-validation/index.html",
+        "text": "评估记录"
+      }
+    ],
+    "overlay": false,
+    "resources": [
+      {
+        "status": 200,
+        "url": "http://127.0.0.1:4173/labs/shared/course.js"
+      },
+      {
+        "status": 200,
+        "url": "http://127.0.0.1:4173/labs/03-grayscale/bundle.js"
+      }
+    ],
+    "text": "OCR / 学习实验室\n返回本章讲义\n课程目录\n照片识别\n评估记录\n🎨 03. 灰度化 (Grayscale Conversion)\n📚 为什么要灰度化？\n\n灰度化是 OCR 预处理的第一步。将彩色图像转换为灰度图像可以： 降低计算复杂度、去除颜色干扰、为后续二值化做准备。\n\n加权公式权重可视化\n\n人眼对不同颜色的敏感度决定了权重分配\n\n红色 (R)\n0.299\n绿色 (G)\n0.587\n蓝色 (B)\n0.114\n\n// 加权平均法（ITU-R BT.601 标准）\nGray = 0.299 × R + 0.587 × G + 0.114 × B\n\n// 为什么绿色权重最大？\n// 人眼有三种视锥细胞，对绿色最敏感\n// 绿色对亮度感知的贡献最大\n            \n📤 上传图片进行灰度化\n📁\n点击选择图片 或 拖拽图片到这里\n📖 灰度化算法详解\n算法\t公式\t特点\t适用场景\n加权平均法 ⭐\t0.299R + 0.587G + 0.114B\t最接近人眼感知\t通用场景，OCR",
+    "title": "03. 灰度化 - OCR 学习",
+    "url": "http://127.0.0.1:4173/labs/03-grayscale/index.html"
+  },
+  {
+    "slug": "04-binarization",
+    "canvases": 4,
+    "controls": 7,
+    "links": [
+      {
+        "href": "http://127.0.0.1:4173/",
+        "text": "OCR / 学习实验室"
+      },
+      {
+        "href": "http://127.0.0.1:4173/04-binarization/",
+        "text": "返回本章讲义"
+      },
+      {
+        "href": "http://127.0.0.1:4173/",
+        "text": "课程目录"
+      },
+      {
+        "href": "http://127.0.0.1:4173/labs/25-ocr-engine/index.html",
+        "text": "照片识别"
+      },
+      {
+        "href": "http://127.0.0.1:4173/labs/26-validation/index.html",
+        "text": "评估记录"
+      }
+    ],
+    "overlay": false,
+    "resources": [
+      {
+        "status": 200,
+        "url": "http://127.0.0.1:4173/labs/shared/course.js"
+      },
+      {
+        "status": 200,
+        "url": "http://127.0.0.1:4173/labs/04-binarization/bundle.js"
+      }
+    ],
+    "text": "OCR / 学习实验室\n返回本章讲义\n课程目录\n照片识别\n评估记录\n⚫⚪ 04. 二值化 (Binarization)\n📚 什么是二值化？\n\n二值化将灰度图像（256级灰度）转换为只有黑（0）和白（255）两种颜色的图像。 这是 OCR 预处理的关键步骤，用于明确分离文字（前景）和背景。\n\n\n// 二值化核心逻辑\nif (grayValue >= threshold) {\n    pixel = 255;  // 白色（背景）\n} else {\n    pixel = 0;    // 黑色（文字）\n}\n            \n📤 上传图片进行二值化\n📁\n点击选择图片 或 拖拽图片到这里\n建议上传包含文字的图片以观察二值化效果\n📖 Otsu 算法原理\n\n/**\n * Otsu 算法 - 自动计算最佳阈值\n * \n * 核心思想：找到使类间方差最大的阈值\n * 类间方差 = w0 × w1 × (μ0 - μ1)²\n * \n * w0, w1 = 前景和背景的像素比例\n * μ0",
+    "title": "04. 二值化 - OCR 学习",
+    "url": "http://127.0.0.1:4173/labs/04-binarization/index.html"
+  },
+  {
+    "slug": "05-denoising",
+    "canvases": 7,
+    "controls": 11,
+    "links": [
+      {
+        "href": "http://127.0.0.1:4173/",
+        "text": "OCR / 学习实验室"
+      },
+      {
+        "href": "http://127.0.0.1:4173/05-denoising/",
+        "text": "返回本章讲义"
+      },
+      {
+        "href": "http://127.0.0.1:4173/",
+        "text": "课程目录"
+      },
+      {
+        "href": "http://127.0.0.1:4173/labs/25-ocr-engine/index.html",
+        "text": "照片识别"
+      },
+      {
+        "href": "http://127.0.0.1:4173/labs/26-validation/index.html",
+        "text": "评估记录"
+      }
+    ],
+    "overlay": false,
+    "resources": [
+      {
+        "status": 200,
+        "url": "http://127.0.0.1:4173/labs/shared/course.js"
+      },
+      {
+        "status": 200,
+        "url": "http://127.0.0.1:4173/labs/05-denoising/bundle.js"
+      }
+    ],
+    "text": "OCR / 学习实验室\n返回本章讲义\n课程目录\n照片识别\n评估记录\n05. 图像去噪 (Image Denoising)\n\n学习卷积操作、均值滤波、高斯滤波、中值滤波\n\n图像输入\n选择图片\n使用示例图片\n添加噪声\n噪声类型\n高斯噪声 (Gaussian)\n椒盐噪声 (Salt & Pepper)\n噪声强度: 25\n添加噪声\n滤波去噪\n滤波器类型\n均值滤波 (Mean)\n高斯滤波 (Gaussian)\n中值滤波 (Median)\n核大小: 3×3\nSigma (σ): 1.0\n应用滤波 对比所有滤波器\n操作\n重置为原图\n原始图像\n含噪声图像\n\n-\n\n去噪结果\n\n-\n\n当前滤波核\n0.111\n0.111\n0.111\n0.111\n0.111\n0.111\n0.111\n0.111\n0.111\n-\n噪声图 PSNR (dB)\n-\n去噪后 PSNR (dB)\n-\nPSNR 提升\n卷积操作原理\n\n输入 [10, 20, 40]、仅左邻居权重为1、复制边界：互相关 [10, 10, 20]；数学卷积 [2",
+    "title": "05. 图像去噪 (Image Denoising)",
+    "url": "http://127.0.0.1:4173/labs/05-denoising/index.html"
+  },
+  {
+    "slug": "06-morphology",
+    "canvases": 7,
+    "controls": 15,
+    "links": [
+      {
+        "href": "http://127.0.0.1:4173/",
+        "text": "OCR / 学习实验室"
+      },
+      {
+        "href": "http://127.0.0.1:4173/06-morphology/",
+        "text": "返回本章讲义"
+      },
+      {
+        "href": "http://127.0.0.1:4173/",
+        "text": "课程目录"
+      },
+      {
+        "href": "http://127.0.0.1:4173/labs/25-ocr-engine/index.html",
+        "text": "照片识别"
+      },
+      {
+        "href": "http://127.0.0.1:4173/labs/26-validation/index.html",
+        "text": "评估记录"
+      }
+    ],
+    "overlay": false,
+    "resources": [
+      {
+        "status": 200,
+        "url": "http://127.0.0.1:4173/labs/shared/course.js"
+      },
+      {
+        "status": 200,
+        "url": "http://127.0.0.1:4173/labs/06-morphology/bundle.js"
+      }
+    ],
+    "text": "OCR / 学习实验室\n返回本章讲义\n课程目录\n照片识别\n评估记录\n06. 形态学操作 (Morphological Operations)\n\n学习结构元素、腐蚀、膨胀、开运算、闭运算\n\n图像输入\n选择图片\n使用示例图片 使用文字图片\n结构元素\n形状类型\n矩形 (Rectangle)\n十字形 (Cross)\n圆盘像素中心采样 (Ellipse)\n非对称：中心+右邻居 (3×3)\n大小: 3×3\n结构元素预览\n1\n1\n1\n1\n1\n1\n1\n1\n1\n形态学操作\n前景极性（操作对象） \n白色前景（几何样例）\n黑色前景（OCR文字）\n 腐蚀 (Erosion) 膨胀 (Dilation) 开运算 (Opening) 闭运算 (Closing) 白顶帽：亮细节 黑帽：暗细节 形态学梯度 (Gradient)\n操作\n对比所有操作 重置为原图\n原始二值图像\n\n200×200 二值图\n\n处理结果\n\n-\n\n14,382\n原图前景像素\n-\n结果前景像素\n-\n像素变化\n形态学操作原理\n\n腐蚀检查 z+b，膨胀检",
+    "title": "06. 形态学操作 (Morphological Operations)",
+    "url": "http://127.0.0.1:4173/labs/06-morphology/index.html"
+  },
+  {
+    "slug": "07-deskewing",
+    "canvases": 7,
+    "controls": 9,
+    "links": [
+      {
+        "href": "http://127.0.0.1:4173/",
+        "text": "OCR / 学习实验室"
+      },
+      {
+        "href": "http://127.0.0.1:4173/07-deskewing/",
+        "text": "返回本章讲义"
+      },
+      {
+        "href": "http://127.0.0.1:4173/",
+        "text": "课程目录"
+      },
+      {
+        "href": "http://127.0.0.1:4173/labs/25-ocr-engine/index.html",
+        "text": "照片识别"
+      },
+      {
+        "href": "http://127.0.0.1:4173/labs/26-validation/index.html",
+        "text": "评估记录"
+      }
+    ],
+    "overlay": false,
+    "resources": [
+      {
+        "status": 200,
+        "url": "http://127.0.0.1:4173/labs/shared/course.js"
+      },
+      {
+        "status": 200,
+        "url": "http://127.0.0.1:4173/labs/07-deskewing/bundle.js"
+      }
+    ],
+    "text": "OCR / 学习实验室\n返回本章讲义\n课程目录\n照片识别\n评估记录\n📐 07. 倾斜校正\n\nDeskewing / Skew Correction - 矫正文档倾斜，提高 OCR 识别准确率\n\n1\n加载图像\n2\n二值化\n3\n模拟倾斜\n4\n检测角度\n5\n校正完成\n原始图像\n二值化图像\n倾斜图像 (5°)\n校正后图像\n倾斜图像的水平投影 (方差: 553)\n校正后的水平投影 (方差: -)\n校正角—投影方差 (最佳校正角: -°)\n控制面板\n图像来源\n使用示例图像\n上传图片\n模拟倾斜角度（正值视觉逆时针）\n5°\n检测算法\n投影分析\n推荐 · 精度高\n霍夫变换\n检测直线\n搜索范围 (°)\n±15°\n粗搜索步长 (°)\n1°\n旋转插值方法\n双线性插值 (推荐)\n最近邻插值 (快速)\n🔍 检测并校正\n🎬 自动演示\n检测结果\n实际检测算法\n-\n模拟倾斜角度\n-\n可直接应用的校正角\n-\n检测误差\n-\n倾斜方差\n-\n校正后方差\n-\n方差提升\n-\n处理耗时\n-\n💡 算法原理\n\n投影分析法：将图像旋",
+    "title": "07. 倾斜校正 - OCR 学习项目",
+    "url": "http://127.0.0.1:4173/labs/07-deskewing/index.html"
+  },
+  {
+    "slug": "08-edge-detection",
+    "canvases": 8,
+    "controls": 11,
+    "links": [
+      {
+        "href": "http://127.0.0.1:4173/",
+        "text": "OCR / 学习实验室"
+      },
+      {
+        "href": "http://127.0.0.1:4173/08-edge-detection/",
+        "text": "返回本章讲义"
+      },
+      {
+        "href": "http://127.0.0.1:4173/",
+        "text": "课程目录"
+      },
+      {
+        "href": "http://127.0.0.1:4173/labs/25-ocr-engine/index.html",
+        "text": "照片识别"
+      },
+      {
+        "href": "http://127.0.0.1:4173/labs/26-validation/index.html",
+        "text": "评估记录"
+      }
+    ],
+    "overlay": false,
+    "resources": [
+      {
+        "status": 200,
+        "url": "http://127.0.0.1:4173/labs/shared/course.js"
+      },
+      {
+        "status": 200,
+        "url": "http://127.0.0.1:4173/labs/08-edge-detection/bundle.js"
+      }
+    ],
+    "text": "OCR / 学习实验室\n返回本章讲义\n课程目录\n照片识别\n评估记录\n\nx向右、y向下，梯度θ=atan2(Gy,Gx)；45°比较左上/右下，135°比较右上/左下。双阈值作用于未归一化Sobel幅值；白色输出表示边缘，接第09章前须反相。四方向NMS为教学近似，平台可能保留多像素。\n\n🔍 08. 边缘检测 (Edge Detection)\n\n检测图像中亮度变化剧烈的位置 - OCR 文本定位的基础\n\n📷 上传图片\n🎨 使用示例图\n📝 生成文字图\n选择算法：\nSobel\nPrewitt\nCanny ⭐\n高斯核大小:\n5\n高斯σ:\n1.4\n低阈值:\n50\n高阈值:\n100\n📷 原始图像\n⚫ 灰度图像\n🔲 边缘检测结果\n🔬 Canny 边缘检测 - 五步详解\n1 高斯滤波\n2 梯度幅值\n3 非极大值抑制\n4 双阈值\n5 边缘连接\n📊 检测结果统计\n图像尺寸\n300 × 200\n当前算法\nCanny\n边缘像素数\n2,282\n边缘占比\n3.80%\n处理时间\n41.20ms",
+    "title": "08. 边缘检测 - Edge Detection",
+    "url": "http://127.0.0.1:4173/labs/08-edge-detection/index.html"
+  },
+  {
+    "slug": "09-connected-components",
+    "canvases": 9,
+    "controls": 10,
+    "links": [
+      {
+        "href": "http://127.0.0.1:4173/",
+        "text": "OCR / 学习实验室"
+      },
+      {
+        "href": "http://127.0.0.1:4173/09-connected-components/",
+        "text": "返回本章讲义"
+      },
+      {
+        "href": "http://127.0.0.1:4173/",
+        "text": "课程目录"
+      },
+      {
+        "href": "http://127.0.0.1:4173/labs/25-ocr-engine/index.html",
+        "text": "照片识别"
+      },
+      {
+        "href": "http://127.0.0.1:4173/labs/26-validation/index.html",
+        "text": "评估记录"
+      }
+    ],
+    "overlay": false,
+    "resources": [
+      {
+        "status": 200,
+        "url": "http://127.0.0.1:4173/labs/shared/course.js"
+      },
+      {
+        "status": 200,
+        "url": "http://127.0.0.1:4173/labs/09-connected-components/bundle.js"
+      }
+    ],
+    "text": "OCR / 学习实验室\n返回本章讲义\n课程目录\n照片识别\n评估记录\n🔗 09. 连通域分析 (Connected Component Analysis)\n\n将相连像素归为同一区域 - OCR 字符分割的核心技术\n\n📷 上传图片\n🎨 使用示例图\n📝 生成文字图\n⬛ 生成形状图\n连通性：\n4 连通\n8 连通 ⭐\n二值化阈值:\n128\n区域过滤：\n最小面积:\n10\n最大面积:\n10000\n📷 原始图像\n⚫ 二值图像\n🎨 连通域标记\n📦 检测到的区域（点击查看详情）\n区域 3\n1974 px\n区域 4\n1200 px\n区域 5\n820 px\n区域 11\n962 px\n区域 12\n800 px\n区域 13\n975 px\n📊 分析结果统计\n图像尺寸\n200 × 150\n连通性\n8 连通\n检测区域数\n14\n过滤后区域\n6\n处理时间\n14.50ms",
+    "title": "09. 连通域分析 - Connected Component Analysis",
+    "url": "http://127.0.0.1:4173/labs/09-connected-components/index.html"
+  },
+  {
+    "slug": "10-text-localization",
+    "canvases": 7,
+    "controls": 13,
+    "links": [
+      {
+        "href": "http://127.0.0.1:4173/",
+        "text": "OCR / 学习实验室"
+      },
+      {
+        "href": "http://127.0.0.1:4173/10-text-localization/",
+        "text": "返回本章讲义"
+      },
+      {
+        "href": "http://127.0.0.1:4173/",
+        "text": "课程目录"
+      },
+      {
+        "href": "http://127.0.0.1:4173/labs/25-ocr-engine/index.html",
+        "text": "照片识别"
+      },
+      {
+        "href": "http://127.0.0.1:4173/labs/26-validation/index.html",
+        "text": "评估记录"
+      }
+    ],
+    "overlay": false,
+    "resources": [
+      {
+        "status": 200,
+        "url": "http://127.0.0.1:4173/labs/shared/course.js"
+      },
+      {
+        "status": 200,
+        "url": "http://127.0.0.1:4173/labs/10-text-localization/bundle.js"
+      }
+    ],
+    "text": "OCR / 学习实验室\n返回本章讲义\n课程目录\n照片识别\n评估记录\n\n主流程：黑前景连通域 → 候选像素掩码 → 水平投影分行 → 行内垂直投影分割 → 先分行再按x排序。RLSA是独立对照画布，用于观察连接作用，不送入字符分割；它可能合并字符和相邻行。\n\n📍 10. 文本区域定位\n\nText Localization - 投影分析、RLSA、文字行检测与字符分割\n\n⚙️ 控制面板\n📁 点击上传图像或拖拽到此处\n支持 JPG/PNG 格式\n📝 生成测试文字\n水平 RLSA 阈值: 15\n垂直 RLSA 阈值: 5\n最小面积: 30\n最大宽高比: 5.0\n行检测阈值: 0.05\n显示边界框\n显示文字行\n显示字符分割\n显示投影图\n🚀 开始处理 🔄 重置\n📊 处理统计\n连通域数\n51\n候选字符\n45\n检测行数\n4\n分割字符\n45\n💡 提示：调整参数后点击\"开始处理\"查看效果。水平 RLSA 可连接同行字符。\n📷 原始图像\n400×200\n⬛ 二值化结果\n🔗 RLSA 处理结果",
+    "title": "10. 文本区域定位 - OCR 学习",
+    "url": "http://127.0.0.1:4173/labs/10-text-localization/index.html"
+  },
+  {
+    "slug": "11-feature-extraction",
+    "canvases": 19,
+    "controls": 2,
+    "links": [
+      {
+        "href": "http://127.0.0.1:4173/",
+        "text": "OCR / 学习实验室"
+      },
+      {
+        "href": "http://127.0.0.1:4173/11-feature-extraction/",
+        "text": "返回本章讲义"
+      },
+      {
+        "href": "http://127.0.0.1:4173/",
+        "text": "课程目录"
+      },
+      {
+        "href": "http://127.0.0.1:4173/labs/25-ocr-engine/index.html",
+        "text": "照片识别"
+      },
+      {
+        "href": "http://127.0.0.1:4173/labs/26-validation/index.html",
+        "text": "评估记录"
+      }
+    ],
+    "overlay": false,
+    "resources": [
+      {
+        "status": 200,
+        "url": "http://127.0.0.1:4173/labs/shared/course.js"
+      },
+      {
+        "status": 200,
+        "url": "http://127.0.0.1:4173/labs/shared/11-feature-extraction/index.js"
+      }
+    ],
+    "text": "OCR / 学习实验室\n返回本章讲义\n课程目录\n照片识别\n评估记录\n📊 第11章：特征提取基础\n\n将字符图像转换为可用于分类的数值特征向量\n\n🖌️ 绘制或选择字符\n提取特征\n清除\n0\n1\n7\nA\nO\nX\n📈 统计特征\n填充率\n28.6%\n质心 X\n0.478\n质心 Y\n0.491\n均值\n0.713\n标准差\n0.444\n前景像素\n224\n🔄 Hu 矩（旋转不变特征）\n\nHu 矩是一组 7 个特征，在连续图形上对平移、等比例缩放和旋转不变；栅格重采样只能近似保持，第 7 项在镜像时变号。本页显示的是带符号对数值，不是原始 h。接近零的项对噪声敏感，Hu 距离不保证符合视觉相似性。\n\nh1\n0.52\nh2\n1.80\nh3\n3.79\nh4\n4.65\nh5\n-9.28\nh6\n-5.65\nh7\n8.86\n📊 投影特征\n水平投影（行计数 / 最大行计数）\n垂直投影（列计数 / 最大列计数）\n投影特征维度：56\n🔲 网格（分区）特征\n\n将图像划分为 4×4 的网格，统计每个区域的前景像素填充",
+    "title": "第11章 - 特征提取基础",
+    "url": "http://127.0.0.1:4173/labs/11-feature-extraction/index.html"
+  },
+  {
+    "slug": "12-template-matching",
+    "canvases": 11,
+    "controls": 15,
+    "links": [
+      {
+        "href": "http://127.0.0.1:4173/",
+        "text": "OCR / 学习实验室"
+      },
+      {
+        "href": "http://127.0.0.1:4173/12-template-matching/",
+        "text": "返回本章讲义"
+      },
+      {
+        "href": "http://127.0.0.1:4173/",
+        "text": "课程目录"
+      },
+      {
+        "href": "http://127.0.0.1:4173/labs/25-ocr-engine/index.html",
+        "text": "照片识别"
+      },
+      {
+        "href": "http://127.0.0.1:4173/labs/26-validation/index.html",
+        "text": "评估记录"
+      }
+    ],
+    "overlay": false,
+    "resources": [
+      {
+        "status": 200,
+        "url": "http://127.0.0.1:4173/labs/shared/course.js"
+      },
+      {
+        "status": 200,
+        "url": "http://127.0.0.1:4173/labs/shared/11-feature-extraction/index.js"
+      },
+      {
+        "status": 200,
+        "url": "http://127.0.0.1:4173/labs/shared/12-template-matching/index.js"
+      }
+    ],
+    "text": "OCR / 学习实验室\n返回本章讲义\n课程目录\n照片识别\n评估记录\n🎯 第12章：模板匹配\n\n通过与标准模板比对来识别字符\n\n⚙️ 匹配设置\n距离度量：\n欧氏距离 (Euclidean)\n曼哈顿距离 (Manhattan)\n余弦距离 (Cosine)\n相关距离 (Correlation)\n特征类型：\n组合特征 (推荐)\n像素特征\n投影特征\n网格特征\n教学版 HOG\n拒绝阈值：\n 无 (不拒绝)\n✏️ 绘制字符\n识别\n清除\n快速测试：\n0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n0\n相对匹配分数: 87.3%\n候选结果：\n0\n87.3%\n6\n8.6%\n2\n4.0%\n5\n0.0%\n3\n0.0%\n📚 模板库\n\n模板库为浏览器 Arial 字体的数字 0–9，不是手写评估集。组合特征为 6 个统计量 + 7 个 Hu 对数值 + 56 个投影值 + 16 个网格值，共 85 维。输入和模板均裁剪、保持宽高比并按外接框居中。\n\n10\n类别数\n10\n模板数\n85\n特征维度\n0\n0.000\n1\n21.",
+    "title": "第12章 - 模板匹配",
+    "url": "http://127.0.0.1:4173/labs/12-template-matching/index.html"
+  },
+  {
+    "slug": "13-knn-classifier",
+    "canvases": 1,
+    "controls": 19,
+    "links": [
+      {
+        "href": "http://127.0.0.1:4173/",
+        "text": "OCR / 学习实验室"
+      },
+      {
+        "href": "http://127.0.0.1:4173/13-knn-classifier/",
+        "text": "返回本章讲义"
+      },
+      {
+        "href": "http://127.0.0.1:4173/",
+        "text": "课程目录"
+      },
+      {
+        "href": "http://127.0.0.1:4173/labs/25-ocr-engine/index.html",
+        "text": "照片识别"
+      },
+      {
+        "href": "http://127.0.0.1:4173/labs/26-validation/index.html",
+        "text": "评估记录"
+      }
+    ],
+    "overlay": false,
+    "resources": [
+      {
+        "status": 200,
+        "url": "http://127.0.0.1:4173/labs/shared/course.js"
+      },
+      {
+        "status": 200,
+        "url": "http://127.0.0.1:4173/labs/shared/11-feature-extraction/index.js"
+      },
+      {
+        "status": 200,
+        "url": "http://127.0.0.1:4173/labs/shared/12-template-matching/index.js"
+      },
+      {
+        "status": 200,
+        "url": "http://127.0.0.1:4173/labs/shared/13-knn-classifier/index.js"
+      },
+      {
+        "status": 200,
+        "url": "http://127.0.0.1:4173/labs/shared/13-knn-classifier/demoDataset.js"
+      }
+    ],
+    "text": "OCR / 学习实验室\n返回本章讲义\n课程目录\n照片识别\n评估记录\n第13章：KNN 分类器\n\nK 个最近邻投票，让字符识别比模板匹配更鲁棒\n\n⚙️ KNN 设置\nK 值\nK = 1\n距离度量\n欧氏距离 (Euclidean)\n曼哈顿距离 (Manhattan)\n余弦距离 (Cosine)\n相关距离 (Correlation)\n投票方式\n加权投票（推荐）\n普通多数投票\n拒绝阈值\n关闭拒识\n✏️ 输入字符\n识别\n清除\n验证集评估当前参数\n快速加载：\n0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n🎯 识别结果\n4\n票权占比 100.0%，最近距离 0.244\n4\n100.0%\n📊 数据集与评估\n\n固定种子 20260911。按 12 组程序化造字配置先分训练/验证/测试（6/3/3 组），仅训练部分增强。样本数为 180/30/30。并未采集真实手写者、MNIST 或照片；票权占比也不是正确概率。浏览器和 Node 运行相同数据生成器、85 维特征与选择规则。\n\n30\n验证样本（用于调参）\n1",
+    "title": "第13章 - KNN 分类器",
+    "url": "http://127.0.0.1:4173/labs/13-knn-classifier/index.html"
+  },
+  {
+    "slug": "14-neural-network-basics",
+    "canvases": 2,
+    "controls": 14,
+    "links": [
+      {
+        "href": "http://127.0.0.1:4173/",
+        "text": "OCR / 学习实验室"
+      },
+      {
+        "href": "http://127.0.0.1:4173/14-neural-network-basics/",
+        "text": "返回本章讲义"
+      },
+      {
+        "href": "http://127.0.0.1:4173/",
+        "text": "课程目录"
+      },
+      {
+        "href": "http://127.0.0.1:4173/labs/25-ocr-engine/index.html",
+        "text": "照片识别"
+      },
+      {
+        "href": "http://127.0.0.1:4173/labs/26-validation/index.html",
+        "text": "评估记录"
+      },
+      {
+        "href": "http://127.0.0.1:4173/14-neural-network-basics/",
+        "text": "阅读完整讲解、自测答案和论文来源"
+      },
+      {
+        "href": "../15-cnn-basics/index.html",
+        "text": "继续第 15 章：CNN 基础"
+      }
+    ],
+    "overlay": false,
+    "resources": [
+      {
+        "status": 200,
+        "url": "http://127.0.0.1:4173/labs/shared/course.css"
+      },
+      {
+        "status": 200,
+        "url": "http://127.0.0.1:4173/labs/shared/course.js"
+      },
+      {
+        "status": 200,
+        "url": "http://127.0.0.1:4173/labs/14-neural-network-basics/bundle.js"
+      }
+    ],
+    "text": "OCR / 学习实验室\n返回本章讲义\n课程目录\n照片识别\n评估记录\n14 / 从预测误差到参数更新\n让 17 个参数学会 XOR\n\n先用数值差分检查反向传播，再观察模型把四个真值点分开。所有数值来自现场计算；这里的拟合率仅衡量这四个点。\n\n1. 选择模型，然后训练\n结构\n2 → 4 → 1\n2 → 1（无隐藏层对照）\n隐藏层激活\ntanh\nSigmoid\nReLU\n种子\n学习率\n按配置重置\n检查全部参数梯度\n差分 ε\n10⁻²\n10⁻⁵\n10⁻⁸\n训练 1 次\n训练 5,000 次\n停止\n\n结构 2 → 4 → 1 · 隐藏激活 tanh · 更新 0 次 · 平均损失 0.901819 · 四点拟合率 25%\n\n结构、激活、种子在“重置”时生效，学习率在下一次训练时生效。每次更新使用全部 4 个点的平均梯度。ReLU 的零点不可导，数值检查跨越零点可能不通过；优先用默认 tanh 核验实现。\n\n平均二元交叉熵\n预测 P(y=1)\n\n热图横轴 x₁、纵轴 x₂，范围为 −0.25 到 1",
+    "title": "14 · 神经网络基础 — 看见参数如何学习",
+    "url": "http://127.0.0.1:4173/labs/14-neural-network-basics/index.html"
+  },
+  {
+    "slug": "15-cnn-basics",
+    "canvases": 0,
+    "controls": 9,
+    "links": [
+      {
+        "href": "http://127.0.0.1:4173/",
+        "text": "OCR / 学习实验室"
+      },
+      {
+        "href": "http://127.0.0.1:4173/15-cnn-basics/",
+        "text": "返回本章讲义"
+      },
+      {
+        "href": "http://127.0.0.1:4173/",
+        "text": "课程目录"
+      },
+      {
+        "href": "http://127.0.0.1:4173/labs/25-ocr-engine/index.html",
+        "text": "照片识别"
+      },
+      {
+        "href": "http://127.0.0.1:4173/labs/26-validation/index.html",
+        "text": "评估记录"
+      },
+      {
+        "href": "http://127.0.0.1:4173/15-cnn-basics/",
+        "text": "阅读公式、LeNet 原论文、自测和答案"
+      },
+      {
+        "href": "../14-neural-network-basics/index.html",
+        "text": "返回第 14 章"
+      }
+    ],
+    "overlay": false,
+    "resources": [
+      {
+        "status": 200,
+        "url": "http://127.0.0.1:4173/labs/shared/course.css"
+      },
+      {
+        "status": 200,
+        "url": "http://127.0.0.1:4173/labs/shared/course.js"
+      },
+      {
+        "status": 200,
+        "url": "http://127.0.0.1:4173/labs/15-cnn-basics/bundle.js"
+      }
+    ],
+    "text": "OCR / 学习实验室\n返回本章讲义\n课程目录\n照片识别\n评估记录\n15 / 让同一组权重走过整幅图像\n从滑动窗口到 CNN\n\n改变通道数、步幅和填充，查看每张特征图的实际数值。卷积使用互相关约定：卷积核不翻转，输入采用 CHW 排列。\n\n1. 卷积工作台\n图案\n竖线\n横线\n笔画位置\n0（边缘）\n1\n2\n3\n4\n5（边缘）\n输入通道\n1\n2（第二通道全 1）\n步幅\n1\n2\n零填充\n0\n1\n池化\n最大池化\n平均池化\n编辑 6×6 输入矩阵（0为背景、1为笔画）\n\n已计算线条预设：输入 1 通道，输出 2 通道 · 步幅 1 · 零填充 0\n\n始终有 2 个输出通道。第二输入通道使用全 1 图像，其两个核切片均为 1/9；它在无填充的每个窗口贡献 1，在零填充边缘贡献变少。偏置为 0。池化窗口和步幅均为 2，不填充。\n\n1 × 6 × 6 → Conv 2 × 4 × 4 → ReLU 2 × 4 × 4 → Pool 2 × 2 × 2\n\n卷积参数 20（含偏置） · 相同局部连接取消共享",
+    "title": "15 · CNN 基础 — 卷积、通道与参数共享",
+    "url": "http://127.0.0.1:4173/labs/15-cnn-basics/index.html"
+  },
+  {
+    "slug": "16-tensorflowjs-intro",
+    "canvases": 2,
+    "controls": 4,
+    "links": [
+      {
+        "href": "http://127.0.0.1:4173/",
+        "text": "OCR / 学习实验室"
+      },
+      {
+        "href": "http://127.0.0.1:4173/16-tensorflowjs-intro/",
+        "text": "返回本章讲义"
+      },
+      {
+        "href": "http://127.0.0.1:4173/",
+        "text": "课程目录"
+      },
+      {
+        "href": "http://127.0.0.1:4173/labs/25-ocr-engine/index.html",
+        "text": "照片识别"
+      },
+      {
+        "href": "http://127.0.0.1:4173/labs/26-validation/index.html",
+        "text": "评估记录"
+      },
+      {
+        "href": "http://127.0.0.1:4173/16-tensorflowjs-intro/",
+        "text": "阅读本章公式、接口与自测"
+      },
+      {
+        "href": "../17-cnn-classifier/index.html",
+        "text": "下一章：真实 CNN 分类器"
+      }
+    ],
+    "overlay": false,
+    "resources": [
+      {
+        "status": 200,
+        "url": "http://127.0.0.1:4173/labs/shared/course.css"
+      },
+      {
+        "status": 200,
+        "url": "http://127.0.0.1:4173/labs/shared/course.js"
+      },
+      {
+        "status": 200,
+        "url": "http://127.0.0.1:4173/labs/16-tensorflowjs-intro/bundle.js"
+      }
+    ],
+    "text": "OCR / 学习实验室\n返回本章讲义\n课程目录\n照片识别\n评估记录\n\n第 16 章 · 从公式到框架\n\n看见张量的计算与生命周期\n\n用 5 个合成点学习 y = 2x + 1，再保存至内存、重新加载并连续推理 100 次。真实手写数字训练见第 17 章。\n\n1 · 输入、训练参数与第一步更新\n\n输入 x=[−1,−0.5,0,0.5,1]，标签 y=[−1,0,1,2,3]。Dense(1)，w=b=0，MSE，SGD。批次外检查 x=2，解析答案为 5。\n\n训练轮数\n20 轮\n120 轮\n学习率 η\n0.01：小步更新\n0.1：默认\n0.8：观察振荡后收敛\n运行完整实验\n恢复默认\n\n运行后显示真实自动微分的第一步。\n\n2 · 训练过程与训练前后对照\n真实损失曲线\n原始点与学到的直线\n\n先用 20 轮、η=0.01，再改成 120 轮、η=0.1。所有实验从同一零初值重新开始。曲线是每轮更新前的批次损失；下方 finalModelLoss 用最终权重重新评估。样本外预测只是解析回归实验，",
+    "title": "16 · TensorFlow.js 入门",
+    "url": "http://127.0.0.1:4173/labs/16-tensorflowjs-intro/index.html"
+  },
+  {
+    "slug": "17-cnn-classifier",
+    "canvases": 3,
+    "controls": 7,
+    "links": [
+      {
+        "href": "http://127.0.0.1:4173/",
+        "text": "OCR / 学习实验室"
+      },
+      {
+        "href": "http://127.0.0.1:4173/17-cnn-classifier/",
+        "text": "返回本章讲义"
+      },
+      {
+        "href": "http://127.0.0.1:4173/",
+        "text": "课程目录"
+      },
+      {
+        "href": "http://127.0.0.1:4173/labs/25-ocr-engine/index.html",
+        "text": "照片识别"
+      },
+      {
+        "href": "http://127.0.0.1:4173/labs/26-validation/index.html",
+        "text": "评估记录"
+      },
+      {
+        "href": "./model/training-report.json",
+        "text": "完整真实报告"
+      },
+      {
+        "href": "http://127.0.0.1:4173/17-cnn-classifier/",
+        "text": "架构、公式与自测"
+      },
+      {
+        "href": "./train.html",
+        "text": "重新训练实验"
+      }
+    ],
+    "overlay": false,
+    "resources": [
+      {
+        "status": 200,
+        "url": "http://127.0.0.1:4173/labs/shared/course.css"
+      },
+      {
+        "status": 200,
+        "url": "http://127.0.0.1:4173/labs/shared/course.js"
+      },
+      {
+        "status": 200,
+        "url": "http://127.0.0.1:4173/labs/17-cnn-classifier/bundle.js"
+      },
+      {
+        "status": 200,
+        "url": "http://127.0.0.1:4173/labs/17-cnn-classifier/model/training-report.json"
+      }
+    ],
+    "text": "OCR / 学习实验室\n返回本章讲义\n课程目录\n照片识别\n评估记录\n\n第 17 章 · 本项目自主训练的 CNN\n\n一个数字，十个类别\n\n导入单字符图片、在画布手写，或运行独立验证样本。对照统一输入、真实卷积激活和候选分数。整串照片请使用第 25 章。\n\n1 · 输入与统一预处理\n\n浅底深色单数字\n\n模型输入可视化（28×28）\n\n清空\n下一个验证样本\n识别单数字\n导入单字符图片\n输入扰动角度\n0°\n+8°\n−8°\n+20°：超出训练增强\n\n等待输入。\n\n内置样本保留原始 28×28 字节，放大画布仅供展示。旋转后也使用相同的裁剪、比例缩放与重心居中。\n\n2 · 两层真正学到的卷积响应\n\n每层显示前四个通道；每张特征图单独按最大值缩放亮度，并标明实际数值范围。亮区是该通道的强响应，不能把一个通道直接等同于某个类别。\n\n3 · 十类分数与推理状态\n画一个数字或使用独立验证样本。\n\n空白输入明确拒识；非数字和严重分割错误仍可能高分。反复预测的张量数应保持稳定。\n\n4 · 已完成训练的真实曲线",
+    "title": "17 · CNN 手写数字分类器",
+    "url": "http://127.0.0.1:4173/labs/17-cnn-classifier/index.html"
+  },
+  {
+    "slug": "18-rnn-basics",
+    "canvases": 1,
+    "controls": 5,
+    "links": [
+      {
+        "href": "http://127.0.0.1:4173/",
+        "text": "OCR / 学习实验室"
+      },
+      {
+        "href": "http://127.0.0.1:4173/18-rnn-basics/",
+        "text": "返回本章讲义"
+      },
+      {
+        "href": "http://127.0.0.1:4173/",
+        "text": "课程目录"
+      },
+      {
+        "href": "http://127.0.0.1:4173/labs/25-ocr-engine/index.html",
+        "text": "照片识别"
+      },
+      {
+        "href": "http://127.0.0.1:4173/labs/26-validation/index.html",
+        "text": "评估记录"
+      },
+      {
+        "href": "../17-cnn-classifier/index.html",
+        "text": "← 17 CNN 分类器"
+      },
+      {
+        "href": "../19-ctc-loss/index.html",
+        "text": "19 CTC →"
+      },
+      {
+        "href": "http://127.0.0.1:4173/18-rnn-basics/",
+        "text": "阅读完整公式、维度和自测答案"
+      }
+    ],
+    "overlay": false,
+    "resources": [
+      {
+        "status": 200,
+        "url": "http://127.0.0.1:4173/labs/shared/course.css"
+      },
+      {
+        "status": 200,
+        "url": "http://127.0.0.1:4173/labs/shared/course.js"
+      },
+      {
+        "status": 200,
+        "url": "http://127.0.0.1:4173/labs/18-rnn-basics/bundle.js"
+      }
+    ],
+    "text": "OCR / 学习实验室\n返回本章讲义\n课程目录\n照片识别\n评估记录\n← 17 CNN 分类器 · 19 CTC →\n18 · 让状态沿时间传递\n\n跟踪同一串输入经过 RNN、LSTM 与双向 RNN 的状态。这里的权重为手设教学值，尚未训练。\n\n输入与循环权重\n每步一个特征，逗号分隔（最多40步）\nRNN 循环权重 Wₕ：0.80\nLSTM 遗忘门偏置 b_f：1.0\n 展开时间步恢复默认实验\n\nRNN：Wₓ=0.5，b=0。LSTM：i=o=0.5，f=σ(b_f)，g=tanh(x)。初始状态全零。改变遗忘门偏置，观察 cell 保留比例。\n\n已计算 4 步。蓝色 RNN，橙色 LSTM；表格保留三个门、候选和 cell 数值。\n\n原始时间顺序下的状态：i/f/o三个门与候选g\nt\tx\tRNN h\ti\tf\tg（候选）\to\tLSTM c\tLSTM h\t反向h\n0.0000\t1.0000\t0.4621\t0.5000\t0.7311\t0.7616\t0.5000\t0.3808\t0.1817\t0",
+    "title": "18 · RNN 与 LSTM",
+    "url": "http://127.0.0.1:4173/labs/18-rnn-basics/index.html"
+  },
+  {
+    "slug": "19-ctc-loss",
+    "canvases": 0,
+    "controls": 5,
+    "links": [
+      {
+        "href": "http://127.0.0.1:4173/",
+        "text": "OCR / 学习实验室"
+      },
+      {
+        "href": "http://127.0.0.1:4173/19-ctc-loss/",
+        "text": "返回本章讲义"
+      },
+      {
+        "href": "http://127.0.0.1:4173/",
+        "text": "课程目录"
+      },
+      {
+        "href": "http://127.0.0.1:4173/labs/25-ocr-engine/index.html",
+        "text": "照片识别"
+      },
+      {
+        "href": "http://127.0.0.1:4173/labs/26-validation/index.html",
+        "text": "评估记录"
+      },
+      {
+        "href": "../18-rnn-basics/index.html",
+        "text": "← 18 RNN"
+      },
+      {
+        "href": "../20-crnn/index.html",
+        "text": "20 CRNN →"
+      },
+      {
+        "href": "http://127.0.0.1:4173/19-ctc-loss/",
+        "text": "阅读前后向、梯度推导、解码规则及自测"
+      }
+    ],
+    "overlay": false,
+    "resources": [
+      {
+        "status": 200,
+        "url": "http://127.0.0.1:4173/labs/shared/course.css"
+      },
+      {
+        "status": 200,
+        "url": "http://127.0.0.1:4173/labs/shared/course.js"
+      },
+      {
+        "status": 200,
+        "url": "http://127.0.0.1:4173/labs/19-ctc-loss/bundle.js"
+      }
+    ],
+    "text": "OCR / 学习实验室\n返回本章讲义\n课程目录\n照片识别\n评估记录\n← 18 RNN · 20 CRNN →\n19 · 不切字符，也能计算整串损失\n\n用小概率矩阵检查 CTC 对齐，把动态规划与独立全路径枚举逐项核对。\n\n输入概率与目标\n示例\n连续重复：00\n贪婪与beam不同\n帧数不足\n全blank与空标签\n每行一个时间步，每列依次是 [blank, 数字0, 数字1]，每行和为1\n目标字符串（仅计算损失，可留空）\nPrefix beam 束宽（1–100）\n计算损失与解码恢复当前示例\n\n已计算。修改目标标签时，解码结果应保持不变。\n\n仅由概率矩阵解码\n贪婪路径：0 ∅ 0\n贪婪输出：00\nPrefix beam 输出：00\n束中累计概率：0.4480000（剪枝后的近似值，不是正确率）\n指定目标的损失与对齐\n目标：00；T=3；最少帧数=3\nP(target|x)=0.448000000；CTC loss=0.8029620465671519\n状态序列：∅ 0 ∅ 0 ∅\n存在合法对",
+    "title": "19 · CTC 损失与解码",
+    "url": "http://127.0.0.1:4173/labs/19-ctc-loss/index.html"
+  },
+  {
+    "slug": "20-crnn",
+    "canvases": 3,
+    "controls": 10,
+    "links": [
+      {
+        "href": "http://127.0.0.1:4173/",
+        "text": "OCR / 学习实验室"
+      },
+      {
+        "href": "http://127.0.0.1:4173/20-crnn/",
+        "text": "返回本章讲义"
+      },
+      {
+        "href": "http://127.0.0.1:4173/",
+        "text": "课程目录"
+      },
+      {
+        "href": "http://127.0.0.1:4173/labs/25-ocr-engine/index.html",
+        "text": "照片识别"
+      },
+      {
+        "href": "http://127.0.0.1:4173/labs/26-validation/index.html",
+        "text": "评估记录"
+      },
+      {
+        "href": "../19-ctc-loss/index.html",
+        "text": "← 19 CTC"
+      },
+      {
+        "href": "../21-attention/index.html",
+        "text": "21 Attention →"
+      },
+      {
+        "href": "http://127.0.0.1:4173/20-crnn/",
+        "text": "阅读公式、训练报告、局限及自测"
+      },
+      {
+        "href": "training-report.json",
+        "text": "原始实测报告"
+      }
+    ],
+    "overlay": false,
+    "resources": [
+      {
+        "status": 200,
+        "url": "http://127.0.0.1:4173/labs/shared/course.css"
+      },
+      {
+        "status": 200,
+        "url": "http://127.0.0.1:4173/labs/shared/course.js"
+      },
+      {
+        "status": 200,
+        "url": "http://127.0.0.1:4173/labs/20-crnn/bundle.js"
+      },
+      {
+        "status": 200,
+        "url": "http://127.0.0.1:4173/labs/20-crnn/model/weights.json"
+      }
+    ],
+    "text": "OCR / 学习实验室\n返回本章讲义\n课程目录\n照片识别\n评估记录\n← 19 CTC · 21 Attention →\n20 · 从整行像素训练到字符串\n\nCNN → 双向 LSTM → CTC，全部参数真实训练。模型只在合成的1–3位0/1点阵数字上训练与验证，提供训练链路与最终“分割 + CNN”路线的教学对照；手绘或范围外输入可能产生空串或错误串。\n\n整行输入\n生成示例字符串（仅用于绘图）\n绘图种子（0–4294967295）\n生成整行图像\n\n鼠标或触摸涂黑像素，按住 Shift 擦除。也可以通过下面的文本框用键盘编辑所有像素。\n\n用键盘编辑像素\n只根据像素识别清空画布\n\nPrefix beam：001；贪婪：001\n\n已仅根据整行像素预测。手工改图后可再次识别；训练字形范围外可能失败。\n\n特征图怎样变成时间序列\ninput          [1, 8, 20, 1]\nconvolution    [1, 8, 20, 4]\npooled         [1, 4, 10, 4",
+    "title": "20 · 可训练的小型 CRNN",
+    "url": "http://127.0.0.1:4173/labs/20-crnn/index.html"
+  },
+  {
+    "slug": "21-attention",
+    "canvases": 1,
+    "controls": 7,
+    "links": [
+      {
+        "href": "http://127.0.0.1:4173/",
+        "text": "OCR / 学习实验室"
+      },
+      {
+        "href": "http://127.0.0.1:4173/21-attention/",
+        "text": "返回本章讲义"
+      },
+      {
+        "href": "http://127.0.0.1:4173/",
+        "text": "课程目录"
+      },
+      {
+        "href": "http://127.0.0.1:4173/labs/25-ocr-engine/index.html",
+        "text": "照片识别"
+      },
+      {
+        "href": "http://127.0.0.1:4173/labs/26-validation/index.html",
+        "text": "评估记录"
+      },
+      {
+        "href": "http://127.0.0.1:4173/21-attention/",
+        "text": "阅读公式、梯度推导和自测答案"
+      },
+      {
+        "href": "../22-text-detection-networks/index.html",
+        "text": "下一章：文本检测网络"
+      }
+    ],
+    "overlay": false,
+    "resources": [
+      {
+        "status": 200,
+        "url": "http://127.0.0.1:4173/labs/shared/course.css"
+      },
+      {
+        "status": 200,
+        "url": "http://127.0.0.1:4173/labs/shared/course.js"
+      },
+      {
+        "status": 200,
+        "url": "http://127.0.0.1:4173/labs/21-attention/bundle.js"
+      }
+    ],
+    "text": "OCR / 学习实验室\n返回本章讲义\n课程目录\n照片识别\n评估记录\n\nCHAPTER 21 / ATTENTION\n\n一次查询，怎样分配注意力\n\n修改 Q、K、V，追踪分数、逐行 softmax 和加权结果。每个权重属于一个输入位置，并非某个字符类别的置信度。\n\n教学范围：小矩阵前向、反向与单个 query 的优化。这里没有图像编码器或已训练的 OCR 模型。\n\n输入与约束\n示例\n3×3 关系矩阵\n1 个 query / 3 个 key\n温度 τ\n1.0\n因果遮罩（等长序列）\nQ：查询行 × 匹配维度\nK：键行 × 匹配维度\nV：键行 × 内容维度\n计算注意力\n恢复默认\n查看查询 \nQ0\nQ1\nQ2\n\n计算完成：Q 3×2，K 3×2，V 3×2，输出 3×2\n\n匹配分数 QKᵀ / (√dₖ τ)\n匹配分数\n行 / 列\t0\t1\t2\n0\t0.7071\t0.0000\t0.7071\n1\t0.0000\t0.7071\t0.7071\n2\t0.7071\t0.7071\t1.4142\n注意力权重 A\n每",
+    "title": "21 · Attention 权重实验",
+    "url": "http://127.0.0.1:4173/labs/21-attention/index.html"
+  },
+  {
+    "slug": "22-text-detection-networks",
+    "canvases": 7,
+    "controls": 8,
+    "links": [
+      {
+        "href": "http://127.0.0.1:4173/",
+        "text": "OCR / 学习实验室"
+      },
+      {
+        "href": "http://127.0.0.1:4173/22-text-detection-networks/",
+        "text": "返回本章讲义"
+      },
+      {
+        "href": "http://127.0.0.1:4173/",
+        "text": "课程目录"
+      },
+      {
+        "href": "http://127.0.0.1:4173/labs/25-ocr-engine/index.html",
+        "text": "照片识别"
+      },
+      {
+        "href": "http://127.0.0.1:4173/labs/26-validation/index.html",
+        "text": "评估记录"
+      },
+      {
+        "href": "http://127.0.0.1:4173/22-text-detection-networks/",
+        "text": "阅读 EAST / DBNet 原理、生产模型接入边界与自测"
+      },
+      {
+        "href": "../23-transformer-ocr/index.html",
+        "text": "下一章：Transformer OCR"
+      }
+    ],
+    "overlay": false,
+    "resources": [
+      {
+        "status": 200,
+        "url": "http://127.0.0.1:4173/labs/shared/course.css"
+      },
+      {
+        "status": 200,
+        "url": "http://127.0.0.1:4173/labs/shared/course.js"
+      },
+      {
+        "status": 200,
+        "url": "http://127.0.0.1:4173/labs/22-text-detection-networks/bundle.js"
+      }
+    ],
+    "text": "OCR / 学习实验室\n返回本章讲义\n课程目录\n照片识别\n评估记录\n\nCHAPTER 22 / TEXT DETECTION\n\n从预测图到文字区域\n\n检查可微二值化的数值、边界梯度与区域框；旋转角度可独立改变 EAST 几何解码。\n\n这些 P/T 图由公式合成，未运行 DBNet 或 EAST 网络。DB 运算公式真实执行；四邻域连通域、轴对齐框扩张和 NMS 是后处理教学简化，不能代表完整模型的检测精度。\n\n二值化与框筛选\n输入预测场\n两个合成区域\n空预测场 P=0\nDB 陡峭度 k\n50\nP 推理阈值\n0.30\n矩形扩张比例\n1.0\n恢复默认\n\n48×24 合成预测图；P 支路 2 个框，DB 对照 2 个框；理论梯度峰值 k/4 = 12.50\n\n概率图 P\n\n深色高、浅色低；P∈[0,1]。\n\n阈值图 T\n\n本例从左向右缓慢增大；实际网络通过监督学习预测 T。\n\n软二值图 B̂ = σ(k(P−T))\n\n仍是连续值；阈值 0.5 对应 P>T，与 k 大小无关。\n\n∂B̂ / ∂",
+    "title": "22 · 文本检测输出与后处理",
+    "url": "http://127.0.0.1:4173/labs/22-text-detection-networks/index.html"
+  },
+  {
+    "slug": "23-transformer-ocr",
+    "canvases": 3,
+    "controls": 9,
+    "links": [
+      {
+        "href": "http://127.0.0.1:4173/",
+        "text": "OCR / 学习实验室"
+      },
+      {
+        "href": "http://127.0.0.1:4173/23-transformer-ocr/",
+        "text": "返回本章讲义"
+      },
+      {
+        "href": "http://127.0.0.1:4173/",
+        "text": "课程目录"
+      },
+      {
+        "href": "http://127.0.0.1:4173/labs/25-ocr-engine/index.html",
+        "text": "照片识别"
+      },
+      {
+        "href": "http://127.0.0.1:4173/labs/26-validation/index.html",
+        "text": "评估记录"
+      },
+      {
+        "href": "http://127.0.0.1:4173/23-transformer-ocr/",
+        "text": "阅读 Transformer / ViT / TrOCR 的公式、适用边界和自测"
+      },
+      {
+        "href": "../24-post-processing/index.html",
+        "text": "下一章：后处理"
+      }
+    ],
+    "overlay": false,
+    "resources": [
+      {
+        "status": 200,
+        "url": "http://127.0.0.1:4173/labs/shared/course.css"
+      },
+      {
+        "status": 200,
+        "url": "http://127.0.0.1:4173/labs/shared/course.js"
+      },
+      {
+        "status": 200,
+        "url": "http://127.0.0.1:4173/labs/23-transformer-ocr/bundle.js"
+      }
+    ],
+    "text": "OCR / 学习实验室\n返回本章讲义\n课程目录\n照片识别\n评估记录\n\nCHAPTER 23 / TRANSFORMER OCR\n\n图像块怎样成为序列\n\n从小图像切块，经线性映射、位置编码和多头注意力，到解码器读取视觉特征。查看每一层的实际维度与权重。\n\n固定种子随机参数的前向实验，未训练、不会识别字符。它使用 pre-norm、ReLU 和正弦位置编码，省略训练与生成词表头；不是 ViT 或 TrOCR 的复现。TrOCR 的完整流程见本章文档。\n\n配置实验\n图像块\n2×2（8 个 token）\n4×4（2 个 token）\n注意力头数\n1\n2\n4\n加入位置编码\n解码器因果遮罩\n\n图像 4×8×1 → 8×4 patches → 8×4 tokens；2 头，每头 2 维；cross attention = 3×8\n\n编辑4×8灰度输入\n像素矩阵（4行8列，每个值0…1）\n应用像素输入\n恢复默认\n\n尝试全部填0并切换位置编码：没有内容也可产生位置差异。空白图不会触发真正的OCR预测。\n\n",
+    "title": "23 · Transformer OCR 运算实验",
+    "url": "http://127.0.0.1:4173/labs/23-transformer-ocr/index.html"
+  },
+  {
+    "slug": "24-post-processing",
+    "canvases": 0,
+    "controls": 25,
+    "links": [
+      {
+        "href": "http://127.0.0.1:4173/",
+        "text": "OCR / 学习实验室"
+      },
+      {
+        "href": "http://127.0.0.1:4173/24-post-processing/",
+        "text": "返回本章讲义"
+      },
+      {
+        "href": "http://127.0.0.1:4173/",
+        "text": "课程目录"
+      },
+      {
+        "href": "http://127.0.0.1:4173/labs/25-ocr-engine/index.html",
+        "text": "照片识别"
+      },
+      {
+        "href": "http://127.0.0.1:4173/labs/26-validation/index.html",
+        "text": "评估记录"
+      },
+      {
+        "href": "../23-transformer-ocr/index.html",
+        "text": "← 第23章 Transformer OCR"
+      },
+      {
+        "href": "http://127.0.0.1:4173/24-post-processing/",
+        "text": "完整原理、API与全部自测答案"
+      },
+      {
+        "href": "../25-ocr-engine/index.html",
+        "text": "第25章 引擎整合 →"
+      },
+      {
+        "href": "https://nlp.stanford.edu/IR-book/html/htmledition/edit-distance-1.html",
+        "text": "Stanford 编辑距离"
+      },
+      {
+        "href": "https://web.stanford.edu/~jurafsky/slp3/3.pdf",
+        "text": "Jurafsky & Martin N-gram"
+      },
+      {
+        "href": "https://tsapps.nist.gov/publication/get_pdf.cfm?pub_id=934557",
+        "text": "NIST CER/WER定义"
+      },
+      {
+        "href": "https://proceedings.mlr.press/v70/guo17a.html",
+        "text": "Guo等：置信度校准"
+      }
+    ],
+    "overlay": false,
+    "resources": [
+      {
+        "status": 200,
+        "url": "http://127.0.0.1:4173/labs/shared/course.css"
+      },
+      {
+        "status": 200,
+        "url": "http://127.0.0.1:4173/labs/shared/course.js"
+      },
+      {
+        "status": 200,
+        "url": "http://127.0.0.1:4173/labs/24-post-processing/bundle.js"
+      }
+    ],
+    "text": "OCR / 学习实验室\n返回本章讲义\n课程目录\n照片识别\n评估记录\n\nCHAPTER 24 / POST-PROCESSING\n\n错在哪里，要先对齐\n\n用编辑距离区分替换、删除和插入，再用固定分母评估数字串。亲手观察：语言先验如何改变建议，拒识又如何改变成绩。\n\n本页输入和得分均为可复核的教学样例；它没有运行照片识别模型，页面上的百分比不代表真实手写照片成绩。\n\n01 / 从真值到预测：完整对齐\n\n真值是原本应该存在的字符。删除 D 表示漏识别，插入 I 表示多识别。M 匹配成本为0，S / D / I 各为1。空格会参与比较，前导零和重复字符始终保留。\n\n真值（此处支持一般文本）\n原始预测（允许空串）\n计算并对齐\n漏掉一个0\n平局：12 → 21\n前导零与重复\nCER 300%\n失败空预测\n两串皆空\n\n距离 1 = S 0 + D 1 + I 0；本对齐 CER 25.00%。\n\n真值\n预测\n操作\n1\n1\nM 匹配\n2\n2\nM 匹配\n0\n∅\nD 删除\n3\n3\nM 匹配\n\n∅ 表示缺口，",
+    "title": "24 · 后处理与独立评估 — OCR 学习实验室",
+    "url": "http://127.0.0.1:4173/labs/24-post-processing/index.html"
+  },
+  {
+    "slug": "25-ocr-engine",
+    "canvases": 3,
+    "controls": 12,
+    "links": [
+      {
+        "href": "http://127.0.0.1:4173/",
+        "text": "OCR / 学习实验室"
+      },
+      {
+        "href": "http://127.0.0.1:4173/25-ocr-engine/",
+        "text": "返回本章讲义"
+      },
+      {
+        "href": "http://127.0.0.1:4173/",
+        "text": "课程目录"
+      },
+      {
+        "href": "http://127.0.0.1:4173/labs/25-ocr-engine/index.html",
+        "text": "照片识别"
+      },
+      {
+        "href": "http://127.0.0.1:4173/labs/26-validation/index.html",
+        "text": "评估记录"
+      },
+      {
+        "href": "../26-validation/index.html",
+        "text": "查看全部评估记录 →"
+      },
+      {
+        "href": "http://127.0.0.1:4173/25-ocr-engine/",
+        "text": "阅读本章讲义、接口与局限"
+      }
+    ],
+    "overlay": false,
+    "resources": [
+      {
+        "status": 200,
+        "url": "http://127.0.0.1:4173/labs/shared/course.css"
+      },
+      {
+        "status": 200,
+        "url": "http://127.0.0.1:4173/labs/shared/course.js"
+      },
+      {
+        "status": 200,
+        "url": "http://127.0.0.1:4173/labs/25-ocr-engine/bundle.js"
+      },
+      {
+        "status": 200,
+        "url": "http://127.0.0.1:4173/labs/17-cnn-classifier/model/model.json"
+      },
+      {
+        "status": 200,
+        "url": "http://127.0.0.1:4173/labs/17-cnn-classifier/model/weights.bin"
+      },
+      {
+        "status": 200,
+        "url": "http://127.0.0.1:4173/labs/17-cnn-classifier/model/model.json"
+      },
+      {
+        "status": 200,
+        "url": "http://127.0.0.1:4173/labs/17-cnn-classifier/model/weights.bin"
+      }
+    ],
+    "text": "OCR / 学习实验室\n返回本章讲义\n课程目录\n照片识别\n评估记录\n25 / END-TO-END EXPERIMENT\n识别照片里的手写数字串\n\n白纸、深色笔、单行横写，数字之间留一点间隔。观察每一步，再用实际书写内容核对结果。\n\n照片\n→\n灰度与阈值\n→\n定位与分割\n→\n28 × 28 归一化\n→\n自主训练 CNN\n→\n数字串\n1. 导入照片\n选择照片\n\n支持 JPG、PNG、WebP，文件不超过 20 MB；浏览器按最长边 1200 像素处理。轻微倾斜可自动或手动校正。\n\n加载手写样例\n样例由 MNIST 手写图拼接，用于流程实验。\n预处理参数\n开始识别\n重新加载模型\n\n模型已就绪 · ocr-mnist-cnn-v1-9c7b0b8e8224 · webgl · 本项目自行训练\n\n2. 查看完整结果\n导入照片后开始识别。\n—\n\n3. 核对实际书写内容\n正确数字串\n核对\n实验轮次\n保存本轮首次结果\n查看全部评估记录 →\n\n模型得分表示模型判断；实际准确率必须与正确答案比较。错误和空",
+    "title": "25 · 照片中的手写数字串",
+    "url": "http://127.0.0.1:4173/labs/25-ocr-engine/index.html"
+  },
+  {
+    "slug": "26-validation",
+    "canvases": 0,
+    "controls": 3,
+    "links": [
+      {
+        "href": "http://127.0.0.1:4173/",
+        "text": "OCR / 学习实验室"
+      },
+      {
+        "href": "http://127.0.0.1:4173/26-validation/",
+        "text": "返回本章讲义"
+      },
+      {
+        "href": "http://127.0.0.1:4173/",
+        "text": "课程目录"
+      },
+      {
+        "href": "http://127.0.0.1:4173/labs/25-ocr-engine/index.html",
+        "text": "照片识别"
+      },
+      {
+        "href": "http://127.0.0.1:4173/labs/26-validation/index.html",
+        "text": "评估记录"
+      },
+      {
+        "href": "../25-ocr-engine/index.html",
+        "text": "识别下一张照片"
+      },
+      {
+        "href": "http://127.0.0.1:4173/26-validation/",
+        "text": "本章讲义与验证流程"
+      }
+    ],
+    "overlay": false,
+    "resources": [
+      {
+        "status": 200,
+        "url": "http://127.0.0.1:4173/labs/shared/course.css"
+      },
+      {
+        "status": 200,
+        "url": "http://127.0.0.1:4173/labs/shared/course.js"
+      },
+      {
+        "status": 200,
+        "url": "http://127.0.0.1:4173/labs/26-validation/bundle.js"
+      }
+    ],
+    "text": "OCR / 学习实验室\n返回本章讲义\n课程目录\n照片识别\n评估记录\n26 / MEASURE WHAT HAPPENED\n每一张照片，都留在结果里。\n\n对照真实书写内容，分别观察字符错误和整串正确率。模型、处理配置、样本类型与实验轮次分开统计。\n\n识别下一张照片\n导出全部记录\n导入记录 JSON\n已读取 0 条本机记录。\n选择实验组\n\n本机还没有记录。\n\n还没有评估记录。请在识别页导入照片、运行识别并保存结果。\n逐图核对\n\n补充正确答案只改变评分，保留原始预测。有效照片识别失败仍计入分母；排除样本需要明确原因。\n\n照片 / 来源\t原始预测\t正确答案\t排除理由（可选）\t评分\t操作\n编辑距离对齐\n\n选择一张已标注照片查看对齐。上行为正确答案，下行为预测；M 匹配、S 替换、D 漏字、I 多字。\n\n怎样理解这些数字？\n\nCER = (替换 + 删除 + 插入) / 真实字符总数。多个样本按总字符数汇总，额外插入很多数字时可超过 100%。\n\n整串完全正确率 = 完全一致的照片数 / 有标签有效",
+    "title": "26 · 手写数字串实战评估",
+    "url": "http://127.0.0.1:4173/labs/26-validation/index.html"
+  }
+]

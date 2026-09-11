@@ -1,0 +1,391 @@
+# 16. TensorFlow.js 入门：从手算到可保存的模型
+
+## 学习目标与前置知识
+
+第 14 章回答“参数怎样沿梯度更新”，第 15 章回答“卷积怎样学习局部特征”。本章把这些计算交给 TensorFlow.js，同时保留可以手算的入口。学完应能解释框架在做什么，并完成**创建张量 → 定义模型 → 训练 → 预测 → 保存 → 加载 → 释放资源**的闭环。
+
+前置知识是 JavaScript 数组与异步函数、矩阵乘法、链式法则、MSE 和梯度下降。无需先安装 Python，也不需要把前 13 章重新学一遍。
+
+| 核心点 | 要解决的问题 | 本章能观察的结果 |
+|---|---|---|
+| 张量与维度 | 数组怎样成为可微分的计算输入 | 2×2 矩阵的乘法、广播、梯度 |
+| Sequential 模型 | 手写公式怎样映射到层和参数 | Dense(1) 的两个参数 |
+| compile / fit | 框架如何分批求导和更新 | 第一步 SGD、损失曲线、学习率对照 |
+| predict | 怎样解释批次轴和模型输出 | 对新输入 x=2 预测接近 5 |
+| 保存与加载 | 参数如何脱离当前进程 | JSON 拓扑、二进制权重、加载后一致性 |
+| 后端与内存 | 浏览器/Node 为什么表现不同 | 真实后端、100 次推理前后张量数量 |
+
+本章数据是人为构造的 5 个回归点，用于理解框架。它没有测量手写识别准确率。真实手写数据、独立测试与 CNN 模型在第 17 章。
+
+## 在 OCR 流程中的位置
+
+```text
+照片 → 定位/分割 → 统一单字符像素 → [TensorFlow.js 模型推理] → 类别
+                                       ↑
+                      定义网络 → 训练 → 保存 → 浏览器加载
+```
+
+TensorFlow.js 是执行计算与管理模型的框架，不是自带完整 OCR 能力的识别器。是否能识别照片取决于训练数据、输入规范、模型及检测分割。
+
+## 一、张量：除了值，还要知道轴的意义
+
+### 1. 动机与直觉
+
+JavaScript 的 `[[1,2],[3,4]]` 只说明它是嵌套数组。框架还需要知道形状、数据类型、数据所在后端以及计算依赖。Tensor 把这些信息统一起来。
+
+张量的 **rank 是轴数**；shape 是每条轴的长度。标量 rank=0，shape=[]；向量 rank=1，shape=[n]；矩阵 rank=2，shape=[m,n]。rank 不是矩阵线性代数中的秩。
+
+若图像按 NHWC 排列，四条轴分别表示 batch、height、width、channels：
+
+```text
+一张灰度数字：[1,28,28,1]
+128 张灰度数字：[128,28,28,1]
+元素数：128×28×28×1 = 100352
+float32 数据量：100352×4 = 401408 字节（不含临时张量和后端开销）
+```
+
+`[28,28]` 与 `[1,28,28,1]` 可包含相同数量的元素，但接口含义不同。CNN 的 `inputShape:[28,28,1]` 不包括 batch；实际 `predict` 输入必须包含 batch。
+
+### 2. 乘法的两种含义与手算
+
+给定：
+
+```text
+A = [[1,2],       B = [[2,0],
+     [3,4]]           [1,2]]
+```
+
+矩阵乘法 `C = AB` 的定义为：
+
+\[
+C_{ij}=\sum_{k=0}^{K-1} A_{ik}B_{kj}
+\]
+
+其中 A 的形状为 `[M,K]`，B 为 `[K,N]`，结果为 `[M,N]`。共享的 K 是被求和消去的轴。
+
+手算左上角：`C00=1×2+2×1=4`；右下角：`C11=3×0+4×2=8`。全部结果：
+
+```text
+A.matMul(B) = [[4,4],[10,8]]
+A.mul(B)    = [[2,0],[3,8]]    // 逐元素相乘，没有对 k 求和
+```
+
+不能因为结果形状相同就把两种操作混为一谈。全连接层的通道混合使用矩阵乘法；掩码、缩放等常用逐元素乘法。
+
+### 3. 广播与 reshape
+
+`A.add([10,20])` 的结果是 `[[11,22],[13,24]]`。广播从末尾的轴对齐：轴长相等或其中之一为 1 才兼容。这里 `[2]` 被理解为 `[1,2]`，对两行使用相同偏置。
+
+`reshape` 只重新解释轴，不会插值，也不会把图像缩小。`[2,2] → [4]` 保持四个值的存储顺序；`28×28 → 14×14` 元素数改变，需要真正的降采样。
+
+### 4. 从定义到代码
+
+```javascript
+const tf = require('@tensorflow/tfjs');
+const { tensorArithmetic } = require('../shared/16-tensorflowjs-intro');
+await tf.ready();
+const result = tensorArithmetic(tf);
+// result.product、elementwise、broadcast、gradient 全部是普通 JS 数组。
+```
+
+共享函数的实现步骤：创建 A/B → 分别计算 matMul/mul → 创建偏置向量并广播 → 求平方和梯度 → 读取普通数组 → 离开 tidy 释放所有临时张量。
+
+### 5. 参数影响与边界
+
+float32 只有有限精度。浮点自检使用容差，不能要求来自不同后端的所有小数逐位相同。过大的输入尺寸会增大数据和中间激活内存；只是把数组改成 Tensor 不会自动降低复杂度。
+
+## 二、模型定义：一层 Dense 对应哪条公式
+
+### 1. 动机与直觉
+
+框架可以自动求导，但仍需人定义“输入如何变成预测”。最小的线性模型是：
+
+\[
+\hat y_i=wx_i+b
+\]
+
+`w` 是斜率，`b` 是截距，`x_i` 是第 i 个输入，`ŷ_i` 是预测。Dense(1) 就是把每个样本映射成一个输出。多维形式是 `Y=XW+b`：若 X 是 `[B,D]`，W 是 `[D,U]`，输出就是 `[B,U]`。
+
+### 2. 具体数据和维度
+
+取 `x=[-1,-0.5,0,0.5,1]`，标签由 `y=2x+1` 产生：
+
+| x | -1 | -0.5 | 0 | 0.5 | 1 |
+|---|---:|---:|---:|---:|---:|
+| y | -1 | 0 | 1 | 2 | 3 |
+
+输入形状为 `[5,1]`，权重 `[1,1]`，偏置 `[1]`，输出 `[5,1]`，总共 **2 个可训练参数**。
+
+把初值设成 w=b=0，是为了能与手算一一对应。一般多神经元隐藏层不能全部使用同样的零初始化，否则存在对称性问题；本章只有一个线性输出，不存在这个演示障碍。第 17 章使用带种子的 Glorot 初始化。
+
+### 3. 逐步定义
+
+```javascript
+const model = tf.sequential();
+model.add(tf.layers.dense({
+  inputShape: [1], units: 1,
+  kernelInitializer: 'zeros', biasInitializer: 'zeros'
+}));
+const optimizer = tf.train.sgd(0.1);
+model.compile({ optimizer, loss: 'meanSquaredError' });
+```
+
+`sequential` 组织单路层次连接；`add` 描述前向计算；`compile` 指定损失与优化器，不会因此开始读取样本或更新参数。复杂多输入、分支、共享层可以用 Functional API，本章不把单路模型演示说成覆盖了全部模型结构。
+
+### 4. 参数与适用条件
+
+`units` 改变输出维度及参数数目。Dense 的参数数为 `D×U+U`；本章为 `1×1+1=2`。若输出是 10 类标签，不能只把线性回归预测四舍五入，需要对应的分类输出与损失。这个区别在第 17 章的 softmax/交叉熵中展开。
+
+线性层只能表示仿射映射。对 `y=x²` 等关系，即使训练很多轮也无法表示任意曲线；这属于表达能力问题，不能只归因于学习率。
+
+## 三、训练：把 fit 拆回前向、损失、梯度、更新
+
+### 1. 为什么需要损失
+
+“预测接近答案”需要一个可优化的数值定义。这里采用均方误差：
+
+\[
+L(w,b)=\frac1B\sum_{i=1}^B(wx_i+b-y_i)^2
+\]
+
+B 为当前批次大小。差值是残差，平方使正负误差不会抵消，并对较大误差给予更高惩罚。MSE 对异常值敏感，并不适合替代任意分类任务的损失。
+
+### 2. 从损失推导梯度
+
+用链式法则分别对 w、b 求导：
+
+\[
+\frac{\partial L}{\partial w}=\frac2B\sum_i(\hat y_i-y_i)x_i,
+\quad
+\frac{\partial L}{\partial b}=\frac2B\sum_i(\hat y_i-y_i)
+\]
+
+SGD 更新规则：
+
+\[
+w_{t+1}=w_t-\eta\frac{\partial L}{\partial w},\qquad
+b_{t+1}=b_t-\eta\frac{\partial L}{\partial b}
+\]
+
+η 为学习率，t 为更新次数。此处一次 batch 产生一次更新。
+
+### 3. 可以手算的一次更新
+
+初始预测全为 0，残差为 `[1,0,-1,-2,-3]`：
+
+```text
+L = (1²+0²+(-1)²+(-2)²+(-3)²)/5 = 15/5 = 3
+Σ residual×x = -1+0+0-1-3 = -5
+dw = 2/5×(-5) = -2
+db = 2/5×(1+0-1-2-3) = -2
+η=0.1：w'=0.2，b'=0.2
+更新后对 x=2：ŷ=0.2×2+0.2=0.6
+```
+
+`firstGradientStep(tf)` 使用 `tf.valueAndGrads` 真正求导，结果必须与这些数字对应。它不是返回预先写好的答案。
+
+另外，`tensorArithmetic` 计算 `f(A)=Σ Aij²`；每个元素梯度是 `2Aij`，故 `[[2,4],[6,8]]`。这是将第 14 章的链式法则对照到框架的独立实验。
+
+### 4. fit 的执行顺序
+
+```javascript
+await model.fit(xs, ys, {
+  epochs: 120, batchSize: 5, shuffle: false,
+  callbacks: { onEpochEnd: (epoch, logs) => console.log(epoch, logs.loss) }
+});
+```
+
+1. 从训练张量中取一个 batch。
+2. 执行 `ŷ=XW+b`。
+3. 计算当前 batch 的 MSE。
+4. 自动微分得到梯度，由 SGD 更新参数。
+5. 收集损失，触发回调；重复直到指定轮数完成。
+
+一个 epoch 是遍历训练数据一次。本例 5 个点、batchSize=5，所以每轮只有一次更新。若是 55,000 个样本、batchSize=128，一轮约 `ceil(55000/128)=430` 次更新，不是 128 轮。
+
+`fit` 返回 Promise。必须 await；否则紧接着保存可能得到尚未训练好的参数。回调中的 `epoch` 从 0 起，本课程展示时加 1。
+
+**日志的时间点不能混淆：**`logs.loss` 是各训练批次在该批更新前计算的损失，然后按样本数汇总。本章每轮只有一个batch，所以第1轮日志仍是初值的MSE=3；此时权重已更新为w=b=0.2，用这组新权重重新评估得到MSE=2.26。`runLinearExperiment` 保留原始 `history[].loss`，另返回 `finalLoss` 表示全部更新后重新评估的损失。Node和页面分别标明这两个值。多批次epoch的训练loss来自沿途不同权重，不等于轮末模型在整个训练集的重新评估。
+
+### 5. 参数对照
+
+Node 实验在相同零初值、同一批次上比较 `(20轮,η=0.01)`、`(20轮,η=0.1)`、`(120轮,η=0.1)`，打印学到的 w、b 和 x=2 的预测。
+
+在这个特别简单的数据上，Σx=0、均值 x²=0.5，可以进一步化简：
+
+```text
+w(t+1) = (1-η)w(t) + 2η
+b(t+1) = (1-2η)b(t) + 2η
+```
+
+因此 η 太小收敛慢，过大可能振荡或发散。它不是“越大越快”的旋钮。对 CNN 不存在可以直接照搬的统一最佳学习率。
+
+验证集不会参与反向传播；测试集应留到配置冻结之后。由于本章关系和所有数据均由解析公式产生，这里的 x=2 只是批次外预测展示，不是对真实数据泛化能力的严肃估计。
+
+## 四、推理：输出是 Tensor，答案还要解释
+
+### 1. 动机与直觉
+
+训练改变模型参数，预测使用当前参数计算输出。`predict` 不需要真实标签，也不会执行一次参数更新。模型输出值与业务答案之间仍有一层解释。
+
+### 2. 单样本与批次算例
+
+```javascript
+const values = predictValues(tf, loadedModel, [-2, 0, 2]);
+// 输入张量 [3,1]，输出 [3,1]；目标关系给出 [-3,1,5]。
+```
+
+对于本章模型，读取一列实数就得到回归预测。对于第 17 章，输出 `[B,10]`，每行的 `argmax` 才映射为字符标签。不要把 batch=1 的外层轴忘掉。
+
+### 3. 逐步实现和约束
+
+`predictValues` 先拒绝空数组及 NaN/Infinity → 创建 `[B,1]` 输入 → 调用 predict → 同步读出值 → 返回普通数组。输入和中间输出在同一 tidy 中释放。
+
+在 WebGL 后端，`dataSync()` 可能等待 GPU 并把值传回 CPU，会阻塞页面。它适合本章很小的结果及明确的生命周期演示；高频大批量系统可采用 `await tensor.data()`，并在 finally 中显式 dispose。
+
+## 五、保存与加载：模型不是一个 JSON 文件那么简单
+
+### 1. 为什么要单独验证加载
+
+当前进程中能预测不代表关闭页面后仍能工作。正式交付需要保存网络结构与权重，并从文件重新构建模型。
+
+```text
+model.json：层的连接关系、配置、权重名称/shape/dtype、相对文件名
+weights.bin：按 manifest 顺序排列的参数字节
+```
+
+本章 2 个 float32 参数理论上只需 8 个权重字节；JSON 还包含层配置，因此文件大小不能用参数数直接推断。第 17 章的 14,538 个参数需要 58,152 个权重字节。
+
+### 2. 当前环境选择
+
+当前仅安装 `@tensorflow/tfjs`，Node 实测使用纯 JavaScript CPU 后端。不能假设它支持 `model.save('file://...')`；常见的 Node 原生文件处理器来自另一个包 `@tensorflow/tfjs-node`。
+
+本章使用官方 IOHandler 接口：`tf.io.withSaveHandler` 捕获 artifacts，Node 用文件 API 写 JSON 和二进制；重新加载通过 `tf.io.fromMemory`。浏览器可直接 HTTP 加载相同 LayersModel 格式。
+
+| 路径 | 适用环境 | 生命周期 |
+|---|---|---|
+| `fromMemory(artifacts)` | Node / 浏览器 | 只在当前运行期保存 artifacts |
+| HTTP `loadLayersModel(url)` | Node / 浏览器 | 需要模型文件可访问 |
+| `indexeddb://name` | 支持 IndexedDB 的浏览器 | 与站点存储相关，可能被清理 |
+| 自定义文件 IOHandler | 当前 Node 环境 | 明确管理 JSON、权重和目录 |
+
+### 3. 保存加载步骤
+
+```javascript
+const artifacts = await captureModel(tf, model);
+model.dispose();
+model.optimizer.dispose(); // 本章 compile 显式传入的 optimizer 由调用方释放。
+const reloaded = await reloadModel(tf, artifacts);
+const answer = predictValues(tf, reloaded, [2]);
+reloaded.dispose();
+```
+
+`captureModel` 使用 `includeOptimizer:false`。交付的是推理模型，不包含 Adam/SGD 训练恢复所需的完整状态。**继续训练**与**恢复一模一样的训练过程**是不同要求；仅保存权重不足以恢复优化器动量、数据顺序与随机状态。
+
+Node 入口还把内容落盘到本章 `artifacts/`。第 17 章进一步在新 Node 进程加载磁盘文件，并校验权重 SHA256。
+
+### 4. 常见失败
+
+只移动 JSON 而漏掉 `.bin` 会加载失败；相对权重路径错误会出现 404；把 GraphModel 当作 LayersModel 加载也会失败。`inputShape` 相同并不能保证归一化协议相同，部署时还要固定像素极性、裁剪和标签映射。
+
+## 六、资源与后端：为什么 JS 垃圾回收还不够
+
+### 1. 资源所有权
+
+JavaScript 包装对象与后端实际存储不是同一件事，尤其 GPU 数据可能存于纹理中。TensorFlow.js 使用 dispose/tidy 管理张量生命周期。
+
+```javascript
+const ordinaryNumbers = tf.tidy(() => {
+  const input = tf.tensor2d([2], [1,1]);
+  const output = model.predict(input);
+  return Array.from(output.dataSync());
+});
+```
+
+返回的是普通数组，所以该作用域创建的输入、输出都可释放。如果返回 Tensor，则这个 Tensor 会被保留，调用者负责 dispose。`tf.Variable` 不会因为离开 tidy 自动成为一次性中间值，模型参数需要模型生命周期管理。
+
+### 2. 异步操作不能包进 tidy
+
+不要写 `tf.tidy(async () => await model.fit(...))`。tidy 的作用域是同步的，不跟踪 Promise 完成之后的张量所有权。正确方式是在外部创建训练张量，用 `try/finally` 显式释放；模型需要保留则返回给调用方。
+
+本章显式创建 optimizer，因此调用方释放 `model` 后也释放 `model.optimizer`。本项目核对了安装版本中“外部传入 optimizer 不由 model 自动拥有”的行为，避免把训练状态留在内存里。
+
+### 3. 实测而不是推测后端
+
+2026-09-08 实测：
+
+| 环境 | 框架 / 后端 | y(2) | 资源结果 |
+|---|---|---:|---|
+| Apple M1 Pro，Node v24.11.1 | TF.js 4.22.0 / cpu | 4.99998664855957 | 100 次推理前后 2→2；释放后 0 |
+| 本机 Chromium 浏览器 | TF.js 4.22.0 / webgl | 4.99998664855957 | 完整实验后回到 0 |
+
+120 轮最后一个batch在更新前记录的 MSE 为约 `2.6544e-11`；它是历史训练日志值，不是最终权重重新评估的 `finalLoss`。数值是本项目实际运行记录，不是每个平台逐位一致的承诺。
+
+`tf.memory().numTensors` 适合检测持续增长，但它不是操作系统内存或显卡总占用。后端会缓存程序和数据结构，单看 RSS 不应直接判断 Tensor 泄漏。第 17 章在训练后独立进程测得模型持有 8 个张量，200 次推理保持 8→8，dispose 后 0。
+
+## 三份主文件如何对照学习
+
+| 知识点 | 文档位置 | HTML 实验 | Node 实验/函数 |
+|---|---|---|---|
+| 张量与广播 | 第一节 | 运算表与形状 | 实验 1，打印矩阵并断言 |
+| 链式法则 | 第三节 | 梯度/更新结果 | 实验 2，不同 η 的真实梯度步 |
+| fit 与学习率 | 第三节 | η/轮数选择、损失曲线 | 实验 3/4，多配置与逐轮损失 |
+| 预测 | 第四节 | 原始点、初始/训练后直线 | 批次外 [-2,0,2] 对照解析答案 |
+| 保存加载 | 第五节 | 内存序列化后再推理 | 实验 5，specs、磁盘文件与加载值 |
+| 生命周期 | 第六节 | 资源计数与失败状态 | 实验 6，100 次推理计数 |
+
+首次在项目根目录运行 `npm install` 安装已有依赖，再执行以下命令。
+
+```bash
+# 在项目根目录运行
+node 16-tensorflowjs-intro/index.js
+# 可传入独立输出目录，避免覆盖已有教学用的 artifacts：
+node 16-tensorflowjs-intro/index.js /tmp/ocr-linear-example
+npx jest shared/__tests__/tensorflowjsIntro.test.js --runInBand
+npm run build
+npm start
+```
+
+浏览器访问 [第 16 章](http://127.0.0.1:4173/16-tensorflowjs-intro/)。页面通过共享入口构建，不在 HTML 内复制算法。直接用 file:// 打开不能替代项目本地服务的资源加载方式。
+
+## 自测题与答案
+
+1. `rank=4` 和 shape `[128,28,28,1]` 各表示什么？输入有多少个 float32？
+2. A.matMul(B) 左下角为什么是 10，而 A.mul(B) 左下角是 3？
+3. Dense 的 inputShape 为什么写 `[1]`，训练时却用 `[5,1]`？
+4. 初始 w=b=0、η=0.1 时，一步之后 w、b 分别是什么？
+5. `compile`、`fit`、`predict` 哪个会改变参数？
+6. 为什么不能把 `fit` 放进 `tf.tidy(async ...)`？
+7. 模型包含 2 个参数，为何加载后仍要 dispose 输入/输出？
+8. 只保存权重后，能否保证恢复训练的下一步完全相同？
+
+<details><summary>展开答案</summary>
+
+1. 四条轴分别是 batch、height、width、channels；100,352 个元素，401,408 字节原始 float32。
+2. matMul 求行列内积：3×2+4×1=10；mul 对应元素相乘：3×1=3。
+3. 层声明单个样本的特征维度；实际输入额外包含批次轴。
+4. dw=db=−2；减去 η×梯度，所以都是 0.2，不是 −0.2。
+5. fit 执行更新；compile 配置训练行为，predict 做前向计算。
+6. tidy 同步结束，不能把异步 Promise 当作受管理的作用域；使用 finally 释放训练张量。
+7. 参数是长期资源，预测还创建临时输入、激活和输出；两者生命周期不同。
+8. 不能。还需优化器状态、随机状态、数据顺序、后端配置等；本课程保存的是推理模型。
+
+</details>
+
+## 分享重点与下一章
+
+建议依次展示“同样的 2×2 输入，两种乘法”→“手算第一步 SGD”→“改变 η/epochs 看曲线”→“把原模型释放，再加载预测”→“连续推理后张量数稳定”。讲清数学步骤如何对应 API，比罗列 API 名更重要。
+
+接下来在第 17 章把单层回归换成 CNN，把 5 个合成点换成有来源、校验和、互斥划分的 MNIST。训练框架流程相同，分类损失、输入一致性和独立评估会成为新的重点。
+
+## 原始资料与核验
+
+- [TensorFlow.js 官方张量和运算指南](https://www.tensorflow.org/js/guide/tensors_operations)：张量、运算、读取和 dispose/tidy。
+- [官方模型与层指南](https://www.tensorflow.org/js/guide/models_and_layers)：Sequential、Functional API 与模型参数。
+- [官方训练指南](https://www.tensorflow.org/js/guide/train_models)：compile/fit、批次、回调、Core API 与 Layers API 的对应。
+- [官方保存加载指南](https://www.tensorflow.org/js/guide/save_load)：拓扑、权重、IOHandler 与不同存储介质。
+- [官方平台与环境指南](https://www.tensorflow.org/js/guide/platform_environment)：不同后端、内存与同步读取的影响。
+- [TensorFlow.js 论文](https://arxiv.org/abs/1901.05350)：浏览器及 Node 的框架设计背景。
+- [TF.js 4.22.0 训练实现](https://github.com/tensorflow/tfjs/blob/tfjs-v4.22.0/tfjs-layers/src/engine/training.ts)：批次损失、优化器更新与外部 optimizer 的释放所有权；本轮也通过一步更新和资源计数核对。
+
+核验日期：2026-09-08。以上原理同时由本章实际数值实验验证；旧教程的 tfjs-node 安装方式不能直接当作当前 Apple arm64 / Node 24 的后端支持承诺。

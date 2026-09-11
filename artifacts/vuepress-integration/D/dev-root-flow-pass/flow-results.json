@@ -1,0 +1,471 @@
+{
+  "timestamp": "2026-09-11T12:35:48.412Z",
+  "url": "http://127.0.0.1:4173/",
+  "dataKind": "synthetic-mnist; not real photos",
+  "expectedModelId": "ocr-mnist-cnn-v1-9c7b0b8e8224",
+  "truth": "001208",
+  "inference": {
+    "sample": "验证样本：原训练 IDX 索引 56424；真值 0。点击识别查看结果。",
+    "backend": "webgl",
+    "blank": false,
+    "blankReason": null,
+    "confidence": 0.9999924898147584,
+    "modelId": "ocr-mnist-cnn-v1-9c7b0b8e8224",
+    "note": "非数字或错误分割也可能高分；本页只接受单字符。",
+    "prediction": "0",
+    "preprocessingId": "dark-rgba-bbox20-centroid-v1",
+    "tensorsAfter25Predictions": 8,
+    "tensorsBefore25Predictions": 8
+  },
+  "blank": {
+    "backend": "webgl",
+    "blank": true,
+    "blankReason": "no-foreground",
+    "confidence": null,
+    "modelId": "ocr-mnist-cnn-v1-9c7b0b8e8224",
+    "note": "非数字或错误分割也可能高分；本页只接受单字符。",
+    "prediction": null,
+    "preprocessingId": "dark-rgba-bbox20-centroid-v1",
+    "tensorsAfter25Predictions": 8,
+    "tensorsBefore25Predictions": 8
+  },
+  "first": {
+    "config": {
+      "autoDeskew": true,
+      "correctionAngle": 0,
+      "denoise": false,
+      "pipelineVersion": "ocr-photo-v2-2026-09-11",
+      "preprocessingId": "dark-rgba-bbox20-centroid-v1",
+      "thresholdMethod": "otsu"
+    },
+    "createdAt": "2026-09-11T12:35:50.769Z",
+    "elapsedMs": 144,
+    "experimentId": "D-dev-root-flow-pass-synthetic-1789130150272",
+    "filename": "development-line.png",
+    "id": "a88d66d1-99d6-40df-a3d7-96089a519adb",
+    "imageId": "c95cc2fcaa6044548643845aadf003ca4d5e1b21b31c5f0b19bd69a113a94438",
+    "modelId": "ocr-mnist-cnn-v1-9c7b0b8e8224",
+    "pipelineId": "4cdf19a96839",
+    "prediction": "001208",
+    "sampleKind": "synthetic-mnist",
+    "status": "ok",
+    "truth": "001208",
+    "warnings": [
+      "有区域明显偏宽，可能存在数字粘连，请检查分割框。"
+    ]
+  },
+  "comparison": "整串完全正确 · CER 0.0% · 替换 0 / 漏字 0 / 多字 0",
+  "loaded": {
+    "model": "模型已就绪 · ocr-mnist-cnn-v1-9c7b0b8e8224 · webgl · 本项目自行训练",
+    "source": "development-line.png · MNIST 拼接样例，非实拍照片"
+  },
+  "retry": {
+    "retryPrediction": "001208",
+    "duplicateStatus": "记录未保存：本轮已记录这张照片。保留首次结果；重试请建立新的实验轮次。"
+  },
+  "score": {
+    "cer": "0.0%",
+    "count": "1",
+    "exact": "100.0%",
+    "fraction": "0 次编辑 / 6 个真实字符",
+    "group": "D-dev-root-flow-pass-synthetic-1789130150272 · 合成样例 · ocr-mnist-cnn-v1-9c7b0b8e8224 · 参数 4cdf19a96839",
+    "info": "模型 ocr-mnist-cnn-v1-9c7b0b8e8224；处理配置 4cdf19a96839。同源重试分轮记录。",
+    "prediction": "001208",
+    "truth": "001208",
+    "independentEdits": 0
+  },
+  "imported": [
+    {
+      "annotatedAt": "2026-09-11T12:35:53.686Z",
+      "config": {
+        "autoDeskew": true,
+        "correctionAngle": 0,
+        "denoise": false,
+        "pipelineVersion": "ocr-photo-v2-2026-09-11",
+        "preprocessingId": "dark-rgba-bbox20-centroid-v1",
+        "thresholdMethod": "otsu"
+      },
+      "createdAt": "2026-09-11T12:35:50.769Z",
+      "elapsedMs": 144,
+      "exclusionReason": "",
+      "experimentId": "D-dev-root-flow-pass-synthetic-1789130150272",
+      "filename": "development-line.png",
+      "id": "a88d66d1-99d6-40df-a3d7-96089a519adb",
+      "imageId": "c95cc2fcaa6044548643845aadf003ca4d5e1b21b31c5f0b19bd69a113a94438",
+      "modelId": "ocr-mnist-cnn-v1-9c7b0b8e8224",
+      "pipelineId": "4cdf19a96839",
+      "prediction": "001208",
+      "sampleKind": "synthetic-mnist",
+      "status": "ok",
+      "truth": "001208",
+      "warnings": [
+        "有区域明显偏宽，可能存在数字粘连，请检查分割框。"
+      ]
+    },
+    {
+      "config": {
+        "autoDeskew": true,
+        "correctionAngle": 0,
+        "denoise": false,
+        "pipelineVersion": "ocr-photo-v2-2026-09-11",
+        "preprocessingId": "dark-rgba-bbox20-centroid-v1",
+        "thresholdMethod": "otsu"
+      },
+      "createdAt": "2026-09-11T12:35:50.769Z",
+      "elapsedMs": 144,
+      "experimentId": "D-dev-root-flow-pass-synthetic-1789130150272-unknown",
+      "filename": "development-line.png",
+      "id": "a88d66d1-99d6-40df-a3d7-96089a519adb-unknown",
+      "imageId": "c95cc2fcaa6044548643845aadf003ca4d5e1b21b31c5f0b19bd69a113a94438-unknown",
+      "modelId": "ocr-mnist-cnn-v1-9c7b0b8e8224",
+      "pipelineId": "4cdf19a96839",
+      "prediction": "001208",
+      "status": "ok",
+      "truth": "001208",
+      "warnings": [
+        "有区域明显偏宽，可能存在数字粘连，请检查分割框。"
+      ]
+    }
+  ],
+  "checks": [
+    {
+      "name": "17 loads the exact saved model and performs inference",
+      "pass": true,
+      "detail": {
+        "sample": "验证样本：原训练 IDX 索引 56424；真值 0。点击识别查看结果。",
+        "inference": {
+          "backend": "webgl",
+          "blank": false,
+          "blankReason": null,
+          "confidence": 0.9999924898147584,
+          "modelId": "ocr-mnist-cnn-v1-9c7b0b8e8224",
+          "note": "非数字或错误分割也可能高分；本页只接受单字符。",
+          "prediction": "0",
+          "preprocessingId": "dark-rgba-bbox20-centroid-v1",
+          "tensorsAfter25Predictions": 8,
+          "tensorsBefore25Predictions": 8
+        }
+      }
+    },
+    {
+      "name": "17 repeated inference tensor count stable",
+      "pass": true,
+      "detail": {
+        "backend": "webgl",
+        "blank": false,
+        "blankReason": null,
+        "confidence": 0.9999924898147584,
+        "modelId": "ocr-mnist-cnn-v1-9c7b0b8e8224",
+        "note": "非数字或错误分割也可能高分；本页只接受单字符。",
+        "prediction": "0",
+        "preprocessingId": "dark-rgba-bbox20-centroid-v1",
+        "tensorsAfter25Predictions": 8,
+        "tensorsBefore25Predictions": 8
+      }
+    },
+    {
+      "name": "17 needs no training bridge to infer",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "17 blank canvas explicitly refused",
+      "pass": true,
+      "detail": {
+        "backend": "webgl",
+        "blank": true,
+        "blankReason": "no-foreground",
+        "confidence": null,
+        "modelId": "ocr-mnist-cnn-v1-9c7b0b8e8224",
+        "note": "非数字或错误分割也可能高分；本页只接受单字符。",
+        "prediction": null,
+        "preprocessingId": "dark-rgba-bbox20-centroid-v1",
+        "tensorsAfter25Predictions": 8,
+        "tensorsBefore25Predictions": 8
+      }
+    },
+    {
+      "name": "25 built-in input explicitly identified as synthetic",
+      "pass": true,
+      "detail": {
+        "model": "模型已就绪 · ocr-mnist-cnn-v1-9c7b0b8e8224 · webgl · 本项目自行训练",
+        "source": "development-line.png · MNIST 拼接样例，非实拍照片"
+      }
+    },
+    {
+      "name": "25 saves first prediction and leading-zero string label",
+      "pass": true,
+      "detail": [
+        {
+          "config": {
+            "autoDeskew": true,
+            "correctionAngle": 0,
+            "denoise": false,
+            "pipelineVersion": "ocr-photo-v2-2026-09-11",
+            "preprocessingId": "dark-rgba-bbox20-centroid-v1",
+            "thresholdMethod": "otsu"
+          },
+          "createdAt": "2026-09-11T12:35:50.769Z",
+          "elapsedMs": 144,
+          "experimentId": "D-dev-root-flow-pass-synthetic-1789130150272",
+          "filename": "development-line.png",
+          "id": "a88d66d1-99d6-40df-a3d7-96089a519adb",
+          "imageId": "c95cc2fcaa6044548643845aadf003ca4d5e1b21b31c5f0b19bd69a113a94438",
+          "modelId": "ocr-mnist-cnn-v1-9c7b0b8e8224",
+          "pipelineId": "4cdf19a96839",
+          "prediction": "001208",
+          "sampleKind": "synthetic-mnist",
+          "status": "ok",
+          "truth": "001208",
+          "warnings": [
+            "有区域明显偏宽，可能存在数字粘连，请检查分割框。"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "25 records source, exact saved model and pipeline/config",
+      "pass": true,
+      "detail": {
+        "config": {
+          "autoDeskew": true,
+          "correctionAngle": 0,
+          "denoise": false,
+          "pipelineVersion": "ocr-photo-v2-2026-09-11",
+          "preprocessingId": "dark-rgba-bbox20-centroid-v1",
+          "thresholdMethod": "otsu"
+        },
+        "createdAt": "2026-09-11T12:35:50.769Z",
+        "elapsedMs": 144,
+        "experimentId": "D-dev-root-flow-pass-synthetic-1789130150272",
+        "filename": "development-line.png",
+        "id": "a88d66d1-99d6-40df-a3d7-96089a519adb",
+        "imageId": "c95cc2fcaa6044548643845aadf003ca4d5e1b21b31c5f0b19bd69a113a94438",
+        "modelId": "ocr-mnist-cnn-v1-9c7b0b8e8224",
+        "pipelineId": "4cdf19a96839",
+        "prediction": "001208",
+        "sampleKind": "synthetic-mnist",
+        "status": "ok",
+        "truth": "001208",
+        "warnings": [
+          "有区域明显偏宽，可能存在数字粘连，请检查分割框。"
+        ]
+      }
+    },
+    {
+      "name": "25 changed-parameter retry cannot overwrite first prediction",
+      "pass": true,
+      "detail": {
+        "retryPrediction": "001208",
+        "duplicateStatus": "记录未保存：本轮已记录这张照片。保留首次结果；重试请建立新的实验轮次。"
+      }
+    },
+    {
+      "name": "25 to 26 stays on same origin and base",
+      "pass": true,
+      "detail": "http://127.0.0.1:4173/labs/26-validation/index.html"
+    },
+    {
+      "name": "26 CER agrees with independent Levenshtein calculation",
+      "pass": true,
+      "detail": {
+        "score": {
+          "cer": "0.0%",
+          "count": "1",
+          "exact": "100.0%",
+          "fraction": "0 次编辑 / 6 个真实字符",
+          "group": "D-dev-root-flow-pass-synthetic-1789130150272 · 合成样例 · ocr-mnist-cnn-v1-9c7b0b8e8224 · 参数 4cdf19a96839",
+          "info": "模型 ocr-mnist-cnn-v1-9c7b0b8e8224；处理配置 4cdf19a96839。同源重试分轮记录。",
+          "prediction": "001208",
+          "truth": "001208"
+        },
+        "edits": 0,
+        "truthLength": 6
+      }
+    },
+    {
+      "name": "26 group preserves synthetic source, model and pipeline",
+      "pass": true,
+      "detail": {
+        "cer": "0.0%",
+        "count": "1",
+        "exact": "100.0%",
+        "fraction": "0 次编辑 / 6 个真实字符",
+        "group": "D-dev-root-flow-pass-synthetic-1789130150272 · 合成样例 · ocr-mnist-cnn-v1-9c7b0b8e8224 · 参数 4cdf19a96839",
+        "info": "模型 ocr-mnist-cnn-v1-9c7b0b8e8224；处理配置 4cdf19a96839。同源重试分轮记录。",
+        "prediction": "001208",
+        "truth": "001208"
+      }
+    },
+    {
+      "name": "26 alignment actually opens",
+      "pass": true,
+      "detail": "development-line.png：001208 → 00120800M00M11M22M00M88M"
+    },
+    {
+      "name": "26 JSON export preserves exact first record",
+      "pass": true,
+      "detail": {
+        "schemaVersion": 1,
+        "exportedAt": "2026-09-11T12:35:52.483Z",
+        "records": [
+          {
+            "id": "a88d66d1-99d6-40df-a3d7-96089a519adb",
+            "imageId": "c95cc2fcaa6044548643845aadf003ca4d5e1b21b31c5f0b19bd69a113a94438",
+            "filename": "development-line.png",
+            "sampleKind": "synthetic-mnist",
+            "modelId": "ocr-mnist-cnn-v1-9c7b0b8e8224",
+            "pipelineId": "4cdf19a96839",
+            "prediction": "001208",
+            "truth": "001208",
+            "status": "ok",
+            "config": {
+              "pipelineVersion": "ocr-photo-v2-2026-09-11",
+              "thresholdMethod": "otsu",
+              "correctionAngle": 0,
+              "autoDeskew": true,
+              "denoise": false,
+              "preprocessingId": "dark-rgba-bbox20-centroid-v1"
+            },
+            "warnings": [
+              "有区域明显偏宽，可能存在数字粘连，请检查分割框。"
+            ],
+            "createdAt": "2026-09-11T12:35:50.769Z",
+            "elapsedMs": 144,
+            "experimentId": "D-dev-root-flow-pass-synthetic-1789130150272"
+          }
+        ]
+      }
+    },
+    {
+      "name": "26 empty record state after context reset",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "26 JSON import restores source/model/pipeline/leading zeros",
+      "pass": true,
+      "detail": [
+        {
+          "config": {
+            "autoDeskew": true,
+            "correctionAngle": 0,
+            "denoise": false,
+            "pipelineVersion": "ocr-photo-v2-2026-09-11",
+            "preprocessingId": "dark-rgba-bbox20-centroid-v1",
+            "thresholdMethod": "otsu"
+          },
+          "createdAt": "2026-09-11T12:35:50.769Z",
+          "elapsedMs": 144,
+          "experimentId": "D-dev-root-flow-pass-synthetic-1789130150272",
+          "filename": "development-line.png",
+          "id": "a88d66d1-99d6-40df-a3d7-96089a519adb",
+          "imageId": "c95cc2fcaa6044548643845aadf003ca4d5e1b21b31c5f0b19bd69a113a94438",
+          "modelId": "ocr-mnist-cnn-v1-9c7b0b8e8224",
+          "pipelineId": "4cdf19a96839",
+          "prediction": "001208",
+          "sampleKind": "synthetic-mnist",
+          "status": "ok",
+          "truth": "001208",
+          "warnings": [
+            "有区域明显偏宽，可能存在数字粘连，请检查分割框。"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "26 importing same file twice does not duplicate records",
+      "pass": true,
+      "detail": [
+        {
+          "config": {
+            "autoDeskew": true,
+            "correctionAngle": 0,
+            "denoise": false,
+            "pipelineVersion": "ocr-photo-v2-2026-09-11",
+            "preprocessingId": "dark-rgba-bbox20-centroid-v1",
+            "thresholdMethod": "otsu"
+          },
+          "createdAt": "2026-09-11T12:35:50.769Z",
+          "elapsedMs": 144,
+          "experimentId": "D-dev-root-flow-pass-synthetic-1789130150272",
+          "filename": "development-line.png",
+          "id": "a88d66d1-99d6-40df-a3d7-96089a519adb",
+          "imageId": "c95cc2fcaa6044548643845aadf003ca4d5e1b21b31c5f0b19bd69a113a94438",
+          "modelId": "ocr-mnist-cnn-v1-9c7b0b8e8224",
+          "pipelineId": "4cdf19a96839",
+          "prediction": "001208",
+          "sampleKind": "synthetic-mnist",
+          "status": "ok",
+          "truth": "001208",
+          "warnings": [
+            "有区域明显偏宽，可能存在数字粘连，请检查分割框。"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "26 conflicting import cannot overwrite first prediction",
+      "pass": true,
+      "detail": "导入失败：记录 a88d66d1-99d6-40df-a3d7-96089a519adb 与本机已有内容冲突，未覆盖"
+    },
+    {
+      "name": "26 missing provenance remains unknown, never real-photo",
+      "pass": true,
+      "detail": "D-dev-root-flow-pass-synthetic-1789130150272 · 合成样例 · ocr-mnist-cnn-v1-9c7b0b8e8224 · 参数 4cdf19a96839D-dev-root-flow-pass-synthetic-1789130150272-unknown · 来源未标注 · ocr-mnist-cnn-v1-9c7b0b8e8224 · 参数 4cdf19a96839"
+    },
+    {
+      "name": "26 annotation saves string truth without changing original prediction metadata",
+      "pass": true,
+      "detail": {
+        "annotatedAt": "2026-09-11T12:35:53.686Z",
+        "config": {
+          "autoDeskew": true,
+          "correctionAngle": 0,
+          "denoise": false,
+          "pipelineVersion": "ocr-photo-v2-2026-09-11",
+          "preprocessingId": "dark-rgba-bbox20-centroid-v1",
+          "thresholdMethod": "otsu"
+        },
+        "createdAt": "2026-09-11T12:35:50.769Z",
+        "elapsedMs": 144,
+        "exclusionReason": "",
+        "experimentId": "D-dev-root-flow-pass-synthetic-1789130150272",
+        "filename": "development-line.png",
+        "id": "a88d66d1-99d6-40df-a3d7-96089a519adb",
+        "imageId": "c95cc2fcaa6044548643845aadf003ca4d5e1b21b31c5f0b19bd69a113a94438",
+        "modelId": "ocr-mnist-cnn-v1-9c7b0b8e8224",
+        "pipelineId": "4cdf19a96839",
+        "prediction": "001208",
+        "sampleKind": "synthetic-mnist",
+        "status": "ok",
+        "truth": "001208",
+        "warnings": [
+          "有区域明显偏宽，可能存在数字粘连，请检查分割框。"
+        ]
+      }
+    },
+    {
+      "name": "17/25/26 no uncaught browser runtime errors",
+      "pass": true,
+      "detail": {
+        "errors": [],
+        "lifecycle": {
+          "effectiveLaunch": {
+            "browserLaunched": true,
+            "engine": "chrome",
+            "launchHash": 11677035664275012000
+          },
+          "launched": false,
+          "relaunchedBrowser": false,
+          "restartedBackground": false,
+          "restoreStatus": "not_configured",
+          "reused": true,
+          "saveStatus": "not_attempted"
+        }
+      }
+    }
+  ],
+  "passed": 20,
+  "failed": 0
+}

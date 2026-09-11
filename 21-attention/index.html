@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>21 · Attention 权重实验</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22%3E%3Crect width=%2264%22 height=%2264%22 rx=%2214%22 fill=%22%23126451%22/%3E%3Ctext x=%2232%22 y=%2246%22 text-anchor=%22middle%22 font-size=%2244%22 fill=%22white%22 font-family=%22sans-serif%22%3EO%3C/text%3E%3C/svg%3E">
+    <link rel="stylesheet" href="../shared/course.css" />
+    <script src="../shared/course.js" defer></script>
+    <script src="bundle.js" defer></script>
+  </head>
+  <body>
+<nav class="course-nav" aria-label="课程导航"><a href="../../" data-course-catalog><strong>OCR / 学习实验室</strong></a><div class="links"><a href="../../21-attention/" data-course-doc="21-attention">返回本章讲义</a><a href="../../" data-course-catalog>课程目录</a><a href="../25-ocr-engine/index.html" data-course-lab="25-ocr-engine">照片识别</a><a href="../26-validation/index.html" data-course-lab="26-validation">评估记录</a></div></nav>
+    <main>
+      <p class="eyebrow">Chapter 21 / Attention</p>
+      <h1>一次查询，怎样分配注意力</h1>
+      <p class="lead">
+        修改 Q、K、V，追踪分数、逐行 softmax
+        和加权结果。每个权重属于一个输入位置，并非某个字符类别的置信度。
+      </p>
+      <p class="note">
+        教学范围：小矩阵前向、反向与单个 query
+        的优化。这里没有图像编码器或已训练的 OCR 模型。
+      </p>
+      <section class="card">
+        <h2>输入与约束</h2>
+        <div class="controls">
+          <label
+            >示例
+            <select id="preset">
+              <option value="self">3×3 关系矩阵</option>
+              <option value="cross">1 个 query / 3 个 key</option>
+            </select></label
+          ><label
+            >温度 τ
+            <input
+              id="temperature"
+              type="range"
+              min="0.2"
+              max="3"
+              value="1"
+              step="0.1"
+            /><output id="temperature-value">1.0</output></label
+          ><label
+            ><input id="causal" type="checkbox" />因果遮罩（等长序列）</label
+          >
+        </div>
+        <div class="grid">
+          <label
+            >Q：查询行 × 匹配维度<textarea
+              id="q"
+              rows="4"
+              style="display: block; width: 100%"
+              spellcheck="false"
+            >
+[[1,0],[0,1],[1,1]]</textarea></label
+          ><label
+            >K：键行 × 匹配维度<textarea
+              id="k"
+              rows="4"
+              style="display: block; width: 100%"
+              spellcheck="false"
+            >
+[[1,0],[0,1],[1,1]]</textarea></label
+          ><label
+            >V：键行 × 内容维度<textarea
+              id="v"
+              rows="4"
+              style="display: block; width: 100%"
+              spellcheck="false"
+            >
+[[10,0],[0,20],[10,20]]</textarea>
+          </label>
+        </div>
+        <div class="actions">
+          <button id="run">计算注意力</button
+          ><button id="reset" class="secondary">恢复默认</button
+          ><label
+            >查看查询
+            <select id="query"></select
+          ></label>
+        </div>
+        <p id="status" class="status" role="status" aria-live="polite">
+          正在初始化…
+        </p>
+      </section>
+      <div class="grid">
+        <section class="card">
+          <h2>匹配分数 QKᵀ / (√dₖ τ)</h2>
+          <div id="scores" class="table-wrap"></div>
+        </section>
+        <section class="card">
+          <h2>注意力权重 A</h2>
+          <div id="weights" class="table-wrap"></div>
+        </section>
+      </div>
+      <section class="card">
+        <h2>被选查询的权重与加权内容</h2>
+        <canvas
+          id="heatmap"
+          width="880"
+          height="150"
+          role="img"
+          aria-label="所选查询对各键的注意力；具体数值见表格"
+        ></canvas>
+        <p id="explanation"></p>
+        <div id="result" class="table-wrap"></div>
+      </section>
+      <section class="card">
+        <h2>真实梯度实验：只学习一个 Q</h2>
+        <p>
+          固定 K=[[1,0],[0,1]]、V=[[0],[1]]，目标输出 0.9。从 Q=[0,0] 开始做 120
+          次更新；这是标量回归实验。
+        </p>
+        <button id="train">运行 120 次梯度更新</button>
+        <pre id="training" aria-live="polite">
+运行后查看初始/最终损失与 query。</pre>
+      </section>
+      <section class="card">
+        <h2>试着解释</h2>
+        <p>
+          把 τ 降至 0.2，分布会更尖锐。若两个 key 对当前 query
+          的分数相同，温度降低也无法分出先后。开启因果遮罩，第一行只能读取第一个
+          V。
+        </p>
+        <p>
+          <a href="../../21-attention/" data-course-doc="21-attention">阅读公式、梯度推导和自测答案</a> ·
+          <a href="../22-text-detection-networks/index.html">下一章：文本检测网络</a>
+        </p>
+      </section>
+    </main>
+  </body>
+</html>

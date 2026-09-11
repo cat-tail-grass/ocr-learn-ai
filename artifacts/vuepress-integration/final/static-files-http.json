@@ -1,0 +1,3244 @@
+{
+  "checkedAt": "2026-09-11T13:05:18.969Z",
+  "failures": [],
+  "deployments": [
+    {
+      "name": "root",
+      "url": "http://127.0.0.1:4173/",
+      "files": [
+        {
+          "file": "01-image-fundamentals/index.html",
+          "status": 200,
+          "bytes": 38344,
+          "servedBytes": 38344,
+          "pass": true
+        },
+        {
+          "file": "02-js-image-basics/index.html",
+          "status": 200,
+          "bytes": 52347,
+          "servedBytes": 52347,
+          "pass": true
+        },
+        {
+          "file": "03-grayscale/index.html",
+          "status": 200,
+          "bytes": 38442,
+          "servedBytes": 38442,
+          "pass": true
+        },
+        {
+          "file": "04-binarization/index.html",
+          "status": 200,
+          "bytes": 93798,
+          "servedBytes": 93798,
+          "pass": true
+        },
+        {
+          "file": "05-denoising/index.html",
+          "status": 200,
+          "bytes": 53623,
+          "servedBytes": 53623,
+          "pass": true
+        },
+        {
+          "file": "06-morphology/index.html",
+          "status": 200,
+          "bytes": 47402,
+          "servedBytes": 47402,
+          "pass": true
+        },
+        {
+          "file": "07-deskewing/index.html",
+          "status": 200,
+          "bytes": 58251,
+          "servedBytes": 58251,
+          "pass": true
+        },
+        {
+          "file": "08-edge-detection/index.html",
+          "status": 200,
+          "bytes": 60228,
+          "servedBytes": 60228,
+          "pass": true
+        },
+        {
+          "file": "09-connected-components/index.html",
+          "status": 200,
+          "bytes": 66894,
+          "servedBytes": 66894,
+          "pass": true
+        },
+        {
+          "file": "10-text-localization/index.html",
+          "status": 200,
+          "bytes": 99320,
+          "servedBytes": 99320,
+          "pass": true
+        },
+        {
+          "file": "11-feature-extraction/index.html",
+          "status": 200,
+          "bytes": 227286,
+          "servedBytes": 227286,
+          "pass": true
+        },
+        {
+          "file": "12-template-matching/index.html",
+          "status": 200,
+          "bytes": 121394,
+          "servedBytes": 121394,
+          "pass": true
+        },
+        {
+          "file": "13-knn-classifier/index.html",
+          "status": 200,
+          "bytes": 37314,
+          "servedBytes": 37314,
+          "pass": true
+        },
+        {
+          "file": "14-neural-network-basics/index.html",
+          "status": 200,
+          "bytes": 83685,
+          "servedBytes": 83685,
+          "pass": true
+        },
+        {
+          "file": "15-cnn-basics/index.html",
+          "status": 200,
+          "bytes": 98267,
+          "servedBytes": 98267,
+          "pass": true
+        },
+        {
+          "file": "16-tensorflowjs-intro/index.html",
+          "status": 200,
+          "bytes": 103249,
+          "servedBytes": 103249,
+          "pass": true
+        },
+        {
+          "file": "17-cnn-classifier/index.html",
+          "status": 200,
+          "bytes": 158179,
+          "servedBytes": 158179,
+          "pass": true
+        },
+        {
+          "file": "18-rnn-basics/index.html",
+          "status": 200,
+          "bytes": 133892,
+          "servedBytes": 133892,
+          "pass": true
+        },
+        {
+          "file": "19-ctc-loss/index.html",
+          "status": 200,
+          "bytes": 140014,
+          "servedBytes": 140014,
+          "pass": true
+        },
+        {
+          "file": "20-crnn/index.html",
+          "status": 200,
+          "bytes": 148153,
+          "servedBytes": 148153,
+          "pass": true
+        },
+        {
+          "file": "21-attention/index.html",
+          "status": 200,
+          "bytes": 130426,
+          "servedBytes": 130426,
+          "pass": true
+        },
+        {
+          "file": "22-text-detection-networks/index.html",
+          "status": 200,
+          "bytes": 134245,
+          "servedBytes": 134245,
+          "pass": true
+        },
+        {
+          "file": "23-transformer-ocr/index.html",
+          "status": 200,
+          "bytes": 157698,
+          "servedBytes": 157698,
+          "pass": true
+        },
+        {
+          "file": "24-post-processing/index.html",
+          "status": 200,
+          "bytes": 202336,
+          "servedBytes": 202336,
+          "pass": true
+        },
+        {
+          "file": "25-ocr-engine/index.html",
+          "status": 200,
+          "bytes": 100019,
+          "servedBytes": 100019,
+          "pass": true
+        },
+        {
+          "file": "26-validation/index.html",
+          "status": 200,
+          "bytes": 108856,
+          "servedBytes": 108856,
+          "pass": true
+        },
+        {
+          "file": "404.html",
+          "status": 200,
+          "bytes": 1879,
+          "servedBytes": 1879,
+          "pass": true
+        },
+        {
+          "file": "assets/01-05-7nY1oh-b.js",
+          "status": 200,
+          "bytes": 5755,
+          "servedBytes": 5755,
+          "pass": true
+        },
+        {
+          "file": "assets/06-10-DyoulIvc.js",
+          "status": 200,
+          "bytes": 5174,
+          "servedBytes": 5174,
+          "pass": true
+        },
+        {
+          "file": "assets/11-13-DDupH0u8.js",
+          "status": 200,
+          "bytes": 5143,
+          "servedBytes": 5143,
+          "pass": true
+        },
+        {
+          "file": "assets/14-17--J4DDQcx.js",
+          "status": 200,
+          "bytes": 7172,
+          "servedBytes": 7172,
+          "pass": true
+        },
+        {
+          "file": "assets/18-20-BrAsGnbK.js",
+          "status": 200,
+          "bytes": 5281,
+          "servedBytes": 5281,
+          "pass": true
+        },
+        {
+          "file": "assets/21-24-DWLrNDoe.js",
+          "status": 200,
+          "bytes": 5809,
+          "servedBytes": 5809,
+          "pass": true
+        },
+        {
+          "file": "assets/25-26-BXbS47D4.js",
+          "status": 200,
+          "bytes": 8070,
+          "servedBytes": 8070,
+          "pass": true
+        },
+        {
+          "file": "assets/404.html-B2JVA4uW.js",
+          "status": 200,
+          "bytes": 459,
+          "servedBytes": 459,
+          "pass": true
+        },
+        {
+          "file": "assets/app-CTHUqx8m.js",
+          "status": 200,
+          "bytes": 212128,
+          "servedBytes": 212128,
+          "pass": true
+        },
+        {
+          "file": "assets/COURSE_REVIEW-B05LNSJ-.js",
+          "status": 200,
+          "bytes": 11163,
+          "servedBytes": 11163,
+          "pass": true
+        },
+        {
+          "file": "assets/COURSE_STANDARD-DSHMcJAS.js",
+          "status": 200,
+          "bytes": 9626,
+          "servedBytes": 9626,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_AMS-Regular-BQhdFMY1.woff2",
+          "status": 200,
+          "bytes": 28076,
+          "servedBytes": 28076,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_AMS-Regular-DMm9YOAa.woff",
+          "status": 200,
+          "bytes": 33516,
+          "servedBytes": 33516,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_AMS-Regular-DRggAlZN.ttf",
+          "status": 200,
+          "bytes": 63632,
+          "servedBytes": 63632,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_Caligraphic-Bold-ATXxdsX0.ttf",
+          "status": 200,
+          "bytes": 12368,
+          "servedBytes": 12368,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_Caligraphic-Bold-BEiXGLvX.woff",
+          "status": 200,
+          "bytes": 7716,
+          "servedBytes": 7716,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_Caligraphic-Bold-Dq_IR9rO.woff2",
+          "status": 200,
+          "bytes": 6912,
+          "servedBytes": 6912,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_Caligraphic-Regular-CTRA-rTL.woff",
+          "status": 200,
+          "bytes": 7656,
+          "servedBytes": 7656,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_Caligraphic-Regular-Di6jR-x-.woff2",
+          "status": 200,
+          "bytes": 6908,
+          "servedBytes": 6908,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_Caligraphic-Regular-wX97UBjC.ttf",
+          "status": 200,
+          "bytes": 12344,
+          "servedBytes": 12344,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_Fraktur-Bold-BdnERNNW.ttf",
+          "status": 200,
+          "bytes": 19584,
+          "servedBytes": 19584,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_Fraktur-Bold-BsDP51OF.woff",
+          "status": 200,
+          "bytes": 13296,
+          "servedBytes": 13296,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_Fraktur-Bold-CL6g_b3V.woff2",
+          "status": 200,
+          "bytes": 11348,
+          "servedBytes": 11348,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_Fraktur-Regular-CB_wures.ttf",
+          "status": 200,
+          "bytes": 19572,
+          "servedBytes": 19572,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_Fraktur-Regular-CTYiF6lA.woff2",
+          "status": 200,
+          "bytes": 11316,
+          "servedBytes": 11316,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_Fraktur-Regular-Dxdc4cR9.woff",
+          "status": 200,
+          "bytes": 13208,
+          "servedBytes": 13208,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_Main-Bold-Cx986IdX.woff2",
+          "status": 200,
+          "bytes": 25324,
+          "servedBytes": 25324,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_Main-Bold-Jm3AIy58.woff",
+          "status": 200,
+          "bytes": 29912,
+          "servedBytes": 29912,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_Main-Bold-waoOVXN0.ttf",
+          "status": 200,
+          "bytes": 51336,
+          "servedBytes": 51336,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_Main-BoldItalic-DxDJ3AOS.woff2",
+          "status": 200,
+          "bytes": 16780,
+          "servedBytes": 16780,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_Main-BoldItalic-DzxPMmG6.ttf",
+          "status": 200,
+          "bytes": 32968,
+          "servedBytes": 32968,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_Main-BoldItalic-SpSLRI95.woff",
+          "status": 200,
+          "bytes": 19412,
+          "servedBytes": 19412,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_Main-Italic-3WenGoN9.ttf",
+          "status": 200,
+          "bytes": 33580,
+          "servedBytes": 33580,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_Main-Italic-BMLOBm91.woff",
+          "status": 200,
+          "bytes": 19676,
+          "servedBytes": 19676,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_Main-Italic-NWA7e6Wa.woff2",
+          "status": 200,
+          "bytes": 16988,
+          "servedBytes": 16988,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_Main-Regular-B22Nviop.woff2",
+          "status": 200,
+          "bytes": 26272,
+          "servedBytes": 26272,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_Main-Regular-Dr94JaBh.woff",
+          "status": 200,
+          "bytes": 30772,
+          "servedBytes": 30772,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_Main-Regular-ypZvNtVU.ttf",
+          "status": 200,
+          "bytes": 53580,
+          "servedBytes": 53580,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_Math-BoldItalic-B3XSjfu4.ttf",
+          "status": 200,
+          "bytes": 31196,
+          "servedBytes": 31196,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_Math-BoldItalic-CZnvNsCZ.woff2",
+          "status": 200,
+          "bytes": 16400,
+          "servedBytes": 16400,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_Math-BoldItalic-iY-2wyZ7.woff",
+          "status": 200,
+          "bytes": 18668,
+          "servedBytes": 18668,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_Math-Italic-DA0__PXp.woff",
+          "status": 200,
+          "bytes": 18748,
+          "servedBytes": 18748,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_Math-Italic-flOr_0UB.ttf",
+          "status": 200,
+          "bytes": 31308,
+          "servedBytes": 31308,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_Math-Italic-t53AETM-.woff2",
+          "status": 200,
+          "bytes": 16440,
+          "servedBytes": 16440,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_SansSerif-Bold-CFMepnvq.ttf",
+          "status": 200,
+          "bytes": 24504,
+          "servedBytes": 24504,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_SansSerif-Bold-D1sUS0GD.woff2",
+          "status": 200,
+          "bytes": 12216,
+          "servedBytes": 12216,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_SansSerif-Bold-DbIhKOiC.woff",
+          "status": 200,
+          "bytes": 14408,
+          "servedBytes": 14408,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_SansSerif-Italic-C3H0VqGB.woff2",
+          "status": 200,
+          "bytes": 12028,
+          "servedBytes": 12028,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_SansSerif-Italic-DN2j7dab.woff",
+          "status": 200,
+          "bytes": 14112,
+          "servedBytes": 14112,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_SansSerif-Italic-YYjJ1zSn.ttf",
+          "status": 200,
+          "bytes": 22364,
+          "servedBytes": 22364,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_SansSerif-Regular-BNo7hRIc.ttf",
+          "status": 200,
+          "bytes": 19436,
+          "servedBytes": 19436,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_SansSerif-Regular-CS6fqUqJ.woff",
+          "status": 200,
+          "bytes": 12316,
+          "servedBytes": 12316,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_SansSerif-Regular-DDBCnlJ7.woff2",
+          "status": 200,
+          "bytes": 10344,
+          "servedBytes": 10344,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_Script-Regular-C5JkGWo-.ttf",
+          "status": 200,
+          "bytes": 16648,
+          "servedBytes": 16648,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_Script-Regular-D3wIWfF6.woff2",
+          "status": 200,
+          "bytes": 9644,
+          "servedBytes": 9644,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_Script-Regular-D5yQViql.woff",
+          "status": 200,
+          "bytes": 10588,
+          "servedBytes": 10588,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_Size1-Regular-C195tn64.woff",
+          "status": 200,
+          "bytes": 6496,
+          "servedBytes": 6496,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_Size1-Regular-Dbsnue_I.ttf",
+          "status": 200,
+          "bytes": 12228,
+          "servedBytes": 12228,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_Size1-Regular-mCD8mA8B.woff2",
+          "status": 200,
+          "bytes": 5468,
+          "servedBytes": 5468,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_Size2-Regular-B7gKUWhC.ttf",
+          "status": 200,
+          "bytes": 11508,
+          "servedBytes": 11508,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_Size2-Regular-Dy4dx90m.woff2",
+          "status": 200,
+          "bytes": 5208,
+          "servedBytes": 5208,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_Size2-Regular-oD1tc_U0.woff",
+          "status": 200,
+          "bytes": 6188,
+          "servedBytes": 6188,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_Size3-Regular-CTq5MqoE.woff",
+          "status": 200,
+          "bytes": 4420,
+          "servedBytes": 4420,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_Size3-Regular-DgpXs0kz.ttf",
+          "status": 200,
+          "bytes": 7588,
+          "servedBytes": 7588,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_Size4-Regular-BF-4gkZK.woff",
+          "status": 200,
+          "bytes": 5980,
+          "servedBytes": 5980,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_Size4-Regular-Dl5lxZxV.woff2",
+          "status": 200,
+          "bytes": 4928,
+          "servedBytes": 4928,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_Size4-Regular-DWFBv043.ttf",
+          "status": 200,
+          "bytes": 10364,
+          "servedBytes": 10364,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_Typewriter-Regular-C0xS9mPB.woff",
+          "status": 200,
+          "bytes": 16028,
+          "servedBytes": 16028,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_Typewriter-Regular-CO6r4hn1.woff2",
+          "status": 200,
+          "bytes": 13568,
+          "servedBytes": 13568,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_Typewriter-Regular-D3Ib7_Hf.ttf",
+          "status": 200,
+          "bytes": 27556,
+          "servedBytes": 27556,
+          "pass": true
+        },
+        {
+          "file": "assets/OUTLINE-CuYHaKfJ.js",
+          "status": 200,
+          "bytes": 43284,
+          "servedBytes": 43284,
+          "pass": true
+        },
+        {
+          "file": "assets/PROGRESS-YvrjM_AS.js",
+          "status": 200,
+          "bytes": 56645,
+          "servedBytes": 56645,
+          "pass": true
+        },
+        {
+          "file": "assets/README-52y4hd0d.js",
+          "status": 200,
+          "bytes": 75346,
+          "servedBytes": 75346,
+          "pass": true
+        },
+        {
+          "file": "assets/README-59YCAkXh.js",
+          "status": 200,
+          "bytes": 36722,
+          "servedBytes": 36722,
+          "pass": true
+        },
+        {
+          "file": "assets/README-6nVvliUz.js",
+          "status": 200,
+          "bytes": 29418,
+          "servedBytes": 29418,
+          "pass": true
+        },
+        {
+          "file": "assets/README-B26vUEEc.js",
+          "status": 200,
+          "bytes": 180904,
+          "servedBytes": 180904,
+          "pass": true
+        },
+        {
+          "file": "assets/README-B3LiVZWr.js",
+          "status": 200,
+          "bytes": 77473,
+          "servedBytes": 77473,
+          "pass": true
+        },
+        {
+          "file": "assets/README-B8hnTFdu.js",
+          "status": 200,
+          "bytes": 34118,
+          "servedBytes": 34118,
+          "pass": true
+        },
+        {
+          "file": "assets/README-BAmpwByF.js",
+          "status": 200,
+          "bytes": 63245,
+          "servedBytes": 63245,
+          "pass": true
+        },
+        {
+          "file": "assets/README-bDmG0cZl.js",
+          "status": 200,
+          "bytes": 31207,
+          "servedBytes": 31207,
+          "pass": true
+        },
+        {
+          "file": "assets/README-Bf5phRPX.js",
+          "status": 200,
+          "bytes": 103860,
+          "servedBytes": 103860,
+          "pass": true
+        },
+        {
+          "file": "assets/README-BH2qMQts.js",
+          "status": 200,
+          "bytes": 50689,
+          "servedBytes": 50689,
+          "pass": true
+        },
+        {
+          "file": "assets/README-BHZqgDM3.js",
+          "status": 200,
+          "bytes": 136329,
+          "servedBytes": 136329,
+          "pass": true
+        },
+        {
+          "file": "assets/README-BmG3UwPy.js",
+          "status": 200,
+          "bytes": 36643,
+          "servedBytes": 36643,
+          "pass": true
+        },
+        {
+          "file": "assets/README-BwXqumEC.js",
+          "status": 200,
+          "bytes": 120269,
+          "servedBytes": 120269,
+          "pass": true
+        },
+        {
+          "file": "assets/README-Bx8T-Adr.js",
+          "status": 200,
+          "bytes": 111747,
+          "servedBytes": 111747,
+          "pass": true
+        },
+        {
+          "file": "assets/README-BxM8hD1A.js",
+          "status": 200,
+          "bytes": 136394,
+          "servedBytes": 136394,
+          "pass": true
+        },
+        {
+          "file": "assets/README-C5N5OvB1.js",
+          "status": 200,
+          "bytes": 209021,
+          "servedBytes": 209021,
+          "pass": true
+        },
+        {
+          "file": "assets/README-Cdh0v_vt.js",
+          "status": 200,
+          "bytes": 84752,
+          "servedBytes": 84752,
+          "pass": true
+        },
+        {
+          "file": "assets/README-CfB5lej0.js",
+          "status": 200,
+          "bytes": 74638,
+          "servedBytes": 74638,
+          "pass": true
+        },
+        {
+          "file": "assets/README-ClJ1PNei.js",
+          "status": 200,
+          "bytes": 119200,
+          "servedBytes": 119200,
+          "pass": true
+        },
+        {
+          "file": "assets/README-CYTdyD1F.js",
+          "status": 200,
+          "bytes": 41649,
+          "servedBytes": 41649,
+          "pass": true
+        },
+        {
+          "file": "assets/README-DtS53g1p.js",
+          "status": 200,
+          "bytes": 22190,
+          "servedBytes": 22190,
+          "pass": true
+        },
+        {
+          "file": "assets/README-DW6xIxJH.js",
+          "status": 200,
+          "bytes": 81663,
+          "servedBytes": 81663,
+          "pass": true
+        },
+        {
+          "file": "assets/README-DY7vWehr.js",
+          "status": 200,
+          "bytes": 113604,
+          "servedBytes": 113604,
+          "pass": true
+        },
+        {
+          "file": "assets/README-DZ4L37Wk.js",
+          "status": 200,
+          "bytes": 12243,
+          "servedBytes": 12243,
+          "pass": true
+        },
+        {
+          "file": "assets/README-Dzi0gcli.js",
+          "status": 200,
+          "bytes": 22692,
+          "servedBytes": 22692,
+          "pass": true
+        },
+        {
+          "file": "assets/README-eoX6ALT9.js",
+          "status": 200,
+          "bytes": 21292,
+          "servedBytes": 21292,
+          "pass": true
+        },
+        {
+          "file": "assets/README-GeT9nEbC.js",
+          "status": 200,
+          "bytes": 127499,
+          "servedBytes": 127499,
+          "pass": true
+        },
+        {
+          "file": "assets/README-hgfcM4Jx.js",
+          "status": 200,
+          "bytes": 83156,
+          "servedBytes": 83156,
+          "pass": true
+        },
+        {
+          "file": "assets/README-NvKGP9Dn.js",
+          "status": 200,
+          "bytes": 43957,
+          "servedBytes": 43957,
+          "pass": true
+        },
+        {
+          "file": "assets/SearchResult-DiBO8XQ3-DvwLQHWX.js",
+          "status": 200,
+          "bytes": 6901,
+          "servedBytes": 6901,
+          "pass": true
+        },
+        {
+          "file": "assets/SHARING_GUIDE-2kCNhHz6.js",
+          "status": 200,
+          "bytes": 33296,
+          "servedBytes": 33296,
+          "pass": true
+        },
+        {
+          "file": "assets/style-BGdyOZW6.css",
+          "status": 200,
+          "bytes": 110031,
+          "servedBytes": 110031,
+          "pass": true
+        },
+        {
+          "file": "assets/VUEPRESS_INTEGRATION_PLAN-D_0_LX8K.js",
+          "status": 200,
+          "bytes": 24951,
+          "servedBytes": 24951,
+          "pass": true
+        },
+        {
+          "file": "assets/VUEPRESS_INTEGRATION_REPORT-BQT3m9xf.js",
+          "status": 200,
+          "bytes": 13065,
+          "servedBytes": 13065,
+          "pass": true
+        },
+        {
+          "file": "docs/COURSE_REVIEW.html",
+          "status": 200,
+          "bytes": 24853,
+          "servedBytes": 24853,
+          "pass": true
+        },
+        {
+          "file": "docs/COURSE_STANDARD.html",
+          "status": 200,
+          "bytes": 23379,
+          "servedBytes": 23379,
+          "pass": true
+        },
+        {
+          "file": "docs/reviews/2026-09-11/01-05.html",
+          "status": 200,
+          "bytes": 19356,
+          "servedBytes": 19356,
+          "pass": true
+        },
+        {
+          "file": "docs/reviews/2026-09-11/06-10.html",
+          "status": 200,
+          "bytes": 18801,
+          "servedBytes": 18801,
+          "pass": true
+        },
+        {
+          "file": "docs/reviews/2026-09-11/11-13.html",
+          "status": 200,
+          "bytes": 18839,
+          "servedBytes": 18839,
+          "pass": true
+        },
+        {
+          "file": "docs/reviews/2026-09-11/14-17.html",
+          "status": 200,
+          "bytes": 20851,
+          "servedBytes": 20851,
+          "pass": true
+        },
+        {
+          "file": "docs/reviews/2026-09-11/18-20.html",
+          "status": 200,
+          "bytes": 18992,
+          "servedBytes": 18992,
+          "pass": true
+        },
+        {
+          "file": "docs/reviews/2026-09-11/21-24.html",
+          "status": 200,
+          "bytes": 19520,
+          "servedBytes": 19520,
+          "pass": true
+        },
+        {
+          "file": "docs/reviews/2026-09-11/25-26.html",
+          "status": 200,
+          "bytes": 21681,
+          "servedBytes": 21681,
+          "pass": true
+        },
+        {
+          "file": "docs/reviews/2026-09-11/index.html",
+          "status": 200,
+          "bytes": 26117,
+          "servedBytes": 26117,
+          "pass": true
+        },
+        {
+          "file": "docs/SHARING_GUIDE.html",
+          "status": 200,
+          "bytes": 46937,
+          "servedBytes": 46937,
+          "pass": true
+        },
+        {
+          "file": "docs/VUEPRESS_INTEGRATION_PLAN.html",
+          "status": 200,
+          "bytes": 38632,
+          "servedBytes": 38632,
+          "pass": true
+        },
+        {
+          "file": "docs/VUEPRESS_INTEGRATION_REPORT.html",
+          "status": 200,
+          "bytes": 26476,
+          "servedBytes": 26476,
+          "pass": true
+        },
+        {
+          "file": "favicon.svg",
+          "status": 200,
+          "bytes": 347,
+          "servedBytes": 347,
+          "pass": true
+        },
+        {
+          "file": "index.html",
+          "status": 200,
+          "bytes": 33758,
+          "servedBytes": 33758,
+          "pass": true
+        },
+        {
+          "file": "labs/01-image-fundamentals/index.html",
+          "status": 200,
+          "bytes": 29439,
+          "servedBytes": 29439,
+          "pass": true
+        },
+        {
+          "file": "labs/02-js-image-basics/bundle.js",
+          "status": 200,
+          "bytes": 3654,
+          "servedBytes": 3654,
+          "pass": true
+        },
+        {
+          "file": "labs/02-js-image-basics/index.html",
+          "status": 200,
+          "bytes": 39124,
+          "servedBytes": 39124,
+          "pass": true
+        },
+        {
+          "file": "labs/03-grayscale/bundle.js",
+          "status": 200,
+          "bytes": 4959,
+          "servedBytes": 4959,
+          "pass": true
+        },
+        {
+          "file": "labs/03-grayscale/index.html",
+          "status": 200,
+          "bytes": 29181,
+          "servedBytes": 29181,
+          "pass": true
+        },
+        {
+          "file": "labs/04-binarization/bundle.js",
+          "status": 200,
+          "bytes": 6937,
+          "servedBytes": 6937,
+          "pass": true
+        },
+        {
+          "file": "labs/04-binarization/index.html",
+          "status": 200,
+          "bytes": 39098,
+          "servedBytes": 39098,
+          "pass": true
+        },
+        {
+          "file": "labs/05-denoising/bundle.js",
+          "status": 200,
+          "bytes": 9296,
+          "servedBytes": 9296,
+          "pass": true
+        },
+        {
+          "file": "labs/05-denoising/index.html",
+          "status": 200,
+          "bytes": 35439,
+          "servedBytes": 35439,
+          "pass": true
+        },
+        {
+          "file": "labs/06-morphology/bundle.js",
+          "status": 200,
+          "bytes": 9701,
+          "servedBytes": 9701,
+          "pass": true
+        },
+        {
+          "file": "labs/06-morphology/index.html",
+          "status": 200,
+          "bytes": 38154,
+          "servedBytes": 38154,
+          "pass": true
+        },
+        {
+          "file": "labs/07-deskewing/bundle.js",
+          "status": 200,
+          "bytes": 11412,
+          "servedBytes": 11412,
+          "pass": true
+        },
+        {
+          "file": "labs/07-deskewing/index.html",
+          "status": 200,
+          "bytes": 36787,
+          "servedBytes": 36787,
+          "pass": true
+        },
+        {
+          "file": "labs/08-edge-detection/bundle.js",
+          "status": 200,
+          "bytes": 14004,
+          "servedBytes": 14004,
+          "pass": true
+        },
+        {
+          "file": "labs/08-edge-detection/index.html",
+          "status": 200,
+          "bytes": 26154,
+          "servedBytes": 26154,
+          "pass": true
+        },
+        {
+          "file": "labs/09-connected-components/bundle.js",
+          "status": 200,
+          "bytes": 10129,
+          "servedBytes": 10129,
+          "pass": true
+        },
+        {
+          "file": "labs/09-connected-components/index.html",
+          "status": 200,
+          "bytes": 27627,
+          "servedBytes": 27627,
+          "pass": true
+        },
+        {
+          "file": "labs/10-text-localization/bundle.js",
+          "status": 200,
+          "bytes": 18906,
+          "servedBytes": 18906,
+          "pass": true
+        },
+        {
+          "file": "labs/10-text-localization/index.html",
+          "status": 200,
+          "bytes": 31193,
+          "servedBytes": 31193,
+          "pass": true
+        },
+        {
+          "file": "labs/11-feature-extraction/index.html",
+          "status": 200,
+          "bytes": 36343,
+          "servedBytes": 36343,
+          "pass": true
+        },
+        {
+          "file": "labs/12-template-matching/index.html",
+          "status": 200,
+          "bytes": 29313,
+          "servedBytes": 29313,
+          "pass": true
+        },
+        {
+          "file": "labs/13-knn-classifier/index.html",
+          "status": 200,
+          "bytes": 25129,
+          "servedBytes": 25129,
+          "pass": true
+        },
+        {
+          "file": "labs/14-neural-network-basics/bundle.js",
+          "status": 200,
+          "bytes": 13336,
+          "servedBytes": 13336,
+          "pass": true
+        },
+        {
+          "file": "labs/14-neural-network-basics/index.html",
+          "status": 200,
+          "bytes": 6639,
+          "servedBytes": 6639,
+          "pass": true
+        },
+        {
+          "file": "labs/15-cnn-basics/bundle.js",
+          "status": 200,
+          "bytes": 12620,
+          "servedBytes": 12620,
+          "pass": true
+        },
+        {
+          "file": "labs/15-cnn-basics/index.html",
+          "status": 200,
+          "bytes": 6246,
+          "servedBytes": 6246,
+          "pass": true
+        },
+        {
+          "file": "labs/16-tensorflowjs-intro/bundle.js",
+          "status": 200,
+          "bytes": 1864577,
+          "servedBytes": 1864577,
+          "pass": true
+        },
+        {
+          "file": "labs/16-tensorflowjs-intro/index.html",
+          "status": 200,
+          "bytes": 4084,
+          "servedBytes": 4084,
+          "pass": true
+        },
+        {
+          "file": "labs/17-cnn-classifier/bundle.js",
+          "status": 200,
+          "bytes": 1882679,
+          "servedBytes": 1882679,
+          "pass": true
+        },
+        {
+          "file": "labs/17-cnn-classifier/index.html",
+          "status": 200,
+          "bytes": 5701,
+          "servedBytes": 5701,
+          "pass": true
+        },
+        {
+          "file": "labs/17-cnn-classifier/model/config.json",
+          "status": 200,
+          "bytes": 2177,
+          "servedBytes": 2177,
+          "pass": true
+        },
+        {
+          "file": "labs/17-cnn-classifier/model/inference-verification.json",
+          "status": 200,
+          "bytes": 24970,
+          "servedBytes": 24970,
+          "pass": true
+        },
+        {
+          "file": "labs/17-cnn-classifier/model/model.json",
+          "status": 200,
+          "bytes": 6947,
+          "servedBytes": 6947,
+          "pass": true
+        },
+        {
+          "file": "labs/17-cnn-classifier/model/split.json",
+          "status": 200,
+          "bytes": 349002,
+          "servedBytes": 349002,
+          "pass": true
+        },
+        {
+          "file": "labs/17-cnn-classifier/model/test-predictions.json",
+          "status": 200,
+          "bytes": 40101,
+          "servedBytes": 40101,
+          "pass": true
+        },
+        {
+          "file": "labs/17-cnn-classifier/model/training-curve.json",
+          "status": 200,
+          "bytes": 1080,
+          "servedBytes": 1080,
+          "pass": true
+        },
+        {
+          "file": "labs/17-cnn-classifier/model/training-report.json",
+          "status": 200,
+          "bytes": 10179,
+          "servedBytes": 10179,
+          "pass": true
+        },
+        {
+          "file": "labs/17-cnn-classifier/model/weights.bin",
+          "status": 200,
+          "bytes": 58152,
+          "servedBytes": 58152,
+          "pass": true
+        },
+        {
+          "file": "labs/17-cnn-classifier/train.html",
+          "status": 200,
+          "bytes": 2755,
+          "servedBytes": 2755,
+          "pass": true
+        },
+        {
+          "file": "labs/17-cnn-classifier/validation-samples.json",
+          "status": 200,
+          "bytes": 19043,
+          "servedBytes": 19043,
+          "pass": true
+        },
+        {
+          "file": "labs/18-rnn-basics/bundle.js",
+          "status": 200,
+          "bytes": 5945,
+          "servedBytes": 5945,
+          "pass": true
+        },
+        {
+          "file": "labs/18-rnn-basics/index.html",
+          "status": 200,
+          "bytes": 3579,
+          "servedBytes": 3579,
+          "pass": true
+        },
+        {
+          "file": "labs/19-ctc-loss/bundle.js",
+          "status": 200,
+          "bytes": 9000,
+          "servedBytes": 9000,
+          "pass": true
+        },
+        {
+          "file": "labs/19-ctc-loss/index.html",
+          "status": 200,
+          "bytes": 3793,
+          "servedBytes": 3793,
+          "pass": true
+        },
+        {
+          "file": "labs/20-crnn/bundle.js",
+          "status": 200,
+          "bytes": 1879879,
+          "servedBytes": 1879879,
+          "pass": true
+        },
+        {
+          "file": "labs/20-crnn/index.html",
+          "status": 200,
+          "bytes": 5363,
+          "servedBytes": 5363,
+          "pass": true
+        },
+        {
+          "file": "labs/20-crnn/model/weights.json",
+          "status": 200,
+          "bytes": 34098,
+          "servedBytes": 34098,
+          "pass": true
+        },
+        {
+          "file": "labs/20-crnn/training-report.json",
+          "status": 200,
+          "bytes": 10954,
+          "servedBytes": 10954,
+          "pass": true
+        },
+        {
+          "file": "labs/21-attention/bundle.js",
+          "status": 200,
+          "bytes": 7822,
+          "servedBytes": 7822,
+          "pass": true
+        },
+        {
+          "file": "labs/21-attention/index.html",
+          "status": 200,
+          "bytes": 5337,
+          "servedBytes": 5337,
+          "pass": true
+        },
+        {
+          "file": "labs/22-text-detection-networks/bundle.js",
+          "status": 200,
+          "bytes": 8564,
+          "servedBytes": 8564,
+          "pass": true
+        },
+        {
+          "file": "labs/22-text-detection-networks/index.html",
+          "status": 200,
+          "bytes": 7358,
+          "servedBytes": 7358,
+          "pass": true
+        },
+        {
+          "file": "labs/23-transformer-ocr/bundle.js",
+          "status": 200,
+          "bytes": 15418,
+          "servedBytes": 15418,
+          "pass": true
+        },
+        {
+          "file": "labs/23-transformer-ocr/index.html",
+          "status": 200,
+          "bytes": 6567,
+          "servedBytes": 6567,
+          "pass": true
+        },
+        {
+          "file": "labs/24-post-processing/browser-qa-desktop.png",
+          "status": 200,
+          "bytes": 104967,
+          "servedBytes": 104967,
+          "pass": true
+        },
+        {
+          "file": "labs/24-post-processing/browser-qa-results.json",
+          "status": 200,
+          "bytes": 3815,
+          "servedBytes": 3815,
+          "pass": true
+        },
+        {
+          "file": "labs/24-post-processing/bundle.js",
+          "status": 200,
+          "bytes": 21919,
+          "servedBytes": 21919,
+          "pass": true
+        },
+        {
+          "file": "labs/24-post-processing/index.html",
+          "status": 200,
+          "bytes": 17741,
+          "servedBytes": 17741,
+          "pass": true
+        },
+        {
+          "file": "labs/25-ocr-engine/bundle.js",
+          "status": 200,
+          "bytes": 1918157,
+          "servedBytes": 1918157,
+          "pass": true
+        },
+        {
+          "file": "labs/25-ocr-engine/index.html",
+          "status": 200,
+          "bytes": 9349,
+          "servedBytes": 9349,
+          "pass": true
+        },
+        {
+          "file": "labs/25-ocr-engine/index.js",
+          "status": 200,
+          "bytes": 7768,
+          "servedBytes": 7768,
+          "pass": true
+        },
+        {
+          "file": "labs/26-validation/bundle.js",
+          "status": 200,
+          "bytes": 15762,
+          "servedBytes": 15762,
+          "pass": true
+        },
+        {
+          "file": "labs/26-validation/development-report.json",
+          "status": 200,
+          "bytes": 34469,
+          "servedBytes": 34469,
+          "pass": true
+        },
+        {
+          "file": "labs/26-validation/fixtures/development-line.png",
+          "status": 200,
+          "bytes": 17459,
+          "servedBytes": 17459,
+          "pass": true
+        },
+        {
+          "file": "labs/26-validation/index.html",
+          "status": 200,
+          "bytes": 6207,
+          "servedBytes": 6207,
+          "pass": true
+        },
+        {
+          "file": "labs/26-validation/index.js",
+          "status": 200,
+          "bytes": 7841,
+          "servedBytes": 7841,
+          "pass": true
+        },
+        {
+          "file": "labs/26-validation/test-freeze.json",
+          "status": 200,
+          "bytes": 351,
+          "servedBytes": 351,
+          "pass": true
+        },
+        {
+          "file": "labs/26-validation/test-manifest.json",
+          "status": 200,
+          "bytes": 5342,
+          "servedBytes": 5342,
+          "pass": true
+        },
+        {
+          "file": "labs/26-validation/test-report.json",
+          "status": 200,
+          "bytes": 35618,
+          "servedBytes": 35618,
+          "pass": true
+        },
+        {
+          "file": "labs/shared/11-feature-extraction/index.js",
+          "status": 200,
+          "bytes": 31447,
+          "servedBytes": 31447,
+          "pass": true
+        },
+        {
+          "file": "labs/shared/12-template-matching/index.js",
+          "status": 200,
+          "bytes": 19321,
+          "servedBytes": 19321,
+          "pass": true
+        },
+        {
+          "file": "labs/shared/13-knn-classifier/demoDataset.js",
+          "status": 200,
+          "bytes": 10861,
+          "servedBytes": 10861,
+          "pass": true
+        },
+        {
+          "file": "labs/shared/13-knn-classifier/index.js",
+          "status": 200,
+          "bytes": 25905,
+          "servedBytes": 25905,
+          "pass": true
+        },
+        {
+          "file": "labs/shared/24-post-processing/index.js",
+          "status": 200,
+          "bytes": 15745,
+          "servedBytes": 15745,
+          "pass": true
+        },
+        {
+          "file": "labs/shared/25-ocr-engine/index.js",
+          "status": 200,
+          "bytes": 12559,
+          "servedBytes": 12559,
+          "pass": true
+        },
+        {
+          "file": "labs/shared/26-validation/index.js",
+          "status": 200,
+          "bytes": 4111,
+          "servedBytes": 4111,
+          "pass": true
+        },
+        {
+          "file": "labs/shared/course.css",
+          "status": 200,
+          "bytes": 3988,
+          "servedBytes": 3988,
+          "pass": true
+        },
+        {
+          "file": "labs/shared/course.js",
+          "status": 200,
+          "bytes": 2157,
+          "servedBytes": 2157,
+          "pass": true
+        },
+        {
+          "file": "OUTLINE.html",
+          "status": 200,
+          "bytes": 56710,
+          "servedBytes": 56710,
+          "pass": true
+        },
+        {
+          "file": "PROGRESS.html",
+          "status": 200,
+          "bytes": 68389,
+          "servedBytes": 68389,
+          "pass": true
+        },
+        {
+          "file": "shared/index.html",
+          "status": 200,
+          "bytes": 42645,
+          "servedBytes": 42645,
+          "pass": true
+        },
+        {
+          "file": "slimsearch.worker.js",
+          "status": 200,
+          "bytes": 1972884,
+          "servedBytes": 1972884,
+          "pass": true
+        }
+      ],
+      "homeReady": true,
+      "reportFinal": true,
+      "sourceNotServed": true
+    },
+    {
+      "name": "ocr",
+      "url": "http://127.0.0.1:4175/ocr/",
+      "files": [
+        {
+          "file": "01-image-fundamentals/index.html",
+          "status": 200,
+          "bytes": 38524,
+          "servedBytes": 38524,
+          "pass": true
+        },
+        {
+          "file": "02-js-image-basics/index.html",
+          "status": 200,
+          "bytes": 52531,
+          "servedBytes": 52531,
+          "pass": true
+        },
+        {
+          "file": "03-grayscale/index.html",
+          "status": 200,
+          "bytes": 38626,
+          "servedBytes": 38626,
+          "pass": true
+        },
+        {
+          "file": "04-binarization/index.html",
+          "status": 200,
+          "bytes": 93982,
+          "servedBytes": 93982,
+          "pass": true
+        },
+        {
+          "file": "05-denoising/index.html",
+          "status": 200,
+          "bytes": 53807,
+          "servedBytes": 53807,
+          "pass": true
+        },
+        {
+          "file": "06-morphology/index.html",
+          "status": 200,
+          "bytes": 47586,
+          "servedBytes": 47586,
+          "pass": true
+        },
+        {
+          "file": "07-deskewing/index.html",
+          "status": 200,
+          "bytes": 58435,
+          "servedBytes": 58435,
+          "pass": true
+        },
+        {
+          "file": "08-edge-detection/index.html",
+          "status": 200,
+          "bytes": 60412,
+          "servedBytes": 60412,
+          "pass": true
+        },
+        {
+          "file": "09-connected-components/index.html",
+          "status": 200,
+          "bytes": 67078,
+          "servedBytes": 67078,
+          "pass": true
+        },
+        {
+          "file": "10-text-localization/index.html",
+          "status": 200,
+          "bytes": 99504,
+          "servedBytes": 99504,
+          "pass": true
+        },
+        {
+          "file": "11-feature-extraction/index.html",
+          "status": 200,
+          "bytes": 227470,
+          "servedBytes": 227470,
+          "pass": true
+        },
+        {
+          "file": "12-template-matching/index.html",
+          "status": 200,
+          "bytes": 121578,
+          "servedBytes": 121578,
+          "pass": true
+        },
+        {
+          "file": "13-knn-classifier/index.html",
+          "status": 200,
+          "bytes": 37498,
+          "servedBytes": 37498,
+          "pass": true
+        },
+        {
+          "file": "14-neural-network-basics/index.html",
+          "status": 200,
+          "bytes": 83869,
+          "servedBytes": 83869,
+          "pass": true
+        },
+        {
+          "file": "15-cnn-basics/index.html",
+          "status": 200,
+          "bytes": 98451,
+          "servedBytes": 98451,
+          "pass": true
+        },
+        {
+          "file": "16-tensorflowjs-intro/index.html",
+          "status": 200,
+          "bytes": 103437,
+          "servedBytes": 103437,
+          "pass": true
+        },
+        {
+          "file": "17-cnn-classifier/index.html",
+          "status": 200,
+          "bytes": 158371,
+          "servedBytes": 158371,
+          "pass": true
+        },
+        {
+          "file": "18-rnn-basics/index.html",
+          "status": 200,
+          "bytes": 134076,
+          "servedBytes": 134076,
+          "pass": true
+        },
+        {
+          "file": "19-ctc-loss/index.html",
+          "status": 200,
+          "bytes": 140198,
+          "servedBytes": 140198,
+          "pass": true
+        },
+        {
+          "file": "20-crnn/index.html",
+          "status": 200,
+          "bytes": 148337,
+          "servedBytes": 148337,
+          "pass": true
+        },
+        {
+          "file": "21-attention/index.html",
+          "status": 200,
+          "bytes": 130618,
+          "servedBytes": 130618,
+          "pass": true
+        },
+        {
+          "file": "22-text-detection-networks/index.html",
+          "status": 200,
+          "bytes": 134437,
+          "servedBytes": 134437,
+          "pass": true
+        },
+        {
+          "file": "23-transformer-ocr/index.html",
+          "status": 200,
+          "bytes": 157890,
+          "servedBytes": 157890,
+          "pass": true
+        },
+        {
+          "file": "24-post-processing/index.html",
+          "status": 200,
+          "bytes": 202532,
+          "servedBytes": 202532,
+          "pass": true
+        },
+        {
+          "file": "25-ocr-engine/index.html",
+          "status": 200,
+          "bytes": 100251,
+          "servedBytes": 100251,
+          "pass": true
+        },
+        {
+          "file": "26-validation/index.html",
+          "status": 200,
+          "bytes": 109104,
+          "servedBytes": 109104,
+          "pass": true
+        },
+        {
+          "file": "404.html",
+          "status": 200,
+          "bytes": 1907,
+          "servedBytes": 1907,
+          "pass": true
+        },
+        {
+          "file": "assets/01-05-DKNXK-XG.js",
+          "status": 200,
+          "bytes": 5755,
+          "servedBytes": 5755,
+          "pass": true
+        },
+        {
+          "file": "assets/06-10-BX_hFitx.js",
+          "status": 200,
+          "bytes": 5174,
+          "servedBytes": 5174,
+          "pass": true
+        },
+        {
+          "file": "assets/11-13-DAgF2KMk.js",
+          "status": 200,
+          "bytes": 5143,
+          "servedBytes": 5143,
+          "pass": true
+        },
+        {
+          "file": "assets/14-17-DaOH3Zy0.js",
+          "status": 200,
+          "bytes": 7172,
+          "servedBytes": 7172,
+          "pass": true
+        },
+        {
+          "file": "assets/18-20-D6TN6mFI.js",
+          "status": 200,
+          "bytes": 5281,
+          "servedBytes": 5281,
+          "pass": true
+        },
+        {
+          "file": "assets/21-24-DdAazkq8.js",
+          "status": 200,
+          "bytes": 5809,
+          "servedBytes": 5809,
+          "pass": true
+        },
+        {
+          "file": "assets/25-26-B3A3lhXk.js",
+          "status": 200,
+          "bytes": 8070,
+          "servedBytes": 8070,
+          "pass": true
+        },
+        {
+          "file": "assets/404.html-CZTPQh3-.js",
+          "status": 200,
+          "bytes": 459,
+          "servedBytes": 459,
+          "pass": true
+        },
+        {
+          "file": "assets/app-D5sF4HJy.js",
+          "status": 200,
+          "bytes": 212156,
+          "servedBytes": 212156,
+          "pass": true
+        },
+        {
+          "file": "assets/COURSE_REVIEW-D7OHCmWL.js",
+          "status": 200,
+          "bytes": 11179,
+          "servedBytes": 11179,
+          "pass": true
+        },
+        {
+          "file": "assets/COURSE_STANDARD-BvT0Cfkt.js",
+          "status": 200,
+          "bytes": 9626,
+          "servedBytes": 9626,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_AMS-Regular-BQhdFMY1.woff2",
+          "status": 200,
+          "bytes": 28076,
+          "servedBytes": 28076,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_AMS-Regular-DMm9YOAa.woff",
+          "status": 200,
+          "bytes": 33516,
+          "servedBytes": 33516,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_AMS-Regular-DRggAlZN.ttf",
+          "status": 200,
+          "bytes": 63632,
+          "servedBytes": 63632,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_Caligraphic-Bold-ATXxdsX0.ttf",
+          "status": 200,
+          "bytes": 12368,
+          "servedBytes": 12368,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_Caligraphic-Bold-BEiXGLvX.woff",
+          "status": 200,
+          "bytes": 7716,
+          "servedBytes": 7716,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_Caligraphic-Bold-Dq_IR9rO.woff2",
+          "status": 200,
+          "bytes": 6912,
+          "servedBytes": 6912,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_Caligraphic-Regular-CTRA-rTL.woff",
+          "status": 200,
+          "bytes": 7656,
+          "servedBytes": 7656,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_Caligraphic-Regular-Di6jR-x-.woff2",
+          "status": 200,
+          "bytes": 6908,
+          "servedBytes": 6908,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_Caligraphic-Regular-wX97UBjC.ttf",
+          "status": 200,
+          "bytes": 12344,
+          "servedBytes": 12344,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_Fraktur-Bold-BdnERNNW.ttf",
+          "status": 200,
+          "bytes": 19584,
+          "servedBytes": 19584,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_Fraktur-Bold-BsDP51OF.woff",
+          "status": 200,
+          "bytes": 13296,
+          "servedBytes": 13296,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_Fraktur-Bold-CL6g_b3V.woff2",
+          "status": 200,
+          "bytes": 11348,
+          "servedBytes": 11348,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_Fraktur-Regular-CB_wures.ttf",
+          "status": 200,
+          "bytes": 19572,
+          "servedBytes": 19572,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_Fraktur-Regular-CTYiF6lA.woff2",
+          "status": 200,
+          "bytes": 11316,
+          "servedBytes": 11316,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_Fraktur-Regular-Dxdc4cR9.woff",
+          "status": 200,
+          "bytes": 13208,
+          "servedBytes": 13208,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_Main-Bold-Cx986IdX.woff2",
+          "status": 200,
+          "bytes": 25324,
+          "servedBytes": 25324,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_Main-Bold-Jm3AIy58.woff",
+          "status": 200,
+          "bytes": 29912,
+          "servedBytes": 29912,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_Main-Bold-waoOVXN0.ttf",
+          "status": 200,
+          "bytes": 51336,
+          "servedBytes": 51336,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_Main-BoldItalic-DxDJ3AOS.woff2",
+          "status": 200,
+          "bytes": 16780,
+          "servedBytes": 16780,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_Main-BoldItalic-DzxPMmG6.ttf",
+          "status": 200,
+          "bytes": 32968,
+          "servedBytes": 32968,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_Main-BoldItalic-SpSLRI95.woff",
+          "status": 200,
+          "bytes": 19412,
+          "servedBytes": 19412,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_Main-Italic-3WenGoN9.ttf",
+          "status": 200,
+          "bytes": 33580,
+          "servedBytes": 33580,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_Main-Italic-BMLOBm91.woff",
+          "status": 200,
+          "bytes": 19676,
+          "servedBytes": 19676,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_Main-Italic-NWA7e6Wa.woff2",
+          "status": 200,
+          "bytes": 16988,
+          "servedBytes": 16988,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_Main-Regular-B22Nviop.woff2",
+          "status": 200,
+          "bytes": 26272,
+          "servedBytes": 26272,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_Main-Regular-Dr94JaBh.woff",
+          "status": 200,
+          "bytes": 30772,
+          "servedBytes": 30772,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_Main-Regular-ypZvNtVU.ttf",
+          "status": 200,
+          "bytes": 53580,
+          "servedBytes": 53580,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_Math-BoldItalic-B3XSjfu4.ttf",
+          "status": 200,
+          "bytes": 31196,
+          "servedBytes": 31196,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_Math-BoldItalic-CZnvNsCZ.woff2",
+          "status": 200,
+          "bytes": 16400,
+          "servedBytes": 16400,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_Math-BoldItalic-iY-2wyZ7.woff",
+          "status": 200,
+          "bytes": 18668,
+          "servedBytes": 18668,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_Math-Italic-DA0__PXp.woff",
+          "status": 200,
+          "bytes": 18748,
+          "servedBytes": 18748,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_Math-Italic-flOr_0UB.ttf",
+          "status": 200,
+          "bytes": 31308,
+          "servedBytes": 31308,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_Math-Italic-t53AETM-.woff2",
+          "status": 200,
+          "bytes": 16440,
+          "servedBytes": 16440,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_SansSerif-Bold-CFMepnvq.ttf",
+          "status": 200,
+          "bytes": 24504,
+          "servedBytes": 24504,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_SansSerif-Bold-D1sUS0GD.woff2",
+          "status": 200,
+          "bytes": 12216,
+          "servedBytes": 12216,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_SansSerif-Bold-DbIhKOiC.woff",
+          "status": 200,
+          "bytes": 14408,
+          "servedBytes": 14408,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_SansSerif-Italic-C3H0VqGB.woff2",
+          "status": 200,
+          "bytes": 12028,
+          "servedBytes": 12028,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_SansSerif-Italic-DN2j7dab.woff",
+          "status": 200,
+          "bytes": 14112,
+          "servedBytes": 14112,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_SansSerif-Italic-YYjJ1zSn.ttf",
+          "status": 200,
+          "bytes": 22364,
+          "servedBytes": 22364,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_SansSerif-Regular-BNo7hRIc.ttf",
+          "status": 200,
+          "bytes": 19436,
+          "servedBytes": 19436,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_SansSerif-Regular-CS6fqUqJ.woff",
+          "status": 200,
+          "bytes": 12316,
+          "servedBytes": 12316,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_SansSerif-Regular-DDBCnlJ7.woff2",
+          "status": 200,
+          "bytes": 10344,
+          "servedBytes": 10344,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_Script-Regular-C5JkGWo-.ttf",
+          "status": 200,
+          "bytes": 16648,
+          "servedBytes": 16648,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_Script-Regular-D3wIWfF6.woff2",
+          "status": 200,
+          "bytes": 9644,
+          "servedBytes": 9644,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_Script-Regular-D5yQViql.woff",
+          "status": 200,
+          "bytes": 10588,
+          "servedBytes": 10588,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_Size1-Regular-C195tn64.woff",
+          "status": 200,
+          "bytes": 6496,
+          "servedBytes": 6496,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_Size1-Regular-Dbsnue_I.ttf",
+          "status": 200,
+          "bytes": 12228,
+          "servedBytes": 12228,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_Size1-Regular-mCD8mA8B.woff2",
+          "status": 200,
+          "bytes": 5468,
+          "servedBytes": 5468,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_Size2-Regular-B7gKUWhC.ttf",
+          "status": 200,
+          "bytes": 11508,
+          "servedBytes": 11508,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_Size2-Regular-Dy4dx90m.woff2",
+          "status": 200,
+          "bytes": 5208,
+          "servedBytes": 5208,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_Size2-Regular-oD1tc_U0.woff",
+          "status": 200,
+          "bytes": 6188,
+          "servedBytes": 6188,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_Size3-Regular-CTq5MqoE.woff",
+          "status": 200,
+          "bytes": 4420,
+          "servedBytes": 4420,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_Size3-Regular-DgpXs0kz.ttf",
+          "status": 200,
+          "bytes": 7588,
+          "servedBytes": 7588,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_Size4-Regular-BF-4gkZK.woff",
+          "status": 200,
+          "bytes": 5980,
+          "servedBytes": 5980,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_Size4-Regular-Dl5lxZxV.woff2",
+          "status": 200,
+          "bytes": 4928,
+          "servedBytes": 4928,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_Size4-Regular-DWFBv043.ttf",
+          "status": 200,
+          "bytes": 10364,
+          "servedBytes": 10364,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_Typewriter-Regular-C0xS9mPB.woff",
+          "status": 200,
+          "bytes": 16028,
+          "servedBytes": 16028,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_Typewriter-Regular-CO6r4hn1.woff2",
+          "status": 200,
+          "bytes": 13568,
+          "servedBytes": 13568,
+          "pass": true
+        },
+        {
+          "file": "assets/KaTeX_Typewriter-Regular-D3Ib7_Hf.ttf",
+          "status": 200,
+          "bytes": 27556,
+          "servedBytes": 27556,
+          "pass": true
+        },
+        {
+          "file": "assets/OUTLINE-Bgr5jDEl.js",
+          "status": 200,
+          "bytes": 43284,
+          "servedBytes": 43284,
+          "pass": true
+        },
+        {
+          "file": "assets/PROGRESS-Yn5qwC3H.js",
+          "status": 200,
+          "bytes": 56645,
+          "servedBytes": 56645,
+          "pass": true
+        },
+        {
+          "file": "assets/README-2Tq-pe4c.js",
+          "status": 200,
+          "bytes": 41649,
+          "servedBytes": 41649,
+          "pass": true
+        },
+        {
+          "file": "assets/README-B1v1H3wm.js",
+          "status": 200,
+          "bytes": 36722,
+          "servedBytes": 36722,
+          "pass": true
+        },
+        {
+          "file": "assets/README-BfPr1ymS.js",
+          "status": 200,
+          "bytes": 136394,
+          "servedBytes": 136394,
+          "pass": true
+        },
+        {
+          "file": "assets/README-Bi-pkWBq.js",
+          "status": 200,
+          "bytes": 75346,
+          "servedBytes": 75346,
+          "pass": true
+        },
+        {
+          "file": "assets/README-BrEuXyAr.js",
+          "status": 200,
+          "bytes": 31207,
+          "servedBytes": 31207,
+          "pass": true
+        },
+        {
+          "file": "assets/README-BvHH8dpB.js",
+          "status": 200,
+          "bytes": 127499,
+          "servedBytes": 127499,
+          "pass": true
+        },
+        {
+          "file": "assets/README-BzpVfkv9.js",
+          "status": 200,
+          "bytes": 63245,
+          "servedBytes": 63245,
+          "pass": true
+        },
+        {
+          "file": "assets/README-C6XXP0kx.js",
+          "status": 200,
+          "bytes": 180916,
+          "servedBytes": 180916,
+          "pass": true
+        },
+        {
+          "file": "assets/README-CI79PaEK.js",
+          "status": 200,
+          "bytes": 81663,
+          "servedBytes": 81663,
+          "pass": true
+        },
+        {
+          "file": "assets/README-CItGusnK.js",
+          "status": 200,
+          "bytes": 209021,
+          "servedBytes": 209021,
+          "pass": true
+        },
+        {
+          "file": "assets/README-CkSnBM52.js",
+          "status": 200,
+          "bytes": 12243,
+          "servedBytes": 12243,
+          "pass": true
+        },
+        {
+          "file": "assets/README-CUcfl35y.js",
+          "status": 200,
+          "bytes": 84812,
+          "servedBytes": 84812,
+          "pass": true
+        },
+        {
+          "file": "assets/README-Cuk5QHvl.js",
+          "status": 200,
+          "bytes": 43957,
+          "servedBytes": 43957,
+          "pass": true
+        },
+        {
+          "file": "assets/README-CUmBXInX.js",
+          "status": 200,
+          "bytes": 34126,
+          "servedBytes": 34126,
+          "pass": true
+        },
+        {
+          "file": "assets/README-Cutnp6oR.js",
+          "status": 200,
+          "bytes": 77497,
+          "servedBytes": 77497,
+          "pass": true
+        },
+        {
+          "file": "assets/README-Cv8JbDvd.js",
+          "status": 200,
+          "bytes": 21292,
+          "servedBytes": 21292,
+          "pass": true
+        },
+        {
+          "file": "assets/README-CXcxaiS-.js",
+          "status": 200,
+          "bytes": 119200,
+          "servedBytes": 119200,
+          "pass": true
+        },
+        {
+          "file": "assets/README-D-ITZTu8.js",
+          "status": 200,
+          "bytes": 22190,
+          "servedBytes": 22190,
+          "pass": true
+        },
+        {
+          "file": "assets/README-D1VqpdOC.js",
+          "status": 200,
+          "bytes": 36643,
+          "servedBytes": 36643,
+          "pass": true
+        },
+        {
+          "file": "assets/README-D2iLLKdy.js",
+          "status": 200,
+          "bytes": 120269,
+          "servedBytes": 120269,
+          "pass": true
+        },
+        {
+          "file": "assets/README-D7k36MBX.js",
+          "status": 200,
+          "bytes": 22692,
+          "servedBytes": 22692,
+          "pass": true
+        },
+        {
+          "file": "assets/README-DahU9kt9.js",
+          "status": 200,
+          "bytes": 113604,
+          "servedBytes": 113604,
+          "pass": true
+        },
+        {
+          "file": "assets/README-DGjTH1WM.js",
+          "status": 200,
+          "bytes": 136337,
+          "servedBytes": 136337,
+          "pass": true
+        },
+        {
+          "file": "assets/README-Drsd_jkS.js",
+          "status": 200,
+          "bytes": 83160,
+          "servedBytes": 83160,
+          "pass": true
+        },
+        {
+          "file": "assets/README-er_U0zWg.js",
+          "status": 200,
+          "bytes": 74638,
+          "servedBytes": 74638,
+          "pass": true
+        },
+        {
+          "file": "assets/README-HPn58xBN.js",
+          "status": 200,
+          "bytes": 111747,
+          "servedBytes": 111747,
+          "pass": true
+        },
+        {
+          "file": "assets/README-IIx-028v.js",
+          "status": 200,
+          "bytes": 50689,
+          "servedBytes": 50689,
+          "pass": true
+        },
+        {
+          "file": "assets/README-P2LHOfDx.js",
+          "status": 200,
+          "bytes": 103860,
+          "servedBytes": 103860,
+          "pass": true
+        },
+        {
+          "file": "assets/README-t3qfeBD1.js",
+          "status": 200,
+          "bytes": 29418,
+          "servedBytes": 29418,
+          "pass": true
+        },
+        {
+          "file": "assets/SearchResult-DiBO8XQ3-DYRqQ86R.js",
+          "status": 200,
+          "bytes": 6901,
+          "servedBytes": 6901,
+          "pass": true
+        },
+        {
+          "file": "assets/SHARING_GUIDE-BL-0B-0s.js",
+          "status": 200,
+          "bytes": 33340,
+          "servedBytes": 33340,
+          "pass": true
+        },
+        {
+          "file": "assets/style-BmtZq3bO.css",
+          "status": 200,
+          "bytes": 110267,
+          "servedBytes": 110267,
+          "pass": true
+        },
+        {
+          "file": "assets/VUEPRESS_INTEGRATION_PLAN-6OnXly7p.js",
+          "status": 200,
+          "bytes": 24951,
+          "servedBytes": 24951,
+          "pass": true
+        },
+        {
+          "file": "assets/VUEPRESS_INTEGRATION_REPORT-DO4itKs_.js",
+          "status": 200,
+          "bytes": 13065,
+          "servedBytes": 13065,
+          "pass": true
+        },
+        {
+          "file": "docs/COURSE_REVIEW.html",
+          "status": 200,
+          "bytes": 25053,
+          "servedBytes": 25053,
+          "pass": true
+        },
+        {
+          "file": "docs/COURSE_STANDARD.html",
+          "status": 200,
+          "bytes": 23547,
+          "servedBytes": 23547,
+          "pass": true
+        },
+        {
+          "file": "docs/reviews/2026-09-11/01-05.html",
+          "status": 200,
+          "bytes": 19532,
+          "servedBytes": 19532,
+          "pass": true
+        },
+        {
+          "file": "docs/reviews/2026-09-11/06-10.html",
+          "status": 200,
+          "bytes": 18977,
+          "servedBytes": 18977,
+          "pass": true
+        },
+        {
+          "file": "docs/reviews/2026-09-11/11-13.html",
+          "status": 200,
+          "bytes": 19015,
+          "servedBytes": 19015,
+          "pass": true
+        },
+        {
+          "file": "docs/reviews/2026-09-11/14-17.html",
+          "status": 200,
+          "bytes": 21027,
+          "servedBytes": 21027,
+          "pass": true
+        },
+        {
+          "file": "docs/reviews/2026-09-11/18-20.html",
+          "status": 200,
+          "bytes": 19168,
+          "servedBytes": 19168,
+          "pass": true
+        },
+        {
+          "file": "docs/reviews/2026-09-11/21-24.html",
+          "status": 200,
+          "bytes": 19696,
+          "servedBytes": 19696,
+          "pass": true
+        },
+        {
+          "file": "docs/reviews/2026-09-11/25-26.html",
+          "status": 200,
+          "bytes": 21857,
+          "servedBytes": 21857,
+          "pass": true
+        },
+        {
+          "file": "docs/reviews/2026-09-11/index.html",
+          "status": 200,
+          "bytes": 26341,
+          "servedBytes": 26341,
+          "pass": true
+        },
+        {
+          "file": "docs/SHARING_GUIDE.html",
+          "status": 200,
+          "bytes": 47197,
+          "servedBytes": 47197,
+          "pass": true
+        },
+        {
+          "file": "docs/VUEPRESS_INTEGRATION_PLAN.html",
+          "status": 200,
+          "bytes": 38808,
+          "servedBytes": 38808,
+          "pass": true
+        },
+        {
+          "file": "docs/VUEPRESS_INTEGRATION_REPORT.html",
+          "status": 200,
+          "bytes": 26656,
+          "servedBytes": 26656,
+          "pass": true
+        },
+        {
+          "file": "favicon.svg",
+          "status": 200,
+          "bytes": 347,
+          "servedBytes": 347,
+          "pass": true
+        },
+        {
+          "file": "index.html",
+          "status": 200,
+          "bytes": 34114,
+          "servedBytes": 34114,
+          "pass": true
+        },
+        {
+          "file": "labs/01-image-fundamentals/index.html",
+          "status": 200,
+          "bytes": 29439,
+          "servedBytes": 29439,
+          "pass": true
+        },
+        {
+          "file": "labs/02-js-image-basics/bundle.js",
+          "status": 200,
+          "bytes": 3654,
+          "servedBytes": 3654,
+          "pass": true
+        },
+        {
+          "file": "labs/02-js-image-basics/index.html",
+          "status": 200,
+          "bytes": 39124,
+          "servedBytes": 39124,
+          "pass": true
+        },
+        {
+          "file": "labs/03-grayscale/bundle.js",
+          "status": 200,
+          "bytes": 4959,
+          "servedBytes": 4959,
+          "pass": true
+        },
+        {
+          "file": "labs/03-grayscale/index.html",
+          "status": 200,
+          "bytes": 29181,
+          "servedBytes": 29181,
+          "pass": true
+        },
+        {
+          "file": "labs/04-binarization/bundle.js",
+          "status": 200,
+          "bytes": 6937,
+          "servedBytes": 6937,
+          "pass": true
+        },
+        {
+          "file": "labs/04-binarization/index.html",
+          "status": 200,
+          "bytes": 39098,
+          "servedBytes": 39098,
+          "pass": true
+        },
+        {
+          "file": "labs/05-denoising/bundle.js",
+          "status": 200,
+          "bytes": 9296,
+          "servedBytes": 9296,
+          "pass": true
+        },
+        {
+          "file": "labs/05-denoising/index.html",
+          "status": 200,
+          "bytes": 35439,
+          "servedBytes": 35439,
+          "pass": true
+        },
+        {
+          "file": "labs/06-morphology/bundle.js",
+          "status": 200,
+          "bytes": 9701,
+          "servedBytes": 9701,
+          "pass": true
+        },
+        {
+          "file": "labs/06-morphology/index.html",
+          "status": 200,
+          "bytes": 38154,
+          "servedBytes": 38154,
+          "pass": true
+        },
+        {
+          "file": "labs/07-deskewing/bundle.js",
+          "status": 200,
+          "bytes": 11412,
+          "servedBytes": 11412,
+          "pass": true
+        },
+        {
+          "file": "labs/07-deskewing/index.html",
+          "status": 200,
+          "bytes": 36787,
+          "servedBytes": 36787,
+          "pass": true
+        },
+        {
+          "file": "labs/08-edge-detection/bundle.js",
+          "status": 200,
+          "bytes": 14004,
+          "servedBytes": 14004,
+          "pass": true
+        },
+        {
+          "file": "labs/08-edge-detection/index.html",
+          "status": 200,
+          "bytes": 26154,
+          "servedBytes": 26154,
+          "pass": true
+        },
+        {
+          "file": "labs/09-connected-components/bundle.js",
+          "status": 200,
+          "bytes": 10129,
+          "servedBytes": 10129,
+          "pass": true
+        },
+        {
+          "file": "labs/09-connected-components/index.html",
+          "status": 200,
+          "bytes": 27627,
+          "servedBytes": 27627,
+          "pass": true
+        },
+        {
+          "file": "labs/10-text-localization/bundle.js",
+          "status": 200,
+          "bytes": 18906,
+          "servedBytes": 18906,
+          "pass": true
+        },
+        {
+          "file": "labs/10-text-localization/index.html",
+          "status": 200,
+          "bytes": 31193,
+          "servedBytes": 31193,
+          "pass": true
+        },
+        {
+          "file": "labs/11-feature-extraction/index.html",
+          "status": 200,
+          "bytes": 36343,
+          "servedBytes": 36343,
+          "pass": true
+        },
+        {
+          "file": "labs/12-template-matching/index.html",
+          "status": 200,
+          "bytes": 29313,
+          "servedBytes": 29313,
+          "pass": true
+        },
+        {
+          "file": "labs/13-knn-classifier/index.html",
+          "status": 200,
+          "bytes": 25129,
+          "servedBytes": 25129,
+          "pass": true
+        },
+        {
+          "file": "labs/14-neural-network-basics/bundle.js",
+          "status": 200,
+          "bytes": 13336,
+          "servedBytes": 13336,
+          "pass": true
+        },
+        {
+          "file": "labs/14-neural-network-basics/index.html",
+          "status": 200,
+          "bytes": 6639,
+          "servedBytes": 6639,
+          "pass": true
+        },
+        {
+          "file": "labs/15-cnn-basics/bundle.js",
+          "status": 200,
+          "bytes": 12620,
+          "servedBytes": 12620,
+          "pass": true
+        },
+        {
+          "file": "labs/15-cnn-basics/index.html",
+          "status": 200,
+          "bytes": 6246,
+          "servedBytes": 6246,
+          "pass": true
+        },
+        {
+          "file": "labs/16-tensorflowjs-intro/bundle.js",
+          "status": 200,
+          "bytes": 1864577,
+          "servedBytes": 1864577,
+          "pass": true
+        },
+        {
+          "file": "labs/16-tensorflowjs-intro/index.html",
+          "status": 200,
+          "bytes": 4084,
+          "servedBytes": 4084,
+          "pass": true
+        },
+        {
+          "file": "labs/17-cnn-classifier/bundle.js",
+          "status": 200,
+          "bytes": 1882679,
+          "servedBytes": 1882679,
+          "pass": true
+        },
+        {
+          "file": "labs/17-cnn-classifier/index.html",
+          "status": 200,
+          "bytes": 5701,
+          "servedBytes": 5701,
+          "pass": true
+        },
+        {
+          "file": "labs/17-cnn-classifier/model/config.json",
+          "status": 200,
+          "bytes": 2177,
+          "servedBytes": 2177,
+          "pass": true
+        },
+        {
+          "file": "labs/17-cnn-classifier/model/inference-verification.json",
+          "status": 200,
+          "bytes": 24970,
+          "servedBytes": 24970,
+          "pass": true
+        },
+        {
+          "file": "labs/17-cnn-classifier/model/model.json",
+          "status": 200,
+          "bytes": 6947,
+          "servedBytes": 6947,
+          "pass": true
+        },
+        {
+          "file": "labs/17-cnn-classifier/model/split.json",
+          "status": 200,
+          "bytes": 349002,
+          "servedBytes": 349002,
+          "pass": true
+        },
+        {
+          "file": "labs/17-cnn-classifier/model/test-predictions.json",
+          "status": 200,
+          "bytes": 40101,
+          "servedBytes": 40101,
+          "pass": true
+        },
+        {
+          "file": "labs/17-cnn-classifier/model/training-curve.json",
+          "status": 200,
+          "bytes": 1080,
+          "servedBytes": 1080,
+          "pass": true
+        },
+        {
+          "file": "labs/17-cnn-classifier/model/training-report.json",
+          "status": 200,
+          "bytes": 10179,
+          "servedBytes": 10179,
+          "pass": true
+        },
+        {
+          "file": "labs/17-cnn-classifier/model/weights.bin",
+          "status": 200,
+          "bytes": 58152,
+          "servedBytes": 58152,
+          "pass": true
+        },
+        {
+          "file": "labs/17-cnn-classifier/train.html",
+          "status": 200,
+          "bytes": 2755,
+          "servedBytes": 2755,
+          "pass": true
+        },
+        {
+          "file": "labs/17-cnn-classifier/validation-samples.json",
+          "status": 200,
+          "bytes": 19043,
+          "servedBytes": 19043,
+          "pass": true
+        },
+        {
+          "file": "labs/18-rnn-basics/bundle.js",
+          "status": 200,
+          "bytes": 5945,
+          "servedBytes": 5945,
+          "pass": true
+        },
+        {
+          "file": "labs/18-rnn-basics/index.html",
+          "status": 200,
+          "bytes": 3579,
+          "servedBytes": 3579,
+          "pass": true
+        },
+        {
+          "file": "labs/19-ctc-loss/bundle.js",
+          "status": 200,
+          "bytes": 9000,
+          "servedBytes": 9000,
+          "pass": true
+        },
+        {
+          "file": "labs/19-ctc-loss/index.html",
+          "status": 200,
+          "bytes": 3793,
+          "servedBytes": 3793,
+          "pass": true
+        },
+        {
+          "file": "labs/20-crnn/bundle.js",
+          "status": 200,
+          "bytes": 1879879,
+          "servedBytes": 1879879,
+          "pass": true
+        },
+        {
+          "file": "labs/20-crnn/index.html",
+          "status": 200,
+          "bytes": 5363,
+          "servedBytes": 5363,
+          "pass": true
+        },
+        {
+          "file": "labs/20-crnn/model/weights.json",
+          "status": 200,
+          "bytes": 34098,
+          "servedBytes": 34098,
+          "pass": true
+        },
+        {
+          "file": "labs/20-crnn/training-report.json",
+          "status": 200,
+          "bytes": 10954,
+          "servedBytes": 10954,
+          "pass": true
+        },
+        {
+          "file": "labs/21-attention/bundle.js",
+          "status": 200,
+          "bytes": 7822,
+          "servedBytes": 7822,
+          "pass": true
+        },
+        {
+          "file": "labs/21-attention/index.html",
+          "status": 200,
+          "bytes": 5337,
+          "servedBytes": 5337,
+          "pass": true
+        },
+        {
+          "file": "labs/22-text-detection-networks/bundle.js",
+          "status": 200,
+          "bytes": 8564,
+          "servedBytes": 8564,
+          "pass": true
+        },
+        {
+          "file": "labs/22-text-detection-networks/index.html",
+          "status": 200,
+          "bytes": 7358,
+          "servedBytes": 7358,
+          "pass": true
+        },
+        {
+          "file": "labs/23-transformer-ocr/bundle.js",
+          "status": 200,
+          "bytes": 15418,
+          "servedBytes": 15418,
+          "pass": true
+        },
+        {
+          "file": "labs/23-transformer-ocr/index.html",
+          "status": 200,
+          "bytes": 6567,
+          "servedBytes": 6567,
+          "pass": true
+        },
+        {
+          "file": "labs/24-post-processing/browser-qa-desktop.png",
+          "status": 200,
+          "bytes": 104967,
+          "servedBytes": 104967,
+          "pass": true
+        },
+        {
+          "file": "labs/24-post-processing/browser-qa-results.json",
+          "status": 200,
+          "bytes": 3815,
+          "servedBytes": 3815,
+          "pass": true
+        },
+        {
+          "file": "labs/24-post-processing/bundle.js",
+          "status": 200,
+          "bytes": 21919,
+          "servedBytes": 21919,
+          "pass": true
+        },
+        {
+          "file": "labs/24-post-processing/index.html",
+          "status": 200,
+          "bytes": 17741,
+          "servedBytes": 17741,
+          "pass": true
+        },
+        {
+          "file": "labs/25-ocr-engine/bundle.js",
+          "status": 200,
+          "bytes": 1918157,
+          "servedBytes": 1918157,
+          "pass": true
+        },
+        {
+          "file": "labs/25-ocr-engine/index.html",
+          "status": 200,
+          "bytes": 9349,
+          "servedBytes": 9349,
+          "pass": true
+        },
+        {
+          "file": "labs/25-ocr-engine/index.js",
+          "status": 200,
+          "bytes": 7768,
+          "servedBytes": 7768,
+          "pass": true
+        },
+        {
+          "file": "labs/26-validation/bundle.js",
+          "status": 200,
+          "bytes": 15762,
+          "servedBytes": 15762,
+          "pass": true
+        },
+        {
+          "file": "labs/26-validation/development-report.json",
+          "status": 200,
+          "bytes": 34469,
+          "servedBytes": 34469,
+          "pass": true
+        },
+        {
+          "file": "labs/26-validation/fixtures/development-line.png",
+          "status": 200,
+          "bytes": 17459,
+          "servedBytes": 17459,
+          "pass": true
+        },
+        {
+          "file": "labs/26-validation/index.html",
+          "status": 200,
+          "bytes": 6207,
+          "servedBytes": 6207,
+          "pass": true
+        },
+        {
+          "file": "labs/26-validation/index.js",
+          "status": 200,
+          "bytes": 7841,
+          "servedBytes": 7841,
+          "pass": true
+        },
+        {
+          "file": "labs/26-validation/test-freeze.json",
+          "status": 200,
+          "bytes": 351,
+          "servedBytes": 351,
+          "pass": true
+        },
+        {
+          "file": "labs/26-validation/test-manifest.json",
+          "status": 200,
+          "bytes": 5342,
+          "servedBytes": 5342,
+          "pass": true
+        },
+        {
+          "file": "labs/26-validation/test-report.json",
+          "status": 200,
+          "bytes": 35618,
+          "servedBytes": 35618,
+          "pass": true
+        },
+        {
+          "file": "labs/shared/11-feature-extraction/index.js",
+          "status": 200,
+          "bytes": 31447,
+          "servedBytes": 31447,
+          "pass": true
+        },
+        {
+          "file": "labs/shared/12-template-matching/index.js",
+          "status": 200,
+          "bytes": 19321,
+          "servedBytes": 19321,
+          "pass": true
+        },
+        {
+          "file": "labs/shared/13-knn-classifier/demoDataset.js",
+          "status": 200,
+          "bytes": 10861,
+          "servedBytes": 10861,
+          "pass": true
+        },
+        {
+          "file": "labs/shared/13-knn-classifier/index.js",
+          "status": 200,
+          "bytes": 25905,
+          "servedBytes": 25905,
+          "pass": true
+        },
+        {
+          "file": "labs/shared/24-post-processing/index.js",
+          "status": 200,
+          "bytes": 15745,
+          "servedBytes": 15745,
+          "pass": true
+        },
+        {
+          "file": "labs/shared/25-ocr-engine/index.js",
+          "status": 200,
+          "bytes": 12559,
+          "servedBytes": 12559,
+          "pass": true
+        },
+        {
+          "file": "labs/shared/26-validation/index.js",
+          "status": 200,
+          "bytes": 4111,
+          "servedBytes": 4111,
+          "pass": true
+        },
+        {
+          "file": "labs/shared/course.css",
+          "status": 200,
+          "bytes": 3988,
+          "servedBytes": 3988,
+          "pass": true
+        },
+        {
+          "file": "labs/shared/course.js",
+          "status": 200,
+          "bytes": 2157,
+          "servedBytes": 2157,
+          "pass": true
+        },
+        {
+          "file": "OUTLINE.html",
+          "status": 200,
+          "bytes": 56878,
+          "servedBytes": 56878,
+          "pass": true
+        },
+        {
+          "file": "PROGRESS.html",
+          "status": 200,
+          "bytes": 68601,
+          "servedBytes": 68601,
+          "pass": true
+        },
+        {
+          "file": "shared/index.html",
+          "status": 200,
+          "bytes": 42813,
+          "servedBytes": 42813,
+          "pass": true
+        },
+        {
+          "file": "slimsearch.worker.js",
+          "status": 200,
+          "bytes": 1972884,
+          "servedBytes": 1972884,
+          "pass": true
+        }
+      ],
+      "homeReady": true,
+      "reportFinal": true,
+      "sourceNotServed": true
+    }
+  ]
+}
