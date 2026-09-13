@@ -200,12 +200,13 @@ check('Chinese UI and explicit page scope', () => {
   assert.equal(pagePatterns.filter(source => /^\d\d-.*\/README\.md$/.test(source)).length, 26);
 });
 
-const quotedExcerpt = search(afterHmr, '类间方差', { prefix: true }).flatMap(match => match.t || [])
-  .find(text => text.includes('前景均值和背景均值之间'));
+const quotedTerms = await splitCourseQuery('阈值');
+const quotedExcerpt = search(afterHmr, quotedTerms.join(' '), { combineWith: 'and', prefix: true }).flatMap(match => match.t || [])
+  .find(text => text.includes('一个"好的"阈值应该让'));
 check('real Otsu search snippet displays quotes as text', () => {
   assert.ok(quotedExcerpt, 'Expected the full Otsu body excerpt');
-  assert.ok(quotedExcerpt.includes('"距离"'), quotedExcerpt);
-  assert.ok(!quotedExcerpt.includes('&quot;距离&quot;'), quotedExcerpt);
+  assert.ok(quotedExcerpt.includes('"好的"'), quotedExcerpt);
+  assert.ok(!quotedExcerpt.includes('&quot;好的&quot;'), quotedExcerpt);
 });
 
 const encodedText = '类间方差 &quot;距离&quot; &#39;单引号&#39; &#x22;十六进制&#x22; &amp; &amp;quot; &lt;img src=x onerror=alert(1)&gt; &lt;script&gt;alert(1)&lt;/script&gt;';

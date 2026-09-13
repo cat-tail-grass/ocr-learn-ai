@@ -16,9 +16,13 @@
 
 | 知识点 | 状态 | 说明 |
 |--------|------|------|
-| 01. 数字图像基础 | ✅ 已完成 | 像素、RGB、矩阵表示、索引计算 |
+| 01. 数字图像基础 | 需了解 | 像素、RGB、矩阵表示、索引计算 |
 
 ---
+
+## 从图片到可修改的数字
+
+本章把第 01 章的像素数组接到真实图片上。完整过程是：**加载图片 → 画到 Canvas → 读出像素 → 修改数组 → 写回 Canvas → 导出图片**。Canvas 是浏览器里的一块画布；ImageData 是我们从画布取出的像素数据。修改数据后，要写回去，画面才会改变。
 
 ## 核心概念
 
@@ -39,7 +43,7 @@ const ctx = canvas.getContext('2d');
 
 ### 2. CanvasRenderingContext2D
 
-2D 渲染上下文是 Canvas 的核心 API，提供了所有绘图和图像操作方法。
+上节的 `canvas` 指向画布元素，`ctx` 是我们给“2D 绘图上下文”起的变量名，可以把它当作操作这块画布的一组工具。不是新建一个 ctx 就有图片：先用 `drawImage` 画进去，再读像素。
 
 | 方法 | 作用 |
 |------|------|
@@ -84,6 +88,10 @@ arr[3] = 129.5; // 舍入至 130，不是向下取整
 
 ### 5. 像素遍历模式
 
+如果只是给所有像素反色，只需依次访问每四个数；如果要判断“这是第几行、第几列”，就要用坐标。两种写法访问的是同一份数据。
+
+例如宽度为 3 的图，坐标 `(x=1,y=1)` 表示第二行第二列。前面有 `1×3+1=4` 个像素，所以它的 R 在 `data[16]`，A 在 `data[19]`。这里的像素序号 4 和数组起点 16 要分清。
+
 遍历图像像素有两种常用模式：
 
 **模式一：按像素索引遍历**
@@ -120,6 +128,8 @@ for (let y = 0; y < height; y++) {
 
 ### 6. 图像加载流程
 
+加载图片是异步操作：设置 `img.src` 只表示“开始读取”，不表示已经拿到了宽高和像素。因此下面把绘制、读取放进 `onload`；Promise 让调用者可以等待整套流程完成。`src` 是图片地址或上传文件生成的地址，`resolve` 返回处理所需的三个对象，`reject` 把加载失败交给调用者处理。
+
 ```javascript
 // 完整的图像加载和处理流程
 function loadAndProcessImage(src) {
@@ -150,6 +160,29 @@ function loadAndProcessImage(src) {
 
 ---
 
+### 7. 跟一个像素走完“读取—修改—显示—导出”
+
+下面接着使用上一节的加载函数。设图中某个像素是 `[30,100,200,255]`，反色后应为 `[225,155,55,255]`：三个颜色通道分别用 255 减去原值，透明度保持 255。
+
+```javascript
+async function invertImage(src) {
+    const { canvas, ctx, imageData } = await loadAndProcessImage(src);
+    const data = imageData.data;
+    for (let index = 0; index < data.length; index += 4) {
+        data[index] = 255 - data[index];
+        data[index + 1] = 255 - data[index + 1];
+        data[index + 2] = 255 - data[index + 2];
+        // index + 3 是透明度，不参与反色。
+    }
+    ctx.putImageData(imageData, 0, 0);
+    return canvas.toDataURL('image/png');
+}
+```
+
+`getImageData` 得到的是一次像素读取结果，修改 `data` 不会自动修改画布。`putImageData(...,0,0)` 才把结果放回左上角；`toDataURL` 随后把当前画布编码成可保存的 PNG 地址。较大的图片也可以用异步 `toBlob` 获取文件数据，避免生成很长的字符串。
+
+在实验里先用内置样例，依次尝试反色、恢复、亮度调整和导出。观察的重点是“像素值改变”和“画面改变”能否对应起来。
+
 ## 代码示例
 
 ### 文件说明
@@ -161,16 +194,22 @@ function loadAndProcessImage(src) {
 
 ### 运行方式
 
-**浏览器演示（推荐）：**
+在项目根目录运行：
+
 ```bash
-open 02-js-image-basics/index.html
+npm install
+npm run dev
 ```
 
-**Node.js 示例：**
+打开 `http://127.0.0.1:4173/`，从目录进入本章，再打开[本章交互实验](index.html)。如果服务已经在运行，直接访问即可。实验有内置样例，不需要先准备图片。
+
+Node 示例也在项目根目录运行：
+
 ```bash
-cd 02-js-image-basics
-node index.js
+node 02-js-image-basics/index.js
 ```
+
+先读本章的小算例，再在页面改变一个参数，对照 Node 输出中的对应步骤。
 
 ---
 
@@ -190,39 +229,57 @@ Canvas API 是我们 OCR 引擎的基础设施：
 
 ## 可复用模块
 
-共享实现位于 `shared/core`，`shared/imageUtils.js` 是兼容入口。实际提供 `MockImageData`、`getPixel`、`setPixel`、`cloneImageData`、`forEachPixel`、`forEachPixelXY`；本项目没有 `ImageLoader` 或 `PixelProcessor` 类。
+共享实现位于 `shared/core`，`shared/imageUtils.js` 是兼容入口。浏览器里直接用上面的 Canvas API；Node 没有浏览器画布，课程用 `MockImageData` 承载同样的 width、height、data，方便共享算法。
 
-- `forEachPixel(image, (pixel, index) => patch)` 的 index 是 RGBA 数组起点（0、4、8…）。
-- `forEachPixelXY(image, (pixel, x, y, index) => patch)` 额外给出坐标；返回新图像，未返回的通道保持原值。
-- `getPixel` 对非整数/越界坐标返回透明黑；`setPixel` 忽略这类写入，不会把 `(width,0)` 误当作下一行首像素。
-- `cloneImageData` 深拷贝数据；`new MockImageData(data,w,h)` 则引用传入的数组，不自动深拷贝。
+例如，想把所有像素的红通道增加 20，可以写：
 
-### Canvas 边界与 Alpha
+```javascript
+const { forEachPixel } = require('../shared/core'); // 章节目录中的 index.js
+const result = forEachPixel(imageData, pixel => ({ r: pixel.r + 20 }));
+```
 
-新建 Canvas / 原生 ImageData 为透明黑 `(0,0,0,0)`。Node 模拟容器默认白色不透明，是课程约定。ImageData 的 RGB 是非预乘通道；保留 alpha 的反色或通道操作不会让透明背景变成不透明背景。本章保留上传图的透明度，03–05 的 OCR 演示则先画白底再加载图像。
+输入像素 `[30,100,200,255]` 得到 `[50,100,200,255]`。回调只返回 r，表示只改红通道；未返回的 g、b、a 保持原值。`result` 是一张新图，原图保持原样，所以实验可以随时恢复。
 
-`putImageData` 按像素写入，不使用当前变换、`globalAlpha` 或合成运算；`drawImage` 才按绘制状态合成。CSS 调整 canvas 的显示大小不会改变其像素矩阵，鼠标坐标必须按显示尺寸换算；重设 canvas 的 width/height 会清空图像和绘制状态。
+| 工具 | 读代码时要注意的含义 |
+|---|---|
+| `forEachPixel(image, (pixel, index) => patch)` | index 是数组起点 0、4、8…，不是第几个像素；patch 是本次要修改的通道 |
+| `forEachPixelXY(image, (pixel, x, y, index) => patch)` | 额外给出坐标，适合按位置处理 |
+| `getPixel` / `setPixel` | 非整数或越界坐标，前者返回透明黑，后者忽略写入 |
+| `cloneImageData(image)` | 复制整个像素数组，适合保存独立副本 |
+| `new MockImageData(data,w,h)` | 直接引用传入数组；改这个数组也会影响容器中的数据 |
 
-远程图片需要服务器允许 CORS，并在设置 src 前设置 `img.crossOrigin='anonymous'`，否则画入后可能无法 getImageData / 导出。上传文件和内置样例不依赖跨域服务。PNG 保留透明度，JPEG 不支持 alpha，应明确背景后导出。
+### Canvas 边界与 Alpha：为什么代码运行了，画面却不对？
+
+**画布是透明的。** 新 Canvas 和原生 ImageData 默认是 `[0,0,0,0]`。反色只把 RGB 变成 `[255,255,255]`，A 仍是 0，所以像素仍然看不见。本章保留上传图透明度；03–05 章为模拟白纸，会先画白底再加载图片。课程 Node 容器默认白色不透明，是另一种初始化约定。
+
+**读取颜色时，透明度是单独的一项。** ImageData 使用非预乘 RGB，即数值还没有乘以 A/255。要计算白底上实际看见的颜色，使用第 01 章的背景合成公式；仅保留 A 的通道操作并没有完成这一步。
+
+**画面大小不一定等于像素大小。** 假设画布实际宽 400 像素，CSS 把它显示成 200 像素宽。鼠标距显示区域左边 50 像素，对应画布 x=`50×400/200=100`。换算要减去画布在页面中的位置；只改变 CSS 尺寸不会改变像素数组，重新设置 canvas.width/height 则会清空图像和绘制状态。
+
+**写像素与画图片的规则不同。** `putImageData` 直接按像素位置写入，忽略当前缩放、旋转、globalAlpha 和合成设置；`drawImage` 会遵守这些绘制设置。若透明度或缩放似乎“没有生效”，先核对用了哪个方法。
+
+**读取远程图还涉及跨域权限。** 远程服务器要允许 CORS（跨域资源共享），并在给 img.src 赋值前设置 `img.crossOrigin='anonymous'`。否则图片可能显示成功，但读取像素或导出时报错。内置样例与本地上传不依赖远程图片服务器。PNG 能保存 alpha；JPEG 没有透明度通道，导出前应先确定背景颜色。
 
 ---
 
 ## 自测问题
 
-学完本章后，你应该能回答以下问题：
-
-1. 如何获取 Canvas 元素的 2D 渲染上下文？
-2. ImageData.data 数组中，编号 100 的像素（从 0 开始）的蓝色通道在哪个索引位置？
-3. Uint8ClampedArray 和普通数组有什么区别？
-4. 如何将处理后的 Canvas 导出为 PNG 图片？
+1. 宽 3 的图中，坐标 `(1,1)` 的 R 和 A 分别在哪里？
+2. `[30,100,200,255]` 反色后是什么？
+3. 修改 getImageData 返回的 data 后，为什么画布还没变化？
+4. 给 Uint8ClampedArray 写入 300、−10、128.5 会存下什么？
+5. 400 像素宽的画布显示成 200 像素宽，距显示区域左边 50 像素对应哪个 x？
+6. 为什么透明像素反色后仍可能看不见？
 
 <details>
-<summary>点击查看答案</summary>
+<summary>展开答案与计算依据</summary>
 
-1. `canvas.getContext('2d')`
-2. 索引 = 100 × 4 + 2 = 402
-3. 固定长度、每元素一字节，饱和限幅到 0–255；小数按最近整数舍入，平局取偶数。
-4. `canvas.toDataURL('image/png')` 或 `canvas.toBlob()`
+1. 起点 `(1×3+1)×4=16`，R 在 16，A 在 19；像素序号则是 4。
+2. `[225,155,55,255]`。三个颜色通道用 255 减，A 保持不变。
+3. 像素数组和画布是分开的；需要 `ctx.putImageData(imageData,0,0)` 写回。
+4. 255、0、128。前两项被限幅；128.5 恰在两个整数之间，类型数组取相邻偶数。Math.round 的半整数规则不同。
+5. `50×400/200=100`，要用实际像素尺寸与显示尺寸的比例换算。
+6. 如果 A=0，改变 RGB 后 A 仍为 0，背景仍会透过。只有明确合成背景或改变 A 才会改变这一点。
 
 </details>
 
@@ -241,7 +298,7 @@ Canvas API 是我们 OCR 引擎的基础设施：
 | 遍历/通道/修改 | 核心概念5、可复用模块 | 通道、反色、亮度、恢复 | 演示3–5/7 |
 | 加载/导出/alpha | 核心概念6、Canvas边界 | 上传/拖放、导出 | 演示6（API说明） |
 
-在项目根目录首次运行 `npm install`。Node 示例直接运行 `node 02-js-image-basics/index.js`，不触发模型训练。浏览器可运行 `npm run build` 后 `npm start`，访问 `http://127.0.0.1:4173/02-js-image-basics/`；已构建的页面也可本地打开。
+安装与启动方式见上面的“运行方式”。本章 Node 示例不触发模型训练；需要预览发布后的静态站时，再使用 `npm run build` 和 `npm start`。
 
 02–05 的 `browser.js` 调用共享模块，构建为同目录 `bundle.js`；HTML 只保留交互和展示，算法步骤请对照共享源文件。
 
