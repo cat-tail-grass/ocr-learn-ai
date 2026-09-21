@@ -1,0 +1,32 @@
+{
+  "date": "2026-09-17",
+  "method": "Two fresh agent contexts received only the skill package and their user learning request; no original OCR course or prewritten subject answers.",
+  "calculus": {
+    "path": "samples/calculus",
+    "route_lessons": 8,
+    "completed_lessons": 1,
+    "numerical_assertions_passed": 25,
+    "static_browser_groups_passed": 10,
+    "material_status": "verified",
+    "calibration": "pending",
+    "review": "samples/calculus/reviews/03-derivative-at-a-point.md"
+  },
+  "english": {
+    "path": "samples/english",
+    "route_lessons": 6,
+    "completed_lessons": 1,
+    "exercise_rule_assertions_passed": 15,
+    "dev_browser_groups_passed": 18,
+    "static_browser_groups_passed": 19,
+    "node_teaching_experiment": "not-applicable",
+    "material_status": "verified",
+    "calibration": "pending",
+    "review": "samples/english/reviews/01-routine-and-now.md"
+  },
+  "limitations": [
+    "Only one exemplar per subject",
+    "No real learner study or expert panel",
+    "No universal claim across domains or models",
+    "Other environments and browsers are not covered by these trials"
+  ]
+}

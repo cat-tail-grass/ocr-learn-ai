@@ -1,0 +1,9 @@
+{
+  "top": 325.984375,
+  "bottom": 518.421875,
+  "width": 350,
+  "scrollWidth": 350,
+  "viewport": 390,
+  "documentWidth": 390,
+  "text": "D(2,h)=(2+h)2−22h=4+4h+h2−4h=h(4+h)h=4+h,h≠0.\\begin{aligned} D(2,h) &=\\frac{(2+h)^2-2^2}{h}\\\\ &=\\frac{4+4h+h^2-4}{h}\\\\ &=\\frac{h(4+h)}{h}\\\\ &=4+h,\\qquad h\\ne0. \\end{aligned} D(2,h)​=h(2+h)2−22​=h4+4h+h2−4​=hh(4+h)​=4+h,h=0.​"
+}

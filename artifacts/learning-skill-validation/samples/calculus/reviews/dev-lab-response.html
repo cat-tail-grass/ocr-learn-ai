@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>从割线到一点的导数 · 交互练习</title>
+  <link rel="stylesheet" href="../shared/lab.css">
+  <style>
+    .controls input[type=number], .controls select { width:100%; }
+    .result-number { font-size:1.7rem; font-weight:750; color:var(--accent); margin:.2rem 0; }
+    .result-pair { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+    .result-pair > div { padding:10px; background:#f0f5f1; border-radius:8px; }
+    .result-pair p { margin:4px 0; }
+    .steps { padding-left:24px; }
+    .steps li { margin:8px 0; }
+    .legend { display:flex; flex-wrap:wrap; gap:16px; font-size:14px; }
+    .legend span::before { content:''; display:inline-block; width:22px; margin-right:6px; border-top:3px solid; vertical-align:middle; }
+    .curve { color:#254d70; } .secant { color:#b86216; } .tangent { color:#126451; }
+    .tangent::before { border-top-style:dashed !important; }
+    .small { font-size:.9rem; }
+    #graph { display:block; width:100%; background:#fafcfb; border:1px solid var(--line); border-radius:8px; }
+    #status.error { color:#a5322a; }
+    .check-label { font-weight:400; }
+    @media(max-width:430px) { .result-pair { grid-template-columns:1fr; } }
+  </style>
+</head>
+<body>
+  <main class="lab-shell">
+    <header class="lab-header">
+      <p class="eyebrow">动手理解 · 第 03 章标杆</p>
+      <h1>从割线到一点的导数</h1>
+      <p>保留一个非零增量，观察平均变化率如何从左右两侧接近。先预测数字，再改变输入；代数理由决定导数，图与表帮助你看见过程。</p>
+    </header>
+    <div class="lab-grid">
+      <section class="panel controls" aria-labelledby="controls-title">
+        <h2 id="controls-title">输入与操作</h2>
+        <label for="function">选择函数</label>
+        <select id="function">
+          <option value="square">平方：f(x) = x²</option>
+          <option value="linear">直线：f(x) = 2x + 1</option>
+          <option value="absolute">绝对值：f(x) = |x|</option>
+        </select>
+        <label for="point">观察点 a</label>
+        <input id="point" type="number" min="-3" max="3" step="0.1" value="2" aria-describedby="input-help">
+        <label for="increment">增量 h（可正可负）</label>
+        <input id="increment" type="number" min="-2" max="2" step="any" value="0.5" aria-describedby="input-help">
+        <p id="input-help" class="small muted">−3 ≤ a ≤ 3；0.000001 ≤ |h| ≤ 2。h &gt; 0 在右侧，h &lt; 0 在左侧。图像范围会随输入调整。</p>
+        <button id="shrink" type="button">缩小为十分之一</button>
+        <button id="reverse" type="button">从另一侧观察</button>
+        <label class="check-label"><input id="show-tangent" type="checkbox" checked> 显示由导数确定的切线</label>
+        <button id="corner" type="button">观察不可导的尖点</button>
+        <button id="reset" type="button">恢复初始示例</button>
+        <p id="status" role="status" aria-live="polite"></p>
+        <p class="small muted">平方函数导数来自讲义中的展开与约去；本页没有用“最小步长的差商”冒充精确导数。</p>
+      </section>
+      <section class="panel" aria-labelledby="results-title">
+        <h2 id="results-title">观察过程与结果</h2>
+        <div id="results">
+          <div class="result-pair">
+            <div><p>当前差商 · 割线斜率</p><output id="quotient" class="result-number"></output></div>
+            <div><p>该点导数 · 代数结论</p><output id="derivative" class="result-number"></output></div>
+          </div>
+          <ol id="steps" class="steps"></ol>
+          <p id="algebra"></p>
+          <p id="approximation" class="small"></p>
+          <svg id="graph" viewBox="0 0 720 430" role="img" aria-labelledby="graph-title graph-description">
+            <title id="graph-title">函数、割线与切线</title>
+            <desc id="graph-description">两个点决定割线；导数存在时显示经过观察点的切线。关键数值在图上方的文本中给出。</desc>
+          </svg>
+          <p class="legend"><span class="curve">函数</span><span class="secant">割线</span><span class="tangent">切线（虚线）</span></p>
+          <p class="small muted">图上靠近的点可能重叠。坐标轴比例会调整，视觉角度不是数值斜率。</p>
+        </div>
+      </section>
+    </div>
+    <section class="panel" aria-labelledby="comparison-title">
+      <h2 id="comparison-title">同一观察点：左右两侧一起看</h2>
+      <p>表中每行用同样大小、相反方向的增量。当前绝对增量依次缩为十分之一、百分之一，最小显示 0.000001。极限要求两侧趋近同一个有限值。</p>
+      <div class="table-scroll"><table id="comparison-table"><thead><tr><th scope="col">|h|</th><th scope="col">左侧差商（−|h|）</th><th scope="col">右侧差商（+|h|）</th></tr></thead><tbody id="comparison"></tbody></table></div>
+      <p id="comparison-note" class="muted"></p>
+    </section>
+    <section class="panel">
+      <h2>试一试，再解释</h2>
+      <ol>
+        <li>默认例子 a=2、h=0.5 的差商为何是 4.5，而导数是 4？依次写出 4、6.25 和 2.25 的含义。</li>
+        <li>把 h 改为 0.1，再从另一侧观察。预测 4.1 与 3.9，然后核对。缩小增量时，两侧差商靠近谁？</li>
+        <li>设 a=1、h=0.5，在平方与直线之间切换。为什么直线的差商不随增量改变？</li>
+        <li>观察尖点预设，解释左右的 1 和 −1 为什么不能取平均后充当导数。再试 h=0，读懂错误反馈后恢复初始例子。</li>
+      </ol>
+      <details><summary>完成后查看判断依据</summary>
+        <p>默认输出变化为 6.25−4=2.25，除以 0.5 得 4.5；平方函数在 a=2 的一般差商为 4+h，其极限为 4。a=1 时平方差商为 2+h，而直线 2x+1 的差商恒为 2。绝对值在 0 的两侧差商固定为 −1 和 1，没有共同极限；零增量不能用于差商除法。</p>
+      </details>
+    </section>
+  </main>
+  <script type="module" src="../shared/course-nav.js"></script>
+  <script type="module" src="./browser.js"></script>
+</body>
+</html>

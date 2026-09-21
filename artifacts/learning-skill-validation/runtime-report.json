@@ -1,0 +1,39 @@
+{
+  "date": "2026-09-17",
+  "environment": {
+    "node": "24.11.1",
+    "platform": "macOS arm64",
+    "browser": "agent-browser 0.37.1 / Chrome"
+  },
+  "runtime_tests": {
+    "passed": 12,
+    "command": "node --test skills/build-learning-course/scripts/test-runtime.mjs"
+  },
+  "clean_install": "npm ci passed in isolated generated project",
+  "builds": {
+    "root": "passed",
+    "subdirectory_/course/": "passed"
+  },
+  "browser_observations": {
+    "home_catalog": "1 available and 1 planned lesson; planned lesson has no dead link",
+    "math": {
+      "rendered": 3,
+      "errors": 0
+    },
+    "search": "平均变化率 returns title and body; body result navigates to #核心概念",
+    "answer_details": "opened successfully",
+    "mobile": {
+      "viewport": 390,
+      "page_width": 390
+    },
+    "experiment": {
+      "right_endpoint_4": "average rate 6",
+      "right_endpoint_2": "两个端点需要不同"
+    },
+    "subdirectory": "reading, lab assets and return links retain /course/",
+    "dev_update": "README change appeared without reload; modified browser script appeared after asset synchronization and lab reload",
+    "page_errors": "none reported in checked pages"
+  },
+  "scope": "Runtime fixture only. This report does not validate generated curriculum content or all browser/platform combinations.",
+  "packaging_regression": "CLI symlink-path silent exit fixed; real creation and checker report verified"
+}

@@ -1,0 +1,21 @@
+{
+  "date": "2026-09-17",
+  "method": "Author-run assertions for selected generated exercise rules, not learner assessment",
+  "checks": [
+    "Mei日常",
+    "Mei眼下",
+    "I变am",
+    "They变are",
+    "study forms",
+    "know with now",
+    "this week boundary",
+    "empty input",
+    "missing be",
+    "meaning differs",
+    "gap accepted",
+    "curly contraction",
+    "now position variant",
+    "unknown not rejected",
+    "two accepted options"
+  ]
+}

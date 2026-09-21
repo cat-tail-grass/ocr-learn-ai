@@ -1,0 +1,4 @@
+interface:
+  display_name: "系统学习课程"
+  short_description: "把系统性知识做成可阅读、可练习、可验证的课程项目，先校准标杆课再分批生成"
+  default_prompt: "使用 $build-learning-course，为我创建一个系统学习课程，先制定学习路线并生成一节可校准的标杆课。"

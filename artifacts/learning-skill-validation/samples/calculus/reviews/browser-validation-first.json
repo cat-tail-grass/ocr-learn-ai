@@ -1,0 +1,219 @@
+{
+  "date": "2026-09-17T09:47:19.649Z",
+  "mode": "final static preview",
+  "base": "http://127.0.0.1:4317",
+  "browser": "153.0.8010.12",
+  "viewports": [
+    {
+      "width": 1440,
+      "height": 1000
+    },
+    {
+      "width": 390,
+      "height": 844
+    }
+  ],
+  "files": {
+    "course.json": "edd620e889395e35601dc8eb12fe8c5cb17c84e4b78100843466d7f8782fab0c",
+    "03-derivative-at-a-point/README.md": "92677a130f40a1c6ab13eaf3f9f3316d247d59d1cbc537a48233f8c02c7f2b79",
+    "03-derivative-at-a-point/index.html": "54b037e566db94761a19b1a4494f62dab697e9b85d9e0faa3aef09ae005cdbbc",
+    "03-derivative-at-a-point/browser.js": "0cdb6c94ba3116ecb2e40ac622ac6263c2c485ae501ad097d2b132272755222b",
+    "shared/rate-model.js": "fe3af589718d672df92f770f9289778a8ac9fe0b7b459e381d0a73402640906c"
+  },
+  "results": [
+    {
+      "name": "静态首页与完整路线",
+      "status": "failed",
+      "error": "The input did not match the regular expression /24 小时/. Input:\n\n'一元微积分：从变化率到导数\\n' +\n  '\\n' +\n  '你已会基础代数、认识函数和坐标。接下来用 8 周、每周 3 小时，学会解释和计算简单函数的导数，并说清它与变化率的关系。\\n' +\n  '\\n' +\n  '这里先交付完整路线和一节完整标杆课。材料通过检查与学习者已经掌握是两件事；标杆仍待你的试读校准。\\n' +\n  '\\n' +\n  '先体验一节完整课\\n' +\n  '\\n' +\n  '开始标杆课：从割线到一点的导数 · 打开割线与导数实验\\n' +\n  '\\n' +\n  '虽然标杆位于第 03 章，开头提供了平均变化率与极限的必要补给，可以从这里独立试读。正式学习仍按路线从第 01 章开始；现在其他讲义尚未准备。\\n' +\n  '\\n' +\n  '完整学习路径\\n' +\n  '\\n' +\n  '3 个阶段，8 章循序学习\\n' +\n  '\\n' +\n  '8 周 × 每周 3 小时，从基础代数出发，理解并计算三次以内多项式、倒数与平方根的导数。首次提供完整路线和一节可独立试读的标杆课。\\n' +\n  '\\n' +\n  '1 章可阅读 · 其余章节按路线逐步准备\\n' +\n  '\\n' +\n  '01\\n' +\n  '阶段一 · 给变化率建立语言\\n' +\n  '02\\n' +\n  '阶段二 · 从一点到一个函数的导数\\n' +\n  '03\\n' +\n  '阶段三 · 用导数解释变化\\n' +\n  '01\\n' +\n  '阶段一 · 给变化率建立语言\\n' +\n  '\\n' +\n  '2 节课程\\n' +\n  '\\n' +\n  '01两个位置之间：平均变化率与割线待准备\\n' +\n  '02越来越接近什么：极限与左右两侧待准备\\n' +\n  '02\\n' +\n  '阶段二 · 从一点到一个函数的导数\\n' +\n  '\\n' +\n  '4 节课程\\n' +\n  '\\n' +\n  '03\\n' +\n  '从割线到一点的导数\\n' +\n  '练习 ↗\\n' +\n  '04把观察点移动：从导数值到导函数待准备\\n' +\n  '05把重复计算变成规则：多项式求导待准备\\n' +\n  '06先看能在哪里算：倒数、平方根与定义域待准备\\n' +\n  '03\\n' +\n  '阶段三 · 用导数解释变化\\n' +\n  '\\n' +\n  '2 节课程\\n' +\n  '\\n' +\n  '07用局部斜率作解释与近似待准备\\n' +\n  '08综合任务：交出一份变化率说明待准备\\n' +\n  '这门课的边界\\n' +\n  '\\n' +\n  '完成后，你应能用差商解释一点的导数，求三次以内多项式、倒数函数和平方根函数在适用位置的导数，写出单位和局部变化的含义，识别尖点等不可导情形。\\n' +\n  '\\n' +\n  '本轮不包含积分、无穷级数、多元微积分、微分方程，也不要求背完整求导表或掌握严格的极限证明。它是围绕你当前终点的一元微积分导数课程。\\n' +\n  '\\n' +\n  '完整学习路线与结课任务\\n' +\n  '学习目标、范围与校准约定\\n' +\n  '材料状态与学习记录\\n' +\n  '本地打开与复算\\n' +\n  '\\n' +\n  '在项目目录使用 Node.js 22.18.0 或更新版本。第一次安装依赖后启动：\\n' +\n  '\\n' +\n  'npm install\\n' +\n  'SITE_PORT=4317 npm run dev\\n' +\n  '\\n' +\n  '\\n' +\n  '打开 http://127.0.0.1:4317/。讲义保存后更新，实验修改后刷新网页；目录配置变更后重启服务。\\n' +\n  '\\n' +\n  'npm run check\\n' +\n  'npm run check:examples\\n' +\n  'npm run build\\n' +\n  'SITE_PORT=4317 npm run preview\\n' +\n  '\\n' +\n  '\\n' +\n  '开发服务与静态预览共用 4317 端口，先关闭其中一个再启动另一个。交付时使用构建后的静态预览。后续重新安装可用 npm ci；仓库保留锁文件。'\n"
+    },
+    {
+      "name": "中文正文搜索及结果导航",
+      "status": "passed",
+      "evidence": {
+        "query": "瞬时变化率",
+        "destination": "http://127.0.0.1:4317/03-derivative-at-a-point/#%E5%8F%82%E8%80%83%E6%9D%A5%E6%BA%90%E4%B8%8E%E6%95%99%E5%AD%A6%E7%AE%80%E5%8C%96"
+      }
+    },
+    {
+      "name": "讲义、公式、表格与答案折叠",
+      "status": "passed",
+      "evidence": {
+        "renderedMath": 9,
+        "katexErrors": 0,
+        "tableColumns": [
+          [
+            5,
+            5,
+            5,
+            5,
+            5,
+            5
+          ],
+          [
+            3,
+            3,
+            3,
+            3,
+            3
+          ],
+          [
+            4,
+            4,
+            4,
+            4,
+            4,
+            4,
+            4
+          ]
+        ],
+        "answerToggle": "closed → open → closed"
+      }
+    },
+    {
+      "name": "本章目录与阅读位置",
+      "status": "failed",
+      "error": "locator.click: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('.course-reading-toc-link')\u001b[22m\n\u001b[2m    - locator resolved to <a href=\"#course-chapter-toc\" class=\"course-reading-toc-link\">本章目录</a>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not visible\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not visible\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    58 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m       - element is not visible\u001b[22m\n\u001b[2m     - retrying click action\u001b[22m\n\u001b[2m       - waiting 500ms\u001b[22m\n"
+    },
+    {
+      "name": "由讲义进入网页实验并核对默认样例",
+      "status": "passed",
+      "evidence": {
+        "a": 2,
+        "h": 0.5,
+        "valueA": 4,
+        "valueB": 6.25,
+        "delta": 2.25,
+        "quotient": 4.5,
+        "derivative": 4,
+        "tableRows": 3
+      }
+    },
+    {
+      "name": "实际改变增量、方向、观察点、函数与切线显示",
+      "status": "passed",
+      "evidence": {
+        "observedQuotients": [
+          4.1,
+          3.9,
+          3.99,
+          2.5,
+          2,
+          2
+        ],
+        "derivativeAt1": 2,
+        "graphDescriptionChanged": true,
+        "tangentToggle": "hidden → visible"
+      }
+    },
+    {
+      "name": "尖点边界、零增量、空值、范围错误与恢复",
+      "status": "passed",
+      "evidence": {
+        "cornerRows": [
+          [
+            "0.5",
+            "-1",
+            "1"
+          ],
+          [
+            "0.05",
+            "-1",
+            "1"
+          ],
+          [
+            "0.005",
+            "-1",
+            "1"
+          ]
+        ],
+        "zero": "readable error; old results hidden",
+        "emptyAndRange": "rejected",
+        "minimumStep": "bounded at 0.000001",
+        "reset": "square, a=2, h=0.5, quotient=4.5"
+      }
+    },
+    {
+      "name": "390px 窄屏阅读、目录与真实实验",
+      "status": "passed",
+      "evidence": {
+        "lessonSize": {
+          "viewport": 390,
+          "scrollWidth": 390,
+          "bodyWidth": 390
+        },
+        "mathSize": {
+          "viewport": 390,
+          "scrollWidth": 390,
+          "bodyWidth": 390
+        },
+        "labSize": {
+          "viewport": 390,
+          "scrollWidth": 390,
+          "bodyWidth": 390
+        },
+        "mobileQuotients": [
+          4.1,
+          3.9
+        ],
+        "returnNavigation": "http://127.0.0.1:4317/03-derivative-at-a-point/"
+      }
+    },
+    {
+      "name": "最终静态资源与真实 404",
+      "status": "passed",
+      "evidence": [
+        {
+          "path": "/",
+          "status": 200
+        },
+        {
+          "path": "/OUTLINE.html",
+          "status": 200
+        },
+        {
+          "path": "/03-derivative-at-a-point/",
+          "status": 200
+        },
+        {
+          "path": "/labs/03-derivative-at-a-point/index.html",
+          "status": 200
+        },
+        {
+          "path": "/labs/03-derivative-at-a-point/browser.js",
+          "status": 200
+        },
+        {
+          "path": "/labs/shared/rate-model.js",
+          "status": 200
+        },
+        {
+          "path": "/labs/shared/lab.css",
+          "status": 200
+        },
+        {
+          "path": "/labs/shared/course-nav.js",
+          "status": 200
+        },
+        {
+          "path": "/01-average-rate/",
+          "status": 404
+        },
+        {
+          "path": "/not-a-real-course-route/",
+          "status": 404
+        }
+      ]
+    },
+    {
+      "name": "浏览器运行时异常和资源失败",
+      "status": "passed",
+      "evidence": {
+        "pageErrors": 0,
+        "responseFailures": 0
+      }
+    }
+  ],
+  "errors": [],
+  "responseFailures": [],
+  "passed": false
+}

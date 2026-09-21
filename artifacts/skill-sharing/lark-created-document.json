@@ -1,0 +1,20 @@
+{
+  "ok": true,
+  "identity": "user",
+  "data": {
+    "document": {
+      "document_id": "XIQYdNFVuoSHnUx0GgHcGgm3nRW",
+      "revision_id": 1,
+      "url": "https://zaihui.feishu.cn/docx/XIQYdNFVuoSHnUx0GgHcGgm3nRW"
+    },
+    "log_id": "202609181922595A689EB5ADADBB07EB8D"
+  },
+  "_notice": {
+    "update": {
+      "command": "lark-cli update",
+      "current": "1.0.40",
+      "latest": "1.0.96",
+      "message": "lark-cli 1.0.96 available, current 1.0.40, run: lark-cli update"
+    }
+  }
+}

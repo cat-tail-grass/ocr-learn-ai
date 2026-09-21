@@ -1,0 +1,7 @@
+node_modules/
+.vuepress/.cache/
+.vuepress/.temp/
+.vuepress/dist*/
+.vuepress/public/labs/
+.course-checks/
+.DS_Store

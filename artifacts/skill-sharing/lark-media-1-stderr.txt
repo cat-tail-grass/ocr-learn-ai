@@ -1,0 +1,9 @@
+Inserting: desktop-lab.png -> document XIQY...3nRW
+Root block ready: XIQYdNFVuoSHnUx0GgHcGgm3nRW (60 children)
+Locating block matching selection ("微积分示例：调整"… 28 chars total)
+locate-doc matched: inserting after at index 33
+Creating block at index 33
+Block created: doxcn8HPyQwBLZEW9qPkIxqxreg
+Image dimensions: 700x997 (native: 1440x2050)
+File uploaded: UdnybV9bLogedaxWBXycmuuanle
+Binding uploaded media to block doxcn8HPyQwBLZEW9qPkIxqxreg

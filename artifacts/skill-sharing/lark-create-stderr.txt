@@ -1,0 +1,16 @@
+{
+  "ok": false,
+  "identity": "user",
+  "error": {
+    "type": "validation",
+    "message": "--content: invalid file path \"/Users/wuxiuran/project/ocr-learn-ai/artifacts/skill-sharing/build-learning-course-share.md\": --file must be a relative path within the current directory, got \"/Users/wuxiuran/project/ocr-learn-ai/artifacts/skill-sharing/build-learning-course-share.md\" (hint: cd to the target directory first, or use a relative path like ./filename)"
+  },
+  "_notice": {
+    "update": {
+      "command": "lark-cli update",
+      "current": "1.0.40",
+      "latest": "1.0.96",
+      "message": "lark-cli 1.0.96 available, current 1.0.40, run: lark-cli update"
+    }
+  }
+}

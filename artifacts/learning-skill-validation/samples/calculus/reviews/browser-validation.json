@@ -1,0 +1,248 @@
+{
+  "date": "2026-09-17T09:51:17.350Z",
+  "mode": "final static preview",
+  "base": "http://127.0.0.1:4317",
+  "browser": "153.0.8010.12",
+  "viewports": [
+    {
+      "width": 1440,
+      "height": 1000
+    },
+    {
+      "width": 390,
+      "height": 844
+    }
+  ],
+  "files": {
+    "course.json": "523fdf9336d5f7bfc1e8244ca01a1ce0808c39d139524eb98355efc624199367",
+    "PROGRESS.md": "48d6ae79739fc7d1f384381d56ebbb3e6712c6fa23fcf702d5592334234c099b",
+    ".vuepress/styles/course.css": "80a6799c77ec09a54fe426439fc6d2a9a5dbf2e9542c47384b159af215fe28b5",
+    "03-derivative-at-a-point/README.md": "92677a130f40a1c6ab13eaf3f9f3316d247d59d1cbc537a48233f8c02c7f2b79",
+    "03-derivative-at-a-point/index.html": "54b037e566db94761a19b1a4494f62dab697e9b85d9e0faa3aef09ae005cdbbc",
+    "03-derivative-at-a-point/browser.js": "0cdb6c94ba3116ecb2e40ac622ac6263c2c485ae501ad097d2b132272755222b",
+    "shared/rate-model.js": "fe3af589718d672df92f770f9289778a8ac9fe0b7b459e381d0a73402640906c"
+  },
+  "results": [
+    {
+      "name": "静态首页与完整路线",
+      "status": "passed",
+      "evidence": {
+        "chapters": 8,
+        "available": 1,
+        "planned": 7,
+        "outlineTableColumns": [
+          [
+            4,
+            4,
+            4
+          ],
+          [
+            4,
+            4,
+            4,
+            4,
+            4
+          ],
+          [
+            4,
+            4,
+            4
+          ]
+        ]
+      }
+    },
+    {
+      "name": "中文正文搜索及结果导航",
+      "status": "passed",
+      "evidence": {
+        "query": "瞬时变化率",
+        "destination": "http://127.0.0.1:4317/03-derivative-at-a-point/#%E5%8F%82%E8%80%83%E6%9D%A5%E6%BA%90%E4%B8%8E%E6%95%99%E5%AD%A6%E7%AE%80%E5%8C%96"
+      }
+    },
+    {
+      "name": "讲义、公式、表格与答案折叠",
+      "status": "passed",
+      "evidence": {
+        "renderedMath": 9,
+        "katexErrors": 0,
+        "tableColumns": [
+          [
+            5,
+            5,
+            5,
+            5,
+            5,
+            5
+          ],
+          [
+            3,
+            3,
+            3,
+            3,
+            3
+          ],
+          [
+            4,
+            4,
+            4,
+            4,
+            4,
+            4,
+            4
+          ]
+        ],
+        "answerToggle": "closed → open → closed"
+      }
+    },
+    {
+      "name": "本章目录与阅读位置",
+      "status": "passed",
+      "evidence": {
+        "progress": "42",
+        "anchor": "http://127.0.0.1:4317/03-derivative-at-a-point/#%E8%87%AA%E6%B5%8B%E9%97%AE%E9%A2%98",
+        "plannedChapterLinks": 0
+      }
+    },
+    {
+      "name": "由讲义进入网页实验并核对默认样例",
+      "status": "passed",
+      "evidence": {
+        "a": 2,
+        "h": 0.5,
+        "valueA": 4,
+        "valueB": 6.25,
+        "delta": 2.25,
+        "quotient": 4.5,
+        "derivative": 4,
+        "tableRows": 3
+      }
+    },
+    {
+      "name": "实际改变增量、方向、观察点、函数与切线显示",
+      "status": "passed",
+      "evidence": {
+        "observedQuotients": [
+          4.1,
+          3.9,
+          3.99,
+          2.5,
+          2,
+          2
+        ],
+        "derivativeAt1": 2,
+        "graphDescriptionChanged": true,
+        "tangentToggle": "hidden → visible"
+      }
+    },
+    {
+      "name": "尖点边界、零增量、空值、范围错误与恢复",
+      "status": "passed",
+      "evidence": {
+        "cornerRows": [
+          [
+            "0.5",
+            "-1",
+            "1"
+          ],
+          [
+            "0.05",
+            "-1",
+            "1"
+          ],
+          [
+            "0.005",
+            "-1",
+            "1"
+          ]
+        ],
+        "zero": "readable error; old results hidden",
+        "emptyAndRange": "rejected",
+        "minimumStep": "bounded at 0.000001",
+        "reset": "square, a=2, h=0.5, quotient=4.5"
+      }
+    },
+    {
+      "name": "390px 窄屏阅读、目录与真实实验",
+      "status": "passed",
+      "evidence": {
+        "lessonSize": {
+          "viewport": 390,
+          "scrollWidth": 390,
+          "bodyWidth": 390
+        },
+        "mathSize": {
+          "viewport": 390,
+          "scrollWidth": 390,
+          "bodyWidth": 390
+        },
+        "labSize": {
+          "viewport": 390,
+          "scrollWidth": 390,
+          "bodyWidth": 390
+        },
+        "mobileQuotients": [
+          4.1,
+          3.9
+        ],
+        "returnNavigation": "http://127.0.0.1:4317/03-derivative-at-a-point/"
+      }
+    },
+    {
+      "name": "最终静态资源与真实 404",
+      "status": "passed",
+      "evidence": [
+        {
+          "path": "/",
+          "status": 200
+        },
+        {
+          "path": "/OUTLINE.html",
+          "status": 200
+        },
+        {
+          "path": "/03-derivative-at-a-point/",
+          "status": 200
+        },
+        {
+          "path": "/labs/03-derivative-at-a-point/index.html",
+          "status": 200
+        },
+        {
+          "path": "/labs/03-derivative-at-a-point/browser.js",
+          "status": 200
+        },
+        {
+          "path": "/labs/shared/rate-model.js",
+          "status": 200
+        },
+        {
+          "path": "/labs/shared/lab.css",
+          "status": 200
+        },
+        {
+          "path": "/labs/shared/course-nav.js",
+          "status": 200
+        },
+        {
+          "path": "/01-average-rate/",
+          "status": 404
+        },
+        {
+          "path": "/not-a-real-course-route/",
+          "status": 404
+        }
+      ]
+    },
+    {
+      "name": "浏览器运行时异常和资源失败",
+      "status": "passed",
+      "evidence": {
+        "pageErrors": 0,
+        "responseFailures": 0
+      }
+    }
+  ],
+  "errors": [],
+  "responseFailures": [],
+  "passed": true
+}

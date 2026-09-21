@@ -1,0 +1,9 @@
+{
+  "url": "https://pasta.zaihui.com.cn/zaihui/skills/-/merge_requests/5",
+  "target_branch": "master",
+  "source_branch": "codex/add-learning-course-skill",
+  "commit": "f153a8562ad771c12758038905b6eda0c75d579a",
+  "status": "opened",
+  "merged": false,
+  "skill_name": "zaihui-build-learning-course"
+}

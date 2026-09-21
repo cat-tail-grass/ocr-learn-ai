@@ -1,0 +1,104 @@
+{
+  "schemaVersion": 1,
+  "title": "说清日常与眼下 · 英语起步课",
+  "description": "6周、每周3小时，围绕日常安排和正在发生的事情练习表达，理解句式选择带来的含义变化。中文讲解，英语例句。",
+  "lang": "zh-CN",
+  "audience": "认识基础英语单词，能看懂很短句子，尚需系统练习的成人自学者",
+  "outcome": "能用6–8句描述自己的日常与当前情境，完成4轮简短问答，并解释同一情境中两种表达的含义差别",
+  "terms": [
+    "一般现在时",
+    "现在进行时",
+    "日常安排",
+    "主语",
+    "动词",
+    "第三人称单数",
+    "状态动词",
+    "频率",
+    "语境",
+    "自由表达"
+  ],
+  "calibration": {
+    "lesson": "01-routine-and-now",
+    "status": "pending",
+    "feedback": ""
+  },
+  "stages": [
+    {
+      "title": "阶段一 · 说出平时与眼下",
+      "lessons": [
+        {
+          "slug": "01-routine-and-now",
+          "title": "平时还是眼下：两种现在时",
+          "prerequisites": [],
+          "status": "verified",
+          "web": true,
+          "node": false
+        },
+        {
+          "slug": "02-time-and-frequency",
+          "title": "把日常安排说具体：时间与频率",
+          "prerequisites": [
+            "01-routine-and-now"
+          ],
+          "status": "planned",
+          "web": true,
+          "node": false
+        }
+      ]
+    },
+    {
+      "title": "阶段二 · 问清楚，并应对变化",
+      "lessons": [
+        {
+          "slug": "03-questions-and-negatives",
+          "title": "问清楚与否认：do和be各司其职",
+          "prerequisites": [
+            "01-routine-and-now",
+            "02-time-and-frequency"
+          ],
+          "status": "planned",
+          "web": true,
+          "node": false
+        },
+        {
+          "slug": "04-temporary-and-states",
+          "title": "通常与这段时间：临时情况和状态",
+          "prerequisites": [
+            "01-routine-and-now",
+            "03-questions-and-negatives"
+          ],
+          "status": "planned",
+          "web": true,
+          "node": false
+        }
+      ]
+    },
+    {
+      "title": "阶段三 · 连成对话，并独立表达",
+      "lessons": [
+        {
+          "slug": "05-meaning-in-dialogue",
+          "title": "同一句话放进对话：选择、追问与修正",
+          "prerequisites": [
+            "02-time-and-frequency",
+            "03-questions-and-negatives",
+            "04-temporary-and-states"
+          ],
+          "status": "planned",
+          "web": true,
+          "node": false
+        },
+        {
+          "slug": "06-daily-life-task",
+          "title": "综合任务：我的日常与一次实时分享",
+          "prerequisites": [
+            "05-meaning-in-dialogue"
+          ],
+          "status": "planned",
+          "web": true,
+          "node": false
+        }
+      ]
+    }
+  ]
+}

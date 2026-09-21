@@ -1,0 +1,7 @@
+npm warn Unknown user config "always-auth" (//r.npm.zaihui.com.cn/:always-auth). This will stop working in the next major version of npm.
+
+> learning-course@1.0.0 check:examples
+> node scripts/check-course.mjs --execute
+
+03-derivative-at-a-point：Node passed；教学和浏览器请审查实际内容
+机械检查 通过；报告 .course-checks/report.json

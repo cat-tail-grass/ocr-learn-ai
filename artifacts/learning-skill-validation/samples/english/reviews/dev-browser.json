@@ -1,0 +1,98 @@
+{
+  "mode": "dev",
+  "date": "2026-09-17",
+  "browser": "152.0.7977.84",
+  "viewport": [
+    1440,
+    390
+  ],
+  "status": "passed",
+  "checks": [
+    {
+      "name": "首页路线与待准备状态",
+      "evidence": "3阶段、6章、1练习入口、5个非链接待准备项"
+    },
+    {
+      "name": "待准备条目复用默认布局",
+      "evidence": {
+        "display": "flex",
+        "padding": "12px 8px"
+      }
+    },
+    {
+      "name": "中文正文搜索与跳转",
+      "evidence": "/01-routine-and-now/#平时做-主语改变时-动词怎么跟着变"
+    },
+    {
+      "name": "讲义、无编程入口、答案折叠",
+      "evidence": "标杆加载；无Node命令；答案从关闭→打开→关闭"
+    },
+    {
+      "name": "阅读位置",
+      "evidence": "83%"
+    },
+    {
+      "name": "表达对照台真实操作",
+      "evidence": "日常→眼下；Mei→I→They；know边界；this week临时情况均改变结果与步骤"
+    },
+    {
+      "name": "情境反馈与read歧义修订复验",
+      "evidence": "空选提示；日常/眼下含义；缺is形式；drink/drinks题干与反馈"
+    },
+    {
+      "name": "等义变体与边界选句",
+      "evidence": "完整式/缩写都接受；know、同一情境两句成立、this week边界；下一题回到第1题"
+    },
+    {
+      "name": "补全与纠错",
+      "evidence": "空输入、缺be、正确动词、drinks修订、弯引号缩写、now位置变体、超出范围不判错、参考依据"
+    },
+    {
+      "name": "开放表达、自评与下载",
+      "evidence": "无文本/缺依据提示；四项自填8分带限制说明；下载实际含原稿与依据；重置固定题保留自由表达"
+    },
+    {
+      "name": "独立清空",
+      "evidence": "自由表达和四项评分归零为空，固定题不受影响"
+    },
+    {
+      "name": "390px首页无整页横向溢出",
+      "evidence": {
+        "viewport": 390,
+        "document": 390
+      }
+    },
+    {
+      "name": "390px讲义无整页横向溢出",
+      "evidence": {
+        "viewport": 390,
+        "document": 390
+      }
+    },
+    {
+      "name": "390px本章目录",
+      "evidence": "目录可展开"
+    },
+    {
+      "name": "390px练习无整页横向溢出",
+      "evidence": {
+        "viewport": 390,
+        "document": 390
+      }
+    },
+    {
+      "name": "390px练习可操作",
+      "evidence": "选择眼下后结果实际改变"
+    },
+    {
+      "name": "练习返回讲义",
+      "evidence": "http://127.0.0.1:4318/01-routine-and-now/"
+    },
+    {
+      "name": "浏览器运行",
+      "evidence": "本轮观测页面无pageerror、无>=400资源响应（预期404由独立请求验证）"
+    }
+  ],
+  "pageErrors": [],
+  "failedResponses": []
+}

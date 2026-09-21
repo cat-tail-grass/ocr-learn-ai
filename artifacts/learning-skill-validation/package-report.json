@@ -1,0 +1,19 @@
+{
+  "date": "2026-09-18",
+  "files": 38,
+  "source_installed_zip_identical": true,
+  "extracted_initializer": "passed; course.json, tasks and reviews actually created",
+  "generated_structural_check": "passed; actual report exists",
+  "hidden_template_files": "present",
+  "dependency_lockfile": "present",
+  "archive_bytes": 93065,
+  "sha256": "5164fcaf1c180e5049bd08a86eea9d753e52395fb21cc9a1a7259cfd601f9a4e",
+  "runtime_tests_passed": 12,
+  "workflow_validation": "Independent instruction review; one verified-to-draft revision gap found and corrected. No new end-to-end course-generation trial.",
+  "fixes_included": [
+    "CLI entry detection resolves symlink paths",
+    "Planned chapter rows inherit common layout",
+    "Mandatory outline-first, single-chapter delegation and parent acceptance instructions",
+    "Verified chapter rework is downgraded to draft before delegation"
+  ]
+}

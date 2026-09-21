@@ -1,0 +1,47 @@
+{
+  "document_status": "published and verified",
+  "draft": "build-learning-course-share.md",
+  "target": "my_library",
+  "identity": "user",
+  "merge_request": "https://pasta.zaihui.com.cn/zaihui/skills/-/merge_requests/5",
+  "images": [
+    {
+      "source": "../learning-skill-validation/samples/calculus/reviews/desktop-lab.png",
+      "anchor": "微积分示例：调整函数、观察点与增量，比较割线斜率和导数。",
+      "width": 700
+    },
+    {
+      "source": "../learning-skill-validation/samples/english/reviews/final-lab-top-mobile.png",
+      "anchor": "英语示例：在同一情境里比较表达，通过选句、纠错和自由表达练习核对理解。",
+      "width": 360
+    }
+  ],
+  "document_id": "XIQYdNFVuoSHnUx0GgHcGgm3nRW",
+  "document_url": "https://zaihui.feishu.cn/docx/XIQYdNFVuoSHnUx0GgHcGgm3nRW",
+  "title": "把系统学习做成可复用的 Skill：从 OCR 项目到可交互课程",
+  "revision_id": 8,
+  "verification": {
+    "sections": 6,
+    "tables": 4,
+    "images": [
+      {
+        "block_id": "doxcn8HPyQwBLZEW9qPkIxqxreg",
+        "width": 700,
+        "height": 997,
+        "position": "after intended paragraph",
+        "tag": "img"
+      },
+      {
+        "block_id": "doxcnDH8GWvAlqWpHY7FxBaNpsg",
+        "width": 360,
+        "height": 779,
+        "position": "after intended paragraph",
+        "tag": "img"
+      }
+    ],
+    "installation_command": "present",
+    "merge_request_link": "present",
+    "final_paragraph": "present",
+    "personal_absolute_paths": "absent"
+  }
+}

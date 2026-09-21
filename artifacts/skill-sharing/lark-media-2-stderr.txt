@@ -1,0 +1,9 @@
+Inserting: final-lab-top-mobile.png -> document XIQY...3nRW
+Root block ready: XIQYdNFVuoSHnUx0GgHcGgm3nRW (61 children)
+Locating block matching selection ("英语示例：在同一"… 35 chars total)
+locate-doc matched: inserting after at index 35
+Creating block at index 35
+Block created: doxcnDH8GWvAlqWpHY7FxBaNpsg
+Image dimensions: 360x779 (native: 390x844)
+File uploaded: YuY3b7Nu8ozRetxt7M8cqg3inDf
+Binding uploaded media to block doxcnDH8GWvAlqWpHY7FxBaNpsg

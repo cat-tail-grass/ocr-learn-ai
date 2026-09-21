@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>平时还是眼下 · 交互练习</title>
+  <link rel="stylesheet" href="../shared/lab.css">
+  <style>
+    select,textarea {width:100%} textarea{min-height:140px} .sentence{font-size:1.45rem;font-weight:700;overflow-wrap:anywhere} fieldset{border:0;padding:0;margin:0} legend{font-weight:600;margin-bottom:8px} .option{display:flex;gap:10px;align-items:flex-start;font-weight:400;border:1px solid var(--line);padding:10px;border-radius:7px} .option input{flex:none;margin-top:8px} .feedback{padding:12px;background:#eef3f0;border-radius:8px;min-height:48px} .rubric-item{padding:12px 0;border-bottom:1px solid var(--line)} .rubric-item textarea{min-height:75px}.secondary{background:#fff;color:var(--accent)} .answer{overflow-wrap:anywhere} a{color:var(--accent)}
+  </style>
+</head>
+<body>
+  <main class="lab-shell">
+    <header class="lab-header"><p class="eyebrow">日常英语 · 第1章</p><h1>平时还是眼下</h1><p>先用同一人物、同一活动观察含义，再自己作答。这里的核对不等于你已经掌握。</p></header>
+    <div class="lab-grid">
+      <section class="panel" aria-labelledby="controls-title">
+        <h2 id="controls-title">1 · 表达对照台</h2>
+        <label for="subject">谁</label><select id="subject"><option value="mei">Mei · 梅</option><option value="i">I · 我</option><option value="she">She · 她</option><option value="they">They · 他们/她们</option></select>
+        <label for="activity">做什么 / 什么状态</label><select id="activity"><option value="cook">cook dinner · 做晚饭</option><option value="read">read a book · 读一本书</option><option value="work">work at home · 在家工作</option><option value="drink">drink tea · 喝茶</option><option value="study">study English · 学英语</option><option value="know">know the answer · 知道答案</option></select>
+        <label for="lens">要突出什么</label><select id="lens"><option value="routine">日常 / 通常情况</option><option value="now">眼下正在发生</option><option value="period">这周临时情况（边界预览）</option></select>
+        <button id="reset" type="button">恢复初始示例</button>
+        <p id="status" role="status" aria-live="polite"></p>
+      </section>
+      <section class="panel" aria-labelledby="results-title">
+        <h2 id="results-title">观察过程与结果</h2>
+        <p id="context"></p><ol id="steps"></ol>
+        <p id="sentence" class="sentence" lang="en"></p><p id="meaning"></p>
+        <h3>同一人物、同一活动的对照</h3><p id="simple" lang="en"></p><p id="continuous" lang="en"></p><p id="contrast" class="muted"></p><p id="warning"></p>
+      </section>
+    </div>
+    <section class="panel" aria-labelledby="choice-title">
+      <h2 id="choice-title">2 · 情境选句</h2>
+      <p>先判断你要回应的信息。第三题有两种等义表达，两个都可以试。</p>
+      <label for="question">选择情境</label><select id="question"></select>
+      <fieldset><legend id="question-prompt"></legend><div id="options"></div></fieldset>
+      <button id="check-choice" type="button">核对选句与理由</button><button id="next-choice" class="secondary" type="button">下一个情境</button>
+      <p id="choice-feedback" class="feedback" role="status" aria-live="polite">先选一句，再核对。</p>
+    </section>
+    <section class="panel" aria-labelledby="gap-title">
+      <h2 id="gap-title">3 · 补全与纠错</h2>
+      <label for="gap-question">选择题目</label><select id="gap-question"></select>
+      <p id="gap-prompt"></p><p id="gap-instruction" class="muted"></p>
+      <label for="gap-answer">你的答案</label><input id="gap-answer" type="text" autocomplete="off" spellcheck="false" style="width:100%" aria-describedby="gap-instruction">
+      <button id="check-gap" type="button">核对答案</button><button id="show-gap" class="secondary" type="button">查看参考与依据</button>
+      <p id="gap-feedback" class="feedback" role="status" aria-live="polite">先自己填写，再核对。</p>
+    </section>
+    <section class="panel" aria-labelledby="free-title">
+      <h2 id="free-title">4 · 自由表达与修订</h2>
+      <p>写 4–6 句：两句自己的日常、两句眼下，至少一组使用同一活动形成对照。可明确写出一个想象场景，再用一句中文解释含义变化。</p>
+      <details><summary>先作答，再看一种参考</summary><p lang="en">I cook dinner every evening. I study English on Sundays. I am cooking dinner now. My friend is reading a book.</p><p>第一句说日常，第三句把同一活动放到眼下。on Sundays 表示每逢周日。词汇、人物和正常缩写可以不同，按语境和下表评价。</p></details>
+      <label for="free-writing">第一稿与情境（只保留在当前页面）</label><textarea id="free-writing" spellcheck="false" placeholder="先说明真实或想象的情境，再写英语句子。"></textarea>
+      <label for="free-revision">修改后的表达，以及中文解释</label><textarea id="free-revision" spellcheck="false" placeholder="保留第一稿，在这里写修订与理由。"></textarea>
+      <div id="rubric"></div>
+      <button id="review-free" type="button">整理我的自评</button><button id="download-free" class="secondary" type="button">下载表达与自评</button><button id="clear-free" class="secondary" type="button">清空自由表达</button>
+      <p id="free-feedback" class="feedback" role="status" aria-live="polite">没有唯一标准段落。先依据自己的句子自评；网页不自动评判语言正确性。</p>
+      <p class="muted">自评每项0–2分，建议每项至少1分、总分至少6分再换新场景巩固。暂定自评不是语言水平认证，不评发音或流畅度。刷新前请下载；作答不上传。</p>
+    </section>
+    <section class="panel"><h2>试一试，再解释</h2><p>在对照台选 Mei + work at home，切换日常、眼下和这周临时情况。用中文说出每次改变后，听者会多知道什么、仍不知道什么。再选 know the answer，说明它为什么没有照搬同一形式。</p><p>回到讲义完成6道自测。读懂参考之后，再换一个人物或活动重做，才能观察自己是否能迁移。</p></section>
+  </main>
+  <script type="module" src="../shared/course-nav.js"></script>
+  <script type="module" src="./browser.js"></script>
+</body>
+</html>

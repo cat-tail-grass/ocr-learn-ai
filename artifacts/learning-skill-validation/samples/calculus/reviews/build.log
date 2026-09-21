@@ -1,0 +1,12 @@
+npm warn Unknown user config "always-auth" (//r.npm.zaihui.com.cn/:always-auth). This will stop working in the next major version of npm.
+
+> learning-course@1.0.0 build
+> node scripts/site.mjs build
+
+- Initializing and preparing data
+✔ Initializing and preparing data - done in 149ms
+- Compiling with vite
+✔ Compiling with vite - done in 904ms
+- Rendering 6 pages
+✔ Rendering 6 pages - done in 56ms
+success VuePress build completed in 1.80s!

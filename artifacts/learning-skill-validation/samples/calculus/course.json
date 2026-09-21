@@ -1,0 +1,125 @@
+{
+  "schemaVersion": 1,
+  "title": "一元微积分：从变化率到导数",
+  "description": "8 周 × 每周 3 小时，从基础代数出发，理解并计算三次以内多项式、倒数与平方根的导数。首次提供完整路线和一节可独立试读的标杆课。",
+  "lang": "zh-CN",
+  "audience": "会基础代数，知道函数和坐标，尚未学过极限的中文学习者",
+  "outcome": "能解释导数与瞬时变化率、切线斜率的关系，计算三次以内多项式、1/x 与 √x 在定义域内部的导数，并识别 |x| 在 0 处不可导及数值估计的局限",
+  "terms": [
+    "平均变化率",
+    "瞬时变化率",
+    "差商",
+    "割线",
+    "切线",
+    "导数",
+    "导函数",
+    "极限",
+    "左右极限",
+    "不可导",
+    "局部近似",
+    "定义域"
+  ],
+  "calibration": {
+    "lesson": "03-derivative-at-a-point",
+    "status": "pending",
+    "feedback": ""
+  },
+  "stages": [
+    {
+      "title": "阶段一 · 给变化率建立语言",
+      "lessons": [
+        {
+          "slug": "01-average-rate",
+          "title": "两个位置之间：平均变化率与割线",
+          "prerequisites": [],
+          "status": "planned",
+          "web": false,
+          "node": false
+        },
+        {
+          "slug": "02-limits",
+          "title": "越来越接近什么：极限与左右两侧",
+          "prerequisites": [
+            "01-average-rate"
+          ],
+          "status": "planned",
+          "web": false,
+          "node": false
+        }
+      ]
+    },
+    {
+      "title": "阶段二 · 从一点到一个函数的导数",
+      "lessons": [
+        {
+          "slug": "03-derivative-at-a-point",
+          "title": "从割线到一点的导数",
+          "prerequisites": [
+            "01-average-rate",
+            "02-limits"
+          ],
+          "status": "verified",
+          "web": true,
+          "node": true
+        },
+        {
+          "slug": "04-derivative-function",
+          "title": "把观察点移动：从导数值到导函数",
+          "prerequisites": [
+            "03-derivative-at-a-point"
+          ],
+          "status": "planned",
+          "web": false,
+          "node": false
+        },
+        {
+          "slug": "05-polynomial-rules",
+          "title": "把重复计算变成规则：多项式求导",
+          "prerequisites": [
+            "04-derivative-function"
+          ],
+          "status": "planned",
+          "web": false,
+          "node": false
+        },
+        {
+          "slug": "06-domain-and-simple-functions",
+          "title": "先看能在哪里算：倒数、平方根与定义域",
+          "prerequisites": [
+            "02-limits",
+            "04-derivative-function"
+          ],
+          "status": "planned",
+          "web": false,
+          "node": false
+        }
+      ]
+    },
+    {
+      "title": "阶段三 · 用导数解释变化",
+      "lessons": [
+        {
+          "slug": "07-local-change",
+          "title": "用局部斜率作解释与近似",
+          "prerequisites": [
+            "05-polynomial-rules",
+            "06-domain-and-simple-functions"
+          ],
+          "status": "planned",
+          "web": false,
+          "node": false
+        },
+        {
+          "slug": "08-capstone",
+          "title": "综合任务：交出一份变化率说明",
+          "prerequisites": [
+            "07-local-change"
+          ],
+          "status": "planned",
+          "web": false,
+          "node": false
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "ok": true,
+  "identity": "user",
+  "data": {
+    "block_id": "doxcnDH8GWvAlqWpHY7FxBaNpsg",
+    "document_id": "XIQYdNFVuoSHnUx0GgHcGgm3nRW",
+    "file_token": "YuY3b7Nu8ozRetxt7M8cqg3inDf",
+    "height": 779,
+    "type": "image",
+    "width": 360
+  },
+  "_notice": {
+    "update": {
+      "command": "lark-cli update",
+      "current": "1.0.40",
+      "latest": "1.0.96",
+      "message": "lark-cli 1.0.96 available, current 1.0.40, run: lark-cli update"
+    }
+  }
+}
